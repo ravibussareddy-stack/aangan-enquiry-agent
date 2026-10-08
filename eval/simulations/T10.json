@@ -1,0 +1,329 @@
+{
+  "persona": {
+    "id": "T10",
+    "brief": "On a real call to the studio you said:\n- \"Hi. I have a 1BHK in Kharadi — about 550 sq ft. I want to do the kitchen and one bedroom. My budget is 1 to 1.5 lakh maximum for everything. Is that possible with you?\"\n- \"Even for one bedroom?\"\n- \"Okay, thank you for being straight.\"\nYour PIN is 411014. You own the flat. No fixed deadline.\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001001",
+    "behaviour": "Volunteer your budget early: 'my budget is 1 to 1.5 lakh maximum for everything'. Confirm it if asked."
+  },
+  "state": {
+    "callId": "sim-T10-1791275640000",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001001",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-06T08:34:00.000Z",
+    "promptVersion": "v0",
+    "afterHours": false,
+    "facts": {
+      "caller_name": "Rahul",
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "partial",
+      "scope_text": "kitchen and one bedroom",
+      "carpet_sqft": 550,
+      "locality": "Kharadi",
+      "city": "Pune",
+      "decision_maker": "self",
+      "budget_inr": 150000,
+      "budget_confirmed": true,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "want to do the kitchen and one bedroom"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Kharadi, Pune"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "No fixed deadline really"
+        },
+        "budget": {
+          "verdict": "pass",
+          "evidence": "1 to 1.5 lakh maximum"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "self"
+        }
+      },
+      "in_scope_confidence": 0.9,
+      "out_of_scope_confidence": 0.1,
+      "asked_about_price": true,
+      "timeline_text": "No fixed deadline really"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-06T08:34:00.000Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Rahul.",
+        "at": "2026-10-06T08:34:11.100Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Rahul! How can we help you with your interior design project today?",
+        "at": "2026-10-06T08:34:11.100Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi. I have a 1BHK in Kharadi — about 550 sq ft. I want to do the kitchen and one bedroom. My budget is 1 to 1.5 lakh maximum for everything. Is that possible with you?",
+        "at": "2026-10-06T08:34:33.672Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Pricing depends on the site, the materials you choose, and the scope — your designer will walk you through it in detail at the consultation. \n\nBy the way, when are you hoping to have the work completed by, Rahul?",
+        "at": "2026-10-06T08:34:33.672Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "No fixed deadline really, whenever it works out.",
+        "at": "2026-10-06T08:34:56.572Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Just to confirm, did you say your budget is 1 to 1.5 lakh?",
+        "at": "2026-10-06T08:34:56.572Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yes, 1 to 1.5 lakh maximum for everything.",
+        "at": "2026-10-06T08:35:09.072Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Thank you for sharing that. Honestly, the budget is likely below what this scope involves with full design and execution, so I wouldn't want to take up your time with a consultation. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+        "at": "2026-10-06T08:35:09.072Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "declined",
+      "declineReason": "budget",
+      "flags": [
+        "asked_about_price"
+      ],
+      "reasons": [
+        "Confirmed budget is well below the internal floor for this scope"
+      ]
+    },
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "declined",
+    "usage": {
+      "calls": 8,
+      "prompt": 43752,
+      "output": 909,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-06T08:34:11.100Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "city": "Pune",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0.1,
+            "scope_text": "kitchen and one bedroom",
+            "decision_maker": "self",
+            "scope_kind": "partial",
+            "caller_name": "Rahul",
+            "budget_inr": 150000,
+            "budget_confirmed": true,
+            "locality": "Kharadi",
+            "carpet_sqft": 550,
+            "criteria": {
+              "decision_maker": {
+                "evidence": "self",
+                "verdict": "pass"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Kharadi, Pune"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "budget": {
+                "verdict": "pass",
+                "evidence": "1 to 1.5 lakh maximum"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "want to do the kitchen and one bedroom"
+              }
+            },
+            "in_scope_confidence": 0.9,
+            "category": "apartment",
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-06T08:34:33.672Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "caller_name": "Rahul",
+            "asked_about_price": true,
+            "decision_maker": "self",
+            "scope_kind": "partial",
+            "timeline_text": "No fixed deadline really",
+            "city": "Pune",
+            "out_of_scope_confidence": 0.1,
+            "scope_text": "kitchen and one bedroom",
+            "project_type": "residential",
+            "locality": "Kharadi",
+            "carpet_sqft": 550,
+            "budget_inr": 150000,
+            "in_scope_confidence": 0.9,
+            "criteria": {
+              "budget": {
+                "verdict": "pass",
+                "evidence": "1 to 1.5 lakh maximum"
+              },
+              "real_project": {
+                "evidence": "want to do the kitchen and one bedroom",
+                "verdict": "pass"
+              },
+              "area": {
+                "evidence": "Kharadi, Pune",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "No fixed deadline really"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "self"
+              }
+            },
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "budget_confirmed": true
+          }
+        },
+        "result": {
+          "next_step": "confirm_budget",
+          "ask": "Repeat the caller's budget figure back once, exactly as they said it, as a short question — then call evaluate_lead again."
+        },
+        "at": "2026-10-06T08:34:56.572Z",
+        "ms": 2
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "decision_maker": "self",
+            "in_scope_confidence": 0.9,
+            "budget_inr": 150000,
+            "out_of_scope_confidence": 0.1,
+            "caller_name": "Rahul",
+            "category": "apartment",
+            "criteria": {
+              "decision_maker": {
+                "evidence": "self",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "want to do the kitchen and one bedroom"
+              },
+              "budget": {
+                "evidence": "1 to 1.5 lakh maximum",
+                "verdict": "pass"
+              },
+              "area": {
+                "evidence": "Kharadi, Pune",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "No fixed deadline really",
+                "verdict": "pass"
+              }
+            },
+            "timeline_text": "No fixed deadline really",
+            "budget_confirmed": true,
+            "asked_about_price": true,
+            "city": "Pune",
+            "locality": "Kharadi",
+            "scope_kind": "partial",
+            "carpet_sqft": 550,
+            "project_type": "residential",
+            "scope_text": "kitchen and one bedroom",
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "next_step": "declined",
+          "say_line": "Thank you for sharing that. Honestly, the budget is likely below what this scope involves with full design and execution, so I wouldn't want to take up your time with a consultation. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-06T08:35:09.072Z",
+        "ms": 1
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "declined"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-06T08:35:09.072Z",
+        "ms": 1
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1372,
+      3557,
+      4446,
+      4359
+    ]
+  },
+  "durationS": 95.972,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

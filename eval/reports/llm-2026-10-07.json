@@ -1,0 +1,1944 @@
+{
+  "rows": [
+    {
+      "id": "S01",
+      "synthetic": true,
+      "expected": "redirect",
+      "actual": "redirect",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S02",
+      "synthetic": true,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S03",
+      "synthetic": true,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S04",
+      "synthetic": true,
+      "expected": "review",
+      "actual": "review",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S05",
+      "synthetic": true,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S06",
+      "synthetic": true,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S07",
+      "synthetic": true,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "S08",
+      "synthetic": true,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T01",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T02",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": false,
+      "critical": false,
+      "problems": [
+        "missing flag decision_maker_unclear"
+      ]
+    },
+    {
+      "id": "T03",
+      "synthetic": false,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T04",
+      "synthetic": false,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T05",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": false,
+      "critical": false,
+      "problems": [
+        "missing flag decision_maker_unclear"
+      ]
+    },
+    {
+      "id": "T06",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T07",
+      "synthetic": false,
+      "expected": "declined",
+      "actual": "redirect",
+      "ok": false,
+      "critical": true,
+      "problems": [
+        "outcome redirect ≠ declined"
+      ]
+    },
+    {
+      "id": "T09",
+      "synthetic": false,
+      "expected": "complaint",
+      "actual": "complaint",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T10",
+      "synthetic": false,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T11",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T12",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T13",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T14",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T15",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T16",
+      "synthetic": false,
+      "expected": "review",
+      "actual": "qualified",
+      "ok": false,
+      "critical": false,
+      "problems": [
+        "outcome qualified ≠ review"
+      ]
+    },
+    {
+      "id": "T17",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T18",
+      "synthetic": false,
+      "expected": "review",
+      "actual": "review",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T19",
+      "synthetic": false,
+      "expected": "declined",
+      "actual": "declined",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    },
+    {
+      "id": "T20",
+      "synthetic": false,
+      "expected": "qualified",
+      "actual": "qualified",
+      "ok": true,
+      "critical": false,
+      "problems": []
+    }
+  ],
+  "calibration": [
+    {
+      "id": "S01",
+      "expected": "redirect",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "S02",
+      "expected": "declined",
+      "inScope": 0.3,
+      "oos": 0.8
+    },
+    {
+      "id": "S03",
+      "expected": "declined",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "S04",
+      "expected": "review",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "S05",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "S06",
+      "expected": "declined",
+      "inScope": 0,
+      "oos": 0.9
+    },
+    {
+      "id": "S07",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "S08",
+      "expected": "declined",
+      "inScope": 0.05,
+      "oos": 0.95
+    },
+    {
+      "id": "T01",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T02",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T03",
+      "expected": "declined",
+      "inScope": 0.9,
+      "oos": 0.1
+    },
+    {
+      "id": "T04",
+      "expected": "declined",
+      "inScope": 0.1,
+      "oos": 0.9
+    },
+    {
+      "id": "T05",
+      "expected": "qualified",
+      "inScope": 0.99,
+      "oos": 0.01
+    },
+    {
+      "id": "T06",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T07",
+      "expected": "declined",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T09",
+      "expected": "complaint",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T10",
+      "expected": "declined",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T11",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T12",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T13",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T14",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T15",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T16",
+      "expected": "review",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T17",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    },
+    {
+      "id": "T18",
+      "expected": "review",
+      "inScope": 0.85,
+      "oos": 0.5
+    },
+    {
+      "id": "T19",
+      "expected": "declined",
+      "inScope": 0,
+      "oos": 0.95
+    },
+    {
+      "id": "T20",
+      "expected": "qualified",
+      "inScope": 0.95,
+      "oos": 0.05
+    }
+  ],
+  "extractions": {
+    "S02": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "independent_house",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "3BHK independent house",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": 1400,
+      "site_state": "possession received",
+      "locality": "Talegaon Dabhade",
+      "pin": null,
+      "city": "Talegaon Dabhade",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We've just got possession of a 3BHK independent house"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "about 1,400 sq ft"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "We've just got possession"
+        }
+      },
+      "in_scope_confidence": 0.3,
+      "out_of_scope_confidence": 0.8,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "location outside Pune/PCMC"
+      ]
+    },
+    "S01": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": true,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "unknown",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "3BHK in Hinjewadi",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Hinjewadi",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "fail",
+          "evidence": "just exploring, not sure we'll do anything yet"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "3BHK in Hinjewadi"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "unsure intent"
+      ]
+    },
+    "S03": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "living room and kitchen of our Wakad 2BHK",
+      "rooms_in_scope": 2,
+      "configuration": "2BHK",
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Wakad",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "in 3 weeks",
+      "completion_by": "2026-10-09",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We want the living room and kitchen of our Wakad 2BHK done before they come."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Wakad 2BHK"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "Guests are arriving from the US in 3 weeks."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "We want the living room and kitchen"
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "tight timeline"
+      ]
+    },
+    "S04": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "full interiors done",
+      "rooms_in_scope": null,
+      "configuration": "2BHK",
+      "carpet_sqft": 900,
+      "site_state": null,
+      "locality": "Wagholi",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "by March",
+      "completion_by": "2027-03-31",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I have a 2BHK in Wagholi, around 900 sq ft, want full interiors done by March."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "900 sq ft"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "by March"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I have a 2BHK"
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "S06": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "commercial",
+      "category": "gym",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "commercial_fitout",
+      "scope_text": "opening a gym",
+      "rooms_in_scope": null,
+      "configuration": null,
+      "carpet_sqft": 2500,
+      "site_state": null,
+      "locality": "Kothrud",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I'm opening a gym in Kothrud, about 2,500 sq ft."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "about 2,500 sq ft"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0,
+      "out_of_scope_confidence": 0.9,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "S05": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "Master bedroom and living room",
+      "rooms_in_scope": 2,
+      "configuration": "3BHK",
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Baner",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": 600000,
+      "budget_confirmed": true,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "Master bedroom and living room in our Baner 3BHK."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Baner 3BHK"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "pass",
+          "evidence": "Budget is around 6 lakh."
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "S07": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "poora ghar",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Pimple Nilakh",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "March tak",
+      "completion_by": "2027-03-31",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "Interior design karwana hai poora ghar."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Mera flat hai Pimple Nilakh mein, 3BHK."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "March tak ho jaye toh achha."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Main hi owner hoon."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "S08": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "commercial",
+      "category": "other",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "commercial_fitout",
+      "scope_text": "society's temple hall interiors and stage",
+      "rooms_in_scope": null,
+      "configuration": null,
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Aundh",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We're renovating our society's temple hall"
+        },
+        "area": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0.05,
+      "out_of_scope_confidence": 0.95,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "T01": {
+      "caller_name": "Priya",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "redo the whole thing - kitchen, living room, both bedrooms",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": 1400,
+      "site_state": "builder flat",
+      "locality": "Dahanukar Colony, Kothrud",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "done by March",
+      "completion_by": "2027-03-31",
+      "site_available_from": null,
+      "decision_maker": "authorised",
+      "decision_maker_note": "Myself and my husband. He knows we're calling and is happy to go ahead.",
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We want to redo the whole thing - kitchen, living room, both bedrooms."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "About 1,400 sq ft carpet."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "We'd like to be done by March."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Yes - myself and my husband. He knows we're calling and is happy to go ahead."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": []
+    },
+    "T02": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": true,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "modular kitchen, wardrobes, living room, both bedrooms",
+      "rooms_in_scope": null,
+      "configuration": "2BHK",
+      "carpet_sqft": 950,
+      "site_state": null,
+      "locality": "Wakad",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "We move in November — so maybe starting design from October?",
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I have a 2BHK in Wakad"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "About 950 sq ft."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "We move in November — so maybe starting design from October?"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Let’s book it."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": [
+        "asked about price"
+      ]
+    },
+    "T03": {
+      "caller_name": "Suresh Patil",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "other",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "single_room",
+      "scope_text": "redo my home office and study",
+      "rooms_in_scope": 1,
+      "configuration": null,
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": null,
+      "pin": null,
+      "city": "Nashik",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I want to redo my home office and study."
+        },
+        "area": {
+          "verdict": "fail",
+          "evidence": "I’m in Nashik — would you be able to take on a project here?"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I want to redo my home office and study."
+        }
+      },
+      "in_scope_confidence": 0.9,
+      "out_of_scope_confidence": 0.1,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "location outside service area (Nashik)"
+      ]
+    },
+    "T04": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": true,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "advice_only",
+      "structural_work_requested": false,
+      "scope_kind": "single_room",
+      "scope_text": "living room",
+      "rooms_in_scope": 1,
+      "configuration": null,
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": null,
+      "pin": null,
+      "city": null,
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "fail",
+          "evidence": "we’re just exploring for now. Maybe later."
+        },
+        "area": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0.1,
+      "out_of_scope_confidence": 0.9,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "unsure_intent",
+        "advice_only"
+      ]
+    },
+    "T05": {
+      "caller_name": "Aarti Mehta",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "Complete redesign. New flooring, kitchen, all four bedrooms.",
+      "rooms_in_scope": null,
+      "configuration": "4BHK",
+      "carpet_sqft": 2400,
+      "site_state": "moved out temporarily",
+      "locality": "Koregaon Park",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "move back in by February",
+      "completion_by": "2027-02-28",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We have a 4BHK in Koregaon Park — about 2,400 sq ft carpet. Complete redesign."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "about 2,400 sq ft carpet"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "We want to move back in by February."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "We want to move back in by February."
+        }
+      },
+      "in_scope_confidence": 0.99,
+      "out_of_scope_confidence": 0.01,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": [
+        "reference from Vikram Agarwal"
+      ]
+    },
+    "T06": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "commercial",
+      "category": "office",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "commercial_fitout",
+      "scope_text": "workstations for 20 people, a small cabin, a meeting room, and a break area",
+      "rooms_in_scope": null,
+      "configuration": null,
+      "carpet_sqft": 800,
+      "site_state": "Bare shell — just columns and floor",
+      "locality": "Baner",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "operational by December",
+      "completion_by": "2026-12-31",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We’re a startup — just got our first proper office space in Baner."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "About 800 sq ft."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "We want to be operational by December."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Yes, I’m the founder."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": []
+    },
+    "T07": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": true,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "living room and kitchen",
+      "rooms_in_scope": 2,
+      "configuration": null,
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": null,
+      "pin": null,
+      "city": null,
+      "timeline_text": "before Diwali",
+      "completion_by": "2026-11-08",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I want to redo my living room and kitchen before Diwali."
+        },
+        "area": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "timeline": {
+          "verdict": "fail",
+          "evidence": "redo my living room and kitchen before Diwali"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Let me think and call back."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "tight timeline",
+        "undecided caller"
+      ]
+    },
+    "T10": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": true,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "kitchen and one bedroom",
+      "rooms_in_scope": 2,
+      "configuration": "1BHK",
+      "carpet_sqft": 550,
+      "site_state": null,
+      "locality": "Kharadi",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": 150000,
+      "budget_confirmed": true,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I have a 1BHK in Kharadi — about 550 sq ft. I want to do the kitchen and one bedroom."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "1BHK in Kharadi — about 550 sq ft."
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "fail",
+          "evidence": "My budget is 1 to 1.5 lakh maximum for everything."
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I want to do the kitchen and one bedroom."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "asked about price",
+        "budget too low"
+      ]
+    },
+    "T09": {
+      "caller_name": "Sheetal Deshpande",
+      "complaint_detected": true,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": true,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "2BHK Flat in Viman Nagar",
+      "rooms_in_scope": null,
+      "configuration": "2BHK",
+      "carpet_sqft": null,
+      "site_state": "ongoing",
+      "locality": "Viman Nagar",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "My project has been going for three months"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Flat in Viman Nagar"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "My project"
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": "within 15 minutes",
+      "wants_site_visit": false,
+      "watch_for": [
+        "complaint",
+        "frustrated",
+        "existing client",
+        "wants senior callback"
+      ]
+    },
+    "T11": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "properly design the living room, bedroom, and kitchen",
+      "rooms_in_scope": 3,
+      "configuration": "2BHK",
+      "carpet_sqft": null,
+      "site_state": "bare",
+      "locality": "Baner",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I want to properly design the living room, bedroom, and kitchen"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "It’s a 2BHK in Baner"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Yes — they’re fine with it as long as we don’t break walls."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": [
+        "rented apartment"
+      ]
+    },
+    "T12": {
+      "caller_name": "Anand Sharma",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "villa",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "Full end-to-end design for a villa ground plus two floors",
+      "rooms_in_scope": null,
+      "configuration": "ground plus two floors",
+      "carpet_sqft": 5500,
+      "site_state": "New construction, completely empty",
+      "locality": "Kalyani Nagar",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "March next year to move in",
+      "completion_by": "2027-03-31",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I’m calling about a villa project in Kalyani Nagar."
+        },
+        "area": {
+          "verdict": "fail",
+          "evidence": "The property is about 5,500 sq ft"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "March next year to move in."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I’m calling about a villa project"
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": "end of day",
+      "wants_site_visit": true,
+      "watch_for": []
+    },
+    "T13": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": true,
+      "asked_about_price": true,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "partial",
+      "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
+      "rooms_in_scope": 4,
+      "configuration": "3BHK",
+      "carpet_sqft": 1100,
+      "site_state": null,
+      "locality": "Aundh",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I want to redo my flat in Aundh"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Aundh"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I want to redo my flat"
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": [
+        "asked about price",
+        "frustrated",
+        "wants site visit"
+      ]
+    },
+    "T14": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "3BHK flat",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": null,
+      "site_state": "new possession",
+      "locality": "Hadapsar",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "on_behalf_unconfirmed",
+      "decision_maker_note": "Parents are owners and will decide; caller is doing initial checking.",
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I wanted to inquire about an interior project for my parents."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "They have a 3BHK in Hadapsar"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "I’ll tell them about the consultation and they’ll decide."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "decision-maker absent"
+      ]
+    },
+    "T16": {
+      "caller_name": "Girish Nair",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": true,
+      "frustrated": true,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "3BHK in Viman Nagar",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Viman Nagar",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "unknown",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I told someone about my 3BHK in Viman Nagar"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "3BHK in Viman Nagar"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": ""
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": [
+        "repeat caller",
+        "frustrated",
+        "missed callback on Monday"
+      ]
+    },
+    "T15": {
+      "caller_name": "Smita",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "Full home — kitchen, wardrobes, living room. The full package.",
+      "rooms_in_scope": null,
+      "configuration": "2BHK",
+      "carpet_sqft": 875,
+      "site_state": "possession in about six weeks, but accessible now",
+      "locality": "Undri",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "about six weeks",
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "authorised",
+      "decision_maker_note": "My husband and I. He said to go ahead and book the consultation.",
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I’m getting possession of my flat in Undri in about six weeks."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "2BHK, 875 sq ft."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "I want to start the design right away."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "He said to go ahead and book the consultation."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": []
+    },
+    "T17": {
+      "caller_name": "Ritu Kapoor",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "Kitchen, wardrobes, living room",
+      "rooms_in_scope": null,
+      "configuration": "3BHK",
+      "carpet_sqft": 1050,
+      "site_state": "occupied",
+      "locality": "Pimple Saudagar",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "by March",
+      "completion_by": "2027-03-31",
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "We want to start now."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Pimple Saudagar"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "Ideally done by March."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "We want to start now."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": []
+    },
+    "T19": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "commercial",
+      "category": "restaurant",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "commercial_fitout",
+      "scope_text": "restaurant",
+      "rooms_in_scope": null,
+      "configuration": null,
+      "carpet_sqft": null,
+      "site_state": null,
+      "locality": "Koregaon Park",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I'm planning to open a restaurant in Koregaon Park."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Koregaon Park"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I'm planning to open a restaurant"
+        }
+      },
+      "in_scope_confidence": 0,
+      "out_of_scope_confidence": 0.95,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "T18": {
+      "caller_name": null,
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "commercial",
+      "category": "coworking",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "single_room",
+      "scope_text": "180 sq ft pod in a coworking space",
+      "rooms_in_scope": 1,
+      "configuration": null,
+      "carpet_sqft": 180,
+      "site_state": null,
+      "locality": null,
+      "pin": null,
+      "city": null,
+      "timeline_text": null,
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": null,
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I have a 180 sq ft pod I want to make look really nice."
+        },
+        "area": {
+          "verdict": "fail",
+          "evidence": "I have a 180 sq ft pod"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "I run a small coworking space."
+        }
+      },
+      "in_scope_confidence": 0.85,
+      "out_of_scope_confidence": 0.5,
+      "callback_window": null,
+      "wants_site_visit": false,
+      "watch_for": []
+    },
+    "T20": {
+      "caller_name": "Pooja",
+      "complaint_detected": false,
+      "unsure_intent": false,
+      "repeat_caller": false,
+      "frustrated": false,
+      "asked_about_price": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "structural_work_requested": false,
+      "scope_kind": "full_home",
+      "scope_text": "Kitchen, both bedrooms, living room",
+      "rooms_in_scope": null,
+      "configuration": "2BHK",
+      "carpet_sqft": 900,
+      "site_state": null,
+      "locality": "Magarpatta Cybercity",
+      "pin": null,
+      "city": "Pune",
+      "timeline_text": "January start for execution",
+      "completion_by": null,
+      "site_available_from": null,
+      "decision_maker": "self",
+      "decision_maker_note": "Husband and wife both want to be at the consultation",
+      "budget_inr": null,
+      "budget_confirmed": false,
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "I have a 2BHK in Magarpatta — Cybercity area. We’ve been wanting to properly design the interiors for a while."
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "About 900 sq ft."
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "a January start for execution would be ideal."
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": ""
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Yes — my husband and I."
+        }
+      },
+      "in_scope_confidence": 0.95,
+      "out_of_scope_confidence": 0.05,
+      "callback_window": null,
+      "wants_site_visit": true,
+      "watch_for": []
+    }
+  }
+}

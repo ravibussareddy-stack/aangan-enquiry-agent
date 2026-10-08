@@ -1,0 +1,80 @@
+{
+  "id": "S04",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from synthetic (adjoining area)",
+  "call_started_at": "2026-09-20T12:00:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "I have a 2BHK in Wagholi, around 900 sq ft, want full interiors done by March."
+    }
+  ],
+  "expected": {
+    "outcome": "review",
+    "flags_include": [
+      "area_unclear"
+    ]
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": 900,
+    "site_state": null,
+    "locality": "Wagholi",
+    "pin": null,
+    "city": null,
+    "timeline_text": "By March",
+    "completion_by": "2027-03-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Full interiors"
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": "Wagholi"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "By March"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.85,
+    "out_of_scope_confidence": 0.05,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

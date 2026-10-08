@@ -1,0 +1,328 @@
+{
+  "persona": {
+    "id": "T16",
+    "brief": "On a real call to the studio you said:\n- \"Hi — I’d called on Monday about a project. Someone said they’d get back to me. It’s been two days.\"\n- \"Girish Nair. I called Monday afternoon. I told someone about my 3BHK in Viman Nagar and gave my number.\"\n- \"This is not a good sign if you forget before you even start.\"\nContext:\n- Enquiry originally received Monday — no follow-up. Re-logged Friday. Caller frustrated. Handle with care.\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001002",
+    "behaviour": "Start by complaining you called on Monday and nobody got back. If asked, it's a full 3BHK interiors job, done by February."
+  },
+  "state": {
+    "callId": "sim-T16-1791383968095",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001002",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:39:28.095Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Girish Nair",
+      "repeat_caller": true,
+      "frustrated": true,
+      "project_type": "residential",
+      "category": "apartment",
+      "scope_kind": "full_home",
+      "scope_text": "full 3BHK",
+      "configuration": "3BHK",
+      "locality": "Viman Nagar",
+      "pin": "411014",
+      "city": "Pune",
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "engagement": "design_and_execution",
+      "completion_by": "2027-02-28"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:39:28.095Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi — I’d called on Monday about a project. Someone said they’d get back to me. It’s been two days. My name is Girish Nair, by the way.",
+        "at": "2026-10-07T14:39:48.895Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "I am so sorry about the delay, Girish. Let's make sure we get this sorted for you right away. \n\nCould you share the locality and PIN code of your site, and what space we're designing?",
+        "at": "2026-10-07T14:39:48.895Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's a full 3BHK in Viman Nagar. PIN code is 411014. And I told someone about this on Monday, so I really hope we can get moving.",
+        "at": "2026-10-07T14:40:17.507Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "I completely understand, Girish. We want to get you sorted out quickly. \n\nAre you looking for complete design and execution for the apartment, or just advice and ideas?",
+        "at": "2026-10-07T14:40:17.507Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Complete design and execution. And we need it finished by February.",
+        "at": "2026-10-07T14:40:37.207Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Thanks for bearing with us, Girish. Would Thursday at 2 pm, or Friday at 10 am work for a design consultation?",
+        "at": "2026-10-07T14:40:37.207Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works.",
+        "at": "2026-10-07T14:40:51.707Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "You're all set for Thursday, 8 October at 2 pm, Girish, and an SMS confirmation is on its way. Thanks for your patience, and we'll talk to you then!",
+        "at": "2026-10-07T14:40:51.707Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "repeat_caller",
+        "frustrated",
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T16-1791383968095_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Kabir Shah",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 11,
+      "prompt": 66099,
+      "output": 670,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:39:48.895Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "caller_name": "Girish Nair",
+            "frustrated": true,
+            "repeat_caller": true
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer).",
+            "Ask one direct question: do they want design AND execution, or advice/ideas only?"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:39:48.895Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "full_home",
+            "pin": "411014",
+            "out_of_scope_confidence": 0.1,
+            "locality": "Viman Nagar",
+            "category": "apartment",
+            "caller_name": "Girish Nair",
+            "scope_text": "full 3BHK",
+            "repeat_caller": true,
+            "frustrated": true,
+            "in_scope_confidence": 0.9,
+            "configuration": "3BHK",
+            "city": "Pune",
+            "project_type": "residential"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask one direct question: do they want design AND execution, or advice/ideas only?"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:40:17.507Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "configuration": "3BHK",
+            "pin": "411014",
+            "locality": "Viman Nagar",
+            "caller_name": "Girish Nair",
+            "scope_text": "full 3BHK",
+            "frustrated": true,
+            "in_scope_confidence": 1,
+            "city": "Pune",
+            "engagement": "design_and_execution",
+            "completion_by": "2027-02-28",
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0,
+            "category": "apartment",
+            "repeat_caller": true
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:40:37.207Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "configuration": "3BHK",
+            "out_of_scope_confidence": 0,
+            "project_type": "residential",
+            "scope_text": "full 3BHK",
+            "locality": "Viman Nagar",
+            "pin": "411014",
+            "city": "Pune",
+            "scope_kind": "full_home",
+            "frustrated": true,
+            "completion_by": "2027-02-28",
+            "in_scope_confidence": 1,
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "caller_name": "Girish Nair",
+            "repeat_caller": true
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:40:37.207Z",
+        "ms": 1
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:40:37.207Z",
+        "ms": 8
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Girish Nair",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:40:51.707Z",
+        "ms": 0
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:40:51.707Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      2212,
+      2891,
+      6389,
+      4354
+    ]
+  },
+  "durationS": 98.512,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

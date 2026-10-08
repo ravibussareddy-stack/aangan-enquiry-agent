@@ -1,0 +1,99 @@
+{
+  "id": "T19",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T19 · Phone · 24 September · 4:02pm · 2 min 50 sec",
+  "call_started_at": "2026-09-24T16:02:00+05:30",
+  "duration_s": 170,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — I’m planning to open a restaurant in Koregaon Park. I’ve seen your work and I love it. Would you be able to design the interiors?"
+    },
+    {
+      "speaker": "agent",
+      "text": "We appreciate you reaching out. Restaurant and hospitality interiors are outside our current scope — we focus on residential and office spaces. For a restaurant you’d need a studio that specialises in commercial hospitality, which has very different material and compliance requirements."
+    },
+    {
+      "speaker": "caller",
+      "text": "Do you know anyone you could refer?"
+    },
+    {
+      "speaker": "agent",
+      "text": "I don’t have a specific referral I could make confidently, but searching for hospitality interior designers in Pune would give you more relevant options."
+    },
+    {
+      "speaker": "caller",
+      "text": "Alright, thanks."
+    }
+  ],
+  "expected": {
+    "outcome": "declined",
+    "decline_reason": "category"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "commercial",
+    "category": "restaurant",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "commercial_fitout",
+    "scope_text": "Interiors for a new restaurant",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Koregaon Park",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Would you be able to design the interiors?"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Restaurant in Koregaon Park"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.05,
+    "out_of_scope_confidence": 0.95,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

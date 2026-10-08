@@ -1,0 +1,114 @@
+{
+  "id": "T16",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T16 · Phone · 19 September · 10:38am · 5 min 18 sec",
+  "call_started_at": "2026-09-19T10:38:00+05:30",
+  "duration_s": 318,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — I’d called on Monday about a project. Someone said they’d get back to me. It’s been two days."
+    },
+    {
+      "speaker": "agent",
+      "text": "I’m very sorry. Can I get your name?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Girish Nair. I called Monday afternoon. I told someone about my 3BHK in Viman Nagar and gave my number."
+    },
+    {
+      "speaker": "agent",
+      "text": "I apologise — I don’t see a note. Can you give me your details again? I’ll book the consultation directly now so it doesn’t slip again."
+    },
+    {
+      "speaker": "caller",
+      "text": "This is not a good sign if you forget before you even start."
+    },
+    {
+      "speaker": "agent",
+      "text": "You’re absolutely right, and I’m sorry. Let me make this right now."
+    },
+    {
+      "speaker": "note",
+      "text": "Enquiry originally received Monday — no follow-up. Re-logged Friday. Caller frustrated. Handle with care."
+    }
+  ],
+  "expected": {
+    "outcome": "review",
+    "flags_include": [
+      "repeat_caller",
+      "frustrated"
+    ],
+    "note": "RELABELLED from qualified: the transcript never captures scope, so criterion 1 is unclear and the rubric sends it to review. In a live call the agent asks the scope question and this becomes qualified."
+  },
+  "fixture": {
+    "caller_name": "Girish Nair",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": true,
+    "frustrated": true,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "unknown",
+    "structural_work_requested": false,
+    "scope_kind": "unknown",
+    "scope_text": "A project for his 3BHK (details not repeated on this call)",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Viman Nagar",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "unclear",
+        "evidence": "I told someone about my 3BHK in Viman Nagar"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "3BHK in Viman Nagar"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.7,
+    "out_of_scope_confidence": 0.05,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Called Monday, no follow-up — frustrated",
+      "This is not a good sign if you forget before you even start"
+    ]
+  }
+}

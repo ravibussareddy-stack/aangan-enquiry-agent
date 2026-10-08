@@ -1,0 +1,110 @@
+{
+  "id": "T15",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T15 · Phone · 18 September · 3:12pm · 5 min 44 sec",
+  "call_started_at": "2026-09-18T15:12:00+05:30",
+  "duration_s": 344,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi, I’m Smita. I’m getting possession of my flat in Undri in about six weeks. 2BHK, 875 sq ft. I want to start the design right away."
+    },
+    {
+      "speaker": "agent",
+      "text": "Six weeks is just enough lead time to get the design finalised before execution begins. What are you planning?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Full home — kitchen, wardrobes, living room. The full package."
+    },
+    {
+      "speaker": "agent",
+      "text": "Good scope. Are you the owner?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes — my husband and I. He said to go ahead and book the consultation."
+    },
+    {
+      "speaker": "agent",
+      "text": "Can we see the site in its current state, or do you need to wait for possession?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We can go now — the builder will let us in."
+    },
+    {
+      "speaker": "agent",
+      "text": "Even better. Let me get a designer’s availability."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": "Smita",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Full home — kitchen, wardrobes, living room",
+    "rooms_in_scope": null,
+    "configuration": "2BHK",
+    "carpet_sqft": 875,
+    "site_state": "Under construction; possession in about six weeks; builder allows access",
+    "locality": "Undri",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Possession in six weeks; start design right away",
+    "completion_by": null,
+    "site_available_from": "2026-10-30",
+    "decision_maker": "self",
+    "decision_maker_note": "Owner with husband, who said to go ahead",
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Full home — kitchen, wardrobes, living room"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Flat in Undri"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "Getting possession in about six weeks"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "My husband and I. He said to go ahead and book"
+      }
+    },
+    "in_scope_confidence": 0.93,
+    "out_of_scope_confidence": 0.02,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

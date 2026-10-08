@@ -1,0 +1,94 @@
+{
+  "id": "S10",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from synthetic (very guarded caller — shares almost nothing → helpdesk callback)",
+  "call_started_at": "2026-10-07T21:10:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "I want to know about getting my house done."
+    },
+    {
+      "speaker": "agent",
+      "text": "Which area is it in?"
+    },
+    {
+      "speaker": "caller",
+      "text": "I'd rather discuss that with the designer."
+    },
+    {
+      "speaker": "agent",
+      "text": "When would you need it complete?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Not sure yet."
+    }
+  ],
+  "expected": {
+    "outcome": "review",
+    "note": "Qualification says review (area unclear); routing then sends it to 'Callback needed' because 3+ core fields are missing."
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Getting the house done",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": null,
+    "pin": null,
+    "city": null,
+    "timeline_text": "Not sure yet",
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "getting my house done"
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": "I'd rather discuss that with the designer"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": "Not sure yet"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.7,
+    "out_of_scope_confidence": 0.1,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

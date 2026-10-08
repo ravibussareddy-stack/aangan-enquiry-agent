@@ -1,0 +1,117 @@
+{
+  "id": "T05",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T05 · Phone · 5 September · 10:52am · 6 min 44 sec",
+  "call_started_at": "2026-09-05T10:52:00+05:30",
+  "duration_s": 404,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi, this is Aarti Mehta. Vikram Agarwal asked me to call — he’s a close friend of Nikhil’s."
+    },
+    {
+      "speaker": "agent",
+      "text": "Of course, thank you. What are you looking for?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We have a 4BHK in Koregaon Park — about 2,400 sq ft carpet. Complete redesign. New flooring, kitchen, all four bedrooms. We’ve already moved out temporarily."
+    },
+    {
+      "speaker": "agent",
+      "text": "That’s a significant project. Do you have a timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We want to move back in by February. About 4 months."
+    },
+    {
+      "speaker": "agent",
+      "text": "That should work well. Would you prefer a site visit for the consultation?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes please — Vikram said your team does that."
+    },
+    {
+      "speaker": "agent",
+      "text": "Absolutely. Can I check your availability for early next week?"
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "decision_maker_unclear",
+      "site_visit_requested"
+    ]
+  },
+  "fixture": {
+    "caller_name": "Aarti Mehta",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Complete redesign — new flooring, kitchen, all four bedrooms",
+    "rooms_in_scope": null,
+    "configuration": "4BHK",
+    "carpet_sqft": 2400,
+    "site_state": "Family has moved out temporarily",
+    "locality": "Koregaon Park",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Move back in by February (about 4 months)",
+    "completion_by": "2027-02-28",
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Complete redesign. New flooring, kitchen, all four bedrooms"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "4BHK in Koregaon Park"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "We want to move back in by February"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": "Not asked; referred by Vikram Agarwal"
+      }
+    },
+    "in_scope_confidence": 0.94,
+    "out_of_scope_confidence": 0.02,
+    "callback_window": null,
+    "wants_site_visit": true,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Referral from Vikram Agarwal, a friend of Nikhil's",
+      "Wants a site visit"
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "persona": {
+    "id": "T17",
+    "brief": "On a real call to the studio you said:\n- \"Hi, I wanted to inquire about — (line drops)\"\n- \"Hi — I called just now and got cut off. I’m Ritu Kapoor from Pimple Saudagar. 3BHK, about 1,050 sq ft. We’ve been here two years but never properly did the interiors. We want to start now.\"\n- \"Kitchen, wardrobes, living room. We moved in with builder furniture and it’s very basic.\"\n- \"Ideally done by March. Plenty of time.\"\nContext:\n- First call — disconnected at 1 min 12 sec\n- Second call — 4 min 30 sec\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001012",
+    "dropAfterTurns": 2
+  },
+  "state": {
+    "callId": "sim-T17-1791383882051",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001012",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:38:02.051Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {},
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:38:02.051Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I’m Ritu Kapoor. I actually called just a minute ago and we got cut off.",
+        "at": "2026-10-07T14:38:18.051Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Welcome back, Ritu. Sorry about that disconnection. What project are we designing for you today?",
+        "at": "2026-10-07T14:38:18.051Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's a 3BHK in Pimple Saudagar, about 1,050 square feet. We've been here two years and finally want to get the interiors done properly. —",
+        "at": "2026-10-07T14:38:37.751Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": null,
+    "evaluation": null,
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 1,
+      "prompt": 4930,
+      "output": 20,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:38:18.051Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      2562
+    ]
+  },
+  "durationS": 35.7,
+  "callerTurns": 2,
+  "dropped": true,
+  "endedBy": "caller"
+}

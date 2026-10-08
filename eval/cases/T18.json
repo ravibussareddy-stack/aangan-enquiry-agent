@@ -1,0 +1,102 @@
+{
+  "id": "T18",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T18 · Phone · 23 September · 11:55am · 3 min 02 sec",
+  "call_started_at": "2026-09-23T11:55:00+05:30",
+  "duration_s": 182,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — I run a small coworking space. I have a 180 sq ft pod I want to make look really nice. Good lighting, a nice desk, some storage. Can you help?"
+    },
+    {
+      "speaker": "agent",
+      "text": "Our commercial projects are typically 500 sq ft or more. A 180 sq ft pod is below our minimum scope."
+    },
+    {
+      "speaker": "caller",
+      "text": "Not even for a smaller fee?"
+    },
+    {
+      "speaker": "agent",
+      "text": "It’s not about the fee — it’s that our design and execution team is set up for a certain scale. A 180 sq ft space isn’t one we could do well at the quality we’d want to promise. I’d suggest a local designer who specialises in smaller commercial spaces."
+    },
+    {
+      "speaker": "caller",
+      "text": "Fair enough. Thanks."
+    }
+  ],
+  "expected": {
+    "outcome": "review",
+    "flags_include": [
+      "commercial_below_min"
+    ],
+    "note": "Review only while COMMERCIAL_MIN_SQFT is unconfirmed. Becomes declined (commercial_size) when the mode is switched to 'decline'."
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "commercial",
+    "category": "coworking",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "commercial_fitout",
+    "scope_text": "A 180 sq ft pod in a coworking space — lighting, desk, storage",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": 180,
+    "site_state": null,
+    "locality": null,
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": "Runs the coworking space",
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Good lighting, a nice desk, some storage"
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": "Location not given"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "I run a small coworking space"
+      }
+    },
+    "in_scope_confidence": 0.35,
+    "out_of_scope_confidence": 0.6,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

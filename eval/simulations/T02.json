@@ -1,0 +1,386 @@
+{
+  "persona": {
+    "id": "T02",
+    "brief": "On a real call to the studio you said:\n- \"Hi. I was looking at your work on Instagram. I have a 2BHK in Wakad — can you tell me roughly how much something like that would cost?\"\n- \"Full redesign — modular kitchen, wardrobes, living room, both bedrooms. About 950 sq ft.\"\n- \"We move in November — so maybe starting design from October?\"\n- \"Yes, but can you give me a rough ballpark first? Even a range?\"\n- \"Okay, fair enough. Let’s book it.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001001",
+    "behaviour": "Ask for a rough ballpark price twice before agreeing to book."
+  },
+  "state": {
+    "callId": "sim-T02-1791383478906",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001001",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:31:18.906Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Rohan",
+      "asked_about_price": true,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "2BHK, 950 sq ft",
+      "locality": "Wakad",
+      "city": "Pune",
+      "decision_maker": "self",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "2BHK, 950 sq ft"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Wakad"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "move in November"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not given"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "We're looking"
+        }
+      },
+      "in_scope_confidence": 1,
+      "carpet_sqft": 950,
+      "timeline_text": "move in November",
+      "completion_by": "2026-11-30"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:31:18.906Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Rohan. I was looking at your work on Instagram. I have a 2BHK in Wakad — can you tell me roughly how much something like that would cost?",
+        "at": "2026-10-07T14:31:40.506Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Pricing depends on the site, the materials you choose, and the scope — your designer will walk you through it in detail at the consultation. I can book that for you right now if you'd like. \n\nCould you share the approximate carpet area of your 2BHK and when you're looking to move in?",
+        "at": "2026-10-07T14:31:40.506Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's about 950 sq ft. We're looking to move in November, so maybe starting design from October. But can you give me a rough ballpark first? Even a range?",
+        "at": "2026-10-07T14:32:17.406Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "As I mentioned, pricing really varies based on your specific material choices and layout, which your designer can detail at the consultation. \n\nDo you have a rough budget in mind? It's fine if not.",
+        "at": "2026-10-07T14:32:17.406Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Okay, fair enough. Let’s book it.",
+        "at": "2026-10-07T14:32:37.506Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Friday at 10 am work best for you?",
+        "at": "2026-10-07T14:32:37.506Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works for me.",
+        "at": "2026-10-07T14:32:50.006Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Thursday, 8 October at 2 pm. You'll get an SMS confirmation shortly. Have a great evening!",
+        "at": "2026-10-07T14:32:50.006Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "asked_about_price",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T02-1791383478906_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 10,
+      "prompt": 57166,
+      "output": 929,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:31:40.506Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_text": "2BHK in Wakad",
+            "project_type": "residential",
+            "caller_name": "Rohan",
+            "asked_about_price": true,
+            "in_scope_confidence": 1,
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "scope_kind": "full_home",
+            "locality": "Wakad",
+            "city": "Pune",
+            "criteria": {
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "asking for cost"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Wakad"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "real_project": {
+                "evidence": "I have a 2BHK in Wakad",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "I have a 2BHK"
+              }
+            },
+            "decision_maker": "self"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:31:40.506Z",
+        "ms": 5
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "asked_about_price": true,
+            "city": "Pune",
+            "engagement": "design_and_execution",
+            "completion_by": "2026-11-30",
+            "carpet_sqft": 950,
+            "scope_text": "2BHK, 950 sq ft, move in November",
+            "criteria": {
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "We're looking"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "asking for ballpark"
+              },
+              "area": {
+                "evidence": "Wakad",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "move in November, start October",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "evidence": "2BHK, 950 sq ft, move in November",
+                "verdict": "pass"
+              }
+            },
+            "decision_maker": "self",
+            "scope_kind": "full_home",
+            "category": "apartment",
+            "project_type": "residential",
+            "caller_name": "Rohan",
+            "in_scope_confidence": 1,
+            "locality": "Wakad",
+            "timeline_text": "move in November, start October"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:32:17.406Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "city": "Pune",
+            "category": "apartment",
+            "scope_kind": "full_home",
+            "carpet_sqft": 950,
+            "criteria": {
+              "area": {
+                "evidence": "Wakad",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "evidence": "2BHK, 950 sq ft",
+                "verdict": "pass"
+              },
+              "budget": {
+                "evidence": "not given",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "evidence": "We're looking",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "move in November",
+                "verdict": "pass"
+              }
+            },
+            "caller_name": "Rohan",
+            "project_type": "residential",
+            "asked_about_price": true,
+            "in_scope_confidence": 1,
+            "timeline_text": "move in November",
+            "completion_by": "2026-11-30",
+            "locality": "Wakad",
+            "scope_text": "2BHK, 950 sq ft",
+            "decision_maker": "self"
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:32:37.506Z",
+        "ms": 2
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "preference": null,
+          "site_visit": false
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:32:37.506Z",
+        "ms": 10
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Rohan",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:32:50.006Z",
+        "ms": 2
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:32:50.006Z",
+        "ms": 1
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      3478,
+      3764,
+      4663,
+      4341
+    ]
+  },
+  "durationS": 102,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

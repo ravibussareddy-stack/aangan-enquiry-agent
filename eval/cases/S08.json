@@ -1,0 +1,78 @@
+{
+  "id": "S08",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from synthetic (no hard rule, clearly out of scope)",
+  "call_started_at": "2026-09-26T15:00:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "We're renovating our society's temple hall in Aundh — can you do the interiors and the stage for festivals?"
+    }
+  ],
+  "expected": {
+    "outcome": "declined",
+    "decline_reason": "out_of_scope"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "commercial",
+    "category": "other",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "unknown",
+    "scope_text": "Temple hall interiors and festival stage",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Aundh",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.1,
+    "out_of_scope_confidence": 0.85,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

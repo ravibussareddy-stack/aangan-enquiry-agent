@@ -1,0 +1,77 @@
+{
+  "id": "S07",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from W03 (Hindi, code-mixed)",
+  "call_started_at": "2026-09-12T10:45:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "Namaste. Mera flat hai Pimple Nilakh mein, 3BHK. Interior design karwana hai poora ghar. Main hi owner hoon. March tak ho jaye toh achha."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": "Sunil Yadav",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Pimple Nilakh",
+    "pin": null,
+    "city": null,
+    "timeline_text": "March tak",
+    "completion_by": "2027-03-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Interior design karwana hai poora ghar"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Pimple Nilakh"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "March tak ho jaye"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "Main hi owner hoon"
+      }
+    },
+    "in_scope_confidence": 0.9,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

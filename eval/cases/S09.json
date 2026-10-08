@@ -1,0 +1,132 @@
+{
+  "id": "S09",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from synthetic (reluctant caller — short answers, volunteers nothing)",
+  "call_started_at": "2026-10-07T18:20:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "May I have your name, please?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Kiran."
+    },
+    {
+      "speaker": "agent",
+      "text": "What would you like done?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Interiors for my flat."
+    },
+    {
+      "speaker": "agent",
+      "text": "Is that the full flat, with design and execution?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes, everything. 2BHK."
+    },
+    {
+      "speaker": "agent",
+      "text": "Which area, and the PIN code?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Wakad. Don't know the PIN offhand."
+    },
+    {
+      "speaker": "agent",
+      "text": "When would you need it complete?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Before February."
+    },
+    {
+      "speaker": "agent",
+      "text": "Will you be the one deciding?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes."
+    },
+    {
+      "speaker": "agent",
+      "text": "Do you have a rough budget in mind? It's fine if not."
+    },
+    {
+      "speaker": "caller",
+      "text": "I'd rather not say."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "budget_not_given"
+    ]
+  },
+  "fixture": {
+    "caller_name": "Kiran",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Interiors for the full flat, everything",
+    "rooms_in_scope": null,
+    "configuration": "2BHK",
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Wakad",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Before February",
+    "completion_by": "2027-01-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Yes, everything. 2BHK."
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Wakad"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "Before February"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "I'd rather not say"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "Yes"
+      }
+    },
+    "in_scope_confidence": 0.9,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

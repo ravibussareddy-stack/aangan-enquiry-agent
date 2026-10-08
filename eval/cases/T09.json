@@ -1,0 +1,109 @@
+{
+  "id": "T09",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T09 · Phone · 10 September · 11:32am · 5 min 52 sec — ESCALATE",
+  "call_started_at": "2026-09-10T11:32:00+05:30",
+  "duration_s": 352,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "I need to speak to someone right now. My project has been going for three months and my designer hasn’t replied in five days. This is not acceptable."
+    },
+    {
+      "speaker": "agent",
+      "text": "I’m very sorry. Can I take your name and project details?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Sheetal Deshpande. My designer is Aryan. Flat in Viman Nagar — 2BHK. I’ve sent three messages and called twice."
+    },
+    {
+      "speaker": "agent",
+      "text": "Sheetal, I’m getting this to our project team right now. Would you prefer to hold for two minutes, or should I have someone senior call you back within 15 minutes?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Callback. And I want it from Nikhil or a senior person — not just whoever picks up."
+    },
+    {
+      "speaker": "agent",
+      "text": "Noted. I’ll make sure of that."
+    },
+    {
+      "speaker": "note",
+      "text": "Existing project complaint. Escalated to studio head immediately."
+    }
+  ],
+  "expected": {
+    "outcome": "complaint"
+  },
+  "fixture": {
+    "caller_name": "Sheetal Deshpande",
+    "call_intent": "existing_project_issue",
+    "requested_person": null,
+    "complaint_detected": true,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": true,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "unknown",
+    "scope_text": "Ongoing project; designer Aryan hasn't replied in five days",
+    "rooms_in_scope": null,
+    "configuration": "2BHK",
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Viman Nagar",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.5,
+    "out_of_scope_confidence": 0.1,
+    "callback_window": "Within 15 minutes, from Nikhil or a senior person",
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Existing client — designer Aryan",
+      "Wants callback from Nikhil or a senior person"
+    ]
+  }
+}

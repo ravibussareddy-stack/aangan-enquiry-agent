@@ -1,0 +1,301 @@
+{
+  "persona": {
+    "id": "T03",
+    "brief": "On a real call to the studio you said:\n- \"Hello, I saw your work on LinkedIn. My name is Suresh Patil. I’m in Nashik — would you be able to take on a project here? I want to redo my home office and study.\"\n- \"Not even for a smaller project?\"\n- \"Alright, understood. Thanks.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001002"
+  },
+  "state": {
+    "callId": "sim-T03-1791383513534",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001002",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:31:53.534Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Suresh Patil",
+      "project_type": "commercial",
+      "category": "office",
+      "engagement": "design_and_execution",
+      "scope_kind": "partial",
+      "scope_text": "home office and study",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "redo home office and study"
+        },
+        "area": {
+          "verdict": "fail",
+          "evidence": "Nashik"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": "not discussed yet"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not discussed yet"
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "not discussed yet"
+        }
+      },
+      "in_scope_confidence": 0,
+      "out_of_scope_confidence": 1,
+      "locality": "Nashik",
+      "city": "Nashik"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:31:53.534Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hello, my name is Suresh Patil.",
+        "at": "2026-10-07T14:32:05.534Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Suresh. What space are you looking to get designed—is it a home or an office, and which rooms or areas?",
+        "at": "2026-10-07T14:32:05.534Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I want to redo my home office and study.",
+        "at": "2026-10-07T14:32:20.720Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Which locality and PIN code is the property in? That helps us confirm we cover your area and match you with the right designer.",
+        "at": "2026-10-07T14:32:20.720Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'm actually in Nashik, so I wanted to check if you'd be able to take on a project here. I saw your work on LinkedIn.",
+        "at": "2026-10-07T14:32:44.420Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "We only work in Pune city and PCMC at the moment — our contractors and vendors need to be on site, so we wouldn't be able to take this on. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+        "at": "2026-10-07T14:32:44.420Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "out_of_scope",
+      "reasons": [
+        "Nashik is outside Pune city and PCMC"
+      ]
+    },
+    "evaluation": {
+      "outcome": "declined",
+      "declineReason": "area",
+      "flags": [
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "Nashik is outside Pune city and PCMC"
+      ]
+    },
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "declined",
+    "usage": {
+      "calls": 7,
+      "prompt": 37646,
+      "output": 696,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:32:05.534Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 1,
+            "criteria": {
+              "decision_maker": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "home office and study"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "redo home office and study"
+              }
+            },
+            "out_of_scope_confidence": 0,
+            "engagement": "design_and_execution",
+            "scope_kind": "partial",
+            "category": "office",
+            "caller_name": "Suresh Patil",
+            "project_type": "commercial",
+            "scope_text": "home office and study"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer).",
+            "Ask the approximate carpet area of the space."
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:32:20.720Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "city": "Nashik",
+            "in_scope_confidence": 0,
+            "scope_text": "home office and study",
+            "project_type": "commercial",
+            "out_of_scope_confidence": 1,
+            "locality": "Nashik",
+            "caller_name": "Suresh Patil",
+            "category": "office",
+            "engagement": "design_and_execution",
+            "criteria": {
+              "area": {
+                "verdict": "fail",
+                "evidence": "Nashik"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "redo home office and study"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              }
+            },
+            "scope_kind": "partial"
+          }
+        },
+        "result": {
+          "status": "out_of_scope",
+          "say_line": "We only work in Pune city and PCMC at the moment — our contractors and vendors need to be on site, so we wouldn't be able to take this on. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-07T14:32:44.420Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 0,
+            "out_of_scope_confidence": 1,
+            "scope_kind": "partial",
+            "locality": "Nashik",
+            "engagement": "design_and_execution",
+            "city": "Nashik",
+            "caller_name": "Suresh Patil",
+            "project_type": "commercial",
+            "category": "office",
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "redo home office and study"
+              },
+              "area": {
+                "evidence": "Nashik",
+                "verdict": "fail"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "decision_maker": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              }
+            },
+            "scope_text": "home office and study"
+          }
+        },
+        "result": {
+          "next_step": "declined",
+          "say_line": "We only work in Pune city and PCMC at the moment — our contractors and vendors need to be on site, so we wouldn't be able to take this on. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-07T14:32:44.420Z",
+        "ms": 0
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "declined"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:32:44.420Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1586,
+      3221,
+      7130
+    ]
+  },
+  "durationS": 76.986,
+  "callerTurns": 3,
+  "dropped": false,
+  "endedBy": "agent"
+}

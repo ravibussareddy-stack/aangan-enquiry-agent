@@ -1,0 +1,77 @@
+{
+  "id": "S01",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from W10 (just exploring)",
+  "call_started_at": "2026-09-23T18:44:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "Hi, I have a 3BHK in Hinjewadi. We're still early stage — just exploring, not sure we'll do anything yet."
+    }
+  ],
+  "expected": {
+    "outcome": "redirect"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": true,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "unknown",
+    "scope_text": "Exploring options for the home",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": "Hinjewadi",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "unclear",
+        "evidence": "Just exploring"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "3BHK in Hinjewadi"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.5,
+    "out_of_scope_confidence": 0.2,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

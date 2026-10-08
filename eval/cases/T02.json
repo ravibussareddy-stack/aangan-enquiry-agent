@@ -1,0 +1,121 @@
+{
+  "id": "T02",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T02 · Phone · 3 September · 2:41pm · 5 min 08 sec",
+  "call_started_at": "2026-09-03T14:41:00+05:30",
+  "duration_s": 308,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi. I was looking at your work on Instagram. I have a 2BHK in Wakad — can you tell me roughly how much something like that would cost?"
+    },
+    {
+      "speaker": "agent",
+      "text": "Our pricing depends on the materials and the scope — the best way to get a clear picture is a consultation with one of our designers, who can walk you through everything. What are you planning to do?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Full redesign — modular kitchen, wardrobes, living room, both bedrooms. About 950 sq ft."
+    },
+    {
+      "speaker": "agent",
+      "text": "Good scope. What’s your timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We move in November — so maybe starting design from October?"
+    },
+    {
+      "speaker": "agent",
+      "text": "That works well. Shall I set up a consultation?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes, but can you give me a rough ballpark first? Even a range?"
+    },
+    {
+      "speaker": "agent",
+      "text": "I genuinely can’t — it varies quite a bit based on materials. Giving you a number without seeing the site would be misleading. The designer will go through all of that with you — the consultation is free and there’s no obligation."
+    },
+    {
+      "speaker": "caller",
+      "text": "Okay, fair enough. Let’s book it."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "asked_about_price",
+      "decision_maker_unclear"
+    ]
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": true,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Full redesign — modular kitchen, wardrobes, living room, both bedrooms",
+    "rooms_in_scope": null,
+    "configuration": "2BHK",
+    "carpet_sqft": 950,
+    "site_state": null,
+    "locality": "Wakad",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Moving in November; design from October",
+    "completion_by": "2026-11-30",
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Full redesign — modular kitchen, wardrobes, living room, both bedrooms"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "2BHK in Wakad"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "We move in November — so maybe starting design from October?"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned; asked for a ballpark twice"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": "Not asked"
+      }
+    },
+    "in_scope_confidence": 0.88,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Pushed twice for a price range",
+      "Tight move-in date (November)"
+    ]
+  }
+}

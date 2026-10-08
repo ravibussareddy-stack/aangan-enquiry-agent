@@ -1,0 +1,19 @@
+{
+  "id": "S11",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from synthetic (existing client asks for their designer — message, not a lead)",
+  "call_started_at": "2026-10-08T18:40:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "Hi, it's Meenal. I wanted to speak to Rohan about my kitchen — the tile samples."
+    }
+  ],
+  "expected": {
+    "outcome": null,
+    "excluded": "Message path (not a lead) — exercised by simulation, not the qualification eval."
+  },
+  "fixture": null
+}

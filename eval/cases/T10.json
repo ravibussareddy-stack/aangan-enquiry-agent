@@ -1,0 +1,99 @@
+{
+  "id": "T10",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T10 · Phone · 11 September · 2:04pm · 3 min 40 sec",
+  "call_started_at": "2026-09-11T14:04:00+05:30",
+  "duration_s": 220,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi. I have a 1BHK in Kharadi — about 550 sq ft. I want to do the kitchen and one bedroom. My budget is 1 to 1.5 lakh maximum for everything. Is that possible with you?"
+    },
+    {
+      "speaker": "agent",
+      "text": "I appreciate you sharing that. For a kitchen redesign and a bedroom with full execution — materials, furniture, and contractor work — 1 to 1.5 lakh would be significantly below what a project of that scope would cost with us."
+    },
+    {
+      "speaker": "caller",
+      "text": "Even for one bedroom?"
+    },
+    {
+      "speaker": "agent",
+      "text": "Even for one room. I wouldn’t want to bring you to a consultation if the numbers don’t align. I’d suggest checking with local contractors who work at that price point."
+    },
+    {
+      "speaker": "caller",
+      "text": "Okay, thank you for being straight."
+    }
+  ],
+  "expected": {
+    "outcome": "declined",
+    "decline_reason": "budget"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "partial",
+    "scope_text": "Kitchen and one bedroom",
+    "rooms_in_scope": 2,
+    "configuration": "1BHK",
+    "carpet_sqft": 550,
+    "site_state": null,
+    "locality": "Kharadi",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": 150000,
+    "budget_confirmed": true,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "I want to do the kitchen and one bedroom"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "1BHK in Kharadi"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "fail",
+        "evidence": "My budget is 1 to 1.5 lakh maximum for everything"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.85,
+    "out_of_scope_confidence": 0.05,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

@@ -1,0 +1,591 @@
+{
+  "persona": {
+    "id": "S10",
+    "brief": "On a real call to the studio you said:\n- \"I want to know about getting my house done.\"\n- \"I'd rather discuss that with the designer.\"\n- \"Not sure yet.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001003",
+    "behaviour": "You are very guarded. You want 'your house done' but refuse to say where ('I'd rather tell the designer'), say you're not sure about timing, won't share a budget, say 'we'll see' about who decides, and you've not looked at the website. Keep answers short. If asked when to call back: 'Saturday morning'."
+  },
+  "state": {
+    "callId": "sim-S10-1791454872159",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001003",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-08T10:21:12.159Z",
+    "promptVersion": "v0",
+    "afterHours": false,
+    "facts": {
+      "caller_name": "Rahul",
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "getting my house done",
+      "in_scope_confidence": 0.9,
+      "out_of_scope_confidence": 0.1,
+      "not_known": [
+        "locality",
+        "pin"
+      ],
+      "rooms_in_scope": 3,
+      "configuration": "3 BHK",
+      "site_state": "currently living in it",
+      "decision_maker": "unknown",
+      "researched_us": "no",
+      "callback_window": "Saturday morning"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-08T10:21:12.159Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'm Rahul. I want to know about getting my house done.",
+        "at": "2026-10-08T10:21:26.159Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Rahul. Which part of Pune is your house in, and is it an apartment, independent house, or villa?",
+        "at": "2026-10-08T10:21:26.159Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'd rather tell the designer.",
+        "at": "2026-10-08T10:21:38.762Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "No problem, Rahul. What is the approximate size or number of rooms in your home?",
+        "at": "2026-10-08T10:21:38.762Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's a 3 BHK.",
+        "at": "2026-10-08T10:21:50.462Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "And do you have the keys to the site now, or are you waiting for possession?",
+        "at": "2026-10-08T10:21:50.462Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "We already live in it, but we're looking to get it redone.",
+        "at": "2026-10-08T10:22:05.762Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Got it. When would you like the project to be completed by?",
+        "at": "2026-10-08T10:22:05.762Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Not sure yet.",
+        "at": "2026-10-08T10:22:16.162Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "No problem. Will you be the one making the decisions, or are there others involved?",
+        "at": "2026-10-08T10:22:16.162Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "We'll see.",
+        "at": "2026-10-08T10:22:27.762Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Do you have a ballpark budget in mind for this?",
+        "at": "2026-10-08T10:22:27.762Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Not sure yet.",
+        "at": "2026-10-08T10:22:37.362Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Have you had a chance to look at our website or past work?",
+        "at": "2026-10-08T10:22:37.362Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Not yet.",
+        "at": "2026-10-08T10:22:48.162Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Could you share which area or PIN code your apartment is in, so we can confirm we cover it?",
+        "at": "2026-10-08T10:22:48.162Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'd rather tell the designer.",
+        "at": "2026-10-08T10:23:01.862Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "When is a good time for a member of our team to call you back?",
+        "at": "2026-10-08T10:23:01.862Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Saturday morning.",
+        "at": "2026-10-08T10:23:13.296Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "A member of our team will give you a call back on Saturday morning. Thank you for calling Aangan Studio!",
+        "at": "2026-10-08T10:23:13.296Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Bye.",
+        "at": "2026-10-08T10:23:26.180Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "uncertain",
+      "reasons": [
+        "No location given"
+      ]
+    },
+    "evaluation": {
+      "outcome": "callback",
+      "declineReason": null,
+      "flags": [
+        "area_unclear",
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "Missing: When it must be complete, Decision-maker, Ballpark budget",
+        "No location given",
+        "area unclear"
+      ]
+    },
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": "Saturday morning",
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 20,
+      "prompt": 135920,
+      "output": 1351,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-08T10:21:26.159Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "not_known": [
+            "locality"
+          ],
+          "facts": {
+            "out_of_scope_confidence": 0.1,
+            "project_type": "residential",
+            "scope_text": "getting my house done",
+            "in_scope_confidence": 0.9,
+            "scope_kind": "full_home",
+            "category": "apartment",
+            "caller_name": "Rahul",
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "Carpet area / rooms",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:21:38.762Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "not_known": [
+            "locality",
+            "pin"
+          ],
+          "facts": {
+            "scope_text": "getting my house done",
+            "project_type": "residential",
+            "caller_name": "Rahul",
+            "rooms_in_scope": 3,
+            "in_scope_confidence": 0.9,
+            "out_of_scope_confidence": 0.1,
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "scope_kind": "full_home",
+            "configuration": "3 BHK"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "And the PIN code?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:21:50.462Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "not_known": [
+            "locality",
+            "pin"
+          ],
+          "facts": {
+            "category": "apartment",
+            "configuration": "3 BHK",
+            "in_scope_confidence": 0.9,
+            "project_type": "residential",
+            "scope_kind": "full_home",
+            "caller_name": "Rahul",
+            "site_state": "currently living in it",
+            "rooms_in_scope": 3,
+            "scope_text": "getting my house done",
+            "out_of_scope_confidence": 0.1,
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:22:05.762Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_text": "getting my house done",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0.1,
+            "category": "apartment",
+            "rooms_in_scope": 3,
+            "site_state": "currently living in it",
+            "caller_name": "Rahul",
+            "configuration": "3 BHK",
+            "scope_kind": "full_home",
+            "in_scope_confidence": 0.9,
+            "engagement": "design_and_execution"
+          },
+          "not_known": [
+            "locality",
+            "pin",
+            "deadline"
+          ]
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "And the PIN code?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:22:16.162Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "project_type": "residential",
+            "decision_maker": "unknown",
+            "caller_name": "Rahul",
+            "scope_text": "getting my house done",
+            "configuration": "3 BHK",
+            "out_of_scope_confidence": 0.1,
+            "in_scope_confidence": 0.9,
+            "rooms_in_scope": 3,
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "scope_kind": "full_home",
+            "site_state": "currently living in it"
+          },
+          "not_known": [
+            "locality",
+            "pin",
+            "deadline",
+            "decision_maker"
+          ]
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:22:27.762Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "not_known": [
+            "locality",
+            "pin",
+            "deadline",
+            "decision_maker",
+            "budget"
+          ],
+          "facts": {
+            "site_state": "currently living in it",
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "configuration": "3 BHK",
+            "decision_maker": "unknown",
+            "out_of_scope_confidence": 0.1,
+            "caller_name": "Rahul",
+            "scope_kind": "full_home",
+            "category": "apartment",
+            "rooms_in_scope": 3,
+            "scope_text": "getting my house done",
+            "in_scope_confidence": 0.9
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "And the PIN code?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:22:37.362Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "decision_maker": "unknown",
+            "category": "apartment",
+            "configuration": "3 BHK",
+            "site_state": "currently living in it",
+            "rooms_in_scope": 3,
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "caller_name": "Rahul",
+            "scope_text": "getting my house done"
+          },
+          "in_scope_confidence": 0.9,
+          "out_of_scope_confidence": 0.1
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "ask": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-08T10:22:37.362Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "out_of_scope_confidence": 0.1,
+          "in_scope_confidence": 0.9,
+          "facts": {
+            "caller_name": "Rahul",
+            "site_state": "currently living in it",
+            "engagement": "design_and_execution",
+            "scope_kind": "full_home",
+            "researched_us": "no",
+            "configuration": "3 BHK",
+            "scope_text": "getting my house done",
+            "decision_maker": "unknown",
+            "category": "apartment",
+            "rooms_in_scope": 3,
+            "project_type": "residential"
+          }
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Locality",
+            "PIN code",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget"
+          ],
+          "ask": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-08T10:22:48.162Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "project_type": "residential",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "configuration": "3 BHK",
+            "site_state": "currently living in it",
+            "scope_kind": "full_home",
+            "decision_maker": "unknown",
+            "scope_text": "getting my house done",
+            "researched_us": "no",
+            "caller_name": "Rahul",
+            "rooms_in_scope": 3,
+            "not_known": [
+              "locality",
+              "pin"
+            ]
+          },
+          "in_scope_confidence": 0.9,
+          "out_of_scope_confidence": 0.1
+        },
+        "result": {
+          "next_step": "callback",
+          "do": "Say a member of our team will call them back to complete a few details. ASK when suits them, then call request_callback with their exact words, thank them and end the call."
+        },
+        "at": "2026-10-08T10:23:01.862Z",
+        "ms": 1
+      },
+      {
+        "name": "request_callback",
+        "args": {
+          "window": "Saturday morning",
+          "caller_quote": "Saturday morning"
+        },
+        "result": {
+          "recorded": true,
+          "say": "Confirm a designer will call back in that window."
+        },
+        "at": "2026-10-08T10:23:13.296Z",
+        "ms": 2
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1403,
+      2945,
+      2742,
+      3050,
+      2544,
+      2826,
+      4301,
+      2654,
+      2334,
+      1784
+    ],
+    "intakeGates": 2,
+    "intakePrompted": [
+      "locality",
+      "pin",
+      "locality",
+      "pin",
+      "locality",
+      "pin",
+      "locality",
+      "locality"
+    ]
+  },
+  "durationS": 134.021,
+  "callerTurns": 11,
+  "dropped": false,
+  "endedBy": "caller"
+}

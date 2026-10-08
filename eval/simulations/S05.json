@@ -1,0 +1,517 @@
+{
+  "persona": {
+    "id": "S05",
+    "brief": "On a real call to the studio you said:\n- \"Master bedroom and living room in our Baner 3BHK. Budget is around 6 lakh.\"\n- \"Yes, six.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001001"
+  },
+  "state": {
+    "callId": "sim-S05-1791384152918",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001001",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:42:32.918Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Rahul",
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "partial",
+      "scope_text": "master bedroom and the living room in our Baner 3BHK",
+      "locality": "Baner",
+      "city": "Pune",
+      "decision_maker": "self",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "master bedroom and the living room in our Baner 3BHK"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Baner, Pune 411045"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "next three or four months"
+        },
+        "budget": {
+          "verdict": "pass",
+          "evidence": "6 lakh"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "Self (my home)"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "pin": "411045",
+      "carpet_sqft": 400,
+      "timeline_text": "next three or four months",
+      "completion_in_weeks": 13,
+      "budget_inr": 600000,
+      "budget_confirmed": true
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:42:32.918Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Rahul.",
+        "at": "2026-10-07T14:42:44.018Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Rahul! What kind of project are you planning — are we looking at a home or an office, and which rooms or areas are involved?",
+        "at": "2026-10-07T14:42:44.018Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's for my home. We want to do the master bedroom and the living room in our Baner 3BHK.",
+        "at": "2026-10-07T14:43:05.160Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Could you share the PIN code of your apartment in Baner, so we can confirm we cover your area and match you with a nearby designer?",
+        "at": "2026-10-07T14:43:05.160Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's 411045.",
+        "at": "2026-10-07T14:43:21.055Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Roughly what is the carpet area of those two rooms, and when would you ideally like the work completed?",
+        "at": "2026-10-07T14:43:21.055Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'm not exactly sure of the exact square footage, maybe around 400 square feet for both. We'd like to get it done in the next three or four months.",
+        "at": "2026-10-07T14:43:44.355Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Do you have a rough budget in mind? It's fine if not.",
+        "at": "2026-10-07T14:43:44.355Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yeah, our budget is around 6 lakh.",
+        "at": "2026-10-07T14:43:56.055Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "A budget of around 6 lakh?",
+        "at": "2026-10-07T14:43:56.055Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yes, six.",
+        "at": "2026-10-07T14:44:04.036Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Saturday at 10 am work for a consultation with one of our designers?",
+        "at": "2026-10-07T14:44:04.036Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works for me.",
+        "at": "2026-10-07T14:44:18.536Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "I've booked that for Thursday, 8 October, at 2 pm, and an SMS confirmation will follow shortly.",
+        "at": "2026-10-07T14:44:18.536Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Great, thanks. Bye!",
+        "at": "2026-10-07T14:44:30.936Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_tight"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-S05-1791384152918_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 14,
+      "prompt": 80502,
+      "output": 1491,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:42:44.018Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "partial",
+            "project_type": "residential",
+            "locality": "Baner",
+            "out_of_scope_confidence": 0,
+            "criteria": {
+              "real_project": {
+                "evidence": "master bedroom and the living room in our Baner 3BHK",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "Self (my home)",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "Not discussed yet"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune"
+              },
+              "timeline": {
+                "evidence": "Not discussed yet",
+                "verdict": "unclear"
+              }
+            },
+            "in_scope_confidence": 1,
+            "engagement": "design_and_execution",
+            "caller_name": "Rahul",
+            "city": "Pune",
+            "category": "apartment",
+            "decision_maker": "self",
+            "scope_text": "master bedroom and the living room in our Baner 3BHK"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:43:05.160Z",
+        "ms": 6
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "category": "apartment",
+            "scope_kind": "partial",
+            "pin": "411045",
+            "out_of_scope_confidence": 0,
+            "locality": "Baner",
+            "decision_maker": "self",
+            "scope_text": "master bedroom and the living room in our Baner 3BHK",
+            "project_type": "residential",
+            "city": "Pune",
+            "criteria": {
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "Self (my home)"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune 411045"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "Not discussed yet"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "Not discussed yet"
+              },
+              "real_project": {
+                "evidence": "master bedroom and the living room in our Baner 3BHK",
+                "verdict": "pass"
+              }
+            },
+            "engagement": "design_and_execution",
+            "caller_name": "Rahul",
+            "in_scope_confidence": 1
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:43:21.055Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "criteria": {
+              "budget": {
+                "evidence": "Not discussed yet",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "next three or four months"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "Self (my home)"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune 411045"
+              },
+              "real_project": {
+                "evidence": "master bedroom and the living room in our Baner 3BHK",
+                "verdict": "pass"
+              }
+            },
+            "scope_kind": "partial",
+            "completion_in_weeks": 13,
+            "pin": "411045",
+            "in_scope_confidence": 1,
+            "category": "apartment",
+            "city": "Pune",
+            "decision_maker": "self",
+            "carpet_sqft": 400,
+            "timeline_text": "next three or four months",
+            "scope_text": "master bedroom and the living room in our Baner 3BHK",
+            "out_of_scope_confidence": 0,
+            "engagement": "design_and_execution",
+            "locality": "Baner",
+            "project_type": "residential",
+            "caller_name": "Rahul"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:43:44.355Z",
+        "ms": 2
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 1,
+            "decision_maker": "self",
+            "caller_name": "Rahul",
+            "criteria": {
+              "budget": {
+                "evidence": "6 lakh",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "Self (my home)",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "next three or four months",
+                "verdict": "pass"
+              },
+              "area": {
+                "evidence": "Baner, Pune 411045",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "master bedroom and the living room in our Baner 3BHK"
+              }
+            },
+            "engagement": "design_and_execution",
+            "timeline_text": "next three or four months",
+            "city": "Pune",
+            "completion_in_weeks": 13,
+            "budget_inr": 600000,
+            "scope_text": "master bedroom and the living room in our Baner 3BHK",
+            "budget_confirmed": true,
+            "pin": "411045",
+            "locality": "Baner",
+            "project_type": "residential",
+            "carpet_sqft": 400,
+            "out_of_scope_confidence": 0,
+            "category": "apartment",
+            "scope_kind": "partial"
+          }
+        },
+        "result": {
+          "next_step": "confirm_budget",
+          "ask": "Repeat the caller's budget figure back once, exactly as they said it, as a short question — then call evaluate_lead again."
+        },
+        "at": "2026-10-07T14:43:56.055Z",
+        "ms": 2
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "scope_kind": "partial",
+            "completion_in_weeks": 13,
+            "in_scope_confidence": 1,
+            "city": "Pune",
+            "scope_text": "master bedroom and the living room in our Baner 3BHK",
+            "timeline_text": "next three or four months",
+            "project_type": "residential",
+            "decision_maker": "self",
+            "engagement": "design_and_execution",
+            "budget_inr": 600000,
+            "category": "apartment",
+            "pin": "411045",
+            "carpet_sqft": 400,
+            "out_of_scope_confidence": 0,
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "master bedroom and the living room in our Baner 3BHK"
+              },
+              "budget": {
+                "verdict": "pass",
+                "evidence": "6 lakh"
+              },
+              "decision_maker": {
+                "evidence": "Self (my home)",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "next three or four months"
+              },
+              "area": {
+                "evidence": "Baner, Pune 411045",
+                "verdict": "pass"
+              }
+            },
+            "caller_name": "Rahul",
+            "locality": "Baner",
+            "budget_confirmed": true
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:44:04.036Z",
+        "ms": 2
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:44:04.036Z",
+        "ms": 10
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Rahul",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:44:18.536Z",
+        "ms": 2
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1541,
+      2395,
+      3168,
+      2643,
+      2481,
+      5652,
+      2991
+    ]
+  },
+  "durationS": 118.018,
+  "callerTurns": 8,
+  "dropped": false,
+  "endedBy": "caller"
+}

@@ -1,0 +1,433 @@
+{
+  "persona": {
+    "id": "T07",
+    "brief": "On a real call to the studio you said:\n- \"Hello — I want to redo my living room and kitchen before Diwali. Can you take it up?\"\n- \"Even just the living room?\"\n- \"What if I start after Diwali?\"\n- \"Let me think and call back.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001006"
+  },
+  "state": {
+    "callId": "sim-T07-1791383660670",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001006",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:34:20.670Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Priya",
+      "unsure_intent": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "partial",
+      "scope_text": "living room and kitchen",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "redo living room and kitchen"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Baner, Pune 411045"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": "before Diwali"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not discussed yet"
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "not discussed yet"
+        }
+      },
+      "in_scope_confidence": 1,
+      "locality": "Baner",
+      "pin": "411045",
+      "city": "Pune",
+      "carpet_sqft": 420,
+      "timeline_text": "before Diwali"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:34:20.670Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, my name is Priya.",
+        "at": "2026-10-07T14:34:32.270Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Priya! What kind of project are you looking to get done with us — is it a home or an office, and which areas or rooms are in scope?",
+        "at": "2026-10-07T14:34:32.270Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I want to redo my living room and kitchen before Diwali. Can you take it up?",
+        "at": "2026-10-07T14:34:53.516Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "We can certainly help you with that, Priya. Which locality and PIN code is your property in, so we can confirm we cover your area and match you with a nearby designer?",
+        "at": "2026-10-07T14:34:53.516Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'm in Baner, Pune. The PIN code is 411045.",
+        "at": "2026-10-07T14:35:14.016Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Great, Baner is well within our service area. Roughly what is the carpet area of those two spaces, and when would you need the work completed by?",
+        "at": "2026-10-07T14:35:14.016Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "The living room is around 300 square feet and the kitchen is about 120. Like I said, I was hoping to get it done before Diwali.",
+        "at": "2026-10-07T14:35:39.316Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday tomorrow at 2 pm or Saturday at 10 am work best for a consultation at your site in Baner?",
+        "at": "2026-10-07T14:35:39.316Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Saturday at 10 am works for me.",
+        "at": "2026-10-07T14:35:54.616Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Saturday, 10 October at 10 am, and you'll receive an SMS confirmation shortly.",
+        "at": "2026-10-07T14:35:54.616Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Great, thanks! Bye.",
+        "at": "2026-10-07T14:36:06.616Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "site_visit"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "site_visit"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "site_visit"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T07-1791383660670_1791606600000",
+      "startUtc": "2026-10-10T04:30:00.000Z",
+      "endUtc": "2026-10-10T05:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Saturday, 10 October, 10 am",
+      "eventType": "site_visit"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 11,
+      "prompt": 62323,
+      "output": 1037,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:34:32.270Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "caller_name": "Priya",
+            "scope_text": "living room and kitchen",
+            "unsure_intent": false,
+            "in_scope_confidence": 0.9,
+            "scope_kind": "partial",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "project_type": "residential",
+            "criteria": {
+              "real_project": {
+                "evidence": "redo living room and kitchen",
+                "verdict": "pass"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "area": {
+                "evidence": "living room and kitchen",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "before Diwali"
+              }
+            }
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:34:53.516Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "partial",
+            "locality": "Baner",
+            "criteria": {
+              "real_project": {
+                "evidence": "redo living room and kitchen",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "before Diwali"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune 411045"
+              }
+            },
+            "city": "Pune",
+            "category": "apartment",
+            "caller_name": "Priya",
+            "in_scope_confidence": 1,
+            "engagement": "design_and_execution",
+            "unsure_intent": false,
+            "pin": "411045",
+            "project_type": "residential",
+            "scope_text": "living room and kitchen"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:35:14.016Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "timeline_text": "before Diwali",
+            "city": "Pune",
+            "in_scope_confidence": 1,
+            "engagement": "design_and_execution",
+            "criteria": {
+              "decision_maker": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "area": {
+                "evidence": "Baner, Pune 411045",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "before Diwali",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "evidence": "redo living room and kitchen",
+                "verdict": "pass"
+              }
+            },
+            "scope_text": "living room and kitchen",
+            "scope_kind": "partial",
+            "pin": "411045",
+            "carpet_sqft": 420,
+            "unsure_intent": false,
+            "locality": "Baner",
+            "project_type": "residential",
+            "category": "apartment",
+            "caller_name": "Priya"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:35:39.316Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "scope_kind": "partial",
+            "timeline_text": "before Diwali",
+            "caller_name": "Priya",
+            "criteria": {
+              "timeline": {
+                "evidence": "before Diwali",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "evidence": "redo living room and kitchen",
+                "verdict": "pass"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune 411045"
+              }
+            },
+            "locality": "Baner",
+            "engagement": "design_and_execution",
+            "city": "Pune",
+            "project_type": "residential",
+            "unsure_intent": false,
+            "category": "apartment",
+            "pin": "411045",
+            "scope_text": "living room and kitchen",
+            "in_scope_confidence": 1,
+            "carpet_sqft": 420
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:35:39.316Z",
+        "ms": 0
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": true,
+          "preference": "before Diwali"
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:35:39.316Z",
+        "ms": 9
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "slot_id": "s3",
+          "caller_name": "Priya"
+        },
+        "result": {
+          "confirmed": "Saturday, 10 October, 10 am",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:35:54.616Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1246,
+      3599,
+      3196,
+      6616,
+      2557
+    ]
+  },
+  "durationS": 105.946,
+  "callerTurns": 6,
+  "dropped": false,
+  "endedBy": "caller"
+}

@@ -1,0 +1,393 @@
+{
+  "persona": {
+    "id": "T20",
+    "brief": "On a real call to the studio you said:\n- \"Good morning. I’m Pooja. I have a 2BHK in Magarpatta — Cybercity area. We’ve been wanting to properly design the interiors for a while. Kitchen, both bedrooms, living room. About 900 sq ft.\"\n- \"We’re flexible — a January start for execution would be ideal.\"\n- \"Yes — my husband and I. We both want to be at the consultation.\"\n- \"Please.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001015"
+  },
+  "state": {
+    "callId": "sim-T20-1791383945231",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001015",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:39:05.231Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "2BHK apartment in Magarpatta, Cybercity, kitchen, both bedrooms, and living room",
+      "rooms_in_scope": 4,
+      "carpet_sqft": 900,
+      "locality": "Magarpatta, Cybercity",
+      "city": "Pune",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "want to do the kitchen, both bedrooms, and the living room"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Magarpatta, Pune 411013"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "January start for execution"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not entirely sure yet, hope to discuss during consultation"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "husband and I will both be joining"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "pin": "411013",
+      "timeline_text": "January start for execution",
+      "completion_by": "2027-01-01",
+      "caller_name": "Pooja",
+      "decision_maker": "authorised"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:39:05.231Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Good morning. I’m Pooja.",
+        "at": "2026-10-07T14:39:16.431Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Pooja! What kind of project are you looking to get done with us — is it a full home, or a few rooms, or a commercial space?",
+        "at": "2026-10-07T14:39:16.431Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's a 2BHK in Magarpatta, the Cybercity area. Around 900 square feet, and we want to do the kitchen, both bedrooms, and the living room.",
+        "at": "2026-10-07T14:39:40.695Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That sounds lovely, Pooja. Could you share the PIN code for Magarpatta, and approximately when you're hoping to have the work completed?",
+        "at": "2026-10-07T14:39:40.695Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "The PIN code is 411013. We're pretty flexible, but a January start for execution would be ideal.",
+        "at": "2026-10-07T14:40:00.395Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Got it. Are you the sole decision-maker for the project, or will someone else be joining you? And do you have a rough budget in mind? It's fine if not.",
+        "at": "2026-10-07T14:40:00.395Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "My husband and I will both be joining. As for the budget, we're not entirely sure yet, we were hoping to discuss that during the consultation.",
+        "at": "2026-10-07T14:40:26.895Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Saturday at 10 am work best for you and your husband to chat with a designer?",
+        "at": "2026-10-07T14:40:26.895Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Saturday at 10 am works well for us.",
+        "at": "2026-10-07T14:40:42.995Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Saturday, 10 October at 10 am, and you'll receive an SMS confirmation shortly. Have a wonderful day, Pooja!",
+        "at": "2026-10-07T14:40:42.995Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thank you so much, bye!",
+        "at": "2026-10-07T14:40:57.167Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T20-1791383945231_1791606600000",
+      "startUtc": "2026-10-10T04:30:00.000Z",
+      "endUtc": "2026-10-10T05:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Saturday, 10 October, 10 am",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 10,
+      "prompt": 56674,
+      "output": 1033,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:39:16.431Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "carpet_sqft": 900,
+            "in_scope_confidence": 1,
+            "category": "apartment",
+            "locality": "Magarpatta, Cybercity",
+            "out_of_scope_confidence": 0,
+            "city": "Pune",
+            "criteria": {
+              "real_project": {
+                "evidence": "want to do the kitchen, both bedrooms, and the living room",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "area": {
+                "evidence": "Magarpatta, Pune",
+                "verdict": "pass"
+              }
+            },
+            "rooms_in_scope": 4,
+            "scope_kind": "full_home",
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "scope_text": "2BHK apartment in Magarpatta, Cybercity, kitchen, both bedrooms, and living room"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:39:40.695Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 1,
+            "scope_kind": "full_home",
+            "out_of_scope_confidence": 0,
+            "city": "Pune",
+            "category": "apartment",
+            "criteria": {
+              "real_project": {
+                "evidence": "want to do the kitchen, both bedrooms, and the living room",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "January start for execution"
+              },
+              "area": {
+                "evidence": "Magarpatta, Pune 411013",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              }
+            },
+            "pin": "411013",
+            "engagement": "design_and_execution",
+            "locality": "Magarpatta, Cybercity",
+            "rooms_in_scope": 4,
+            "timeline_text": "January start for execution",
+            "scope_text": "2BHK apartment in Magarpatta, Cybercity, kitchen, both bedrooms, and living room",
+            "carpet_sqft": 900,
+            "completion_by": "2027-01-01",
+            "project_type": "residential"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:40:00.395Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "project_type": "residential",
+            "category": "apartment",
+            "caller_name": "Pooja",
+            "decision_maker": "authorised",
+            "completion_by": "2027-01-01",
+            "timeline_text": "January start for execution",
+            "city": "Pune",
+            "criteria": {
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "husband and I will both be joining"
+              },
+              "area": {
+                "evidence": "Magarpatta, Pune 411013",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "evidence": "want to do the kitchen, both bedrooms, and the living room",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "January start for execution"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not entirely sure yet, hope to discuss during consultation"
+              }
+            },
+            "engagement": "design_and_execution",
+            "scope_text": "2BHK apartment in Magarpatta, Cybercity, kitchen, both bedrooms, and living room",
+            "in_scope_confidence": 1,
+            "rooms_in_scope": 4,
+            "scope_kind": "full_home",
+            "pin": "411013",
+            "carpet_sqft": 900,
+            "locality": "Magarpatta, Cybercity",
+            "out_of_scope_confidence": 0
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:40:26.895Z",
+        "ms": 1
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:40:26.895Z",
+        "ms": 7
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "slot_id": "s3",
+          "caller_name": "Pooja"
+        },
+        "result": {
+          "confirmed": "Saturday, 10 October, 10 am",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:40:42.995Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1464,
+      3757,
+      3011,
+      4104,
+      2172
+    ]
+  },
+  "durationS": 111.936,
+  "callerTurns": 6,
+  "dropped": false,
+  "endedBy": "caller"
+}

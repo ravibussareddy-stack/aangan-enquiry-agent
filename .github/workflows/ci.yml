@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Unit tests (rules, budget, bands, price scan + guard, tools, adapters, migrations/RLS)
+        run: npm test
+      - name: Seed SQL is up to date
+        run: npm run seed:sql && git diff --exit-code db/seed.sql
+      - name: Eval (fixture) — fails if any labelled decline or complaint case flips
+        run: npm run eval
+
+  # LLM checks need a Gemini key (free tier). They run when the GEMINI_API_KEYS secret is set.
+  llm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: check
+    env:
+      GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+      GEMINI_MODEL: gemini-3.5-flash-lite
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Price-leak adversarial suite — fails on any spoken price
+        if: env.GEMINI_API_KEYS != ''
+        run: npm run eval:price
+      - name: Eval (LLM extraction) — fails if any labelled decline or complaint case flips
+        if: env.GEMINI_API_KEYS != ''
+        run: npm run eval -- --mode llm

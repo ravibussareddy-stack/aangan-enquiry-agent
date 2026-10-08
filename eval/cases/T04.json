@@ -1,0 +1,96 @@
+{
+  "id": "T04",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T04 · Phone · 4 September · 11:07am · 3 min 22 sec",
+  "call_started_at": "2026-09-04T11:07:00+05:30",
+  "duration_s": 202,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — can someone come and give us some ideas for our living room? We’re not planning to do the full thing right now. Just want suggestions on colours, furniture arrangement, what to change."
+    },
+    {
+      "speaker": "agent",
+      "text": "We’re a full-service studio — our projects include design and execution together. We don’t do advisory or consultation-only visits. If you’re planning a full redesign with execution, we’d be a great fit."
+    },
+    {
+      "speaker": "caller",
+      "text": "Oh I see. No, we’re just exploring for now. Maybe later."
+    },
+    {
+      "speaker": "agent",
+      "text": "Of course — feel free to call back when you’re ready to go ahead with a full project."
+    }
+  ],
+  "expected": {
+    "outcome": "declined",
+    "decline_reason": "engagement",
+    "note": "Advice-only hard rule wins over 'just exploring' (redirect)"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": true,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "advice_only",
+    "structural_work_requested": false,
+    "scope_kind": "single_room",
+    "scope_text": "Ideas for the living room — colours, furniture arrangement",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": null,
+    "site_state": null,
+    "locality": null,
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "fail",
+        "evidence": "Just want suggestions on colours, furniture arrangement"
+      },
+      "area": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": ""
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.05,
+    "out_of_scope_confidence": 0.9,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

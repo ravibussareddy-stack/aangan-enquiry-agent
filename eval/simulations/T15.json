@@ -1,0 +1,387 @@
+{
+  "persona": {
+    "id": "T15",
+    "brief": "On a real call to the studio you said:\n- \"Hi, I’m Smita. I’m getting possession of my flat in Undri in about six weeks. 2BHK, 875 sq ft. I want to start the design right away.\"\n- \"Full home — kitchen, wardrobes, living room. The full package.\"\n- \"Yes — my husband and I. He said to go ahead and book the consultation.\"\n- \"We can go now — the builder will let us in.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001001"
+  },
+  "state": {
+    "callId": "sim-T15-1791383948005",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001001",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:39:08.005Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Smita",
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "full home done kitchen wardrobes living room the whole package",
+      "carpet_sqft": 875,
+      "locality": "Undri",
+      "city": "Pune",
+      "site_available_from": "2026-05-19",
+      "decision_maker": "unknown",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "full home done kitchen wardrobes living room the whole package"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Undri, Pune"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "possession in about six weeks"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not stated yet"
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "not stated yet"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "pin": "411060"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:39:08.005Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I’m Smita.",
+        "at": "2026-10-07T14:39:19.105Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Smita! What kind of space are you looking to get designed—is it a home or an office, and which rooms or areas are we working on?",
+        "at": "2026-10-07T14:39:19.105Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'm getting possession of my 2BHK flat in Undri in about six weeks. It's about 875 square feet, and we need the full home done—kitchen, wardrobes, living room, the whole package.",
+        "at": "2026-10-07T14:39:45.163Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Preferences\nThat sounds wonderful, Smita. Could you share your 6-digit PIN code for Undri so we can confirm we cover your area and match you with a nearby designer?",
+        "at": "2026-10-07T14:39:45.163Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's 411060.",
+        "at": "2026-10-07T14:40:02.363Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Friday at 10 am work for a design consultation with our expert?",
+        "at": "2026-10-07T14:40:02.363Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works for us.",
+        "at": "2026-10-07T14:40:16.463Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Thursday, 8 October at 2 pm. You'll receive an SMS confirmation shortly. Have a great evening!",
+        "at": "2026-10-07T14:40:16.463Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T15-1791383948005_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Rohan Joshi",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 10,
+      "prompt": 61014,
+      "output": 937,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:39:19.105Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "site_available_from": "2026-05-19",
+            "locality": "Undri",
+            "engagement": "design_and_execution",
+            "in_scope_confidence": 1,
+            "caller_name": "Smita",
+            "out_of_scope_confidence": 0,
+            "city": "Pune",
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "carpet_sqft": 875,
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "full home done kitchen wardrobes living room the whole package"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not stated yet"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "possession in about six weeks"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Undri, Pune"
+              },
+              "budget": {
+                "evidence": "not stated yet",
+                "verdict": "unclear"
+              }
+            },
+            "decision_maker": "unknown",
+            "scope_text": "full home done kitchen wardrobes living room the whole package",
+            "category": "apartment"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:39:45.163Z",
+        "ms": 6
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "locality": "Undri",
+            "scope_kind": "full_home",
+            "scope_text": "full home done kitchen wardrobes living room the whole package",
+            "criteria": {
+              "area": {
+                "verdict": "pass",
+                "evidence": "Undri, Pune"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "possession in about six weeks"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not stated yet"
+              },
+              "budget": {
+                "evidence": "not stated yet",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "evidence": "full home done kitchen wardrobes living room the whole package",
+                "verdict": "pass"
+              }
+            },
+            "caller_name": "Smita",
+            "city": "Pune",
+            "in_scope_confidence": 1,
+            "out_of_scope_confidence": 0,
+            "project_type": "residential",
+            "site_available_from": "2026-05-19",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "decision_maker": "unknown",
+            "carpet_sqft": 875,
+            "pin": "411060"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:40:02.363Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "scope_text": "full home done kitchen wardrobes living room the whole package",
+            "site_available_from": "2026-05-19",
+            "in_scope_confidence": 1,
+            "project_type": "residential",
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "pin": "411060",
+            "caller_name": "Smita",
+            "out_of_scope_confidence": 0,
+            "carpet_sqft": 875,
+            "locality": "Undri",
+            "scope_kind": "full_home",
+            "city": "Pune",
+            "decision_maker": "unknown",
+            "criteria": {
+              "budget": {
+                "evidence": "not stated yet",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "evidence": "possession in about six weeks",
+                "verdict": "pass"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Undri, Pune"
+              },
+              "real_project": {
+                "evidence": "full home done kitchen wardrobes living room the whole package",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not stated yet"
+              }
+            }
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:40:02.363Z",
+        "ms": 2
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "preference": null,
+          "site_visit": false
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:40:02.363Z",
+        "ms": 10
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Smita",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:40:16.463Z",
+        "ms": 2
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:40:16.463Z",
+        "ms": 1
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1257,
+      3378,
+      6749,
+      3677
+    ]
+  },
+  "durationS": 79.358,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

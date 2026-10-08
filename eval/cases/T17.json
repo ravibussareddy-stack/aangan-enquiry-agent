@@ -1,0 +1,120 @@
+{
+  "id": "T17",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T17 · Phone · 22 September · 2:14pm then 2:16pm",
+  "call_started_at": "2026-09-22T14:14:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "note",
+      "text": "First call — disconnected at 1 min 12 sec"
+    },
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi, I wanted to inquire about — (line drops)"
+    },
+    {
+      "speaker": "note",
+      "text": "Second call — 4 min 30 sec"
+    },
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — I called just now and got cut off. I’m Ritu Kapoor from Pimple Saudagar. 3BHK, about 1,050 sq ft. We’ve been here two years but never properly did the interiors. We want to start now."
+    },
+    {
+      "speaker": "agent",
+      "text": "Thanks for calling back. Pimple Saudagar is in our service area. What are you looking to do?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Kitchen, wardrobes, living room. We moved in with builder furniture and it’s very basic."
+    },
+    {
+      "speaker": "agent",
+      "text": "Standard full-home scope. Timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Ideally done by March. Plenty of time."
+    },
+    {
+      "speaker": "agent",
+      "text": "Perfect. Let me book a consultation."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": "Ritu Kapoor",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Kitchen, wardrobes, living room — replacing basic builder furniture",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": 1050,
+    "site_state": "Lived in two years with builder furniture",
+    "locality": "Pimple Saudagar",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Ideally done by March",
+    "completion_by": "2027-03-31",
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Kitchen, wardrobes, living room"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "I'm Ritu Kapoor from Pimple Saudagar"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "Ideally done by March. Plenty of time."
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": "Not asked"
+      }
+    },
+    "in_scope_confidence": 0.9,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "First call dropped after 1 min 12 sec; caller rang back"
+    ]
+  }
+}

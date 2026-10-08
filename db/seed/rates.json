@@ -1,0 +1,65 @@
+[
+  {
+    "component": "voice_minutes",
+    "unit": "minute",
+    "unit_rate_inr": 5.0,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Vaani API list price, ₹5/min all-in (vaaniresearch.com, checked 2026-10-07). Confirm whether bring-your-own-LLM changes it."
+  },
+  {
+    "component": "telephony",
+    "unit": "minute",
+    "unit_rate_inr": 0,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Included in the Vaani per-minute price."
+  },
+  {
+    "component": "sms",
+    "unit": "message",
+    "unit_rate_inr": 0.295,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "MSG91 ₹0.25 + 18% GST (msg91.com/in/pricing/sms, checked 2026-10-07). Zero while SMS_PROVIDER = console."
+  },
+  {
+    "component": "llm_dialogue",
+    "unit": "input_tokens_1m",
+    "unit_rate_inr": 26.4,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "gemini-3.5-flash-lite $0.30 / 1M input at ₹88/USD. Free tier = ₹0 in practice."
+  },
+  {
+    "component": "llm_dialogue",
+    "unit": "output_tokens_1m",
+    "unit_rate_inr": 220.0,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "gemini-3.5-flash-lite $2.50 / 1M output incl. thinking tokens, at ₹88/USD."
+  },
+  {
+    "component": "llm_extraction",
+    "unit": "input_tokens_1m",
+    "unit_rate_inr": 26.4,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Post-call extraction on gemini-3.5-flash-lite."
+  },
+  {
+    "component": "llm_extraction",
+    "unit": "output_tokens_1m",
+    "unit_rate_inr": 220.0,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Post-call extraction on gemini-3.5-flash-lite, incl. thinking tokens."
+  },
+  {
+    "component": "gemini_insights",
+    "unit": "input_tokens_1m",
+    "unit_rate_inr": 26.4,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Dashboard insights on gemini-3.5-flash-lite."
+  },
+  {
+    "component": "gemini_insights",
+    "unit": "output_tokens_1m",
+    "unit_rate_inr": 220.0,
+    "effective_from": "2026-10-01T00:00:00+05:30",
+    "note": "Dashboard insights on gemini-3.5-flash-lite, incl. thinking tokens."
+  }
+]

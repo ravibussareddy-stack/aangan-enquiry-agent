@@ -1,0 +1,20 @@
+{
+  "id": "T08",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T08 · Phone · 9 September · 10:47pm · MISSED CALL",
+  "call_started_at": "2026-09-09T22:47:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "note",
+      "text": "Missed call. No voicemail. Number associated with Nanded City area (Pune). Call-back attempted following morning at 10:15am — no answer."
+    }
+  ],
+  "expected": {
+    "outcome": null,
+    "excluded": "Missed call, no content (after hours, 10:47pm). Covered by the 11pm live test instead."
+  },
+  "fixture": null
+}

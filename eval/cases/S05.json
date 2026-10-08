@@ -1,0 +1,88 @@
+{
+  "id": "S05",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from F02 (2 rooms, Baner) with a volunteered budget",
+  "call_started_at": "2026-09-04T19:12:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "Master bedroom and living room in our Baner 3BHK. Budget is around 6 lakh."
+    },
+    {
+      "speaker": "agent",
+      "text": "Just to confirm — six lakh?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes, six."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "budget_tight"
+    ]
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "partial",
+    "scope_text": "",
+    "rooms_in_scope": 2,
+    "configuration": null,
+    "carpet_sqft": 1100,
+    "site_state": null,
+    "locality": "Baner",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": null,
+    "budget_inr": 600000,
+    "budget_confirmed": true,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Master bedroom and living room"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Baner"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": "No deadline"
+      },
+      "budget": {
+        "verdict": "pass",
+        "evidence": "Around 6 lakh — confirmed"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.86,
+    "out_of_scope_confidence": 0.04,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

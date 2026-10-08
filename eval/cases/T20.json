@@ -1,0 +1,106 @@
+{
+  "id": "T20",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T20 · Phone · 25 September · 9:15am · 4 min 44 sec",
+  "call_started_at": "2026-09-25T09:15:00+05:30",
+  "duration_s": 284,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Good morning. I’m Pooja. I have a 2BHK in Magarpatta — Cybercity area. We’ve been wanting to properly design the interiors for a while. Kitchen, both bedrooms, living room. About 900 sq ft."
+    },
+    {
+      "speaker": "agent",
+      "text": "Good scope for us. How soon are you looking to start?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We’re flexible — a January start for execution would be ideal."
+    },
+    {
+      "speaker": "agent",
+      "text": "That works well. Are you the owner?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes — my husband and I. We both want to be at the consultation."
+    },
+    {
+      "speaker": "agent",
+      "text": "Excellent. Can I book that now?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Please."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": "Pooja",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Kitchen, both bedrooms, living room",
+    "rooms_in_scope": null,
+    "configuration": "2BHK",
+    "carpet_sqft": 900,
+    "site_state": null,
+    "locality": "Magarpatta — Cybercity area",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Flexible — January start for execution would be ideal",
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": "Owner with husband; both will attend",
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Kitchen, both bedrooms, living room"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "2BHK in Magarpatta — Cybercity area"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "We're flexible — a January start for execution would be ideal"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "My husband and I. We both want to be at the consultation"
+      }
+    },
+    "in_scope_confidence": 0.93,
+    "out_of_scope_confidence": 0.02,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

@@ -1,0 +1,576 @@
+{
+  "persona": {
+    "id": "S09",
+    "brief": "On a real call to the studio you said:\n- \"Kiran.\"\n- \"Interiors for my flat.\"\n- \"Yes, everything. 2BHK.\"\n- \"Wakad. Don't know the PIN offhand.\"\n- \"Before February.\"\n- \"Yes.\"\n- \"I'd rather not say.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001002",
+    "behaviour": "You are busy and guarded. Answer in as few words as possible (2–6 words), never volunteer anything not asked, don't know your PIN code, refuse to share a budget ('rather not say'), and only say you own the flat if asked who decides. The flat is a 2BHK in Wakad, about 900 sq ft if pressed, lived-in and available now, needed before February."
+  },
+  "state": {
+    "callId": "sim-S09-1791454819788",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001002",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-08T10:20:19.788Z",
+    "promptVersion": "v0",
+    "afterHours": false,
+    "facts": {
+      "caller_name": "Kiran",
+      "scope_kind": "full_home",
+      "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+      "not_known": [
+        "pin",
+        "budget"
+      ],
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "rooms_in_scope": 2,
+      "configuration": "2BHK",
+      "locality": "Wakad",
+      "site_state": "Lived-in and available now",
+      "timeline_text": "Before February",
+      "completion_in_weeks": 16,
+      "decision_maker": "self",
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "researched_us": "yes"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-08T10:20:19.788Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Kiran.",
+        "at": "2026-10-08T10:20:30.888Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Kiran. What kind of space are you looking to get designed—is it a home or an office, and what work are you hoping to do?",
+        "at": "2026-10-08T10:20:30.888Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Interiors for my flat.",
+        "at": "2026-10-08T10:20:45.854Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Are you looking to do the full flat, and do you want us to handle both the design and the actual execution on-site?",
+        "at": "2026-10-08T10:20:45.854Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yes, everything. 2BHK.",
+        "at": "2026-10-08T10:21:00.654Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Which area and PIN code is the flat in, so we can confirm we cover your location?",
+        "at": "2026-10-08T10:21:00.654Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Wakad. Don't know the PIN offhand.",
+        "at": "2026-10-08T10:21:13.954Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "No problem about the PIN. Is the flat ready for work now, or are you waiting for possession?",
+        "at": "2026-10-08T10:21:13.954Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Lived-in and available now.",
+        "at": "2026-10-08T10:21:26.854Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "When do you need the finished project ready by?",
+        "at": "2026-10-08T10:21:26.854Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Before February.",
+        "at": "2026-10-08T10:21:36.054Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Will you be the one deciding on this, or is someone else involved?",
+        "at": "2026-10-08T10:21:36.054Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yes, I own the flat.",
+        "at": "2026-10-08T10:21:47.354Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Do you have a ballpark budget in mind for this?",
+        "at": "2026-10-08T10:21:47.354Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I'd rather not say.",
+        "at": "2026-10-08T10:21:57.054Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "No problem. Have you had a chance to look at our website or any of our past work?",
+        "at": "2026-10-08T10:21:57.054Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "A bit, yes.",
+        "at": "2026-10-08T10:22:09.854Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Great, let's get you set up with a consultation. Would Friday, October 9th at 10 am, or Saturday, October 10th at 10 am work better for you?",
+        "at": "2026-10-08T10:22:09.854Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Friday at ten works.",
+        "at": "2026-10-08T10:22:26.354Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "All booked for Friday, 9 October at 10 am. An SMS confirmation is on its way to you.",
+        "at": "2026-10-08T10:22:26.354Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-12T04:30:00.000Z",
+        "label": "Monday, 12 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-S09-1791454819788_1791520200000",
+      "startUtc": "2026-10-09T04:30:00.000Z",
+      "endUtc": "2026-10-09T05:30:00.000Z",
+      "designer": "Rohan Joshi",
+      "provider": "mock",
+      "label": "Friday, 9 October, 10 am",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 21,
+      "prompt": 140217,
+      "output": 1300,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-08T10:20:30.888Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "full_home",
+            "caller_name": "Kiran",
+            "scope_text": "Interiors for my flat"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer).",
+            "Ask one direct question: do they want design AND execution, or advice/ideas only?"
+          ],
+          "next_question": "What would you like done — which rooms or areas, and are you looking for full design and execution?",
+          "still_missing": [
+            "What they want done",
+            "Type of space",
+            "Locality",
+            "PIN code",
+            "Carpet area / rooms",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:20:45.854Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "configuration": "2BHK",
+            "rooms_in_scope": 2,
+            "category": "apartment",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "scope_kind": "full_home",
+            "engagement": "design_and_execution",
+            "caller_name": "Kiran",
+            "project_type": "residential"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "next_question": "Which area is it in — so we can confirm we cover it and match you with a nearby designer?",
+          "still_missing": [
+            "Locality",
+            "PIN code",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-08T10:21:00.654Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "clear": [
+            "pin"
+          ],
+          "facts": {
+            "not_known": [
+              "pin"
+            ],
+            "project_type": "residential",
+            "caller_name": "Kiran",
+            "pin": null,
+            "scope_kind": "full_home",
+            "locality": "Wakad",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "configuration": "2BHK",
+            "category": "apartment",
+            "rooms_in_scope": 2,
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "And the PIN code?",
+          "still_missing": [
+            "PIN code",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-08T10:21:13.954Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "site_state": "Lived-in and available now",
+            "not_known": [
+              "pin"
+            ],
+            "caller_name": "Kiran",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "scope_kind": "full_home",
+            "configuration": "2BHK",
+            "locality": "Wakad",
+            "project_type": "residential",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "rooms_in_scope": 2
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "When would you need the project complete?",
+          "still_missing": [
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-08T10:21:26.854Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "not_known": [
+              "pin"
+            ],
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "site_state": "Lived-in and available now",
+            "rooms_in_scope": 2,
+            "configuration": "2BHK",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "timeline_text": "Before February",
+            "scope_kind": "full_home",
+            "completion_in_weeks": 16,
+            "caller_name": "Kiran",
+            "locality": "Wakad"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Will you be the one deciding on this, or is someone else involved?",
+          "still_missing": [
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-08T10:21:36.054Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "decision_maker": "self",
+            "not_known": [
+              "pin"
+            ],
+            "timeline_text": "Before February",
+            "configuration": "2BHK",
+            "completion_in_weeks": 16,
+            "project_type": "residential",
+            "caller_name": "Kiran",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "locality": "Wakad",
+            "scope_kind": "full_home",
+            "site_state": "Lived-in and available now",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "rooms_in_scope": 2
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Do you have a ballpark budget in mind for this?",
+          "still_missing": [
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-08T10:21:47.354Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_scope_confidence": 1,
+          "facts": {
+            "rooms_in_scope": 2,
+            "configuration": "2BHK",
+            "not_known": [
+              "pin",
+              "budget"
+            ],
+            "decision_maker": "self",
+            "caller_name": "Kiran",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "completion_in_weeks": 16,
+            "scope_kind": "full_home",
+            "category": "apartment",
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "timeline_text": "Before February",
+            "site_state": "Lived-in and available now",
+            "locality": "Wakad"
+          },
+          "out_of_scope_confidence": 0
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Seen our website / work"
+          ],
+          "ask": "Have you had a chance to look at our website or any of our past work?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-08T10:21:57.054Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "out_of_scope_confidence": 0,
+          "facts": {
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "not_known": [
+              "pin",
+              "budget"
+            ],
+            "decision_maker": "self",
+            "rooms_in_scope": 2,
+            "caller_name": "Kiran",
+            "site_state": "Lived-in and available now",
+            "locality": "Wakad",
+            "timeline_text": "Before February",
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "scope_text": "Interiors for my flat. Yes, everything. 2BHK.",
+            "completion_in_weeks": 16,
+            "researched_us": "yes",
+            "configuration": "2BHK"
+          },
+          "in_scope_confidence": 1
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-08T10:22:09.854Z",
+        "ms": 2
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Saturday, 10 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Monday, 12 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-08T10:22:09.854Z",
+        "ms": 6
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Kiran",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Friday, 9 October, 10 am",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-08T10:22:26.354Z",
+        "ms": 1
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-08T10:22:26.354Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1366,
+      2633,
+      2912,
+      2615,
+      2587,
+      3080,
+      2736,
+      2968,
+      4168,
+      3890
+    ],
+    "intakeGates": 1,
+    "intakePrompted": [
+      "what_work",
+      "locality",
+      "pin",
+      "deadline",
+      "decision_maker",
+      "budget",
+      "researched"
+    ]
+  },
+  "durationS": 137.066,
+  "callerTurns": 10,
+  "dropped": false,
+  "endedBy": "agent"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "T13",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T13 · Phone · 16 September · 12:19pm · 6 min 08 sec",
+  "call_started_at": "2026-09-16T12:19:00+05:30",
+  "duration_s": 368,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi — I want to redo my flat in Aundh. 3BHK, about 1,100 sq ft. What might it cost?"
+    },
+    {
+      "speaker": "agent",
+      "text": "Our pricing depends on the materials and scope — the designers go through that at the consultation. What are you planning?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Kitchen, wardrobes in both bedrooms, living room. But seriously — can’t you give me even a rough range? I just want to know if we’re in the same ballpark."
+    },
+    {
+      "speaker": "agent",
+      "text": "I really can’t give a number that would mean anything without seeing the site and the spec. The difference between a standard and a premium kitchen alone can be 3× the cost. The consultation is free — the designer will give you a proper number by the end of it."
+    },
+    {
+      "speaker": "caller",
+      "text": "Fine. Let’s book then."
+    },
+    {
+      "speaker": "agent",
+      "text": "Perfect. What days work for you?"
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "asked_about_price"
+    ]
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": true,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": 1100,
+    "site_state": null,
+    "locality": "Aundh",
+    "pin": null,
+    "city": null,
+    "timeline_text": null,
+    "completion_by": null,
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "I want to redo my flat"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Flat in Aundh"
+      },
+      "timeline": {
+        "verdict": "unclear",
+        "evidence": "No deadline given"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned; asked for a rough range"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": "Not asked"
+      }
+    },
+    "in_scope_confidence": 0.86,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Pushed for a ballpark price"
+    ]
+  }
+}

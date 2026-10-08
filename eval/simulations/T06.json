@@ -1,0 +1,456 @@
+{
+  "persona": {
+    "id": "T06",
+    "brief": "On a real call to the studio you said:\n- \"Hi, I’m calling about a commercial project. We’re a startup — just got our first proper office space in Baner. About 800 sq ft. We need workstations for 20 people, a small cabin, a meeting room, and a break area.\"\n- \"Bare shell — just columns and floor. Nothing else.\"\n- \"We want to be operational by December. Our team is working from home currently.\"\n- \"Yes, I’m the founder.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001005"
+  },
+  "state": {
+    "callId": "sim-T06-1791383619173",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001005",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:33:39.173Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Rohan",
+      "project_type": "commercial",
+      "category": "office",
+      "engagement": "design_and_execution",
+      "scope_kind": "commercial_fitout",
+      "scope_text": "startup office space in Baner, about 800 sq ft, operational by December",
+      "locality": "Baner",
+      "city": "Pune",
+      "decision_maker": "self",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "just got our first proper office space"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Baner office"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "operational by December"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "no budget given yet"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "founder and decision-maker"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "carpet_sqft": 800,
+      "timeline_text": "operational by December",
+      "completion_by": "2026-12-01"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:33:39.173Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Rohan.",
+        "at": "2026-10-07T14:33:50.273Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Rohan! What kind of project are you looking to get done with us — which rooms or spaces?",
+        "at": "2026-10-07T14:33:50.273Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I’m calling about a commercial project. We’re a startup — just got our first proper office space in Baner.",
+        "at": "2026-10-07T14:34:08.742Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That sounds exciting, Rohan! What is the approximate carpet area of the office space?",
+        "at": "2026-10-07T14:34:08.742Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's about 800 sq ft.",
+        "at": "2026-10-07T14:34:20.442Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Got it. And do you happen to have a PIN code for the area, and when are you hoping to have the office ready by?",
+        "at": "2026-10-07T14:34:20.442Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's in Baner, but I don't know the exact PIN code off the top of my head. We want to be operational by December.",
+        "at": "2026-10-07T14:34:44.142Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That timeline works well. Are you the decision-maker for this project, and do you have a rough budget in mind? It's fine if not.",
+        "at": "2026-10-07T14:34:44.142Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yes, I’m the founder and decision-maker. Not entirely sure about the exact budget yet since this is our first office, so we're hoping you can guide us.",
+        "at": "2026-10-07T14:35:08.642Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Pricing depends on the site, the materials you choose, and the scope — your designer will walk you through it in detail at the consultation. Would you prefer Thursday at 2 pm or Saturday at 10 am for a consultation?",
+        "at": "2026-10-07T14:35:08.642Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works for me.",
+        "at": "2026-10-07T14:35:31.542Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "All booked for Thursday at 2 pm, Rohan. We'll send you an SMS confirmation shortly.",
+        "at": "2026-10-07T14:35:31.542Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "site_visit"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "site_visit"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "site_visit"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T06-1791383619173_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "site_visit"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 13,
+      "prompt": 75320,
+      "output": 1161,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:33:50.273Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "category": "office",
+            "caller_name": "Rohan",
+            "locality": "Baner",
+            "decision_maker": "unknown",
+            "scope_kind": "commercial_fitout",
+            "scope_text": "startup office space in Baner",
+            "out_of_scope_confidence": 0,
+            "project_type": "commercial",
+            "city": "Pune",
+            "criteria": {
+              "real_project": {
+                "evidence": "just got our first proper office space",
+                "verdict": "pass"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner office"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              }
+            },
+            "in_scope_confidence": 1
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask the approximate carpet area of the space."
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:34:08.742Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "locality": "Baner",
+            "category": "office",
+            "project_type": "commercial",
+            "caller_name": "Rohan",
+            "scope_kind": "commercial_fitout",
+            "engagement": "design_and_execution",
+            "in_scope_confidence": 1,
+            "carpet_sqft": 800,
+            "scope_text": "startup office space in Baner, about 800 sq ft",
+            "criteria": {
+              "timeline": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner office"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "real_project": {
+                "evidence": "just got our first proper office space",
+                "verdict": "pass"
+              }
+            },
+            "out_of_scope_confidence": 0,
+            "city": "Pune",
+            "decision_maker": "unknown"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:34:20.442Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "criteria": {
+              "area": {
+                "evidence": "Baner office",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "just got our first proper office space"
+              },
+              "timeline": {
+                "evidence": "operational by December",
+                "verdict": "pass"
+              }
+            },
+            "engagement": "design_and_execution",
+            "completion_by": "2026-12-01",
+            "locality": "Baner",
+            "decision_maker": "unknown",
+            "caller_name": "Rohan",
+            "category": "office",
+            "timeline_text": "operational by December",
+            "city": "Pune",
+            "in_scope_confidence": 1,
+            "scope_text": "startup office space in Baner, about 800 sq ft, operational by December",
+            "out_of_scope_confidence": 0,
+            "project_type": "commercial",
+            "carpet_sqft": 800,
+            "scope_kind": "commercial_fitout"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:34:44.142Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 1,
+            "completion_by": "2026-12-01",
+            "scope_text": "startup office space in Baner, about 800 sq ft, operational by December",
+            "out_of_scope_confidence": 0,
+            "carpet_sqft": 800,
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "just got our first proper office space"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "operational by December"
+              },
+              "area": {
+                "evidence": "Baner office",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "no budget given yet"
+              },
+              "decision_maker": {
+                "evidence": "founder and decision-maker",
+                "verdict": "pass"
+              }
+            },
+            "engagement": "design_and_execution",
+            "category": "office",
+            "caller_name": "Rohan",
+            "decision_maker": "self",
+            "locality": "Baner",
+            "project_type": "commercial",
+            "city": "Pune",
+            "scope_kind": "commercial_fitout",
+            "timeline_text": "operational by December"
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:35:08.642Z",
+        "ms": 0
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "preference": "null",
+          "site_visit": true
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:35:08.642Z",
+        "ms": 3
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "slot_id": "s1",
+          "caller_name": "Rohan"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:35:31.542Z",
+        "ms": 1
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:35:31.542Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1269,
+      2925,
+      3202,
+      3365,
+      5086,
+      4138
+    ]
+  },
+  "durationS": 121.669,
+  "callerTurns": 6,
+  "dropped": false,
+  "endedBy": "agent"
+}

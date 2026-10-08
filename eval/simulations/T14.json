@@ -1,0 +1,342 @@
+{
+  "persona": {
+    "id": "T14",
+    "brief": "On a real call to the studio you said:\n- \"Hi — I wanted to inquire about an interior project for my parents. They have a 3BHK in Hadapsar — new possession. They want a proper design.\"\n- \"Yes — I’m doing the initial checking. They don’t really use phones much. I’ll tell them about the consultation and they’ll decide.\"\n- \"Yes, they would come. I’m just calling to see if it’s worth pursuing.\"\n- \"Please. (gives number)\"\nContext:\n- Caller is son. Owners are parents; both will attend consultation. Decision with parents.\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001009"
+  },
+  "state": {
+    "callId": "sim-T14-1791383775584",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001009",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:36:15.584Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "unsure_intent": false,
+      "project_type": "residential",
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "interior project for parents, 3BHK apartment in Hadapsar",
+      "configuration": "3BHK",
+      "locality": "Hadapsar",
+      "city": "Pune",
+      "decision_maker": "authorised",
+      "decision_maker_note": "Calling on behalf of parents",
+      "in_scope_confidence": 0.95,
+      "pin": "411028",
+      "carpet_sqft": 1200,
+      "timeline_text": "just got keys, whenever it makes sense, no strict rush"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:36:15.584Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Rohan. I wanted to inquire about an interior project for my parents.",
+        "at": "2026-10-07T14:36:30.784Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Rohan! Whose home or space are we designing—their apartment, villa, or an independent house?",
+        "at": "2026-10-07T14:36:30.784Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's a 3BHK apartment in Hadapsar—new possession.",
+        "at": "2026-10-07T14:36:42.607Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That sounds wonderful! Could you share the PIN code for the area in Hadapsar, just so we can confirm we cover your location and match you with a nearby designer?",
+        "at": "2026-10-07T14:36:42.607Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's 411028.",
+        "at": "2026-10-07T14:37:00.207Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Got it. Roughly what is the carpet area, and when are you hoping to have the work completed?",
+        "at": "2026-10-07T14:37:00.207Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Not entirely sure of the exact carpet area, maybe around 1200 square feet. As for when, they just got the keys, so whenever it makes sense—no strict rush, but soon-ish.",
+        "at": "2026-10-07T14:37:23.507Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Do you have a rough budget in mind? It's fine if not.",
+        "at": "2026-10-07T14:37:23.507Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Not really sure about the exact budget yet, we just want a proper design for them.",
+        "at": "2026-10-07T14:37:38.807Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Saturday at 10 am work best for a consultation with one of our designers?",
+        "at": "2026-10-07T14:37:38.807Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Saturday at 10 am works.",
+        "at": "2026-10-07T14:37:52.907Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Saturday, 10 October at 10 am, and you'll receive an SMS confirmation shortly.",
+        "at": "2026-10-07T14:37:52.907Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Great, thanks. Bye!",
+        "at": "2026-10-07T14:38:04.907Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T14-1791383775584_1791606600000",
+      "startUtc": "2026-10-10T04:30:00.000Z",
+      "endUtc": "2026-10-10T05:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Saturday, 10 October, 10 am",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 12,
+      "prompt": 66399,
+      "output": 799,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:36:30.784Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "decision_maker_note": "Calling on behalf of parents",
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "scope_text": "interior project for parents, 3BHK apartment in Hadapsar",
+            "scope_kind": "full_home",
+            "unsure_intent": false,
+            "configuration": "3BHK",
+            "locality": "Hadapsar",
+            "category": "apartment",
+            "in_scope_confidence": 0.95,
+            "decision_maker": "authorised",
+            "city": "Pune"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:36:42.607Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "locality": "Hadapsar",
+            "scope_text": "interior project for parents, 3BHK apartment in Hadapsar",
+            "project_type": "residential",
+            "city": "Pune",
+            "decision_maker": "authorised",
+            "configuration": "3BHK",
+            "category": "apartment",
+            "in_scope_confidence": 0.95,
+            "pin": "411028",
+            "scope_kind": "full_home",
+            "engagement": "design_and_execution",
+            "unsure_intent": false,
+            "decision_maker_note": "Calling on behalf of parents"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:37:00.207Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "carpet_sqft": 1200,
+            "scope_text": "interior project for parents, 3BHK apartment in Hadapsar",
+            "timeline_text": "just got keys, whenever it makes sense, no strict rush",
+            "scope_kind": "full_home",
+            "pin": "411028",
+            "unsure_intent": false,
+            "decision_maker_note": "Calling on behalf of parents",
+            "decision_maker": "authorised",
+            "city": "Pune",
+            "project_type": "residential",
+            "configuration": "3BHK",
+            "locality": "Hadapsar",
+            "in_scope_confidence": 0.95,
+            "category": "apartment"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:37:23.507Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "pin": "411028",
+            "configuration": "3BHK",
+            "locality": "Hadapsar",
+            "engagement": "design_and_execution",
+            "carpet_sqft": 1200,
+            "category": "apartment",
+            "decision_maker": "authorised",
+            "project_type": "residential",
+            "unsure_intent": false,
+            "timeline_text": "just got keys, whenever it makes sense, no strict rush",
+            "decision_maker_note": "Calling on behalf of parents",
+            "scope_text": "interior project for parents, 3BHK apartment in Hadapsar",
+            "in_scope_confidence": 0.95,
+            "city": "Pune",
+            "scope_kind": "full_home"
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:37:38.807Z",
+        "ms": 0
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:37:38.807Z",
+        "ms": 8
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Rohan",
+          "slot_id": "s3"
+        },
+        "result": {
+          "confirmed": "Saturday, 10 October, 10 am",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:37:52.907Z",
+        "ms": 1
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1423,
+      3698,
+      3711,
+      3053,
+      5424,
+      2896
+    ]
+  },
+  "durationS": 109.323,
+  "callerTurns": 7,
+  "dropped": false,
+  "endedBy": "caller"
+}

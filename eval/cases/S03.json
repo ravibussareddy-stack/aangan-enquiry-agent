@@ -1,0 +1,78 @@
+{
+  "id": "S03",
+  "channel": "phone",
+  "synthetic": true,
+  "source": "synthetic — adapted from F08 (3-week deadline)",
+  "call_started_at": "2026-09-18T18:44:00+05:30",
+  "duration_s": null,
+  "transcript": [
+    {
+      "speaker": "caller",
+      "text": "Guests are arriving from the US in 3 weeks. We want the living room and kitchen of our Wakad 2BHK done before they come."
+    }
+  ],
+  "expected": {
+    "outcome": "declined",
+    "decline_reason": "timeline"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "partial",
+    "scope_text": "",
+    "rooms_in_scope": 2,
+    "configuration": null,
+    "carpet_sqft": 875,
+    "site_state": null,
+    "locality": "Wakad",
+    "pin": null,
+    "city": null,
+    "timeline_text": "3 weeks maximum",
+    "completion_by": "2026-10-09",
+    "site_available_from": null,
+    "decision_maker": "unknown",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Living room and kitchen"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Wakad"
+      },
+      "timeline": {
+        "verdict": "fail",
+        "evidence": "3 weeks maximum"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "unclear",
+        "evidence": ""
+      }
+    },
+    "in_scope_confidence": 0.4,
+    "out_of_scope_confidence": 0.5,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

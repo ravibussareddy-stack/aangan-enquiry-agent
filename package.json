@@ -1,0 +1,52 @@
+{
+  "name": "aangan-enquiry-agent",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "eval": "tsx eval/run.ts",
+    "seed:sql": "tsx scripts/gen-seed-sql.ts",
+    "parse:transcripts": "tsx scripts/parse-transcripts.ts",
+    "eval:label": "tsx scripts/apply-labels.ts",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "sim": "tsx scripts/simulate.ts",
+    "brain": "tsx server/brain-server.ts",
+    "eval:price": "tsx eval/price-leak-suite.ts",
+    "vaani:setup": "tsx scripts/vaani-setup.ts",
+    "preflight": "tsx scripts/preflight.ts",
+    "rehearsal": "tsx scripts/rehearsal.ts",
+    "docs:intake": "tsx scripts/gen-intake-doc.ts",
+    "docs:deal-health": "tsx scripts/gen-deal-health-doc.ts",
+    "docs:map": "tsx scripts/gen-process-map.ts"
+  },
+  "dependencies": {
+    "@neon/config": "^1.8.4",
+    "@neon/env": "^1.5.1",
+    "@neondatabase/auth": "^0.5.0-beta",
+    "@neondatabase/serverless": "^1.2.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "ws": "^8.22.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^24.19.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/ws": "^8.18.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  }
+}

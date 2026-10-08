@@ -1,0 +1,124 @@
+{
+  "id": "T01",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T01 · Phone · 2 September · 10:23am · 4 min 12 sec",
+  "call_started_at": "2026-09-02T10:23:00+05:30",
+  "duration_s": 252,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi, I’m Priya. I got your number from a friend — Shruti Joshi. She had her flat done by you in Aundh."
+    },
+    {
+      "speaker": "agent",
+      "text": "Of course — thank you for calling. What are you looking to do?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We have a 3BHK in Kothrud — Dahanukar Colony. We bought it two years ago and it still looks like the builder flat. We want to redo the whole thing — kitchen, living room, both bedrooms."
+    },
+    {
+      "speaker": "agent",
+      "text": "That sounds like a complete redesign. How big is the apartment?"
+    },
+    {
+      "speaker": "caller",
+      "text": "About 1,400 sq ft carpet."
+    },
+    {
+      "speaker": "agent",
+      "text": "And your timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We’d like to be done by March. We’re in no rush."
+    },
+    {
+      "speaker": "agent",
+      "text": "Perfect. Are you the owner?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes — myself and my husband. He knows we’re calling and is happy to go ahead."
+    },
+    {
+      "speaker": "agent",
+      "text": "Lovely. Can I take your number and schedule a consultation?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Sure. (gives number)"
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": "Priya",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "apartment",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Redo the whole flat — kitchen, living room, both bedrooms",
+    "rooms_in_scope": null,
+    "configuration": "3BHK",
+    "carpet_sqft": 1400,
+    "site_state": "Builder flat, bought two years ago",
+    "locality": "Kothrud — Dahanukar Colony",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Done by March, no rush",
+    "completion_by": "2027-03-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": "Owner with husband, who is happy to go ahead",
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "We want to redo the whole thing"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "3BHK in Kothrud — Dahanukar Colony"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "We'd like to be done by March. We're in no rush."
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "Yes — myself and my husband. He knows we're calling"
+      }
+    },
+    "in_scope_confidence": 0.95,
+    "out_of_scope_confidence": 0.02,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Referred by Shruti Joshi (past client, Aundh)"
+    ]
+  }
+}

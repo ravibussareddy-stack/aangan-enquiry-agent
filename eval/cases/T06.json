@@ -1,0 +1,110 @@
+{
+  "id": "T06",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T06 · Phone · 5 September · 3:28pm · 5 min 01 sec",
+  "call_started_at": "2026-09-05T15:28:00+05:30",
+  "duration_s": 301,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good afternoon, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "Hi, I’m calling about a commercial project. We’re a startup — just got our first proper office space in Baner. About 800 sq ft. We need workstations for 20 people, a small cabin, a meeting room, and a break area."
+    },
+    {
+      "speaker": "agent",
+      "text": "We do commercial fitouts up to about 3,000 sq ft. What’s the state of the space right now?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Bare shell — just columns and floor. Nothing else."
+    },
+    {
+      "speaker": "agent",
+      "text": "Full fitout from scratch. And the timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "We want to be operational by December. Our team is working from home currently."
+    },
+    {
+      "speaker": "agent",
+      "text": "December is doable. Are you the decision-maker for this?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes, I’m the founder."
+    },
+    {
+      "speaker": "agent",
+      "text": "Perfect. Let’s set up a consultation."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified"
+  },
+  "fixture": {
+    "caller_name": null,
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "commercial",
+    "category": "office",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "commercial_fitout",
+    "scope_text": "Workstations for 20, a small cabin, meeting room, break area",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": 800,
+    "site_state": "Bare shell",
+    "locality": "Baner",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Operational by December",
+    "completion_by": "2026-12-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": "Founder",
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Full fitout from scratch"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Office space in Baner"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "We want to be operational by December"
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "Yes, I'm the founder"
+      }
+    },
+    "in_scope_confidence": 0.92,
+    "out_of_scope_confidence": 0.03,
+    "callback_window": null,
+    "wants_site_visit": false,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": []
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "persona": {
+    "id": "T04",
+    "brief": "On a real call to the studio you said:\n- \"Hi — can someone come and give us some ideas for our living room? We’re not planning to do the full thing right now. Just want suggestions on colours, furniture arrangement, what to change.\"\n- \"Oh I see. No, we’re just exploring for now. Maybe later.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001003"
+  },
+  "state": {
+    "callId": "sim-T04-1791383540514",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001003",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:32:20.514Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Priya",
+      "project_type": "residential",
+      "engagement": "advice_only",
+      "scope_kind": "single_room",
+      "scope_text": "living room",
+      "decision_maker": "unknown",
+      "criteria": {
+        "real_project": {
+          "verdict": "fail",
+          "evidence": "suggestions on colours, furniture arrangement, what to change"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "living room, 250 sqft"
+        },
+        "timeline": {
+          "verdict": "fail",
+          "evidence": "not in a huge rush"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not asked yet"
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "unknown"
+        }
+      },
+      "in_scope_confidence": 0.3,
+      "out_of_scope_confidence": 0.7,
+      "locality": "Baner",
+      "pin": "411045",
+      "carpet_sqft": 250,
+      "timeline_text": "not in a huge rush"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:32:20.514Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, my name is Priya.",
+        "at": "2026-10-07T14:32:32.114Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Priya. What kind of project are you looking to get done with us — is it a full home, or specific rooms?",
+        "at": "2026-10-07T14:32:32.114Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's just for our living room. We’re not planning to do the full thing right now.",
+        "at": "2026-10-07T14:32:50.797Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That sounds lovely. Could you share your locality and PIN code so we can confirm we cover your area?",
+        "at": "2026-10-07T14:32:50.797Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I live in Baner, PIN code is 411045.",
+        "at": "2026-10-07T14:33:05.697Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Wonderful, Baner is well within our service area. Approximately how large is the carpet area, and when would you like the living room completed?",
+        "at": "2026-10-07T14:33:05.697Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's around 250 square feet. We're not in a huge rush to complete it yet, actually—just want suggestions on colours, furniture arrangement, what to change.",
+        "at": "2026-10-07T14:33:29.397Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "We're a full-service studio — every project includes design and execution together, so we don't take on advice-only, decor-only, Vastu-only, furniture-only or structural work. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+        "at": "2026-10-07T14:33:29.397Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "out_of_scope",
+      "reasons": [
+        "Advice / consultation only — our minimum is a room redesign with execution"
+      ]
+    },
+    "evaluation": {
+      "outcome": "declined",
+      "declineReason": "engagement",
+      "flags": [
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "Advice / consultation only — our minimum is a room redesign with execution"
+      ]
+    },
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "declined",
+    "usage": {
+      "calls": 9,
+      "prompt": 49749,
+      "output": 999,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:32:32.114Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "criteria": {
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not asked yet"
+              },
+              "real_project": {
+                "evidence": "living room interior design",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "unknown",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "area": {
+                "evidence": "living room",
+                "verdict": "pass"
+              }
+            },
+            "scope_text": "living room",
+            "caller_name": "Priya",
+            "in_scope_confidence": 1,
+            "project_type": "residential",
+            "decision_maker": "unknown",
+            "out_of_scope_confidence": 0,
+            "scope_kind": "single_room"
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer)."
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:32:50.797Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "out_of_scope_confidence": 0,
+            "in_scope_confidence": 1,
+            "scope_text": "living room",
+            "scope_kind": "single_room",
+            "project_type": "residential",
+            "caller_name": "Priya",
+            "locality": "Baner",
+            "engagement": "design_and_execution",
+            "decision_maker": "unknown",
+            "criteria": {
+              "area": {
+                "evidence": "living room",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "evidence": "living room interior design",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not asked yet"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "evidence": "unknown",
+                "verdict": "unclear"
+              }
+            },
+            "pin": "411045"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:33:05.697Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 0.3,
+            "pin": "411045",
+            "criteria": {
+              "timeline": {
+                "evidence": "not in a huge rush",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "unknown"
+              },
+              "budget": {
+                "evidence": "not asked yet",
+                "verdict": "unclear"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "living room, 250 sqft"
+              },
+              "real_project": {
+                "verdict": "unclear",
+                "evidence": "suggestions on colours, furniture arrangement, what to change"
+              }
+            },
+            "caller_name": "Priya",
+            "project_type": "residential",
+            "carpet_sqft": 250,
+            "scope_kind": "single_room",
+            "scope_text": "living room",
+            "engagement": "advice_only",
+            "locality": "Baner",
+            "decision_maker": "unknown",
+            "out_of_scope_confidence": 0.7,
+            "timeline_text": "not in a huge rush"
+          }
+        },
+        "result": {
+          "status": "out_of_scope",
+          "say_line": "We're a full-service studio — every project includes design and execution together, so we don't take on advice-only, decor-only, Vastu-only, furniture-only or structural work. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-07T14:33:29.397Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "locality": "Baner",
+            "criteria": {
+              "real_project": {
+                "evidence": "suggestions on colours, furniture arrangement, what to change",
+                "verdict": "fail"
+              },
+              "area": {
+                "evidence": "living room, 250 sqft",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "unknown"
+              },
+              "timeline": {
+                "evidence": "not in a huge rush",
+                "verdict": "fail"
+              },
+              "budget": {
+                "evidence": "not asked yet",
+                "verdict": "unclear"
+              }
+            },
+            "decision_maker": "unknown",
+            "out_of_scope_confidence": 0.7,
+            "carpet_sqft": 250,
+            "in_scope_confidence": 0.3,
+            "project_type": "residential",
+            "timeline_text": "not in a huge rush",
+            "scope_kind": "single_room",
+            "scope_text": "living room",
+            "pin": "411045",
+            "engagement": "advice_only",
+            "caller_name": "Priya"
+          }
+        },
+        "result": {
+          "next_step": "declined",
+          "say_line": "We're a full-service studio — every project includes design and execution together, so we don't take on advice-only, decor-only, Vastu-only, furniture-only or structural work. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-07T14:33:29.397Z",
+        "ms": 0
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "declined"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:33:29.397Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1483,
+      4176,
+      2829,
+      6455
+    ]
+  },
+  "durationS": 92.583,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

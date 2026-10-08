@@ -1,0 +1,115 @@
+{
+  "id": "T12",
+  "channel": "phone",
+  "synthetic": false,
+  "source": "seed/enquiries-sep-2026.pdf",
+  "header": "T12 · Phone · 15 September · 10:05am · 7 min 30 sec",
+  "call_started_at": "2026-09-15T10:05:00+05:30",
+  "duration_s": 450,
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Good morning, Aangan Studio."
+    },
+    {
+      "speaker": "caller",
+      "text": "I’m calling about a villa project in Kalyani Nagar. My name is Anand Sharma. The property is about 5,500 sq ft — ground plus two floors. Full end-to-end design."
+    },
+    {
+      "speaker": "agent",
+      "text": "That’s a significant project. Is this a new property or an existing home?"
+    },
+    {
+      "speaker": "caller",
+      "text": "New construction. Possession was last month. Completely empty."
+    },
+    {
+      "speaker": "agent",
+      "text": "And your timeline?"
+    },
+    {
+      "speaker": "caller",
+      "text": "March next year to move in. No rush."
+    },
+    {
+      "speaker": "agent",
+      "text": "Good time to start. Would you like our principal designer to come to site for the first consultation?"
+    },
+    {
+      "speaker": "caller",
+      "text": "Yes — this week or next if possible."
+    },
+    {
+      "speaker": "agent",
+      "text": "Let me check the calendar and revert by end of day."
+    }
+  ],
+  "expected": {
+    "outcome": "qualified",
+    "flags_include": [
+      "site_visit_requested"
+    ]
+  },
+  "fixture": {
+    "caller_name": "Anand Sharma",
+    "call_intent": "new_enquiry",
+    "requested_person": null,
+    "complaint_detected": false,
+    "unsure_intent": false,
+    "repeat_caller": false,
+    "frustrated": false,
+    "asked_about_price": false,
+    "project_type": "residential",
+    "category": "villa",
+    "engagement": "design_and_execution",
+    "structural_work_requested": false,
+    "scope_kind": "full_home",
+    "scope_text": "Full end-to-end design — villa, ground plus two floors",
+    "rooms_in_scope": null,
+    "configuration": null,
+    "carpet_sqft": 5500,
+    "site_state": "New construction, possession last month, completely empty",
+    "locality": "Kalyani Nagar",
+    "pin": null,
+    "city": null,
+    "timeline_text": "Move in March next year, no rush",
+    "completion_by": "2027-03-31",
+    "site_available_from": null,
+    "decision_maker": "self",
+    "decision_maker_note": null,
+    "budget_inr": null,
+    "budget_confirmed": false,
+    "criteria": {
+      "real_project": {
+        "verdict": "pass",
+        "evidence": "Full end-to-end design"
+      },
+      "area": {
+        "verdict": "pass",
+        "evidence": "Villa project in Kalyani Nagar"
+      },
+      "timeline": {
+        "verdict": "pass",
+        "evidence": "March next year to move in. No rush."
+      },
+      "budget": {
+        "verdict": "unclear",
+        "evidence": "Budget not mentioned"
+      },
+      "decision_maker": {
+        "verdict": "pass",
+        "evidence": "Calling about his own villa"
+      }
+    },
+    "in_scope_confidence": 0.95,
+    "out_of_scope_confidence": 0.02,
+    "callback_window": null,
+    "wants_site_visit": true,
+    "researched_us": "unknown",
+    "referral": null,
+    "typical_budget_reaction": "not_asked",
+    "watch_for": [
+      "Wants principal designer on site this week or next"
+    ]
+  }
+}

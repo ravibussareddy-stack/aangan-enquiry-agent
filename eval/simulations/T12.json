@@ -1,0 +1,393 @@
+{
+  "persona": {
+    "id": "T12",
+    "brief": "On a real call to the studio you said:\n- \"I’m calling about a villa project in Kalyani Nagar. My name is Anand Sharma. The property is about 5,500 sq ft — ground plus two floors. Full end-to-end design.\"\n- \"New construction. Possession was last month. Completely empty.\"\n- \"March next year to move in. No rush.\"\n- \"Yes — this week or next if possible.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001008"
+  },
+  "state": {
+    "callId": "sim-T12-1791383737791",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001008",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:35:37.791Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Anand Sharma",
+      "project_type": "residential",
+      "category": "villa",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "scope_text": "villa project, full end-to-end design, ground plus two floors, 5500 sqft",
+      "carpet_sqft": 5500,
+      "locality": "Kalyani Nagar",
+      "city": "Pune",
+      "decision_maker": "self",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "villa project, full end-to-end design"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Kalyani Nagar, 411006"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "move in by March next year"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "haven't locked down a strict number yet"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "making decisions with wife joining meetings"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "pin": "411006",
+      "timeline_text": "move in by March next year",
+      "completion_by": "2027-03-31"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:35:37.791Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, I'm Anand Sharma.",
+        "at": "2026-10-07T14:35:48.991Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Hi Anand! How can we help you with your interior design project today? Which rooms or space are you looking to get done?",
+        "at": "2026-10-07T14:35:48.991Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "I’m calling about a villa project in Kalyani Nagar. It's a ground plus two floors—about 5,500 square feet, and we need full end-to-end design for the whole place.",
+        "at": "2026-10-07T14:36:12.376Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That sounds wonderful, Anand. Could you share the PIN code of your villa in Kalyani Nagar, and when you're hoping to have the work completed?",
+        "at": "2026-10-07T14:36:12.376Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "The PIN is 411006. And we're hoping to move in by March next year, so there's no real rush.",
+        "at": "2026-10-07T14:36:34.076Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Are you the one making the final decisions for the project, or will someone else be joining you? And do you have a rough budget in mind?",
+        "at": "2026-10-07T14:36:34.076Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yeah, I'll be making the decisions, though my wife will probably join for the design meetings. As for the budget, we haven't locked down a strict number yet—we just want quality work done.",
+        "at": "2026-10-07T14:37:02.176Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Thursday at 2 pm or Saturday at 10 am work best for a consultation with our designer?",
+        "at": "2026-10-07T14:37:02.176Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Saturday at 10 AM works for me.",
+        "at": "2026-10-07T14:37:16.276Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Great, I've booked that for Saturday at 10 am, and an SMS confirmation will follow shortly.",
+        "at": "2026-10-07T14:37:16.276Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thanks, see you then. Bye!",
+        "at": "2026-10-07T14:37:28.776Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T12-1791383737791_1791606600000",
+      "startUtc": "2026-10-10T04:30:00.000Z",
+      "endUtc": "2026-10-10T05:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Saturday, 10 October, 10 am",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": false,
+    "endReason": null,
+    "usage": {
+      "calls": 10,
+      "prompt": 56772,
+      "output": 1011,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:35:48.991Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "carpet_sqft": 5500,
+            "criteria": {
+              "area": {
+                "evidence": "Kalyani Nagar, Pune",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "villa project, full end-to-end design"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              }
+            },
+            "scope_text": "villa project, full end-to-end design, ground plus two floors, 5500 sqft",
+            "decision_maker": "unknown",
+            "engagement": "design_and_execution",
+            "in_scope_confidence": 1,
+            "project_type": "residential",
+            "caller_name": "Anand Sharma",
+            "locality": "Kalyani Nagar",
+            "category": "villa",
+            "scope_kind": "full_home",
+            "out_of_scope_confidence": 0,
+            "city": "Pune"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:36:12.376Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "in_scope_confidence": 1,
+            "engagement": "design_and_execution",
+            "decision_maker": "unknown",
+            "scope_text": "villa project, full end-to-end design, ground plus two floors, 5500 sqft",
+            "timeline_text": "move in by March next year",
+            "criteria": {
+              "timeline": {
+                "evidence": "move in by March next year",
+                "verdict": "pass"
+              },
+              "budget": {
+                "evidence": "not mentioned yet",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned yet"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "villa project, full end-to-end design"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Kalyani Nagar, 411006"
+              }
+            },
+            "category": "villa",
+            "city": "Pune",
+            "project_type": "residential",
+            "scope_kind": "full_home",
+            "pin": "411006",
+            "out_of_scope_confidence": 0,
+            "completion_by": "2027-03-31",
+            "caller_name": "Anand Sharma",
+            "locality": "Kalyani Nagar",
+            "carpet_sqft": 5500
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:36:34.076Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "timeline_text": "move in by March next year",
+            "carpet_sqft": 5500,
+            "in_scope_confidence": 1,
+            "locality": "Kalyani Nagar",
+            "category": "villa",
+            "caller_name": "Anand Sharma",
+            "pin": "411006",
+            "decision_maker": "self",
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "engagement": "design_and_execution",
+            "out_of_scope_confidence": 0,
+            "completion_by": "2027-03-31",
+            "city": "Pune",
+            "criteria": {
+              "area": {
+                "evidence": "Kalyani Nagar, 411006",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "evidence": "villa project, full end-to-end design",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "haven't locked down a strict number yet"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "making decisions with wife joining meetings"
+              },
+              "timeline": {
+                "evidence": "move in by March next year",
+                "verdict": "pass"
+              }
+            },
+            "scope_text": "villa project, full end-to-end design, ground plus two floors, 5500 sqft"
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:37:02.176Z",
+        "ms": 1
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:37:02.176Z",
+        "ms": 6
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "slot_id": "s3",
+          "caller_name": "Anand Sharma"
+        },
+        "result": {
+          "confirmed": "Saturday, 10 October, 10 am",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:37:16.276Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      1385,
+      3590,
+      3640,
+      4988,
+      2783
+    ]
+  },
+  "durationS": 110.985,
+  "callerTurns": 6,
+  "dropped": false,
+  "endedBy": "caller"
+}

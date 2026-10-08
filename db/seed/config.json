@@ -1,0 +1,192 @@
+{
+  "SCOPE_THRESHOLD": {
+    "value": 0.8,
+    "description": "Agent in/out-of-scope confidence needed to qualify or auto-decline. Tune against the eval set and the review approval rate."
+  },
+  "BUDGET_REJECT_RATIO": {
+    "value": 0.7,
+    "description": "Confirmed budget below this × floor is a budget fail. Do not set to 0.20: T10 (₹1.5L vs ₹7L floor) must still be rejected."
+  },
+  "ASK_BUDGET": {
+    "value": true,
+    "description": "Owner's decision (2026-10-08): always ask for a ballpark budget. A refusal is accepted and never pushed."
+  },
+  "COMMERCIAL_MIN_SQFT": {
+    "value": 500,
+    "needs_founder_signoff": true,
+    "description": "Smallest commercial project. Unconfirmed by the founder."
+  },
+  "COMMERCIAL_MIN_SQFT_MODE": {
+    "value": "review",
+    "needs_founder_signoff": true,
+    "description": "'review' = below-minimum commercial goes to designer review; 'decline' = hard decline. Switch to 'decline' once the founder confirms COMMERCIAL_MIN_SQFT (and relabel eval T18)."
+  },
+  "COMMERCIAL_MAX_SQFT": {
+    "value": 3000,
+    "description": "Largest commercial project (services.md: up to ~3,000 sq ft)."
+  },
+  "MIN_LEAD_WEEKS": {
+    "value": 6,
+    "description": "Project must not need to be complete in under this many weeks from the call (services.md)."
+  },
+  "SITE_AVAILABLE_MAX_WEEKS": {
+    "value": 10,
+    "description": "Site must be available for execution within this many weeks (qualified.md criterion 3). Later availability → review, not decline."
+  },
+  "BUDGET_FLOOR": {
+    "value": {
+      "residential_per_sqft_inr": 1800,
+      "per_room_inr": 350000,
+      "commercial_per_sqft_inr": 1200
+    },
+    "server_only": true,
+    "description": "Internal budget floor derived from seed/pricing.md (lowest band). Never spoken, never sent to the voice agent."
+  },
+  "OFFICE_HOURS": {
+    "value": {
+      "timezone": "Asia/Kolkata",
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "open": "10:00",
+      "close": "19:00"
+    },
+    "description": "Front-desk hours (ISO weekdays, 1 = Monday). Used for after-hours flag and redirect transfers."
+  },
+  "CALL_LIMITS": {
+    "value": {
+      "target_s": 180,
+      "soft_wrap_s": 255,
+      "hard_max_s": 300
+    },
+    "description": "Call duration targets. At soft_wrap_s the agent moves to wrap-up."
+  },
+  "DROP_RECOVERY": {
+    "value": {
+      "callback_within_s": 120,
+      "max_attempts": 1
+    },
+    "description": "If a caller drops mid-call, place one outbound callback within this window."
+  },
+  "APPROVAL_CALLBACK": {
+    "value": {
+      "max_attempts": 3,
+      "slots_to_offer": 3
+    },
+    "description": "After a review lead is approved: outbound call attempts before falling back to an SMS booking link."
+  },
+  "VOICE_SPEND_CAP": {
+    "value": {
+      "cap_inr": 20,
+      "reserve_inr": 0,
+      "max_call_s": 240,
+      "outbound_attempts": 1
+    },
+    "description": "Hard cap on total Vaani spend: ₹20 (≈4 billed minutes at ₹5/min; Vaani appears to round each call up to whole minutes). No call is answered or placed once logged spend reaches the cap. VOICE_PROVIDER=simulated by default, so no credit is used unless explicitly switched."
+  },
+  "COMPLAINT_CALLBACK_MINUTES": {
+    "value": 15,
+    "description": "No longer promised to callers (2026-10-08: never guarantee a time — say 'as soon as possible' and ask when they're free). Used only as the internal target for seniors."
+  },
+  "INSIGHTS_REFRESH_DAILY_LIMIT": {
+    "value": 3,
+    "description": "On-demand Gemini insights refreshes allowed per day."
+  },
+  "PROMPT_VERSION": {
+    "value": "v0",
+    "description": "Voice agent prompt version (stored on each call)."
+  },
+  "SMS_PROVIDER": {
+    "value": "console",
+    "description": "'console' logs SMS instead of sending (zero-cost mode, no DLT registration). 'msg91' once DLT templates are approved."
+  },
+  "PRICE_DEFLECTION_LINE": {
+    "value": "Pricing depends on the site, the materials you choose, and the scope — your designer will walk you through it in detail at the consultation. I can book that for you right now if you'd like.",
+    "description": "The only permitted response to a pricing question (pricing.md)."
+  },
+  "DECLINE_LINE": {
+    "value": "This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+    "description": "Graceful close from qualified.md."
+  },
+  "SMS_TEMPLATES": {
+    "value": {
+      "booking_confirmation": {
+        "dlt_template_id": null,
+        "text": "Aangan Studio: your design consultation is booked for {#var#}. Your designer will call you before the meeting. To reschedule, reply or call {#var#}."
+      },
+      "booking_link": {
+        "dlt_template_id": null,
+        "text": "Aangan Studio: we tried calling to book your consultation. Pick a time that suits you here: {#var#}"
+      },
+      "review_reject": {
+        "dlt_template_id": null,
+        "text": "Aangan Studio: thank you for calling us. After reviewing your project, we're not the right fit right now — feel free to reach out if your timeline or scope changes."
+      },
+      "complaint_ack": {
+        "dlt_template_id": null,
+        "text": "Aangan Studio: we're sorry about this. A senior member of our team will call you back as soon as possible."
+      }
+    },
+    "needs_founder_signoff": true,
+    "description": "Customer SMS. Text is frozen once registered on DLT; URLs must be on a whitelisted domain."
+  },
+  "ANSWER_MODE": {
+    "value": {
+      "mode": "overflow",
+      "forward_after_rings": 4
+    },
+    "description": "'overflow' = the office line forwards to the AI number only when staff are busy / don't answer (conditional call forwarding) and always after hours — the AI only handles calls staff can't, which keeps voice cost down. 'always' = the AI answers every call. Set on the phone line, not in code; this records the intent and labels calls."
+  },
+  "INSUFFICIENT_INFO": {
+    "value": {
+      "min_missing_core": 3,
+      "core_fields": [
+        "what_work",
+        "locality",
+        "deadline",
+        "budget",
+        "decision_maker"
+      ]
+    },
+    "description": "If at least this many core intake fields are still missing (not asked, not answered) and nothing was booked, the lead becomes 'Callback needed' for the helpdesk instead of a decision."
+  },
+  "DEAL_HEALTH_BANDS": {
+    "value": {
+      "high": 70,
+      "medium": 45
+    },
+    "description": "Deal health score thresholds (0–100). Uncalibrated until enough Won/Lost outcomes come back from HubSpot — compare with the win rate by band on the dashboard."
+  },
+  "SHARE_TYPICAL_BUDGET": {
+    "value": true,
+    "needs_founder_signoff": false,
+    "description": "Owner's decision (2026-10-08): ask for a ballpark budget; if none is given, share the typical range for their scope once (server-written, with an indicative disclaimer) and ask if they're comfortable going ahead. Replaces the rubric's 'Don't quote. Don't probe.' Exact prices are still deflected."
+  },
+  "TYPICAL_BUDGETS": {
+    "value": {
+      "residential_per_sqft_inr": {
+        "low": 1800,
+        "high": 2400
+      },
+      "per_room_inr": {
+        "low": 350000,
+        "high": 800000
+      },
+      "commercial_per_sqft_inr": {
+        "low": 1200,
+        "high": 1800
+      }
+    },
+    "server_only": true,
+    "description": "Typical (standard-finish) budget bands from pricing.md, used only to build the server-written 'typical budget' line. Never sent to the agent's prompt."
+  },
+  "PRICE_DEFLECTION_LINE_NO_BOOKING": {
+    "value": "Pricing depends on the site, the materials you choose, and the scope — your designer will walk you through it in detail.",
+    "description": "Price deflection for calls that won't be booked on the spot (review, callback, messages) — the standard line offers to book, which would mislead those callers."
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "persona": {
+    "id": "T19",
+    "brief": "On a real call to the studio you said:\n- \"Hi — I’m planning to open a restaurant in Koregaon Park. I’ve seen your work and I love it. Would you be able to design the interiors?\"\n- \"Do you know anyone you could refer?\"\n- \"Alright, thanks.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001002"
+  },
+  "state": {
+    "callId": "sim-T19-1791459213949-muzgk871",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001002",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-08T11:33:33.949Z",
+    "promptVersion": "v0",
+    "afterHours": false,
+    "facts": {
+      "caller_name": "Rohan",
+      "call_intent": "new_enquiry",
+      "unsure_intent": false,
+      "project_type": "commercial",
+      "category": "restaurant",
+      "scope_kind": "commercial_fitout",
+      "scope_text": "restaurant in Koregaon Park",
+      "locality": "Koregaon Park",
+      "city": "Pune",
+      "decision_maker": "self",
+      "criteria": {
+        "real_project": {
+          "verdict": "unclear",
+          "evidence": "planning to open a restaurant"
+        },
+        "area": {
+          "verdict": "fail",
+          "evidence": "restaurant in Koregaon Park, Pune"
+        },
+        "timeline": {
+          "verdict": "unclear",
+          "evidence": "not discussed"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not discussed"
+        },
+        "decision_maker": {
+          "verdict": "pass",
+          "evidence": "self"
+        }
+      },
+      "in_scope_confidence": 0,
+      "not_known": []
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-08T11:33:33.949Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, my name's Rohan. I’m planning to open a restaurant in Koregaon Park and I'm looking for an interior designer.",
+        "at": "2026-10-08T11:33:51.549Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Restaurants, cafés, hotels, retail stores and gyms are outside what we design — they need a studio that specialises in those spaces. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes. Have a good day!",
+        "at": "2026-10-08T11:33:51.549Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Ah, I understand. Do you know anyone you could refer?",
+        "at": "2026-10-08T11:34:20.579Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "I'm afraid I don't have specific recommendations offhand, but I hope you find the right team for your restaurant. Have a good day!",
+        "at": "2026-10-08T11:34:20.579Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "out_of_scope",
+      "reasons": [
+        "Restaurants are outside our scope"
+      ]
+    },
+    "evaluation": null,
+    "slotsOffered": [],
+    "booking": null,
+    "callbackWindow": null,
+    "complaint": null,
+    "message": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "declined",
+    "usage": {
+      "calls": 4,
+      "prompt": 32979,
+      "output": 310,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-08T11:33:51.549Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "unsure_intent": false,
+            "call_intent": "new_enquiry",
+            "city": "Pune",
+            "in_scope_confidence": 0,
+            "project_type": "commercial",
+            "caller_name": "Rohan",
+            "decision_maker": "self",
+            "locality": "Koregaon Park",
+            "scope_kind": "commercial_fitout",
+            "criteria": {
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "self"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not discussed"
+              },
+              "timeline": {
+                "evidence": "not discussed",
+                "verdict": "unclear"
+              },
+              "area": {
+                "evidence": "restaurant in Koregaon Park, Pune",
+                "verdict": "fail"
+              },
+              "real_project": {
+                "verdict": "unclear",
+                "evidence": "planning to open a restaurant"
+              }
+            },
+            "scope_text": "restaurant in Koregaon Park",
+            "category": "restaurant"
+          }
+        },
+        "result": {
+          "status": "out_of_scope",
+          "say_line": "Restaurants, cafés, hotels, retail stores and gyms are outside what we design — they need a studio that specialises in those spaces. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes.",
+          "then": "end_call"
+        },
+        "at": "2026-10-08T11:33:51.549Z",
+        "ms": 1
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "declined"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-08T11:34:20.579Z",
+        "ms": 0
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      2230,
+      1630
+    ],
+    "intakeGates": 0,
+    "intakePrompted": [],
+    "endRefused": false,
+    "budgetGuidance": null,
+    "approvedLines": []
+  },
+  "durationS": 58.261,
+  "callerTurns": 2,
+  "dropped": false,
+  "endedBy": "agent"
+}

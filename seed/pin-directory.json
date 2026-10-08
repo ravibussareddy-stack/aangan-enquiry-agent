@@ -1,0 +1,1096 @@
+{
+ "410401": {
+  "district": "Pune",
+  "block": "Maval",
+  "offices": [
+   "Ambavane",
+   "Kusgaon BK",
+   "Lonavala",
+   "Lonavala Bazar"
+  ]
+ },
+ "410405": {
+  "district": "Pune",
+  "block": "Maval",
+  "offices": [
+   "Kamshet",
+   "Karanjgaon",
+   "Karla",
+   "Karunj",
+   "Malawali",
+   "Nane",
+   "Takave KH",
+   "Vehergaon"
+  ]
+ },
+ "410501": {
+  "district": "Pune",
+  "block": "Khed",
+  "offices": [
+   "Ambethan",
+   "Bahul",
+   "Bhose",
+   "Chakan",
+   "Gadad",
+   "Kalus",
+   "Khalumbre",
+   "Koyali",
+   "Kuruli",
+   "Mahalunge Ingale",
+   "Nighoje",
+   "Pimpalgaon Tarfe Chakan",
+   "Rase",
+   "Shive",
+   "Vadgaon Ghenanad",
+   "Vasuli",
+   "Waki BK"
+  ]
+ },
+ "410506": {
+  "district": "Pune",
+  "block": "Maval/Mulshi/Mawal",
+  "offices": [
+   "Adhale BK",
+   "Bebedhol",
+   "Chandkhed",
+   "Dhamane",
+   "Kasarsai",
+   "Ordanance Dep Talegaon Dabhade",
+   "Shiavane",
+   "Talegaon Dabhade",
+   "Urse"
+  ]
+ },
+ "410507": {
+  "district": "Pune",
+  "block": "Maval/Mawal",
+  "offices": [
+   "Ambale",
+   "Ambi",
+   "Induri",
+   "Talegaon G H",
+   "Umbre Navlakh",
+   "Varale",
+   "Vishnupuri"
+  ]
+ },
+ "411001": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "C D A (O)",
+   "Dr.B.A. Chowk",
+   "Ghorpuri Bazar",
+   "N.W. College",
+   "Pune",
+   "Pune Cantt East",
+   "Pune New Bazar",
+   "Sachapir Street"
+  ]
+ },
+ "411002": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bajirao Road",
+   "Kapad Ganj",
+   "Nana Peth",
+   "Pune City",
+   "Raviwar Peth",
+   "Shukrawar Peth (Pune)"
+  ]
+ },
+ "411003": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Ammunition Factory Khadki",
+   "East Khadki",
+   "H.E. Factory",
+   "Khadki",
+   "Khadki Bazar"
+  ]
+ },
+ "411004": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "A.R. Shala",
+   "Deccan Gymkhana",
+   "Film Institute"
+  ]
+ },
+ "411005": {
+  "district": "Pune",
+  "block": "Pune City/Haveli",
+  "offices": [
+   "Congress House Road",
+   "S.S.C.Exam Board",
+   "Shivajinagar",
+   "Shivajinagar (Pune)"
+  ]
+ },
+ "411006": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Yerwada",
+   "Yerwada T.S."
+  ]
+ },
+ "411007": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Aundh",
+   "Aundh T.S.",
+   "Ganeshkhind"
+  ]
+ },
+ "411008": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Baner Road",
+   "N.C.L. Pune"
+  ]
+ },
+ "411009": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Parvati",
+   "Parvati Gaon"
+  ]
+ },
+ "411011": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Kasba Peth",
+   "Mangalwar Peth (Pune)",
+   "Rasta Peth"
+  ]
+ },
+ "411012": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Dapodi",
+   "Dapodi Bazar"
+  ]
+ },
+ "411013": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Hadpsar I.E."
+  ]
+ },
+ "411014": {
+  "district": "Pune",
+  "block": "Pune City/Pune",
+  "offices": [
+   "9 DRD",
+   "Dukirkline",
+   "Vadgaon Sheri",
+   "Viman nagar"
+  ]
+ },
+ "411015": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Dhanori",
+   "Dighi Camp",
+   "Vishrantwadi"
+  ]
+ },
+ "411016": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Gokhalenagar",
+   "Govt. Polytechnic",
+   "Model Colony",
+   "Shivaji Housing Society"
+  ]
+ },
+ "411017": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Kalewadi",
+   "Pimpri Colony",
+   "Pimpri Waghire"
+  ]
+ },
+ "411018": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Masulkar Colony",
+   "Nehrunagar (Pune)",
+   "Pimpri P F"
+  ]
+ },
+ "411019": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Chinchwad East",
+   "M.Phulenagar"
+  ]
+ },
+ "411020": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Botanical Garden (Pune)",
+   "Range Hills"
+  ]
+ },
+ "411021": {
+  "district": "Pune",
+  "block": "Pune City/Haveli",
+  "offices": [
+   "Armament",
+   "Bavdhan",
+   "Sus"
+  ]
+ },
+ "411022": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Srpf"
+  ]
+ },
+ "411023": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Kudje",
+   "Mandvi BK",
+   "N.D.A. Khadakwasla",
+   "Shivane",
+   "Uttamnagar"
+  ]
+ },
+ "411024": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Khadakwasla R.S."
+  ]
+ },
+ "411025": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Donje",
+   "I.A.T",
+   "Khanapur Haveli",
+   "Osade",
+   "Ranjane",
+   "Vardade"
+  ]
+ },
+ "411026": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bhosari I.E.",
+   "Indrayaninagar"
+  ]
+ },
+ "411027": {
+  "district": "Pune",
+  "block": "NA/Pune City",
+  "offices": [
+   "Aundh Camp",
+   "Sangavi"
+  ]
+ },
+ "411028": {
+  "district": "Pune",
+  "block": "Pune/Pune City",
+  "offices": [
+   "Gondhale Nagar",
+   "Hadapsar",
+   "Sasanenagar"
+  ]
+ },
+ "411030": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Lokmanyanagar",
+   "Narayan Peth",
+   "Rashtra Bhasha Bhavan",
+   "S.P. College",
+   "Sadashiv Peth",
+   "Shaniwar Peth (Pune)"
+  ]
+ },
+ "411031": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "C M E"
+  ]
+ },
+ "411032": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Airport (Pune)",
+   "Iaf Station",
+   "Vidyanagar (Pune)"
+  ]
+ },
+ "411033": {
+  "district": "Pune",
+  "block": "Pune City/Mulshi",
+  "offices": [
+   "Chinchwadgaon",
+   "Jambhe",
+   "Punawale",
+   "Thathawade",
+   "Thergaon"
+  ]
+ },
+ "411034": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Kasarwadi"
+  ]
+ },
+ "411035": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Akurdi"
+  ]
+ },
+ "411036": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Mundhva",
+   "Mundhva AV"
+  ]
+ },
+ "411037": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bibvewadi",
+   "Market Yard (Pune)",
+   "Salisbury Park",
+   "T.V. Nagar"
+  ]
+ },
+ "411038": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bhusari Colony",
+   "Ex. Serviceman Colony",
+   "Kothrud"
+  ]
+ },
+ "411039": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bhosarigoan"
+  ]
+ },
+ "411040": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "AFMC",
+   "Wanowarie"
+  ]
+ },
+ "411041": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Dhayari",
+   "Nanded",
+   "Sinhgad Technical Education Society",
+   "Vadgaon Budruk"
+  ]
+ },
+ "411042": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Bhavani Peth",
+   "Ghorpade Peth",
+   "Guruwar Peth",
+   "Swargate",
+   "Swargate Chowk"
+  ]
+ },
+ "411043": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Dhankawadi"
+  ]
+ },
+ "411044": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "P.C.N.T.",
+   "Yamunanagar"
+  ]
+ },
+ "411045": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Baner Gaon",
+   "N.I.A."
+  ]
+ },
+ "411046": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Ambegaon BK",
+   "Katraj"
+  ]
+ },
+ "411047": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Lohogaon"
+  ]
+ },
+ "411048": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Khondhwa KH",
+   "Kondhwa BK",
+   "Kondhwa Lh",
+   "N I B M"
+  ]
+ },
+ "411051": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Anandnagar (Pune)"
+  ]
+ },
+ "411052": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Karvenagar",
+   "Navsahyadri"
+  ]
+ },
+ "411057": {
+  "district": "Pune",
+  "block": "Haveli/Mulashi/Pune City",
+  "offices": [
+   "Infotech  Park (Hinjawadi)",
+   "Marunji",
+   "Wakad"
+  ]
+ },
+ "411058": {
+  "district": "Pune",
+  "block": "Pune City",
+  "offices": [
+   "Warje"
+  ]
+ },
+ "411061": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Pimple Gurav"
+  ]
+ },
+ "411062": {
+  "district": "Pune",
+  "block": "Haveli/Pune City",
+  "offices": [
+   "Chikhali",
+   "Rupeenagar",
+   "Talwade"
+  ]
+ },
+ "412101": {
+  "district": "Pune",
+  "block": "Haveli/Maval",
+  "offices": [
+   "Cod Dehu Road",
+   "Dehu Road Cantt",
+   "Kiwale",
+   "Ordnance Factory Dehu Road",
+   "Ravet",
+   "Salumbre"
+  ]
+ },
+ "412102": {
+  "district": "Pune",
+  "block": "Purandar/Baramati",
+  "offices": [
+   "Gulunche",
+   "Khandobachi Wadi",
+   "Nimbut",
+   "Nira R S"
+  ]
+ },
+ "412103": {
+  "district": "Pune",
+  "block": "Baramati",
+  "offices": [
+   "Korhale BK",
+   "Korhale KH",
+   "Late",
+   "Vadgaon Nimbalkar"
+  ]
+ },
+ "412104": {
+  "district": "Pune",
+  "block": "Purandar",
+  "offices": [
+   "Gurholi",
+   "Malshiras",
+   "Naygaon",
+   "Pargaon Memane",
+   "Pisarve",
+   "Rajewadi",
+   "Rajuri",
+   "Tekawade",
+   "Waghapur"
+  ]
+ },
+ "412105": {
+  "district": "Pune",
+  "block": "Khed/Haveli",
+  "offices": [
+   "Alandi Devachi",
+   "Charoli BK",
+   "Chimbli",
+   "Dhanore",
+   "Markal",
+   "Moshi",
+   "Solu"
+  ]
+ },
+ "412106": {
+  "district": "Pune",
+  "block": "Maval",
+  "offices": [
+   "Bhoyare",
+   "Inglun",
+   "Kanhe",
+   "Khandi",
+   "Sate",
+   "Takawe BK",
+   "Vadeshwar",
+   "Vadgaon (Pune)"
+  ]
+ },
+ "412107": {
+  "district": "Pune",
+  "block": "Velhe/Mulshi",
+  "offices": [
+   "Kadve",
+   "Kambegi",
+   "Kashedi",
+   "Kuran BK",
+   "Mangaon",
+   "Mose KH",
+   "Panshet",
+   "Rule",
+   "Shirkoli",
+   "Tav"
+  ]
+ },
+ "412108": {
+  "district": "Pune",
+  "block": "Mulshi",
+  "offices": [
+   "Belawade",
+   "Bhadas",
+   "Kashing",
+   "Khechare",
+   "Kolwan",
+   "Kondhawale",
+   "Kule",
+   "Male",
+   "Nandgaon",
+   "Paud",
+   "Pomgaon",
+   "Shere"
+  ]
+ },
+ "412109": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Dehu",
+   "Sadumbre"
+  ]
+ },
+ "412110": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Kolwadi",
+   "Naygaon",
+   "Theur"
+  ]
+ },
+ "412112": {
+  "district": "Pune",
+  "block": "Mulshi",
+  "offices": [
+   "Dasve Lavasa"
+  ]
+ },
+ "412115": {
+  "district": "Pune",
+  "block": "Mulshi/Haveli",
+  "offices": [
+   "Ambarvet",
+   "Andgaon",
+   "Bhugaon",
+   "Bhukum",
+   "Ghotavade",
+   "Khamboli",
+   "Kolawade",
+   "Lawale",
+   "Muthe",
+   "Pirangut",
+   "Rihe",
+   "Sangrun",
+   "Uravade"
+  ]
+ },
+ "412201": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Alandi Chorachi",
+   "Kadam Wak Wasti",
+   "Kunjirwadi",
+   "Loni Kalbhor"
+  ]
+ },
+ "412202": {
+  "district": "Pune",
+  "block": "Daund/Haveli",
+  "offices": [
+   "Bori Aindi",
+   "Kamdhenunagar",
+   "Koregaon Mul",
+   "Sahajpurwadi",
+   "Shindavane",
+   "Shriprayagdham",
+   "Urulikanchan"
+  ]
+ },
+ "412203": {
+  "district": "Pune",
+  "block": "Daund",
+  "offices": [
+   "Bet Narayan Maharaj",
+   "Bori Paradhi",
+   "Galandwadi",
+   "Kedgaon (Pune)",
+   "Khopodi",
+   "Khor",
+   "Khutbhav",
+   "Nangaon",
+   "Padvi",
+   "Pargaon"
+  ]
+ },
+ "412204": {
+  "district": "Pune",
+  "block": "Baramati",
+  "offices": [
+   "Babhurdi",
+   "Bhondave Wadi",
+   "Karhati",
+   "Supa (Pune)"
+  ]
+ },
+ "412205": {
+  "district": "Pune",
+  "block": "Bhor/Haveli/Purandhar",
+  "offices": [
+   "Alande",
+   "Anantnagar Nigade",
+   "Arvi(Haveli)",
+   "Bhongavali",
+   "Dhangavadi",
+   "Gogalwadi(E)",
+   "Kalyan",
+   "Kapurhol",
+   "Kenjal",
+   "Ketkavale",
+   "Khed Shivapur",
+   "Khed Shivapur Baug",
+   "Kikvi",
+   "Kondhanpur",
+   "Kusgaon",
+   "Nhavi",
+   "Sarole",
+   "Shindewadi",
+   "Shivare",
+   "Taparewadi",
+   "Varye BK",
+   "Velu"
+  ]
+ },
+ "412206": {
+  "district": "Pune/Satara",
+  "block": "Bhor/Khandala",
+  "offices": [
+   "Ambade",
+   "Ambavade",
+   "Ambeghar",
+   "Apti",
+   "Bari BK",
+   "Bazarwadi",
+   "Bhatghar",
+   "Bhor",
+   "Bhutonde",
+   "Chikhalgaon",
+   "Harnas",
+   "Hirdoshi",
+   "Jogwadi",
+   "Kanakwadi",
+   "Karandi BK",
+   "Kari",
+   "Karnawad",
+   "Khanapur",
+   "Mahude BK",
+   "Male",
+   "Malewadi",
+   "Natambi",
+   "Nazare",
+   "Nere",
+   "Pangari",
+   "Pasure",
+   "Pisavare",
+   "Rayari",
+   "Sangamner",
+   "Sangavi",
+   "Shind",
+   "Shirgaon",
+   "Titeghar",
+   "Utroli",
+   "Vadgaon Dalache",
+   "Varodi KH",
+   "Velvand",
+   "Venavadi"
+  ]
+ },
+ "412207": {
+  "district": "Pune",
+  "block": "Haveli/Daund",
+  "offices": [
+   "Ashtapur",
+   "Dahitane",
+   "Kesnand",
+   "Koregaon Bhivar",
+   "Rahu",
+   "Telewadi",
+   "Vadebholhai",
+   "Vagholi",
+   "Walki"
+  ]
+ },
+ "412208": {
+  "district": "Pune",
+  "block": "Shirur/NA",
+  "offices": [
+   "Burunjwadi",
+   "Dhanore",
+   "Hivare",
+   "Jategaon BK",
+   "Karandi",
+   "Kasari",
+   "Mukhai",
+   "Sanaswadi",
+   "Shikrapur",
+   "Takali Bhima",
+   "Talegaon Dhamdhere",
+   "Vithalwadi"
+  ]
+ },
+ "412209": {
+  "district": "Pune",
+  "block": "Shirur",
+  "offices": [
+   "Bhamburde",
+   "Ganegaon Khalasa",
+   "Karanjawane",
+   "Kondhapuri",
+   "Nimgaon Mahalungi",
+   "Ranjangaon Ganpati",
+   "Varude"
+  ]
+ },
+ "412210": {
+  "district": "Pune",
+  "block": "Shirur",
+  "offices": [
+   "Golegaon",
+   "Inamgaon",
+   "Karda",
+   "Nimone",
+   "Nirvi",
+   "Shirasgaonkata",
+   "Shirur (Pune)"
+  ]
+ },
+ "412211": {
+  "district": "Pune",
+  "block": "Shirur/Shiurur",
+  "offices": [
+   "Alegaon",
+   "Amble",
+   "Andhalgaon",
+   "Chinchani Camp",
+   "Ganegaon Dumala",
+   "Mandavgan Farata",
+   "Nhavare",
+   "Ranjangaon Sandas",
+   "Sadalgaon",
+   "Tandali",
+   "Uralgaon",
+   "Vadgaon Rasai"
+  ]
+ },
+ "412212": {
+  "district": "Pune",
+  "block": "Velhe",
+  "offices": [
+   "Antroli",
+   "Kodapur",
+   "Pabe",
+   "Varoti BK",
+   "Velhe"
+  ]
+ },
+ "412213": {
+  "district": "Pune",
+  "block": "Bhor/Velhe",
+  "offices": [
+   "Ambavane",
+   "Dapode",
+   "Degaon",
+   "Gunjawane",
+   "Hatve BK",
+   "Jambhali BK",
+   "Kamthadi",
+   "Karandi Khedebare",
+   "Karanjawane",
+   "Kelawade",
+   "Kolwadi",
+   "Kurungwadi",
+   "Manjal Asani",
+   "Margasni",
+   "Nasrapur",
+   "Sakhar",
+   "Tambad",
+   "Wangani",
+   "Winzer"
+  ]
+ },
+ "412214": {
+  "district": "Pune",
+  "block": "Daund",
+  "offices": [
+   "Bhandgaon",
+   "Delwadi",
+   "Kasurdi",
+   "Khamgaon BK",
+   "Nathachi Wadi",
+   "Rahu Pimpalgaon",
+   "Yavat",
+   "Yavat R S"
+  ]
+ },
+ "412215": {
+  "district": "Pune",
+  "block": "Daund",
+  "offices": [
+   "Kadethan",
+   "Varvand"
+  ]
+ },
+ "412216": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Fulgaon",
+   "Koregaon Bhima",
+   "Lonikand",
+   "Perne",
+   "Pimpri Sandas",
+   "Vadhu BK"
+  ]
+ },
+ "412218": {
+  "district": "Pune",
+  "block": "Shirur",
+  "offices": [
+   "Amdabad",
+   "Chincholi",
+   "Kanhur",
+   "Kawtha",
+   "Malthan",
+   "Taklihaji"
+  ]
+ },
+ "412219": {
+  "district": "Pune",
+  "block": "Daund",
+  "offices": [
+   "Kangaon",
+   "Kusgaon",
+   "Madhukarnagar Patas",
+   "Patas",
+   "Roti"
+  ]
+ },
+ "412220": {
+  "district": "Pune",
+  "block": "Shirur",
+  "offices": [
+   "Karegaon",
+   "Midc Ranjangaon Ganpati",
+   "Nimgaon Bhogi"
+  ]
+ },
+ "412301": {
+  "district": "Pune",
+  "block": "Purandar/Purandhar",
+  "offices": [
+   "Bhivadi",
+   "Bhivari",
+   "Bopgaon",
+   "Chambli",
+   "Diwa",
+   "Garade",
+   "Hivare",
+   "Khalad",
+   "Kodit",
+   "Panawadi",
+   "Pangare",
+   "Pimple",
+   "Saswad",
+   "Shivari",
+   "Sonari",
+   "Sopannagar",
+   "Vanpuri"
+  ]
+ },
+ "412303": {
+  "district": "Pune",
+  "block": "Purandar",
+  "offices": [
+   "Belsar",
+   "Javalarjun",
+   "Jejuri",
+   "Kolvihire",
+   "Kothale",
+   "Mavdi Kade Pathar",
+   "Nazare Kade Pathar",
+   "Pandheshwar",
+   "Pimpri",
+   "Ranmala",
+   "Sakurde",
+   "Walunj"
+  ]
+ },
+ "412304": {
+  "district": "Pune",
+  "block": "Baramati",
+  "offices": [
+   "Morgaon",
+   "Murti Modhave"
+  ]
+ },
+ "412305": {
+  "district": "Pune",
+  "block": "Purandar",
+  "offices": [
+   "Daundaj",
+   "Harni",
+   "Jeur",
+   "Mandki",
+   "Pingori",
+   "Rakh",
+   "Valha"
+  ]
+ },
+ "412306": {
+  "district": "Pune",
+  "block": "Baramati",
+  "offices": [
+   "Hol",
+   "Karanje",
+   "Murum",
+   "Someshwarnagar",
+   "Waki"
+  ]
+ },
+ "412307": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Manjari BK",
+   "Manjari Farm"
+  ]
+ },
+ "412308": {
+  "district": "Pune",
+  "block": "Haveli",
+  "offices": [
+   "Phursungi",
+   "Uruli Devachi",
+   "Vadki"
+  ]
+ },
+ "412311": {
+  "district": "Pune",
+  "block": "Purandar",
+  "offices": [
+   "Dawanewadi",
+   "Hargude",
+   "Kaldari",
+   "Mahur",
+   "Mandhar",
+   "Parinche"
+  ]
+ },
+ "412312": {
+  "district": "Pune",
+  "block": "Purandar",
+  "offices": [
+   "Tondal",
+   "Veer"
+  ]
+ }
+}

@@ -1,0 +1,477 @@
+{
+  "persona": {
+    "id": "T11",
+    "brief": "On a real call to the studio you said:\n- \"Hi — I have a question. I’m in a rented apartment. Can you still take up a project?\"\n- \"It’s a 2BHK in Baner. I’ve been here a year, I have a 3-year lease, and the place is quite bare. I want to properly design the living room, bedroom, and kitchen — no structural changes, just design and fittings.\"\n- \"Yes — they’re fine with it as long as we don’t break walls.\"\n- \"Yes please.\"\nPhone: you're calling from your own mobile.",
+    "phone": "+919000001007"
+  },
+  "state": {
+    "callId": "sim-T11-1791383698717",
+    "provider": "simulated",
+    "direction": "inbound",
+    "purpose": "inbound",
+    "callerPhone": "+919000001007",
+    "callerName": null,
+    "leadId": null,
+    "startedAt": "2026-10-07T14:34:58.717Z",
+    "promptVersion": "v0",
+    "afterHours": true,
+    "facts": {
+      "caller_name": "Priya Sharma",
+      "project_type": "residential",
+      "scope_text": "2BHK apartment in Baner, design and execution",
+      "criteria": {
+        "real_project": {
+          "verdict": "pass",
+          "evidence": "design and execution for 2BHK apartment"
+        },
+        "area": {
+          "verdict": "pass",
+          "evidence": "Baner, Pune"
+        },
+        "timeline": {
+          "verdict": "pass",
+          "evidence": "next couple of months"
+        },
+        "budget": {
+          "verdict": "unclear",
+          "evidence": "not mentioned"
+        },
+        "decision_maker": {
+          "verdict": "unclear",
+          "evidence": "not mentioned"
+        }
+      },
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "category": "apartment",
+      "engagement": "design_and_execution",
+      "scope_kind": "full_home",
+      "rooms_in_scope": 2,
+      "configuration": "2BHK",
+      "locality": "Baner",
+      "city": "Pune",
+      "carpet_sqft": 900,
+      "timeline_text": "next couple of months"
+    },
+    "transcript": [
+      {
+        "speaker": "agent",
+        "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
+        "at": "2026-10-07T14:34:58.717Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Hi, my name is Priya Sharma. I have a quick question—I’m currently in a rented apartment. Can you still take up a project?",
+        "at": "2026-10-07T14:35:17.517Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Yes, absolutely! As long as there are no major structural changes needed, we design for rented homes too. \n\nCould you tell me which locality or PIN code your apartment is in, and whether you're looking for design and execution?",
+        "at": "2026-10-07T14:35:17.517Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It’s a 2BHK in Baner. And yes, I'm looking for design and execution.",
+        "at": "2026-10-07T14:35:42.417Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Wonderful. Roughly what is the carpet area of the apartment, and when would you like the project completed by?",
+        "at": "2026-10-07T14:35:42.417Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "It's around 900 square feet, and I was hoping to get it done in the next couple of months if possible.",
+        "at": "2026-10-07T14:36:02.517Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would you prefer a consultation this week on Thursday at 2 pm or Friday at 10 am?",
+        "at": "2026-10-07T14:36:02.517Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday at 2 pm works for me.",
+        "at": "2026-10-07T14:36:16.217Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Got that booked for you for Thursday at 2 pm, Priya. You'll receive an SMS confirmation shortly. Have a great evening!",
+        "at": "2026-10-07T14:36:16.217Z"
+      }
+    ],
+    "lookup": {
+      "existingClient": false,
+      "contactId": null,
+      "name": null,
+      "openProject": null,
+      "lastStage": null
+    },
+    "scope": {
+      "status": "in_scope",
+      "reasons": []
+    },
+    "evaluation": {
+      "outcome": "qualified",
+      "declineReason": null,
+      "flags": [
+        "decision_maker_unclear",
+        "budget_not_given"
+      ],
+      "reasons": [
+        "All hard rules pass and in-scope confidence is high"
+      ]
+    },
+    "slotsOffered": [
+      {
+        "id": "s1",
+        "startUtc": "2026-10-08T08:30:00.000Z",
+        "label": "Thursday, 8 October, 2 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
+        "startUtc": "2026-10-09T04:30:00.000Z",
+        "label": "Friday, 9 October, 10 am",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s3",
+        "startUtc": "2026-10-10T04:30:00.000Z",
+        "label": "Saturday, 10 October, 10 am",
+        "eventType": "residential_consult"
+      }
+    ],
+    "booking": {
+      "uid": "mock_sim-T11-1791383698717_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Asha Kulkarni",
+      "provider": "mock",
+      "label": "Thursday, 8 October, 2 pm",
+      "eventType": "residential_consult"
+    },
+    "callbackWindow": null,
+    "complaint": null,
+    "redirect": null,
+    "ended": true,
+    "endReason": "booked",
+    "usage": {
+      "calls": 12,
+      "prompt": 71298,
+      "output": 1257,
+      "thoughts": 0
+    },
+    "toolLog": [
+      {
+        "name": "lookup_caller",
+        "args": {},
+        "result": {
+          "existing_client": false,
+          "name": null,
+          "open_project": null,
+          "previously_captured": null
+        },
+        "at": "2026-10-07T14:35:17.517Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "caller_name": "Priya Sharma",
+            "criteria": {
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "rented apartment"
+              },
+              "decision_maker": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "project for rented apartment"
+              }
+            },
+            "scope_text": "rented apartment",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0.1,
+            "in_scope_confidence": 0.9
+          }
+        },
+        "result": {
+          "status": "uncertain",
+          "ask_next": [
+            "Ask for the locality and PIN code (to confirm coverage and match a nearby designer).",
+            "Ask one direct question: do they want design AND execution, or advice/ideas only?"
+          ],
+          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
+        },
+        "at": "2026-10-07T14:35:17.517Z",
+        "ms": 0
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "criteria": {
+              "area": {
+                "evidence": "Baner, Pune",
+                "verdict": "pass"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "evidence": "design and execution for 2BHK apartment",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "decision_maker": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              }
+            },
+            "category": "apartment",
+            "caller_name": "Priya Sharma",
+            "city": "Pune",
+            "out_of_scope_confidence": 0,
+            "configuration": "2BHK",
+            "rooms_in_scope": 2,
+            "engagement": "design_and_execution",
+            "scope_text": "2BHK apartment in Baner, design and execution",
+            "in_scope_confidence": 1,
+            "locality": "Baner"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:35:42.417Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "city": "Pune",
+            "engagement": "design_and_execution",
+            "criteria": {
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Baner, Pune"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "design and execution for 2BHK apartment"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "not mentioned"
+              }
+            },
+            "rooms_in_scope": 2,
+            "locality": "Baner",
+            "scope_kind": "full_home",
+            "scope_text": "2BHK apartment in Baner, design and execution",
+            "out_of_scope_confidence": 0,
+            "configuration": "2BHK",
+            "in_scope_confidence": 1,
+            "project_type": "residential",
+            "caller_name": "Priya Sharma",
+            "category": "apartment"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:35:42.417Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "rooms_in_scope": 2,
+            "locality": "Baner",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0,
+            "criteria": {
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "next couple of months"
+              },
+              "decision_maker": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "design and execution for 2BHK apartment"
+              },
+              "area": {
+                "evidence": "Baner, Pune",
+                "verdict": "pass"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              }
+            },
+            "in_scope_confidence": 1,
+            "timeline_text": "next couple of months",
+            "city": "Pune",
+            "configuration": "2BHK",
+            "scope_text": "2BHK apartment in Baner, design and execution",
+            "caller_name": "Priya Sharma",
+            "scope_kind": "full_home",
+            "carpet_sqft": 900,
+            "category": "apartment",
+            "engagement": "design_and_execution"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+        },
+        "at": "2026-10-07T14:36:02.517Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "category": "apartment",
+            "configuration": "2BHK",
+            "caller_name": "Priya Sharma",
+            "rooms_in_scope": 2,
+            "out_of_scope_confidence": 0,
+            "scope_kind": "full_home",
+            "timeline_text": "next couple of months",
+            "in_scope_confidence": 1,
+            "locality": "Baner",
+            "criteria": {
+              "area": {
+                "evidence": "Baner, Pune",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "evidence": "not mentioned",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "design and execution for 2BHK apartment"
+              },
+              "timeline": {
+                "evidence": "next couple of months",
+                "verdict": "pass"
+              }
+            },
+            "engagement": "design_and_execution",
+            "carpet_sqft": 900,
+            "scope_text": "2BHK apartment in Baner, design and execution",
+            "project_type": "residential",
+            "city": "Pune"
+          }
+        },
+        "result": {
+          "next_step": "qualified",
+          "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
+        },
+        "at": "2026-10-07T14:36:02.517Z",
+        "ms": 1
+      },
+      {
+        "name": "get_slots",
+        "args": {
+          "site_visit": false,
+          "preference": null
+        },
+        "result": {
+          "slots": [
+            {
+              "slot_id": "s1",
+              "time": "Thursday, 8 October, 2 pm"
+            },
+            {
+              "slot_id": "s2",
+              "time": "Friday, 9 October, 10 am"
+            },
+            {
+              "slot_id": "s3",
+              "time": "Saturday, 10 October, 10 am"
+            }
+          ],
+          "offer": "Offer 2 or 3 of these by name."
+        },
+        "at": "2026-10-07T14:36:02.517Z",
+        "ms": 8
+      },
+      {
+        "name": "book_slot",
+        "args": {
+          "caller_name": "Priya Sharma",
+          "slot_id": "s1"
+        },
+        "result": {
+          "confirmed": "Thursday, 8 October, 2 pm",
+          "say": "Confirm the time and tell them an SMS confirmation will follow."
+        },
+        "at": "2026-10-07T14:36:16.217Z",
+        "ms": 1
+      },
+      {
+        "name": "end_call",
+        "args": {
+          "reason": "booked"
+        },
+        "result": {
+          "ok": true
+        },
+        "at": "2026-10-07T14:36:16.217Z",
+        "ms": 1
+      }
+    ],
+    "guardRewrites": [],
+    "turnLatencyMs": [
+      2904,
+      5548,
+      7077,
+      4799
+    ]
+  },
+  "durationS": 89.2,
+  "callerTurns": 4,
+  "dropped": false,
+  "endedBy": "agent"
+}

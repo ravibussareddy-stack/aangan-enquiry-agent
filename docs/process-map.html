@@ -1,0 +1,259 @@
+<title>Aangan Call Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; diagrams and tables scroll inside their own frames. */
+:root {
+  --bg: #f5f5f2; --surface: #ffffff; --surface-2: #ecece7; --line: #dcdcd4;
+  --ink: #17191c; --ink-2: #4a4e55; --muted: #787c84;
+  --accent: #1f5f8b; --good: #1d7a3a; --warn: #9a6a00; --bad: #b3372f;
+  --agent: #ecece7; --caller: #dde8f1;
+  --display: "Instrument Serif", Georgia, serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121315; --surface: #1a1c1f; --surface-2: #24272b; --line: #33373c;
+    --ink: #f1f1ee; --ink-2: #c4c6c9; --muted: #8c9096;
+    --accent: #7db3dc; --good: #5cc27a; --warn: #e0b04a; --bad: #ef7b72;
+    --agent: #24272b; --caller: #1d2d3b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121315; --surface: #1a1c1f; --surface-2: #24272b; --line: #33373c;
+  --ink: #f1f1ee; --ink-2: #c4c6c9; --muted: #8c9096;
+  --accent: #7db3dc; --good: #5cc27a; --warn: #e0b04a; --bad: #ef7b72;
+  --agent: #24272b; --caller: #1d2d3b; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 32px 64px; display: grid; gap: 40px; }
+h1 { font: 400 2.6rem/1.05 var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font: 400 1.7rem/1.2 var(--display); margin: 0 0 6px; text-wrap: balance; }
+h3 { font-size: 1rem; margin: 0; }
+p { margin: 0; max-width: 68ch; color: var(--ink-2); }
+.eyebrow { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+header { display: grid; gap: 10px; }
+.note { font-size: 0.85rem; color: var(--muted); }
+.frame { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; }
+.frame pre.mermaid { margin: 0; min-width: 640px; background: transparent; }
+section { display: grid; gap: 14px; min-width: 0; }
+.cases { display: grid; gap: 22px; }
+.case { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.case-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+.chip { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.good { color: var(--good); } .chip.bad { color: var(--bad); } .chip.warn { color: var(--warn); }
+.meta { font: 0.8rem/1.4 var(--mono); color: var(--muted); }
+.convo { display: grid; gap: 6px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+.turn { padding: 8px 12px; border-radius: 10px; max-width: 86%; font-size: 0.92rem; color: var(--ink); }
+.turn.agent { background: var(--agent); justify-self: start; }
+.turn.caller { background: var(--caller); justify-self: end; }
+.who { display: block; font: 500 0.66rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.after { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 0.9rem; display: grid; gap: 4px; }
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font: 500 0.72rem/1.3 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+tr:last-child td { border-bottom: 0; }
+td.mono, code { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; color: var(--accent); }
+.method { font: 500 0.72rem/1 var(--mono); color: var(--ink-2); }
+.two { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+@media (max-width: 520px) { h1 { font-size: 2rem; } .turn { max-width: 94%; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Aangan Studio · AI phone enquiries</span>
+    <h1>How a call flows</h1>
+    <p>The AI only picks up when the front desk is busy, doesn't answer, or the office is closed. It finds out why the person is calling, works through the intake sheet for new projects, and lets the server, never the model, decide the outcome. Price questions, and callers with no budget in mind, get the typical range for their scope (server-written, indicative, depends on locality and requirements) and a check that they're comfortable going ahead. The agent never says a figure of its own, and every call ends with "Have a good day!". It never promises when someone will call back: callers hear "as soon as possible" and are asked when they're generally free. Everything after the call happens automatically within seconds.</p>
+    <p class="note">The three conversations below are text simulations: Gemini played the caller, from the studio's real September enquiries, against the live agent code. No Vaani credit was used.</p>
+  </header>
+
+  <section id="call">
+    <span class="eyebrow">1 · During the call</span>
+    <h2>Call routing and decisions</h2>
+    <div class="frame"><pre class="mermaid">flowchart TD
+  A(["Call to the studio number"]) --> B{"Staff free?<br/>office hours"}
+  B -- "yes" --> FD["Front desk answers<br/>no AI, no cost"]
+  B -- "busy / no answer / after hours" --> V["Forwarded to the Vaani number"]
+  V --> G["Greeting: AI assistant + call is recorded<br/>Asks name"]
+  G --> I{"What can I help you with today?"}
+  I -- "existing project problem" --> C["Apologise · senior will call back ASAP<br/>ask free times · URGENT to seniors"]
+  I -- "update / a named designer / other" --> M["Take a message + when they're free<br/>no promised time"]
+  I -- "new project" --> S["Intake sheet<br/>what work · home or office · area + PIN · size<br/>site ready · deadline · who decides<br/>ballpark budget · seen our website"]
+  S --> TB["No budget given?<br/>typical range, depends on locality + requirements<br/>Are you comfortable going ahead on that basis?"]
+  S --> H{"Hard rules<br/>area · category · engagement · size · timeline"}
+  H -- "fails" --> D["Kind close, no figures · Declined"]
+  H -- "pass / unclear" --> E{"evaluate_lead<br/>server decides"}
+  E -- "qualified" --> Q["Offer 2–3 slots · book · SMS confirmation"]
+  E -- "review" --> R["Ask free times · ASAP · designer review"]
+  E -- "too little captured" --> K["Ask free times · ASAP · helpdesk callback"]
+  E -- "unsure they want a project" --> X["Front-desk callback task"]
+  E -- "budget well below scope" --> D</pre></div>
+  </section>
+
+  <section id="after">
+    <span class="eyebrow">2 · After the call</span>
+    <h2>What happens next</h2>
+    <div class="frame"><pre class="mermaid">flowchart LR
+  W["Vaani webhooks<br/>call_started · call_ended · call_postprocessing"] --> P["Post-call pipeline"]
+  B["Brain session<br/>facts, booking, tools"] --> P
+  P --> P1["Price-leak scan"] --> P2["Gemini extraction<br/>stored version"] --> P3["evaluateLead + routing"]
+  P3 --> L["Neon: call, lead, criteria, booking, costs"]
+  P3 --> DH["Deal health 0–100<br/>qualified leads only, no AI"]
+  L --> HS["HubSpot<br/>contact + deal stage + priority"]
+  L --> TG["Telegram<br/>designers · seniors · helpdesk"]
+  L --> SMS["SMS to customer<br/>booking confirmation"]
+  TG --> RV{"Review / callback decision<br/>Telegram · HubSpot · dashboard"}
+  HS --> RV
+  RV -- "approve / qualified" --> OB["Booking call back<br/>retries, then SMS booking link"]
+  RV -- "reject / decline" --> RS["Closing SMS"]
+  RV -- "designer / admin / callback" --> RV
+  L --> DB["Founder dashboard + Gemini weekly brief"]</pre></div>
+  </section>
+
+  <section id="conversations">
+    <span class="eyebrow">3 · Three simulated calls</span>
+    <h2>Approved, rejected, and uncertain</h2>
+    <div class="cases">
+      <article class="case" id="T01">
+        <div class="case-head"><span class="chip good">Approved</span><h3>Qualified and booked</h3><span class="meta">T01</span></div>
+        <p>Priya · 3BHK in Kothrud · referred by a past client · calls at 11 pm</p>
+        <div class="meta">Result: qualified · booked Wednesday, 7 October, 10 am with Rohan Joshi · 3:18 simulated · 13 tool calls</div>
+        <div class="convo"><div class="turn agent"><span class="who">Agent</span>Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?</div>
+<div class="turn caller"><span class="who">Caller</span>Hi, I’m Priya. I got your number from a friend — Shruti Joshi.</div>
+<div class="turn agent"><span class="who">Agent</span>Hi Priya, thanks for calling, and a warm welcome from Shruti! What can I help you with today — a new project, something about an existing project, or reaching a particular designer?</div>
+<div class="turn caller"><span class="who">Caller</span>We have a 3BHK in Kothrud, in Dahanukar Colony, and we want to redo the whole thing.</div>
+<div class="turn agent"><span class="who">Agent</span>Wonderful, we certainly do full-home interiors in Kothrud! Could you share the PIN code for Dahanukar Colony?</div>
+<div class="turn caller"><span class="who">Caller</span>It's 411038.</div>
+<div class="turn agent"><span class="who">Agent</span>Got that. Roughly how big is the area we'd be working on — what's the carpet area, or about how many square feet?</div>
+<div class="turn caller"><span class="who">Caller</span>It's about 1,400 sq ft carpet.</div>
+<div class="turn agent"><span class="who">Agent</span>1,400 square feet, perfect. Is the site available to work on now, or are you waiting for possession?</div>
+<div class="turn caller"><span class="who">Caller</span>We bought it two years ago, so it's ready. It still looks like the builder flat, though!</div>
+<div class="turn agent"><span class="who">Agent</span>Good timing then! When would you need the project completed by?</div>
+<div class="turn caller"><span class="who">Caller</span>We’d like to be done by March. We’re in no rush, really.</div>
+<div class="turn agent"><span class="who">Agent</span>By March gives us plenty of time. Will you be the one making the decisions on the project, or are there others involved?</div>
+<div class="turn caller"><span class="who">Caller</span>It's just myself and my husband. He knows I'm calling and is happy to go ahead.</div>
+<div class="turn agent"><span class="who">Agent</span>Understood. Do you have a ballpark budget in mind for this?</div>
+<div class="turn caller"><span class="who">Caller</span>Not really sure yet, we just want something good quality that fits the space well.</div>
+<div class="turn agent"><span class="who">Agent</span>No problem at all. Have you had a chance to look at our website or any of our past work?</div>
+<div class="turn caller"><span class="who">Caller</span>Yes, Shruti showed us her flat in Aundh, which is why we called you.</div>
+<div class="turn agent"><span class="who">Agent</span>Typically, a home of about 1,400 square feet comes to around 25 to 34 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?</div>
+<div class="turn caller"><span class="who">Caller</span>Yeah, that sounds about right.</div>
+<div class="turn agent"><span class="who">Agent</span>Wonderful! Would you prefer we meet at your flat in Kothrud, and does Wednesday at 10 AM or Thursday at 2 PM suit you better?</div>
+<div class="turn caller"><span class="who">Caller</span>Wednesday at 10 AM works for us.</div>
+<div class="turn agent"><span class="who">Agent</span>That's booked for Wednesday, 7 October at 10 AM at your flat in Kothrud, and an SMS confirmation will follow shortly. Have a good day!</div></div>
+        <div><span class="eyebrow">Then</span><ul class="after"><li>Server: hard rules pass, in-scope → qualified; intake sheet complete (incl. the carpet area being worked on)</li><li>No budget given → agent shares the typical range once (server-written), says it depends on locality and requirements, and asks if she's comfortable — she is, so it books</li><li>Slots fetched, consultation booked, SMS confirmation logged</li><li>Deal health scored (referral, decider on the call, timeline, booked) → shown on the dashboard and as HubSpot priority</li><li>Designer gets the Telegram note; HubSpot deal → Booked</li></ul></div>
+      </article>
+<article class="case" id="T19">
+        <div class="case-head"><span class="chip bad">Rejected</span><h3>Declined: out of scope</h3><span class="meta">T19</span></div>
+        <p>Rahul · wants a restaurant fit-out in Koregaon Park</p>
+        <div class="meta">Result: out_of_scope · 0:58 simulated · 3 tool calls</div>
+        <div class="convo"><div class="turn agent"><span class="who">Agent</span>Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?</div>
+<div class="turn caller"><span class="who">Caller</span>Hi, my name's Rohan. I’m planning to open a restaurant in Koregaon Park and I'm looking for an interior designer.</div>
+<div class="turn agent"><span class="who">Agent</span>Restaurants, cafés, hotels, retail stores and gyms are outside what we design — they need a studio that specialises in those spaces. This sounds like it may not be the right fit for us right now — but feel free to reach out if your timeline or scope changes. Have a good day!</div>
+<div class="turn caller"><span class="who">Caller</span>Ah, I understand. Do you know anyone you could refer?</div>
+<div class="turn agent"><span class="who">Agent</span>I'm afraid I don't have specific recommendations offhand, but I hope you find the right team for your restaurant. Have a good day!</div></div>
+        <div><span class="eyebrow">Then</span><ul class="after"><li>Server hard rule: restaurants are an excluded category → declined (no AI judgement involved)</li><li>Agent reads the server's figure-free close line and ends the call</li><li>Stored as declined (category); counted under Declines by reason; HubSpot deal → Declined; no designer note</li></ul></div>
+      </article>
+<article class="case" id="T18">
+        <div class="case-head"><span class="chip warn">Review</span><h3>Uncertain scope → designer review</h3><span class="meta">T18</span></div>
+        <p>Sameer · a 180 sq ft coworking pod in Baner</p>
+        <div class="meta">Result: review · call back: tomorrow after 4 pm · 2:29 simulated · 12 tool calls</div>
+        <div class="convo"><div class="turn agent"><span class="who">Agent</span>Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?</div>
+<div class="turn caller"><span class="who">Caller</span>Hi, I'm Rohan. I run a small coworking space, and I have a 180 sq ft pod I want to make look really nice.</div>
+<div class="turn agent"><span class="who">Agent</span>Which area and PIN code is the coworking space in, so we can confirm we cover your location?</div>
+<div class="turn caller"><span class="who">Caller</span>It's in Baner, PIN 411045.</div>
+<div class="turn agent"><span class="who">Agent</span>Is the site available to work on now, or are you waiting for possession?</div>
+<div class="turn caller"><span class="who">Caller</span>Yeah, it's ready to work on now.</div>
+<div class="turn agent"><span class="who">Agent</span>When would you need the pod ready by?</div>
+<div class="turn caller"><span class="who">Caller</span>No fixed deadline — whenever it can be done.</div>
+<div class="turn agent"><span class="who">Agent</span>Will you be the one deciding on this, or is someone else involved?</div>
+<div class="turn caller"><span class="who">Caller</span>I'm the owner, so it's just me making the decision.</div>
+<div class="turn agent"><span class="who">Agent</span>Do you have a ballpark budget in mind for this?</div>
+<div class="turn caller"><span class="who">Caller</span>I'd rather not share a budget right now.</div>
+<div class="turn agent"><span class="who">Agent</span>No problem at all. Have you had a chance to look at our website or past work yet?</div>
+<div class="turn caller"><span class="who">Caller</span>Yeah, I've had a quick look. Look, I just want good lighting, a nice desk, and some storage. Can you guys help?</div>
+<div class="turn agent"><span class="who">Agent</span>Typically, an office fit-out of about 180 square feet comes to around 2 to 3 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?</div>
+<div class="turn caller"><span class="who">Caller</span>Not even for a smaller fee?</div>
+<div class="turn agent"><span class="who">Agent</span>When are you generally free to take a call?</div>
+<div class="turn caller"><span class="who">Caller</span>Tomorrow after 4 pm works for me.</div>
+<div class="turn agent"><span class="who">Agent</span>We'll have a member of our team look over your details and get back to you as soon as possible, and I've noted that you're generally free tomorrow after 4 pm. Have a good day!</div></div>
+        <div><span class="eyebrow">Then</span><ul class="after"><li>Below the (unconfirmed) 500 sq ft commercial minimum is a soft fail → review, never an auto-decline</li><li>No budget given → server-written typical range for ~180 sq ft with the disclaimer and comfort check; asking again gets a short repeat</li><li>Agent asks when he's generally free and says the team will get back to him as soon as possible — no promised time</li><li>Designers' Telegram note with Approve / Reject / Needs admin review; HubSpot deal → Service review</li><li>Approve → booking call back (during his usual free times) · Reject → polite closing SMS</li></ul></div>
+      </article>
+      <article class="case" id="S11">
+        <div class="case-head"><span class="chip warn">Message</span><h3>Not an enquiry: asks for her designer</h3><span class="meta">S11</span></div>
+        <p>Meenal · existing client · wants Rohan about tile samples</p>
+        <div class="meta">Result: message · call back: today after 6 pm · 0:55 simulated · 5 tool calls</div>
+        <div class="convo"><div class="turn agent"><span class="who">Agent</span>Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?</div>
+<div class="turn caller"><span class="who">Caller</span>Hi, it's Meenal.</div>
+<div class="turn agent"><span class="who">Agent</span>Hi Meenal! What can I help you with today — a new project, something about an existing project, or reaching a particular designer?</div>
+<div class="turn caller"><span class="who">Caller</span>I wanted to speak to Rohan about my kitchen — the tile samples.</div>
+<div class="turn agent"><span class="who">Agent</span>When are you generally free to take a call, Meenal?</div>
+<div class="turn caller"><span class="who">Caller</span>Today after 6 pm.</div>
+<div class="turn agent"><span class="who">Agent</span>I'll pass your message about the kitchen tile samples to Rohan and make sure he gets back to you as soon as possible — we've noted you're free today after 6 pm. Have a good day!</div></div>
+        <div><span class="eyebrow">Then</span><ul class="after"><li>No lead is created, so the sales funnel stays clean</li><li>Message matched to designer Rohan Joshi → Telegram DM (or the designers' group); caller told "as soon as possible", her free times noted</li><li>Listed on Dashboard → Messages</li></ul></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="endpoints">
+    <span class="eyebrow">4 · Endpoints</span>
+    <h2>What calls us</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Method</th><th>Path</th><th>Called by</th><th>Verified with</th><th>What it does</th></tr></thead>
+      <tbody><tr><td class="method">WSS</td><td class="mono">/chat/stream/&lt;call_id&gt;</td><td>Vaani (BYOL)</td><td>Bearer BRAIN_AUTH_TOKEN</td><td>One agent turn per frame: Gemini + tools + price guard. Runs on the brain server (port 8090).</td></tr><tr><td class="method">POST</td><td class="mono">/api/voice/events?token=…</td><td>Vaani webhooks</td><td>Secret token, or HMAC if Vaani signs</td><td>call_started (caller number), call_ended, call_postprocessing → post-call pipeline. Idempotent.</td></tr><tr><td class="method">POST</td><td class="mono">/api/telegram/callback</td><td>Telegram buttons</td><td>X-Telegram-Bot-Api-Secret-Token</td><td>Approve · Reject · Designer review · Admin review on review and callback leads.</td></tr><tr><td class="method">POST</td><td class="mono">/api/hubspot/webhook</td><td>HubSpot private app</td><td>X-HubSpot-Signature-v3 (5-min window)</td><td>Deal stage moves: New qualified = approve, Declined = reject, Service / Admin review / Callback needed = route. Held / Won / Lost feed the funnel.</td></tr><tr><td class="method">POST</td><td class="mono">/api/calcom/webhook</td><td>Cal.com</td><td>x-cal-signature-256</td><td>Booking created / cancelled / rescheduled / meeting ended → bookings, HubSpot stage, deal health.</td></tr><tr><td class="method">GET</td><td class="mono">/api/cron/sweep</td><td>Scheduler, every minute</td><td>Bearer CRON_SECRET</td><td>Dropped-call callback (1 attempt), approval booking calls, retries, SMS booking link.</td></tr><tr><td class="method">GET</td><td class="mono">/api/cron/insights</td><td>Daily 7:30 am</td><td>Bearer CRON_SECRET</td><td>SQL metrics → Gemini weekly brief (figures checked).</td></tr><tr><td class="method">GET</td><td class="mono">/api/cron/digest</td><td>Daily 8:00 am</td><td>Bearer CRON_SECRET</td><td>Founder email digest via Resend.</td></tr><tr><td class="method">GET</td><td class="mono">/b/&lt;lead id&gt;</td><td>Customer (SMS link)</td><td>—</td><td>Redirects to the Cal.com booking page with the lead reference.</td></tr><tr><td class="method">*</td><td class="mono">/api/auth/…</td><td>Dashboard</td><td>Neon Auth</td><td>Sign-in / sign-up / session.</td></tr></tbody>
+    </table></div>
+    <h2>What we call</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Service</th><th>Endpoint</th><th>Used for</th></tr></thead>
+      <tbody><tr><td>Vaani</td><td class="mono">POST /trigger-call/ · GET /call-history</td><td>Outbound booking and recovery calls (spend-capped at ₹20) · call usage</td></tr><tr><td>Gemini</td><td class="mono">POST models/…:generateContent</td><td>Agent turns, post-call extraction, weekly brief (free tier)</td></tr><tr><td>Cal.com v2</td><td class="mono">GET /v2/slots · POST /v2/bookings</td><td>Open slots · book (placeholder attendee email, phone on the booking)</td></tr><tr><td>HubSpot</td><td class="mono">CRM v3/v4: contacts search/create, deals, notes, pipelines</td><td>Lead sync, deal stage, priority = deal health band</td></tr><tr><td>Telegram</td><td class="mono">sendMessage · answerCallbackQuery · editMessageText</td><td>Staff notes and buttons, never customers</td></tr><tr><td>MSG91</td><td class="mono">POST /api/v5/flow</td><td>Customer SMS once DLT templates exist (logged only until then)</td></tr><tr><td>Resend</td><td class="mono">POST /emails</td><td>Daily digest</td></tr></tbody>
+    </table></div>
+    <h2>Dashboard pages</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Page</th><th>Shows</th></tr></thead>
+      <tbody><tr><td class="mono">/dashboard</td><td>Founder overview: calls (after hours vs staff busy), funnel, approvals, deal health, bookings, declines, cost, quality, weekly brief</td></tr><tr><td class="mono">/dashboard/review</td><td>Queues: designer review · admin review · callback needed</td></tr><tr><td class="mono">/dashboard/leads</td><td>All leads with status and deal health</td></tr><tr><td class="mono">/dashboard/leads/&lt;id&gt;</td><td>Intake sheet, criteria, deal-health breakdown, transcript, actions</td></tr><tr><td class="mono">/dashboard/messages</td><td>Non-enquiry calls: messages for designers / helpdesk</td></tr><tr><td class="mono">/dashboard/settings</td><td>Thresholds, flags, office hours, rates, SMS templates (founder)</td></tr></tbody>
+    </table></div>
+    <p class="note">Every inbound webhook is processed once (duplicates ignored), failures alert the ops Telegram group, and outbound calls retry with backoff. Real voice spend is capped at ₹20 in total.</p>
+  </section>
+  <section id="tools">
+    <span class="eyebrow">5 · Tools used</span>
+    <h2>What the agent can do on a call</h2>
+    <p>The model chooses when to call these; the server decides the result and enforces the rules on the right.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tool</th><th>Used when</th><th>What the server enforces</th></tr></thead>
+      <tbody><tr><td class="mono">lookup_caller</td><td>Look up the caller by phone number in the CRM. Returns whether they're an existing client, any open project, and anything captured on an earlier dropped call.</td><td>Run by the server on the first reply (no model round). Finds existing clients in HubSpot.</td></tr><tr><td class="mono">escalate_complaint</td><td>Existing client with a complaint: alert a senior person to call back as soon as possible (never promise a time). Call once, then end the call.</td><td>Only for an existing Aangan client's own project; otherwise refused. Seniors alerted; no time promised.</td></tr><tr><td class="mono">check_scope</td><td>Check the project against Aangan's hard rules (area, category, engagement, size, timeline). Returns in_scope, out_of_scope (with a close line) or uncertain (with what to ask).</td><td>Hard rules (area, category, engagement, size, timeline) decide; returns the next intake question.</td></tr><tr><td class="mono">evaluate_lead</td><td>Final qualification once you've collected the details. Returns next_step: qualified, review, declined or redirect, with a say_line where needed.</td><td>Blocks until scope is known and required intake fields are asked (≤2 nudges); confirms a volunteered budget was repeated back; routes to qualified / review / callback / declined.</td></tr><tr><td class="mono">typical_budget</td><td>The caller asked about price, cost, rates, a ballpark or a quote. Returns the server-written typical range for their scope (with disclaimer) — say it exactly. Call it every time they ask; repeats come back shorter.</td><td>Server writes the range + disclaimer; repeats are shorter. The only figures the agent may speak.</td></tr><tr><td class="mono">get_slots</td><td>Get 2–3 consultation times to offer, from designers' calendars over the next 7 days.</td><td>Only after 'qualified'; waits for the caller's answer to the comfort check.</td></tr><tr><td class="mono">book_slot</td><td>Book one of the slots returned by get_slots. Returns the confirmed time.</td><td>Only a slot get_slots returned; books in Cal.com (or the mock calendar).</td></tr><tr><td class="mono">take_message</td><td>The caller is NOT making a new enquiry: they want an update on an existing project, want to reach a specific designer, or something else (vendor, job, etc.). Take a short message and a callback time in their words; the right person gets it on Telegram. Then close the call.</td><td>Free times must be quoted from the caller's words. Delivered to the named designer / helpdesk.</td></tr><tr><td class="mono">request_callback</td><td>Record when the CALLER said they're generally free (review, callback and redirect leads). Ask first — never assume, and never promise a call-back time.</td><td>Free times must be quoted from the caller's words.</td></tr><tr><td class="mono">transfer_to_front_desk</td><td>Caller is unsure whether they want a project at all. In office hours returns a transfer; after hours creates a callback task for the next opening.</td><td>In overflow mode: a callback task when the office opens — no promised time.</td></tr><tr><td class="mono">end_call</td><td>End the call after your final sentence.</td><td>Refused once on review / callback leads until free times are recorded. Server adds 'Have a good day!'.</td></tr></tbody>
+    </table></div>
+    <h2>Services in the stack</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Service</th><th>Role</th><th>Cost / status</th></tr></thead>
+      <tbody><tr><td>Vaani</td><td>Phone line, speech-to-text, text-to-speech, call recording</td><td>Paid per minute — ₹20 cap</td></tr><tr><td>Brain server (ours)</td><td>The agent: Gemini + tools + price guard, over Vaani's bring-your-own-LLM socket</td><td>Runs locally / any Node host</td></tr><tr><td>Gemini</td><td>Agent turns, post-call extraction, weekly brief</td><td>Free tier</td></tr><tr><td>Next.js app</td><td>Webhooks, post-call pipeline, dashboard</td><td>Local now; any Node host</td></tr><tr><td>Neon Postgres + Neon Auth</td><td>System of record (RLS) and dashboard login</td><td>Free</td></tr><tr><td>Cal.com</td><td>Designer slots and bookings</td><td>Free (mock calendar until keys)</td></tr><tr><td>HubSpot</td><td>Contacts, deals, stages, priority = deal health</td><td>Free (mock CRM until keys)</td></tr><tr><td>Telegram bot</td><td>Staff notes, Approve / Reject / route buttons, ops alerts</td><td>Free (console until keys)</td></tr><tr><td>Resend</td><td>Founder's daily digest email</td><td>Free tier (console until keys)</td></tr><tr><td>MSG91</td><td>Customer SMS once DLT templates are registered</td><td>Not used — SMS is logged only</td></tr><tr><td>Cloudflare tunnel</td><td>Public URL so Vaani can reach the brain + webhooks</td><td>Free — not installed yet</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section id="setup">
+    <span class="eyebrow">6 · Setup checklist</span>
+    <h2>Keys and accounts</h2>
+    <p>Status is read from <code>.env.local</code> when this page is generated (names only — no values). Put keys there, never in chat.</p>
+    <h3 style="margin-top:6px">Already in place</h3><p class="note">Nothing to do.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Status</th><th>Key / step</th><th>For</th><th>How to get it</th></tr></thead>
+      <tbody><tr><td><span class="chip good">set</span></td><td class="mono">DATABASE_URL</td><td>Neon database</td><td>Linked with the Neon CLI</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">NEON_AUTH_BASE_URL</td><td>Dashboard login (Neon Auth)</td><td>Enabled in neon.ts</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">GEMINI_API_KEYS</td><td>Gemini (3 of 4 keys work)</td><td>You added them</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">VAANI_API_KEY</td><td>Vaani API</td><td>You added it</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">CRON_SECRET</td><td>Cron auth</td><td>Generated</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">VAANI_WEBHOOK_TOKEN</td><td>Vaani webhook auth</td><td>Generated</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">BRAIN_AUTH_TOKEN</td><td>Brain socket auth</td><td>Generated</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">FOUNDER_EMAILS</td><td>Your founder login</td><td>Set to your email</td></tr></tbody>
+    </table></div>
+<h3 style="margin-top:6px">For one live Vaani test call (≤ ₹20)</h3><p class="note">Everything else falls back to console / mock, so this is the minimum.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Status</th><th>Key / step</th><th>For</th><th>How to get it</th></tr></thead>
+      <tbody><tr><td><span class="chip warn">I'll do</span></td><td class="mono">cloudflared</td><td>Tunnel tool</td><td>brew install cloudflared — I can install it with your OK</td></tr><tr><td><span class="chip good">set</span></td><td class="mono">APP_BASE_URL</td><td>Public https URL of the app</td><td>From the tunnel — I set it</td></tr><tr><td><span class="chip warn">I'll do</span></td><td class="mono">BRAIN_WS_URL</td><td>Public wss URL of the brain</td><td>From the tunnel — I set it</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">VAANI_AGENT_ID</td><td>The Vaani agent</td><td>npm run vaani:setup -- --apply (check your balance after)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">Vaani dashboard</td><td>Phone number on the agent + webhook URL + BYOL auth token</td><td>Agent → Deployment; Settings → Webhooks; Brain → BYOL</td></tr></tbody>
+    </table></div>
+<h3 style="margin-top:6px">To make handoffs real (all free)</h3><p class="note">Until these are set, notes print to the console and bookings use the mock calendar / CRM.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Status</th><th>Key / step</th><th>For</th><th>How to get it</th></tr></thead>
+      <tbody><tr><td><span class="chip bad">needed</span></td><td class="mono">TELEGRAM_BOT_TOKEN</td><td>Telegram bot</td><td>@BotFather → /newbot (also gives TELEGRAM_BOT_USERNAME)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">TELEGRAM_DESIGNERS_CHAT_ID</td><td>Designers' group</td><td>Create the group, add the bot — I'll read the ID</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">TELEGRAM_SENIOR_CHAT_ID</td><td>Seniors' group (complaints)</td><td>Same as above</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">TELEGRAM_HELPDESK_CHAT_ID</td><td>Helpdesk group (callbacks, messages)</td><td>Same as above</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">TELEGRAM_OPS_CHAT_ID</td><td>Ops alerts group</td><td>Same as above (can be your own chat)</td></tr><tr><td><span class="chip warn">I'll do</span></td><td class="mono">TELEGRAM_WEBHOOK_SECRET</td><td>Button callback auth</td><td>I generate it and register the webhook</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">HUBSPOT_PRIVATE_APP_TOKEN</td><td>HubSpot Free</td><td>Settings → Integrations → Private apps (CRM read/write scopes)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">HUBSPOT_CLIENT_SECRET</td><td>HubSpot webhook signature</td><td>Same private app → Auth tab</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">HUBSPOT_PORTAL_ID</td><td>Account ID (deal links)</td><td>Top-right account menu</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">HubSpot stages</td><td>9 deal stages</td><td>Rename the default pipeline's stages (list in README §3)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">CALCOM_API_KEY</td><td>Cal.com Free</td><td>Settings → Developer → API keys</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">CALCOM_EVENT_TYPE_RESIDENTIAL</td><td>3 event types</td><td>Create residential consult, commercial consult, site visit — send me the IDs</td></tr><tr><td><span class="chip warn">I'll do</span></td><td class="mono">CALCOM_WEBHOOK_SECRET</td><td>Booking webhook</td><td>Set when you add the webhook (or I generate it)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">CALCOM_BOOKING_URL</td><td>Public booking link (SMS fallback)</td><td>Your Cal.com page URL</td></tr></tbody>
+    </table></div>
+<h3 style="margin-top:6px">Optional</h3><p class="note">Nice to have; not needed to test.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Status</th><th>Key / step</th><th>For</th><th>How to get it</th></tr></thead>
+      <tbody><tr><td><span class="chip bad">needed</span></td><td class="mono">DESIGNER_EMAILS</td><td>Designer logins + real designer names</td><td>email:Name pairs (replaces the 4 demo designers)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">FRONT_DESK_NUMBER</td><td>Front desk number</td><td>Used in SMS text</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">STUDIO_DOMAIN</td><td>Studio domain</td><td>Placeholder booking emails and short links</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">RESEND_API_KEY</td><td>Daily digest email</td><td>resend.com + a verified domain (also DIGEST_FROM, DIGEST_TO)</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">VAANI_WEBHOOK_SECRET</td><td>Signed Vaani webhooks</td><td>Only if Vaani shows a signing secret</td></tr><tr><td><span class="chip bad">needed</span></td><td class="mono">MSG91_AUTH_KEY</td><td>Real customer SMS</td><td>Needs DLT registration — skipped for zero cost</td></tr></tbody>
+    </table></div>
+  </section>
+</div>
