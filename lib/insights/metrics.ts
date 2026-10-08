@@ -262,3 +262,26 @@ export async function getMetrics(r: Range): Promise<Metrics> {
     },
   };
 }
+
+export interface RecentCall {
+  id: string;
+  started_at: string;
+  outcome: string | null;
+  duration_s: number | null;
+  answer_reason: string | null;
+  name: string | null;
+  lead_id: string | null;
+  locality: string | null;
+}
+
+/** Latest calls for the overview's activity list. */
+export async function recentCalls(includeSimulated: boolean, limit = 6): Promise<RecentCall[]> {
+  const { rows } = await db().query<RecentCall>(
+    `select c.id, c.started_at::text, c.outcome::text, c.duration_s, c.answer_reason, l.name, l.id lead_id, l.locality
+       from calls c left join leads l on l.call_id = c.id
+      where ($1 or not c.is_simulated)
+      order by c.started_at desc limit $2`,
+    [includeSimulated, limit],
+  );
+  return rows;
+}

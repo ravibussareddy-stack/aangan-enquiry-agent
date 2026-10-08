@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getViewer } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
+import { integrationStatus } from "@/lib/integrations/status";
 import { addRate, saveConfig } from "../actions";
 import { when } from "../_components/format";
 
@@ -37,6 +38,28 @@ export default async function Settings({ searchParams }: { searchParams: Promise
       {sp.error && <p className="error">{sp.error}</p>}
 
       <div className="grid">
+        <section className="card span-12" aria-labelledby="int-h">
+          <div className="card-head">
+            <h2 id="int-h">Integrations</h2>
+            <span className="muted small">set keys in Vercel → Environment Variables, then redeploy</span>
+          </div>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>Service</th><th>Status</th><th>Without it</th><th>Keys</th></tr></thead>
+              <tbody>
+                {integrationStatus().map((i) => (
+                  <tr key={i.name}>
+                    <td>{i.name}</td>
+                    <td><span className={`badge ${i.connected ? "on" : "off"}`}>{i.connected ? "Connected" : "Not connected"}</span></td>
+                    <td className="small muted">{i.connected ? "—" : i.fallback}</td>
+                    <td className="small muted"><code>{i.needs}</code></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         {config.map((c) => (
           <form key={c.key} action={saveConfig} className="card span-6" style={{ display: "grid", gap: 8 }}>
             <div className="card-head" style={{ marginBottom: 0 }}>

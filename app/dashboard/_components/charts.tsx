@@ -117,3 +117,38 @@ export function Tile({ label, value, sub }: { label: string; value: string; sub?
     </div>
   );
 }
+
+/** Soft pill columns: bookings bucketed by day / week / fortnight, peak bucket highlighted. */
+export function PillColumns({ data, from, to, bucketDays }: { data: { day: string; n: number }[]; from: Date; to: Date; bucketDays: number }) {
+  const byDay = new Map(data.map((d) => [d.day, d.n]));
+  const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" });
+  const short = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", ...(bucketDays === 1 ? { weekday: "short" } : { day: "numeric", month: "short" }) });
+  const buckets: { start: Date; n: number }[] = [];
+  // Buckets end at `to`, so the latest bucket is always a full one.
+  for (let end = to.getTime(); end > from.getTime(); end -= bucketDays * 86_400_000) {
+    const start = Math.max(from.getTime(), end - bucketDays * 86_400_000);
+    let n = 0;
+    for (let t = start + 1; t <= end; t += 86_400_000) n += byDay.get(ymd.format(new Date(t))) ?? 0;
+    buckets.unshift({ start: new Date(start + 1), n });
+  }
+  const max = Math.max(...buckets.map((b) => b.n), 1);
+  const peak = buckets.reduce((best, b, i) => (b.n > buckets[best].n ? i : best), 0);
+  return (
+    <>
+      <div className="pillbars" role="img" aria-label="Bookings over time">
+        {buckets.map((b, i) => {
+          const isPeak = i === peak && b.n > 0;
+          return (
+            <div className={`pillbar${isPeak ? " peak" : ""}`} key={i} title={`${short.format(b.start)}: ${b.n} booking${b.n === 1 ? "" : "s"}`}>
+              <div className="col" style={{ height: `${Math.max(12, (b.n / max) * 100)}%` }}>
+                {isPeak && <span className="tip">{b.n}</span>}
+              </div>
+              <span className="x">{short.format(b.start)}</span>
+            </div>
+          );
+        })}
+      </div>
+      <TableView headers={["From", "Bookings"]} rows={buckets.map((b) => [short.format(b.start), b.n])} />
+    </>
+  );
+}

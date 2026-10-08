@@ -113,7 +113,7 @@ Add `--persist` to `npm run sim` to push simulated calls through the real pipeli
 
 ### 3a. Deploy the app and dashboard on Vercel
 
-1. **Import the repo** in Vercel (Framework: Next.js; the defaults are fine). Vercel Hobby works because this is non-commercial, and the two daily crons in `vercel.json` fit Hobby.
+1. **Import the repo** in Vercel (Framework: Next.js; the defaults are fine). Vercel Hobby works because this is non-commercial, and the two daily crons in `vercel.json` fit Hobby: the AI summary at 10 pm IST (16:30 UTC) and the email digest at 8 am IST. Hobby runs a cron at some point within its scheduled hour, so the summary lands between 10 and 11 pm.
 2. **Environment variables.** Copy these from `.env.local` into Vercel → Settings → Environment Variables:
    - **Always:** `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_JWKS_URL`, `NEON_AUTH_COOKIE_SECRET`, `FOUNDER_EMAILS`, `GEMINI_API_KEYS`, `GEMINI_MODEL`, `CRON_SECRET`, `VAANI_WEBHOOK_TOKEN`, `VOICE_PROVIDER` (`simulated` until the live test).
    - **`APP_BASE_URL`:** your Vercel URL, e.g. `https://aangan.vercel.app`.
