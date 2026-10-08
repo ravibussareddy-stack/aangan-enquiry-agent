@@ -19,6 +19,7 @@
     "eval:price": "tsx eval/price-leak-suite.ts",
     "vaani:setup": "tsx scripts/vaani-setup.ts",
     "preflight": "tsx scripts/preflight.ts",
+    "hubspot:stages": "tsx scripts/hubspot-stages.ts",
     "rehearsal": "tsx scripts/rehearsal.ts",
     "docs:intake": "tsx scripts/gen-intake-doc.ts",
     "docs:deal-health": "tsx scripts/gen-deal-health-doc.ts",
