@@ -92,4 +92,12 @@ describe("HubSpotCrm.syncLead", () => {
     const deal = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/deals");
     expect((deal?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBeUndefined();
   });
+
+  it("never matches callers without a real number (browser calls) to an existing contact", async () => {
+    contacts = [{ id: "55", properties: { firstname: "Someone", lastname: null, phone: "unknown" } }];
+    const r = await sync({ phone: "unknown", name: "Ravi" });
+    expect(r).toMatchObject({ contactId: "900", dealId: "800" }); // new contact + new deal
+    const created = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/contacts");
+    expect((created?.body as { properties: Record<string, string> }).properties.phone).toBeUndefined();
+  });
 });

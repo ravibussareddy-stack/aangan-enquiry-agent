@@ -101,6 +101,9 @@ export class HubSpotCrm implements Crm {
   readonly provider = "hubspot" as const;
 
   private async findContact(phone: string) {
+    // Browser test calls and withheld numbers have no real phone ("unknown"): never match on that,
+    // or every such caller would merge into one contact and one deal.
+    if (!/^\+?\d{8,15}$/.test(phone.replace(/[\s-]/g, ""))) return null;
     const found = await hs<{ results: { id: string; properties: Record<string, string | null> }[] }>(
       "/crm/v3/objects/contacts/search",
       {
@@ -189,7 +192,8 @@ export class HubSpotCrm implements Crm {
       }
     }
     if (!contactId) {
-      const contactProps = { phone: sync.phone, ...nameProps, ...(ownerForContact ? { hubspot_owner_id: ownerForContact } : {}) };
+      const realPhone = /^\+?\d{8,15}$/.test(sync.phone.replace(/[\s-]/g, ""));
+      const contactProps = { ...(realPhone ? { phone: sync.phone } : {}), ...nameProps, ...(ownerForContact ? { hubspot_owner_id: ownerForContact } : {}) };
       contactId = (await hs<{ id: string }>("/crm/v3/objects/contacts", { method: "POST", body: JSON.stringify({ properties: contactProps }) })).id;
     }
 
