@@ -3,12 +3,14 @@
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
 /**
- * A small wind chime docked in the corner of every dashboard page. It lives in the
- * dashboard layout, so it stays mounted (and keeps ringing) while pages switch and load.
- * Click a tube, or hold and drag across the tubes, to play it. The tubes are tuned to
- * C-major pentatonic, so any run of notes harmonises; each strike is a synthesised
- * tubular-bell tone (free-bar overtones 1 : 2.76 : 5.40 : 8.93) with a quiet fifth
- * beneath and a short shimmer. Web Audio only — no files.
+ * A small wind chime on every dashboard page. It lives in the dashboard layout, so it
+ * stays mounted (and keeps ringing) while pages switch and load.
+ *
+ * Whatever tube you click, or however you drag across them, the chime plays the next
+ * note of a melody — picked at random, and a new one after the last note or a pause —
+ * so it always sounds like a tune. Melodies use only C-major pentatonic (C D E G A),
+ * with a soft in-scale bass under the phrase starts and endings. Each note is a clean,
+ * in-tune bell (harmonic overtones only) with a light shimmer. Web Audio only — no files.
  */
 
 /** Longest tube = lowest note. `slot` is the tube's place left→right around the disc. */
@@ -20,11 +22,31 @@ const TUBES = [
   { name: "A5", hz: 880.0, slot: 3 },
   { name: "C6", hz: 1046.5, slot: 5 },
 ];
+type Note = "C5" | "D5" | "E5" | "G5" | "A5" | "C6";
+
+/** Original pentatonic melodies; one is picked at random each time. */
+const MELODIES: Note[][] = [
+  ["E5", "G5", "A5", "G5", "E5", "D5", "C5", "D5", "E5", "G5", "E5"],
+  ["C5", "D5", "E5", "G5", "A5", "G5", "E5", "D5", "C5"],
+  ["A5", "G5", "E5", "G5", "A5", "C6", "A5", "G5", "E5", "D5", "E5"],
+  ["G5", "E5", "D5", "C5", "D5", "E5", "G5", "A5", "G5"],
+  ["C6", "A5", "G5", "A5", "G5", "E5", "D5", "E5", "C5"],
+  ["D5", "E5", "G5", "E5", "D5", "C5", "D5", "G5", "E5", "D5", "C5"],
+  ["E5", "E5", "G5", "A5", "A5", "G5", "E5", "D5", "C5", "D5", "C5"],
+  ["G5", "A5", "C6", "A5", "G5", "E5", "G5", "D5", "E5", "C5"],
+  ["C5", "E5", "G5", "C6", "A5", "G5", "E5", "G5", "D5", "C5"],
+  ["A5", "C6", "A5", "G5", "E5", "D5", "E5", "G5", "A5", "G5", "C5"],
+];
+/** A soft bass under a note, chosen so it's always in the scale and consonant. */
+const BASS: Record<Note, number> = { C5: 261.63, E5: 261.63, G5: 261.63, D5: 196.0, A5: 220.0, C6: 220.0 };
+const NEW_TUNE_AFTER_MS = 6000;
+
+/** Bell overtones: whole-number multiples only, so every note is exactly in tune. */
 const PARTIALS = [
-  { ratio: 1, gain: 1, decay: 3.2 },
-  { ratio: 2.76, gain: 0.42, decay: 1.9 },
-  { ratio: 5.4, gain: 0.2, decay: 1.1 },
-  { ratio: 8.93, gain: 0.09, decay: 0.6 },
+  { ratio: 1, gain: 1, decay: 2.8 },
+  { ratio: 2, gain: 0.22, decay: 1.5 },
+  { ratio: 3, gain: 0.07, decay: 0.8 },
+  { ratio: 4, gain: 0.03, decay: 0.5 },
 ];
 const MUTE_KEY = "aangan:chime-muted";
 
@@ -39,6 +61,22 @@ const tubeGeom = TUBES.map((t, i) => {
 });
 const backToFront = [...tubeGeom].sort((a, b) => a.depth - b.depth);
 
+// The tune in progress, shared by the whole tab so a remount carries on mid-melody.
+const tune = { melody: -1, pos: 0, at: 0 };
+function nextNote(): { note: Note; first: boolean; last: boolean; beat: number } {
+  const now = performance.now();
+  if (tune.melody < 0 || tune.pos >= MELODIES[tune.melody].length || now - tune.at > NEW_TUNE_AFTER_MS) {
+    let pick = Math.floor(Math.random() * MELODIES.length);
+    if (pick === tune.melody) pick = (pick + 1 + Math.floor(Math.random() * (MELODIES.length - 1))) % MELODIES.length;
+    tune.melody = pick;
+    tune.pos = 0;
+  }
+  const melody = MELODIES[tune.melody];
+  const beat = tune.pos++;
+  tune.at = now;
+  return { note: melody[beat], first: beat === 0, last: beat === melody.length - 1, beat };
+}
+
 type Audio = { ctx: AudioContext; out: GainNode };
 
 // One audio graph for the whole tab, so a remount never stacks contexts.
@@ -49,15 +87,15 @@ function getAudio(): Audio | null {
   if (!Ctor) return null;
   const ctx = new Ctor();
   const out = ctx.createGain();
-  out.gain.value = 0.22;
+  out.gain.value = 0.24;
   // A light shimmer: a short feedback delay, filtered so it stays soft.
   const delay = ctx.createDelay(1);
-  delay.delayTime.value = 0.19;
+  delay.delayTime.value = 0.23;
   const feedback = ctx.createGain();
-  feedback.gain.value = 0.28;
+  feedback.gain.value = 0.22;
   const tone = ctx.createBiquadFilter();
   tone.type = "lowpass";
-  tone.frequency.value = 3200;
+  tone.frequency.value = 2600;
   out.connect(ctx.destination);
   out.connect(delay);
   delay.connect(tone);
@@ -68,25 +106,34 @@ function getAudio(): Audio | null {
   return sharedAudio;
 }
 
-function strike(a: Audio, hz: number, velocity = 1) {
+function bell(a: Audio, hz: number, level: number) {
   const { ctx, out } = a;
   const now = ctx.currentTime;
-  const voice = (freq: number, level: number) => {
-    for (const p of PARTIALS) {
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.value = freq * p.ratio * (1 + (Math.random() - 0.5) * 0.002); // tiny detune, like real metal
-      g.gain.setValueAtTime(0, now);
-      g.gain.linearRampToValueAtTime(level * p.gain * velocity, now + 0.004);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + p.decay);
-      osc.connect(g).connect(out);
-      osc.start(now);
-      osc.stop(now + p.decay + 0.05);
-    }
-  };
-  voice(hz, 0.5);
-  voice(hz * (2 / 3), 0.12); // a quiet fifth below — the harmony under each note
+  for (const p of PARTIALS) {
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = hz * p.ratio;
+    g.gain.setValueAtTime(0, now);
+    g.gain.linearRampToValueAtTime(level * p.gain, now + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + p.decay);
+    osc.connect(g).connect(out);
+    osc.start(now);
+    osc.stop(now + p.decay + 0.05);
+  }
+}
+
+/** One melody note, with a soft bass on phrase starts (every 4 notes) and a bass + fifth on the last. */
+function playNote(a: Audio, n: { note: Note; first: boolean; last: boolean; beat: number }, velocity: number) {
+  const hz = TUBES.find((t) => t.name === n.note)!.hz;
+  bell(a, hz, 0.5 * velocity);
+  const bass = BASS[n.note];
+  if (n.last) {
+    bell(a, bass, 0.2);
+    bell(a, bass * 1.5, 0.12);
+  } else if (n.first || n.beat % 4 === 0) {
+    bell(a, bass, 0.16);
+  }
 }
 
 // Mute preference: a per-browser convenience in localStorage, read as an external store.
@@ -122,18 +169,21 @@ export function WindChime() {
   const [swing, setSwing] = useState<number[]>(() => TUBES.map(() => 0));
   const [strikes, setStrikes] = useState(0);
 
+  /** Any strike — whichever tube — plays the next note of the melody; that note's tube swings. */
   const play = useCallback(
-    (index: number, velocity = 1) => {
+    (hitIndex: number, velocity = 1) => {
       const now = performance.now();
-      if (lastHit.current.index === index && now - lastHit.current.at < 120) return;
-      lastHit.current = { index, at: now };
-      setSwing((s) => s.map((v, i) => (i === index ? v + 1 : v)));
-      setStrikes((n) => n + 1);
+      if (lastHit.current.index === hitIndex && now - lastHit.current.at < 120) return;
+      lastHit.current = { index: hitIndex, at: now };
+      const n = nextNote();
+      const sounding = TUBES.findIndex((t) => t.name === n.note);
+      setSwing((s) => s.map((v, i) => (i === sounding ? v + 1 : v)));
+      setStrikes((k) => k + 1);
       if (muted) return;
       const a = getAudio();
       if (!a) return;
       if (a.ctx.state === "suspended") void a.ctx.resume();
-      strike(a, TUBES[index].hz, velocity);
+      playNote(a, n, velocity);
     },
     [muted],
   );
@@ -145,13 +195,13 @@ export function WindChime() {
   };
 
   return (
-    <div className="chime-dock has-tip" data-label="Wind chime" data-tip="Click a tube, or hold and drag across them to play">
+    <div className="chime-dock has-tip" data-label="Wind chime" data-tip="Click or drag across the tubes — it plays a random melody">
       <svg
         ref={svgRef}
         className="chime-art"
         viewBox="0 0 80 150"
         role="group"
-        aria-label="Wind chime — click or drag across the tubes to play"
+        aria-label="Wind chime — click or drag across the tubes to play a melody"
         onPointerDown={(e) => {
           dragging.current = true;
           try {

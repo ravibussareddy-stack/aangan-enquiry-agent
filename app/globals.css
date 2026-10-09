@@ -576,8 +576,18 @@ a.safety-item:hover { text-decoration: none; filter: brightness(1.03); }
 .chime-dock.has-tip::after { left: auto; right: calc(100% + 8px); top: 30%; transition-delay: 0s; }
 .chime-dock.has-tip:hover::after { transition-delay: 0.7s; }
 .chime-dock.has-tip:active::after { opacity: 0; transition-delay: 0s; }
-.shell { padding-bottom: 150px; } /* room to scroll the last card clear of the chime */
+/* Desktop: hangs from the top edge in its own right-hand margin, so it never covers text. */
+@media (min-width: 761px) {
+  .shell { padding-right: 84px; }
+  .chime-dock { top: 0; bottom: auto; right: 16px; flex-direction: column; align-items: center; gap: 2px; }
+  .chime-art { width: 50px; }
+  .chime-mute { margin-bottom: 0; }
+  .chime-dock.has-tip::after { top: 40px; transform: translate(-6px, 0); }
+  .chime-dock.has-tip:hover::after { transform: translate(0, 0); }
+}
+/* Phones: small, bottom-right, with room to scroll the last card clear of it. */
 @media (max-width: 760px) {
+  .shell { padding-bottom: 150px; }
   .chime-dock { right: 10px; bottom: 10px; }
   .chime-art { width: 44px; }
 }
