@@ -1,3 +1,4 @@
+import { freshFromCrm } from "@/lib/crm/stage-sync";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
@@ -25,6 +26,7 @@ interface Row {
 
 export default async function Leads({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const viewer = (await getViewer())!;
+  await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const { status } = await searchParams;
   const { rows } = await asUser(viewer.userId, (c) =>
     c.query<Row>(

@@ -4,7 +4,7 @@
  * The first decision wins (one review per lead).
  */
 import { loadRuntimeConfig } from "../config/runtime";
-import { getCrm } from "../crm";
+import { setLeadDealStage } from "../crm/stage-sync";
 import { db } from "../db/client";
 import { sendLoggedSms } from "../handoff/run";
 
@@ -59,9 +59,7 @@ export async function applyReviewDecision(opts: {
   }
 
   if (opts.syncCrm !== false && lead.hubspot_deal_id) {
-    await getCrm()
-      .setDealStage(lead.hubspot_deal_id, opts.decision === "approved" ? "New qualified" : "Declined")
-      .catch(() => undefined);
+    await setLeadDealStage(lead.hubspot_deal_id, opts.decision === "approved" ? "New qualified" : "Declined").catch(() => undefined);
   }
   if (opts.decision === "rejected") {
     await sendLoggedSms(cfg, opts.leadId, lead.phone, "review_reject", []);
@@ -93,7 +91,7 @@ export async function routeLead(opts: {
   if (!rows[0]) return { applied: false, reason: "Lead is not awaiting a decision" };
   if (opts.syncCrm !== false && rows[0].hubspot_deal_id) {
     const stage = opts.to === "admin" ? "Admin review" : opts.to === "designer" ? "Service review" : "Callback needed";
-    await getCrm().setDealStage(rows[0].hubspot_deal_id, stage).catch(() => undefined);
+    await setLeadDealStage(rows[0].hubspot_deal_id, stage).catch(() => undefined);
   }
   return { applied: true };
 }

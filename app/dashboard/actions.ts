@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getViewer, hasAccess } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
+import { pullCrmStages } from "@/lib/crm/stage-sync";
 import { runInsights } from "@/lib/insights/narrative";
 import { applyReviewDecision, routeLead } from "@/lib/review/decide";
 import { runtimeConfigFromRows, clearRuntimeConfigCache } from "@/lib/config/runtime";
@@ -79,6 +80,14 @@ export async function addRate(formData: FormData) {
   );
   revalidatePath("/dashboard/settings");
   redirect(`/dashboard/settings?saved=rate`);
+}
+
+export async function syncHubSpotNow() {
+  await founder();
+  const r = await pullCrmStages({ force: true });
+  revalidatePath("/dashboard", "layout");
+  const msg = r.error ? `HubSpot sync failed: ${r.error}` : r.ran ? `HubSpot: checked ${r.checked} deals, ${r.changes.length} change(s) applied` : "HubSpot isn't connected";
+  redirect(`/dashboard/settings?${r.error ? "error" : "saved"}=${encodeURIComponent(msg)}`);
 }
 
 export async function routeLeadAction(formData: FormData) {

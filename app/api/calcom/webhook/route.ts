@@ -3,7 +3,7 @@
  * Signature: x-cal-signature-256 (HMAC-SHA256 of the raw body). Idempotent.
  */
 import { NextResponse } from "next/server";
-import { getCrm } from "@/lib/crm";
+import { setLeadDealStage } from "@/lib/crm/stage-sync";
 import { db } from "@/lib/db/client";
 import { verifyCalcomSignature } from "@/lib/integrations/calcom";
 import { once } from "@/lib/webhooks/idempotency";
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     }
     if (dealId) {
       const stage = ev.triggerEvent === "BOOKING_CREATED" || ev.triggerEvent === "BOOKING_RESCHEDULED" ? "Booked" : ev.triggerEvent === "MEETING_ENDED" ? "Consultation held" : null;
-      if (stage) await getCrm().setDealStage(dealId, stage);
+      if (stage) await setLeadDealStage(dealId, stage);
     }
   });
   return NextResponse.json({ ok: true });

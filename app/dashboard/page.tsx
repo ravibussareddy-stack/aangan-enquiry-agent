@@ -1,3 +1,4 @@
+import { freshFromCrm } from "@/lib/crm/stage-sync";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getViewer } from "@/lib/auth/viewer";
@@ -33,6 +34,7 @@ const OUTCOME_ICON: Record<string, string> = { qualified: "✓", review: "?", ca
 export default async function Overview({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const viewer = await getViewer();
   if (viewer?.role !== "founder") redirect("/dashboard/review");
+  await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const sp = await searchParams;
   const rangeKey = (sp.range && sp.range in RANGES ? sp.range : "30d") as keyof typeof RANGES;
   const includeSimulated = sp.sim !== "0";

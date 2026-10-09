@@ -24,6 +24,10 @@ export class MockCrm implements Crm {
     if (d) d.priority = priority;
   }
 
+  async readDealStages(dealIds: string[]) {
+    return new Map(dealIds.filter((id) => this.deals.has(id)).map((id) => [id, this.deals.get(id)!.stage] as const));
+  }
+
   async setDealStage(dealId: string, stage: DealStage) {
     const d = this.deals.get(dealId);
     if (d) d.stage = stage;

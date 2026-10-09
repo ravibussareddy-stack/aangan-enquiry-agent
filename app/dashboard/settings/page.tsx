@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import { getViewer } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
 import { integrationStatus } from "@/lib/integrations/status";
-import { addRate, saveConfig } from "../actions";
+import { crmSyncState } from "@/lib/crm/stage-sync";
+import { addRate, saveConfig, syncHubSpotNow } from "../actions";
 import { when } from "../_components/format";
 
 // Live, per-request data (session + database).
@@ -28,6 +29,10 @@ export default async function Settings({ searchParams }: { searchParams: Promise
     )).rows,
   }));
 
+  const integrations = integrationStatus();
+  const hubspotOn = integrations.some((i) => i.name === "HubSpot" && i.connected);
+  const sync = hubspotOn ? await crmSyncState() : null;
+
   return (
     <main>
       <div className="filters">
@@ -43,11 +48,22 @@ export default async function Settings({ searchParams }: { searchParams: Promise
             <h2 id="int-h">Integrations</h2>
             <span className="muted small">set keys in Vercel → Environment Variables, then redeploy</span>
           </div>
+          {hubspotOn && (
+            <form action={syncHubSpotNow} className="notice row" style={{ marginBottom: 12, justifyContent: "space-between" }}>
+              <span>
+                <b>HubSpot ↔ dashboard sync.</b> Changes made here go to HubSpot straight away. Deal stage changes made in HubSpot are pulled in
+                when the dashboard opens (at most once a minute) and by the background job.{" "}
+                {sync?.last_ok_at ? `Last synced ${when(sync.last_ok_at)} · ${sync.last_checked} deals checked, ${sync.last_changes} change(s).` : "Not synced yet."}
+                {sync?.last_error && <span className="error"> Last error: {sync.last_error}</span>}
+              </span>
+              <button className="btn primary" type="submit">Sync now</button>
+            </form>
+          )}
           <div className="table-wrap">
             <table>
               <thead><tr><th>Service</th><th>Status</th><th>Without it</th><th>Keys</th></tr></thead>
               <tbody>
-                {integrationStatus().map((i) => (
+                {integrations.map((i) => (
                   <tr key={i.name}>
                     <td>{i.name}</td>
                     <td><span className={`badge ${i.connected ? "on" : "off"}`}>{i.connected ? "Connected" : "Not connected"}</span></td>

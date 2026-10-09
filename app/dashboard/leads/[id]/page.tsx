@@ -1,3 +1,5 @@
+import { freshFromCrm } from "@/lib/crm/stage-sync";
+import { hubspotDealUrl } from "@/lib/integrations/hubspot";
 import { notFound } from "next/navigation";
 import { getViewer } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
@@ -30,6 +32,7 @@ interface Lead {
   price_leak_hits: { text: string; pattern: string }[];
   is_simulated: boolean;
   hubspot_deal_id: string | null;
+  hubspot_stage: string | null;
   review_queue: string;
   deal_health_score: number | null;
   deal_health_band: string | null;
@@ -42,10 +45,11 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   if (!/^[0-9a-f-]{36}$/.test(id)) notFound();
   const viewer = (await getViewer())!;
+  await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const data = await asUser(viewer.userId, async (c) => {
     const lead = await c.query<Lead>(
       `select l.id, l.status, l.decline_reason, l.name, l.phone, l.flags, l.watch_for, l.extraction, l.evaluation,
-              l.budget_floor_inr::float8 budget_floor_inr, l.budget_flag, l.hubspot_deal_id,
+              l.budget_floor_inr::float8 budget_floor_inr, l.budget_flag, l.hubspot_deal_id, l.hubspot_stage,
               l.review_queue, l.deal_health_score, l.deal_health_band, l.deal_health_factors, l.callback_window, c.answer_reason,
               c.transcript, c.duration_s, c.started_at::text, c.after_hours, c.price_leak, c.price_leak_hits, c.is_simulated
          from leads l join calls c on c.id = l.call_id where l.id = $1`,
@@ -105,7 +109,15 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
             {l.callback_window && (<><dt>Call back</dt><dd>{l.callback_window}</dd></>)}
             <dt>Flags</dt><dd>{l.flags.map(label).join(", ") || "—"}</dd>
             <dt>Watch for</dt><dd>{l.watch_for.join("; ") || "—"}</dd>
-            <dt>HubSpot</dt><dd>{l.hubspot_deal_id ?? "—"}</dd>
+            <dt>HubSpot</dt>
+            <dd>
+              {hubspotDealUrl(l.hubspot_deal_id) ? (
+                <a href={hubspotDealUrl(l.hubspot_deal_id)!} target="_blank" rel="noreferrer">Open deal ↗</a>
+              ) : (
+                l.hubspot_deal_id ?? "—"
+              )}
+              {l.hubspot_stage ? ` · ${l.hubspot_stage}` : ""}
+            </dd>
           </dl>
           {data.bookings.map((b) => (
             <p key={b.slot_start} className="notice" style={{ marginTop: 12 }}>

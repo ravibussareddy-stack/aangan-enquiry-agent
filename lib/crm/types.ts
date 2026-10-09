@@ -39,4 +39,6 @@ export interface Crm {
   syncLead(sync: LeadSync): Promise<{ contactId: string; dealId: string; dealUrl: string | null }>;
   setDealStage(dealId: string, stage: DealStage): Promise<void>;
   setDealPriority(dealId: string, priority: "high" | "medium" | "low" | null): Promise<void>;
+  /** Current stage of each deal (null = not one of DEAL_STAGES); missing ids were deleted. */
+  readDealStages(dealIds: string[]): Promise<Map<string, DealStage | null>>;
 }

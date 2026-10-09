@@ -89,7 +89,7 @@ describe("RLS", () => {
   });
 
   it("designer cannot read config, rates, costs or other leads' criteria", async () => {
-    for (const table of ["config", "rates", "call_costs", "insights", "webhook_events", "criteria"]) {
+    for (const table of ["config", "rates", "call_costs", "insights", "webhook_events", "criteria", "crm_sync_state"]) {
       expect(await as(ASHA, `select * from ${table}`), table).toEqual([]);
     }
   });

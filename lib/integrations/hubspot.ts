@@ -7,7 +7,9 @@
  * - Deal health band → built-in `hs_priority` (high/medium/low) — no custom property.
  * - Lead fields go into the deal description + a note, so no custom
  *   properties are required (Free allows very few).
- * - Webhooks: deal.propertyChange on dealstage, signature v3.
+ * - Stage changes made in HubSpot reach the app by polling (readDealStages,
+ *   lib/crm/stage-sync.ts) because service keys can't send webhooks; the
+ *   webhook route (signature v3) still works for a project-based app.
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { DEAL_STAGES, type CallerLookup, type Crm, type DealStage, type LeadSync } from "../crm/types";
@@ -15,6 +17,12 @@ import { fetchWithRetry } from "../http/retry";
 import { nationalNumber } from "../phone";
 
 const API = "https://api.hubapi.com";
+
+/** Link to a deal in HubSpot's UI (null without HUBSPOT_PORTAL_ID or for mock ids). */
+export function hubspotDealUrl(dealId: string | null): string | null {
+  const portal = process.env.HUBSPOT_PORTAL_ID;
+  return portal && dealId && !dealId.startsWith("mock_") ? `https://app.hubspot.com/contacts/${portal}/record/0-3/${dealId}` : null;
+}
 
 export function hubspotConfigured(): boolean {
   return !!process.env.HUBSPOT_PRIVATE_APP_TOKEN;
@@ -149,12 +157,24 @@ export class HubSpotCrm implements Crm {
         associations: [{ to: { id: dealId }, types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }] }],
       }),
     });
-    const portal = process.env.HUBSPOT_PORTAL_ID;
-    return { contactId, dealId, dealUrl: portal ? `https://app.hubspot.com/contacts/${portal}/record/0-3/${dealId}` : null };
+    return { contactId, dealId, dealUrl: hubspotDealUrl(dealId) };
   }
 
   async setDealPriority(dealId: string, priority: "high" | "medium" | "low" | null) {
     await hs(`/crm/v3/objects/deals/${dealId}`, { method: "PATCH", body: JSON.stringify({ properties: { hs_priority: priority ?? "" } }) });
+  }
+
+  async readDealStages(dealIds: string[]) {
+    const { byId } = await stages();
+    const out = new Map<string, DealStage | null>();
+    for (let i = 0; i < dealIds.length; i += 100) {
+      const r = await hs<{ results: { id: string; properties: { dealstage?: string | null } }[] }>("/crm/v3/objects/deals/batch/read", {
+        method: "POST",
+        body: JSON.stringify({ inputs: dealIds.slice(i, i + 100).map((id) => ({ id })), properties: ["dealstage"] }),
+      });
+      for (const d of r.results) out.set(d.id, d.properties.dealstage ? (byId.get(d.properties.dealstage) ?? null) : null);
+    }
+    return out;
   }
 
   async setDealStage(dealId: string, stage: DealStage) {

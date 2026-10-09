@@ -1,3 +1,4 @@
+import { freshFromCrm } from "@/lib/crm/stage-sync";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
@@ -29,6 +30,7 @@ const QUEUES = {
 
 export default async function ReviewQueue({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const viewer = (await getViewer())!;
+  await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const founder = viewer.role === "founder";
   const { q } = await searchParams;
   const queue = (founder && q && q in QUEUES ? q : "designer") as keyof typeof QUEUES;

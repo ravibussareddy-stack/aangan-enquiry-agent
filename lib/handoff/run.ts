@@ -106,7 +106,7 @@ export async function runHandoff(leadId: string): Promise<void> {
         note: `AI phone enquiry (${lead.status}).\n${lead.evaluation.summary ?? ""}\nFlags: ${lead.flags.join(", ") || "none"}`,
       });
       dealUrl = synced.dealUrl;
-      await db().query("update leads set hubspot_contact_id = $2, hubspot_deal_id = $3 where id = $1", [leadId, synced.contactId, synced.dealId]);
+      await db().query("update leads set hubspot_contact_id = $2, hubspot_deal_id = $3, hubspot_stage = $4 where id = $1", [leadId, synced.contactId, synced.dealId, stage]);
       await logHandoff(leadId, crm.provider === "hubspot" ? "hubspot" : "crm_mock", true, synced.dealId);
     } catch (err) {
       await logHandoff(leadId, "hubspot", false, null, (err as Error).message);
