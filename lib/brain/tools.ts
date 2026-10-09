@@ -389,9 +389,21 @@ export async function executeTool(
         });
         state.booking = { ...booking, label: speakableSlot(new Date(booking.startUtc)), eventType: slot.eventType };
         return { confirmed: state.booking.label, say: "Confirm the time and tell them an SMS confirmation will follow." };
-      } catch {
-        state.slotsOffered = state.slotsOffered.filter((s) => s.id !== slot.id);
-        return { error: "That time was just taken. Offer one of the other times, or call get_slots again." };
+      } catch (err) {
+        const message = (err as Error).message ?? String(err);
+        console.error(`[brain] book_slot failed for ${slot.id} (${slot.startUtc}): ${message.slice(0, 400)}`);
+        // Only a genuinely taken slot means "offer another time". Any other failure (calendar
+        // down, bad request) would fail for every slot, so stop and take a callback instead of looping.
+        if (/taken|unavailable|already|no available|not available|conflict|409/i.test(message)) {
+          state.slotsOffered = state.slotsOffered.filter((s) => s.id !== slot.id);
+          return { error: "That time was just taken. Offer one of the other times, or call get_slots again." };
+        }
+        state.facts = mergeFacts(state.facts, { watch_for: ["booking failed in-call — book manually"] });
+        return {
+          booked: false,
+          error:
+            "The calendar couldn't take the booking right now. Don't offer more times. Apologise briefly, say our team will call them as soon as possible to confirm a consultation time, ask when they're generally free, and call request_callback with their exact words.",
+        };
       }
     }
 

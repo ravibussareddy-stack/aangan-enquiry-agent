@@ -2,8 +2,9 @@
  * Cal.com API v2 calendar (https://cal.com/docs/api-reference/v2).
  * - Slots: GET /v2/slots (cal-api-version 2024-09-04)
  * - Bookings: POST /v2/bookings (cal-api-version 2024-08-13). Attendee email is
- *   required, so we use a studio-owned placeholder leads+<ref>@STUDIO_DOMAIN and
- *   keep the phone number on the booking; the customer is confirmed by SMS.
+ *   required and must be able to receive mail (Cal.com rejects example.com with
+ *   email_domain_cannot_receive_mail), so we use a studio-owned address — see
+ *   attendeeEmail(). The customer is confirmed by SMS, never by email.
  * - Webhook signature: x-cal-signature-256 = HMAC-SHA256(raw body, secret).
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
@@ -21,6 +22,22 @@ function eventTypeId(t: EventType): number {
   }[t];
   if (!env) throw new Error(`Cal.com event type for ${t} is not configured`);
   return Number(env);
+}
+
+/**
+ * A studio-owned attendee address for the booking (customers never get email):
+ * leads+<ref>@STUDIO_DOMAIN when the studio has its own domain, otherwise a Gmail
+ * "+" alias of GMAIL_USER (or the first founder email) — Cal.com's emails land in
+ * the studio's own inbox.
+ */
+export function attendeeEmail(leadRef: string): string {
+  const tag = `lead-${leadRef.toLowerCase().replace(/[^a-z0-9]/g, "").slice(-12) || "call"}`;
+  const domain = process.env.STUDIO_DOMAIN;
+  if (domain && domain !== "example.com") return `leads+${tag}@${domain}`;
+  const inbox = process.env.GMAIL_USER || (process.env.FOUNDER_EMAILS ?? "").split(",")[0]?.trim();
+  if (!inbox?.includes("@")) throw new Error("No studio mailbox for the Cal.com attendee (set STUDIO_DOMAIN or GMAIL_USER)");
+  const [local, host] = inbox.split("@");
+  return `${local.split("+")[0]}+${tag}@${host}`;
 }
 
 export function calcomConfigured(): boolean {
@@ -53,7 +70,6 @@ export class CalcomCalendar implements Calendar {
   }
 
   async book(req: BookingRequest): Promise<BookingResult> {
-    const domain = process.env.STUDIO_DOMAIN ?? "example.com";
     const res = await fetchWithRetry(`${BASE()}/bookings`, {
       method: "POST",
       headers: this.headers("2024-08-13"),
@@ -62,7 +78,7 @@ export class CalcomCalendar implements Calendar {
         eventTypeId: eventTypeId(req.slot.eventType),
         attendee: {
           name: req.name,
-          email: `leads+${req.leadRef}@${domain}`,
+          email: attendeeEmail(req.leadRef),
           timeZone: TZ,
           phoneNumber: req.phone,
           language: "en",
