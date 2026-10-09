@@ -5,6 +5,7 @@
  * phone line. Used for the 5 review transcripts, the eval's LLM mode and the
  * price-leak adversarial suite. Costs no Vaani credit.
  */
+import { withQuickTestLimits } from "../../agent/prompt";
 import { MockCalendar } from "../booking/mock-calendar";
 import type { RuntimeConfig } from "../config/runtime";
 import { MockCrm } from "../crm/mock";
@@ -66,7 +67,7 @@ export async function simulateCall(persona: Persona, config: RuntimeConfig, opts
   const clock = new SimClock(opts.startAt.getTime());
   const calendar = new MockCalendar();
   const crm = new MockCrm(persona.existingClient ? { [persona.phone]: persona.existingClient } : {});
-  const deps: BrainDeps = { calendar, crm, config, now: clock.now };
+  const deps: BrainDeps = { calendar, crm, config: withQuickTestLimits(config), now: clock.now };
   const state = startSession(deps, {
     callId: `sim-${persona.id}-${opts.startAt.getTime()}-${Date.now().toString(36)}`,
     provider: "simulated",

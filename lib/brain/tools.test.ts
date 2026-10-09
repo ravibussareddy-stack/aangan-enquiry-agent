@@ -62,6 +62,9 @@ describe("brain tools", () => {
     const slots = await executeTool("get_slots", { preference: "saturday morning", site_visit: false, typical_budget_reaction: "comfortable" }, state, deps);
     expect((slots.slots as unknown[]).length).toBeGreaterThan(0);
     expect((await executeTool("book_slot", { slot_id: "nope", caller_name: "A" }, state, deps)).error).toBeTruthy();
+    // Same breath as the offer: refused — the caller hasn't heard the time yet.
+    expect((await executeTool("book_slot", { slot_id: "s1", caller_name: "A" }, state, deps)).booked).toBe(false);
+    state.transcript.push({ speaker: "caller", text: "Yes, Saturday works.", at: now.toISOString() });
     const booked = await executeTool("book_slot", { slot_id: "s1", caller_name: "A" }, state, deps);
     expect(booked.confirmed).toBeTruthy();
   });

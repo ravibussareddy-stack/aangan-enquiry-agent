@@ -14,7 +14,7 @@
  * Agent → Brain → LLM → "Bring your own LLM", Auth Token = BRAIN_AUTH_TOKEN.
  */
 import { existsSync } from "node:fs";
-import { GREETING } from "../agent/prompt";
+import { activeGreeting, quickTest } from "../agent/prompt";
 
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
 
@@ -28,7 +28,7 @@ const persona = {
     // The real prompt lives in our BYOL brain (agent/prompt.ts); this is only the fallback.
     system_prompt:
       "You are Aangan Studio's AI phone assistant. Say you are an AI assistant and the call is recorded. Never state any price. Take the caller's name and number and say a designer will call back.",
-    greeting_message: { agent_message: GREETING, agent_speech_delay: 0, interruptible: true },
+    greeting_message: { agent_message: activeGreeting(), agent_speech_delay: 0, interruptible: true },
   },
   senses_capabilities: {
     language: "en",
@@ -40,7 +40,7 @@ const persona = {
   },
 };
 const experience = {
-  settings: { call_settings: { max_call_duration: 4, max_duration_enabled: true, end_call_message: "Thank you for calling Aangan Studio. Goodbye!" } },
+  settings: { call_settings: { max_call_duration: quickTest() ? 1 : 4, max_duration_enabled: true, end_call_message: "Thank you for calling Aangan Studio. Goodbye!" } },
 };
 
 async function call(method: string, path: string, body: unknown) {

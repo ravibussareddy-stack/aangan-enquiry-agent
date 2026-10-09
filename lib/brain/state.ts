@@ -32,6 +32,8 @@ export interface SessionState {
   scope: { status: "in_scope" | "out_of_scope" | "uncertain"; reasons: string[] } | null;
   evaluation: { outcome: LeadStatus; declineReason: DeclineReason | null; flags: string[]; reasons: string[] } | null;
   slotsOffered: Slot[];
+  /** Caller turns heard when get_slots returned: book_slot needs a caller reply after the offer. */
+  slotsOfferedAtCallerTurn?: number;
   booking: (BookingResult & { label: string; eventType: string }) | null;
   callbackWindow: string | null;
   complaint: { summary: string; wantsSenior: string | null } | null;

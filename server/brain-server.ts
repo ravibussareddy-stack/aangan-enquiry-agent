@@ -22,6 +22,7 @@ import { saveSession } from "../lib/calls/postcall";
 import { loadRuntimeConfig } from "../lib/config/runtime";
 import { getCrm } from "../lib/crm";
 import { db } from "../lib/db/client";
+import { withQuickTestLimits } from "../agent/prompt";
 import { alertOps, notifyStaff } from "../lib/staff/notify";
 
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
@@ -38,7 +39,7 @@ function authorized(header: string | undefined): boolean {
 }
 
 async function deps(): Promise<BrainDeps> {
-  const config = await loadRuntimeConfig();
+  const config = withQuickTestLimits(await loadRuntimeConfig());
   return {
     calendar: getCalendar(),
     crm: getCrm(),
@@ -145,7 +146,7 @@ wss.on("connection", (ws: WebSocket, callIdFromPath: string) => {
         }
         const elapsed = (Date.now() - new Date(state.startedAt).getTime()) / 1000;
         if (elapsed > d.config.voiceSpendCap.max_call_s) {
-          send(ws, { response_type: "response", response_id: id, content: "Thank you for calling Aangan Studio. A designer will follow up with you. Goodbye!", content_complete: true, end_call: true });
+          send(ws, { response_type: "response", response_id: id, content: "Thank you for calling Aangan Studio — a member of our team will get back to you as soon as possible to finish the details. Have a good day!", content_complete: true, end_call: true });
           return;
         }
         const userText = lastUserMessages(msg.transcript ?? []);

@@ -94,6 +94,8 @@ function eventTypeFor(state: SessionState, siteVisit: boolean): EventType {
   return state.facts.project_type === "commercial" ? "commercial_consult" : "residential_consult";
 }
 
+const callerTurns = (state: SessionState) => state.transcript.filter((t) => t.speaker === "caller").length;
+
 export async function executeTool(
   name: ToolName,
   rawArgs: unknown,
@@ -298,6 +300,7 @@ export async function executeTool(
       const open = await deps.calendar.openSlots(eventType, now, new Date(now.getTime() + 7 * 86_400_000));
       const slots = pickSlots(open, eventType, a.preference, now, 3);
       state.slotsOffered = slots;
+      state.slotsOfferedAtCallerTurn = callerTurns(state);
       if (!slots.length) {
         return { slots: [], do: "No times free this week: take their preferred callback window with request_callback." };
       }
@@ -309,6 +312,10 @@ export async function executeTool(
       const slot = state.slotsOffered.find((s) => s.id === a.slot_id);
       if (!slot) return { error: `Unknown slot_id ${a.slot_id}. Use one returned by get_slots.` };
       if (state.booking) return { already_booked: state.booking.label };
+      // Never book in the same breath as the offer: the caller must hear the time and say yes.
+      if (state.slotsOfferedAtCallerTurn != null && callerTurns(state) <= state.slotsOfferedAtCallerTurn) {
+        return { booked: false, error: "The caller hasn't heard these times yet. Offer them now, wait for their choice, then call book_slot." };
+      }
       try {
         const booking = await deps.calendar.book({
           slot,

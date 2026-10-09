@@ -3,7 +3,7 @@
  * executed server-side, then the pre-speech price guard. Transport-agnostic —
  * used by the Vaani BYOL WebSocket server and by the text simulator alike.
  */
-import { buildSystemPrompt, GREETING } from "../../agent/prompt";
+import { activeGreeting, buildSystemPrompt, quickTest } from "../../agent/prompt";
 import { toolDeclarations, type ToolName } from "../../agent/tools";
 import { generate, type GeminiContent, type GeminiPart } from "../llm/gemini";
 import { isOfficeHours, nowForPrompt } from "../time/ist";
@@ -39,7 +39,7 @@ export function startSession(
     startedAt: now,
     promptVersion: deps.config.promptVersion,
     afterHours: !isOfficeHours(now, deps.config.officeHours),
-    greeting: init.greeting ?? GREETING,
+    greeting: init.greeting ?? activeGreeting(),
   });
 }
 
@@ -52,6 +52,7 @@ function systemPrompt(state: SessionState, deps: BrainDeps) {
     priceDeflectionNoBooking: deps.config.priceDeflectionNoBooking,
     declineLine: deps.config.declineLine,
     complaintCallbackMinutes: deps.config.complaintCallbackMinutes,
+    quickTest: quickTest() && state.purpose === "inbound",
     outbound:
       state.purpose === "inbound"
         ? undefined
@@ -68,9 +69,9 @@ export async function respond(state: SessionState, callerText: string, deps: Bra
   const elapsed = (now.getTime() - new Date(state.startedAt).getTime()) / 1000;
   const timeNote =
     elapsed > deps.config.callLimits.hard_max_s - 30
-      ? "\n[system: the call is at its time limit — say goodbye in one sentence and call end_call now]"
+      ? "\n[system: the call is at its time limit — unless it's already booked, say in one sentence that a member of the team will get back to them as soon as possible to finish the details, then \"Have a good day!\", and call end_call now]"
       : elapsed > deps.config.callLimits.soft_wrap_s
-        ? "\n[system: over 4 minutes — wrap up now: book, take a callback window, or close]"
+        ? "\n[system: time is nearly up — wrap up now: book, take a callback window, or close]"
         : "";
   // First caller turn: the server looks the caller up itself (saves a model round).
   let lookupNote = "";

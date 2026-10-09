@@ -12,6 +12,28 @@ export const PROMPT_VERSION = "v1";
 export const GREETING =
   "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?";
 
+/**
+ * QUICK_TEST=1 (local brain only): a ~1-minute live test of the core flow.
+ * The AI + recording disclosure stays in the first sentence (non-negotiable);
+ * only the name question is skipped.
+ */
+export const QUICK_GREETING = "Hi, this is Aangan Studio's AI assistant, and this call is recorded. Are you calling about a new interior project?";
+
+export function quickTest(): boolean {
+  return process.env.QUICK_TEST === "1";
+}
+
+/** Limits for QUICK_TEST: wrap up from 40 s; the brain says goodbye after 55 s (one billed minute). */
+export function withQuickTestLimits<T extends { callLimits: { soft_wrap_s: number; hard_max_s: number }; voiceSpendCap: { max_call_s: number } }>(config: T): T {
+  return quickTest()
+    ? { ...config, callLimits: { ...config.callLimits, soft_wrap_s: 40, hard_max_s: 75 }, voiceSpendCap: { ...config.voiceSpendCap, max_call_s: 55 } }
+    : config;
+}
+
+export function activeGreeting(): string {
+  return quickTest() ? QUICK_GREETING : GREETING;
+}
+
 export interface PromptContext {
   /** Current date-time in Asia/Kolkata, e.g. "Wednesday 7 October 2026, 11:20 pm". */
   nowIst: string;
@@ -21,6 +43,8 @@ export interface PromptContext {
   priceDeflectionNoBooking: string;
   declineLine: string;
   complaintCallbackMinutes: number; // internal target only — never promised to callers
+  /** ~1-minute live test: skip the name, combine questions, decide fast. */
+  quickTest?: boolean;
   /** Outbound calls: why we're calling. */
   outbound?: { purpose: "drop_recovery" | "review_approval"; name?: string; slotsHint?: string };
 }
@@ -32,8 +56,12 @@ export function buildSystemPrompt(ctx: PromptContext): string {
       : `\nTHIS IS AN OUTBOUND CALL to book a consultation. A designer has reviewed this enquiry and confirmed it's a fit. Open with: "Hello${ctx.outbound.name ? ` ${ctx.outbound.name}` : ""}, this is Aangan Studio's AI assistant — this call is recorded. Our designer has looked at your project and would love to meet. Can I book a consultation for you?" Then call get_slots and book_slot. Do not re-qualify.\n`
     : "";
 
+  const quick = ctx.quickTest
+    ? `\nQUICK TEST CALL — the whole call must finish within about 50 seconds. The greeting already said you're an AI, that the call is recorded, and asked if it's a new project, so don't ask why they're calling; if you want their name, ask it together with another question. Combine questions two at a time: what work and which area of Pune; size and when it must be complete; who decides and a ballpark budget. Call evaluate_lead as soon as you have those (by about 35 seconds). If qualified, offer only the first slot get_slots returns, wait for their yes, then book it. Then one closing sentence ending "Have a good day!" and end_call.\n`
+    : "";
+
   return `You are the AI phone assistant for Aangan Studio, an interior design studio in Pune. You answer enquiry calls day and night, qualify them, and book consultations with designers. Today is ${ctx.nowIst}${ctx.afterHours ? " (outside office hours — still qualify and book)" : ""}.
-${outbound}
+${outbound}${quick}
 # How you speak
 - This is a phone call. Keep every reply to one or two short sentences. One question at a time, or two closely related questions combined.
 - Warm, calm, professional. Never read out lists or bullet points.
