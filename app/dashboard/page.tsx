@@ -10,6 +10,9 @@ import { addTodo, adoptRecommendation, deleteTodo, dismissRecommendation, refres
 import { label, pct, when } from "./_components/format";
 import { Greeting } from "./_components/greeting";
 import { money } from "./_components/kpi";
+import { SafetyStrip } from "./_components/safety";
+import { loadRuntimeConfig } from "@/lib/config/runtime";
+import { voiceSpendSoFar } from "@/lib/cost/spend-cap";
 
 // Live, per-request data (session + database).
 export const instant = false;
@@ -43,7 +46,7 @@ export default async function Today({ searchParams }: { searchParams: Promise<Re
   const to = new Date();
   const from = new Date(to.getTime() - 7 * 86_400_000);
 
-  const [insight, signals, week, lists] = await Promise.all([
+  const [insight, signals, week, lists, spent, cfg] = await Promise.all([
     latestInsights(),
     detectSignals(),
     getMetrics({ from, to, includeSimulated: true }),
@@ -64,6 +67,8 @@ export default async function Today({ searchParams }: { searchParams: Promise<Re
         )
       ).rows.map((r) => r.rec_key),
     })),
+    voiceSpendSoFar(),
+    loadRuntimeConfig(),
   ]);
 
   // AI wording for a signal when the nightly run phrased it (and its figures checked out); else the plain wording.
@@ -85,6 +90,8 @@ export default async function Today({ searchParams }: { searchParams: Promise<Re
       >
         <Link className="pill" href="/dashboard/overview">Open KPIs</Link>
       </Greeting>
+
+      <SafetyStrip q={week.quality} period="last 7 days" spend={{ used: spent, cap: cfg.voiceSpendCap.cap_inr }} />
 
       {/* At a glance — the three numbers that frame the day */}
       <section className="kpis" style={{ marginBottom: 18 }} aria-label="At a glance">

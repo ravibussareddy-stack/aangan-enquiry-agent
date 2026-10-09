@@ -2,6 +2,7 @@
  * Dashboard metrics — every number is computed here in SQL. Gemini insights
  * receive only this aggregated snapshot (never transcripts) and only narrate it.
  */
+import { memo } from "../cache/memo";
 import { loadRuntimeConfig } from "../config/runtime";
 import { db } from "../db/client";
 import { canonicalLocality, closeProbability, estimateProjectValue } from "./value";
@@ -61,6 +62,7 @@ export interface Metrics {
     open_deals: { id: string; name: string | null; score: number; band: string; booked: boolean; locality: string | null }[];
   };
   quality: {
+    /** Calls where a figure the server didn't write reached the caller (transcript scan). Guard catches are not counted. */
     price_leaks: number;
     guard_rewrites: number;
     complaints: number;
@@ -99,7 +101,13 @@ export interface Metrics {
 
 const num = (v: unknown) => (v == null ? null : Number(v));
 
-export async function getMetrics(r: Range): Promise<Metrics> {
+/** KPI metrics, reused for 30 s per range (keyed to the minute) so page-to-page moves are instant. */
+export function getMetrics(r: Range): Promise<Metrics> {
+  const minute = (d: Date) => Math.floor(d.getTime() / 60_000);
+  return memo(`metrics:${minute(r.from)}:${minute(r.to)}:${r.includeSimulated}`, 30_000, () => computeMetrics(r));
+}
+
+async function computeMetrics(r: Range): Promise<Metrics> {
   const p = [r.from, r.to, r.includeSimulated];
   const callsWhere = "c.started_at >= $1 and c.started_at < $2 and ($3 or not c.is_simulated)";
   const q = <T extends Record<string, unknown>>(sql: string) => db().query<T>(sql, p).then((x) => x.rows);
@@ -161,7 +169,7 @@ export async function getMetrics(r: Range): Promise<Metrics> {
         [r.includeSimulated],
       )
       .then((x) => x.rows),
-    q(`select count(*) filter (where c.price_leak)::int leaks,
+    q(`select count(*) filter (where c.price_leak and exists (select 1 from jsonb_array_elements(c.price_leak_hits) h where h ->> 'pattern' <> 'pre_tts_guard_rewrite'))::int leaks,
               coalesce(sum(jsonb_array_length(coalesce(s.state -> 'guardRewrites', '[]'::jsonb))), 0)::int rewrites,
               count(*) filter (where c.outcome = 'complaint')::int complaints,
               avg(extract(epoch from h.sent_at - coalesce(c.processed_at, c.ended_at))) filter (where c.outcome = 'complaint') complaint_alert_s,

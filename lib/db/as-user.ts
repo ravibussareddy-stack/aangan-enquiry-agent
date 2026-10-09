@@ -10,9 +10,14 @@ import { db } from "./client";
 export async function asUser<T>(userId: string, fn: (client: PoolClient) => Promise<T>): Promise<T> {
   const client = await db().connect();
   try {
-    await client.query("begin");
-    await client.query("set local role app_user");
-    await client.query("select set_config('app.user_id', $1, true)", [userId]);
+    // One round trip for begin + role + user (ids are Neon Auth ids; anything unusual takes the parameterised path).
+    if (/^[A-Za-z0-9_-]{1,128}$/.test(userId)) {
+      await client.query(`begin; set local role app_user; select set_config('app.user_id', '${userId}', true)`);
+    } else {
+      await client.query("begin");
+      await client.query("set local role app_user");
+      await client.query("select set_config('app.user_id', $1, true)", [userId]);
+    }
     const result = await fn(client);
     await client.query("commit");
     return result;

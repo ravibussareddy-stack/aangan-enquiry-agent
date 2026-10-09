@@ -7,10 +7,11 @@ import { freshFromCrm } from "@/lib/crm/stage-sync";
 import { getMetrics, recentCalls } from "@/lib/insights/metrics";
 import { latestInsights } from "@/lib/insights/narrative";
 import { refreshInsights } from "../actions";
-import { BarList, Funnel, Tile } from "../_components/charts";
+import { BarList, Funnel } from "../_components/charts";
 import { dur, inr, label, pct, secs, when } from "../_components/format";
 import { Greeting } from "../_components/greeting";
 import { Kpi, money } from "../_components/kpi";
+import { SafetyStrip } from "../_components/safety";
 
 // Live, per-request data (session + database).
 export const instant = false;
@@ -69,6 +70,9 @@ export default async function Overview({ searchParams }: { searchParams: Promise
           <Link href={href({ sim: "0" })} aria-current={!includeSimulated}>Live only</Link>
         </div>
       </Greeting>
+
+      {/* 0. Safety first */}
+      <SafetyStrip q={m.quality} period={`last ${rangeKey}`} spend={{ used: voiceSpent, cap }} />
 
       {/* 1. Money — the one number to plan on */}
       <section id="pipeline" className="card" style={{ marginBottom: 18 }} aria-labelledby="pipe-h">
@@ -306,16 +310,6 @@ export default async function Overview({ searchParams }: { searchParams: Promise
             <div className="mini"><div className="v">{inr(voiceSpent)} <span className="muted small">of {inr(cap, 0)} cap</span></div></div>
             <div className="meter" style={{ marginTop: 8 }} role="img" aria-label={`${Math.round((voiceSpent / cap) * 100)}% of the cap used`}>
               <span style={{ width: `${Math.min(100, Math.max(1, (voiceSpent / cap) * 100))}%` }} />
-            </div>
-          </section>
-
-          {/* Brand safety */}
-          <section id="quality" className="card" aria-labelledby="q-h">
-            <h2 id="q-h" style={{ marginBottom: 12 }}>Brand safety</h2>
-            <div className="tiles">
-              <Tile label="Price-leak flags" value={String(m.quality.price_leaks)} sub={`${m.quality.guard_rewrites} caught before speaking`} />
-              <Tile label="Complaints" value={String(m.quality.complaints)} sub={`senior alerted in ${secs(m.quality.avg_complaint_alert_s)}`} />
-              <Tile label="Asked about price" value={String(m.quality.asked_about_price)} sub="given the typical range" />
             </div>
           </section>
         </div>

@@ -5,6 +5,7 @@
  * figure in a claim is checked against the snapshot — a claim whose figures
  * don't match is shown as unverified with the snapshot values instead.
  */
+import { forget, memo } from "../cache/memo";
 import { loadRuntimeConfig } from "../config/runtime";
 import { llmCostRows, type Rate } from "../cost/compute";
 import { db } from "../db/client";
@@ -178,10 +179,15 @@ export async function runInsights(opts: { to?: Date; triggeredBy: "cron" | "refr
       [ins.rows[0].id, r.component, r.unit, r.units, r.unit_rate_inr, r.cost_inr, r.rate_id, JSON.stringify(r.raw_usage)],
     );
   }
+  forget("insights:");
   return { id: ins.rows[0].id, claims, recommendations, costInr };
 }
 
-export async function latestInsights() {
+export function latestInsights() {
+  return memo("insights:latest", 30_000, loadLatestInsights);
+}
+
+async function loadLatestInsights() {
   const { rows } = await db().query<{ id: string; narrative: Claim[]; recommendations: Recommendation[]; metrics_snapshot: { current: Metrics }; created_at: string; model: string; cost_inr: number; triggered_by: string }>(
     "select id, narrative, recommendations, metrics_snapshot, created_at::text, model, cost_inr::float8 as cost_inr, triggered_by from insights order by created_at desc limit 1",
   );

@@ -3,6 +3,7 @@
  * They ground the AI recommendations — Gemini may only phrase these (with their
  * figures), never invent its own — and they double as the fallback wording.
  */
+import { memo } from "../cache/memo";
 import { loadRuntimeConfig } from "../config/runtime";
 import { db } from "../db/client";
 import { closeProbability, estimateProjectValue } from "./value";
@@ -30,7 +31,12 @@ export function withSubject(text: string, s: Pick<Signal, "subject">): string {
 
 const lakh = (inr: number) => Math.round(inr / 1e5);
 
-export async function detectSignals(): Promise<Signal[]> {
+/** Live signals, reused for 20 s across page loads. */
+export function detectSignals(): Promise<Signal[]> {
+  return memo("signals", 20_000, computeSignals);
+}
+
+async function computeSignals(): Promise<Signal[]> {
   const [cfg, review, callbacks, messages, load, stale, complaints, leaks, declines, deals] = await Promise.all([
     loadRuntimeConfig(),
     db().query<{ n: number; oldest_h: number | null; designer_n: number; admin_n: number }>(
@@ -54,7 +60,9 @@ export async function detectSignals(): Promise<Signal[]> {
       "select count(*)::int n from bookings where status = 'booked' and outcome is null and coalesce(slot_end, slot_start) < now() - interval '1 day'",
     ),
     db().query<{ n: number }>("select count(*)::int n from leads where status = 'complaint' and created_at > now() - interval '7 days'"),
-    db().query<{ n: number }>("select count(*)::int n from calls where price_leak and started_at > now() - interval '7 days'"),
+    db().query<{ n: number }>(
+      `select count(*)::int n from calls c where c.price_leak and exists (select 1 from jsonb_array_elements(c.price_leak_hits) h where h ->> 'pattern' <> 'pre_tts_guard_rewrite') and c.started_at > now() - interval '7 days'`,
+    ),
     db().query<{ reason: string; n: number }>(
       `select coalesce(decline_reason, 'unspecified') reason, count(*)::int n from leads
         where status = 'declined' and created_at > now() - interval '30 days' group by 1 order by 2 desc limit 1`,
@@ -159,8 +167,8 @@ export async function detectSignals(): Promise<Signal[]> {
     out.push({
       key: "price_leak_review",
       severity: 65,
-      title: `Review ${pl.n} call${pl.n === 1 ? "" : "s"} flagged for a price mention this week`,
-      why: "The pre-speech guard caught a figure; check the transcript wording.",
+      title: `Review ${pl.n} call${pl.n === 1 ? "" : "s"} where a price reached the caller this week`,
+      why: "A figure the server didn't write was spoken — check the transcript and the prompt.",
       href: "/dashboard/leads",
       figures: [pl.n],
     });
