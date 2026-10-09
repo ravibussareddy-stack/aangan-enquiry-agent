@@ -5,7 +5,7 @@
     "phone": "+919000001001"
   },
   "state": {
-    "callId": "sim-T01-1791308100000-muzgjfbs",
+    "callId": "sim-T01-1791308100000-mv0frlua",
     "provider": "simulated",
     "direction": "inbound",
     "purpose": "inbound",
@@ -22,18 +22,18 @@
       "category": "apartment",
       "engagement": "design_and_execution",
       "scope_kind": "full_home",
-      "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
-      "locality": "Dahanukar Colony, Kothrud",
+      "scope_text": "redo the whole 3BHK flat",
+      "locality": "Kothrud",
       "city": "Pune",
-      "referral": "Shruti Joshi’s flat in Aundh",
+      "referral": "Shruti Joshi",
       "criteria": {
         "real_project": {
           "verdict": "pass",
-          "evidence": "redo a 3BHK full home with design and execution"
+          "evidence": "want to redo the whole 3BHK flat in Kothrud"
         },
         "area": {
           "verdict": "pass",
-          "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet"
+          "evidence": "Kothrud, Pune, PIN 411038"
         },
         "timeline": {
           "verdict": "pass",
@@ -45,7 +45,7 @@
         },
         "decision_maker": {
           "verdict": "pass",
-          "evidence": "self and husband, authorised"
+          "evidence": "myself and my husband, he is on board"
         }
       },
       "in_scope_confidence": 1,
@@ -54,13 +54,13 @@
         "budget"
       ],
       "pin": "411038",
+      "rooms_in_scope": 3,
       "carpet_sqft": 1400,
-      "site_state": "ready",
-      "timeline_text": "complete by March",
-      "completion_in_weeks": 20,
+      "site_state": "builder flat, ready now",
+      "timeline_text": "done by March",
+      "completion_in_weeks": 21,
       "decision_maker": "authorised",
       "asked_about_price": false,
-      "budget_confirmed": false,
       "researched_us": "yes",
       "typical_budget_reaction": "comfortable"
     },
@@ -72,113 +72,113 @@
       },
       {
         "speaker": "caller",
-        "text": "Hi, I’m Priya. I got your number from a friend — Shruti Joshi.",
-        "at": "2026-10-06T17:35:14.800Z"
+        "text": "Hi, I’m Priya. I got your number from a friend — Shruti Joshi. She had her flat done by you in Aundh.",
+        "at": "2026-10-06T17:35:18.400Z"
       },
       {
         "speaker": "agent",
-        "text": "Hi Priya, thanks for calling, and a warm welcome from Shruti! What can I help you with today — a new project, something about an existing project, or reaching a particular designer?",
-        "at": "2026-10-06T17:35:14.800Z"
+        "text": "Hi Priya! Great to hear from you, and thanks for calling. It's lovely that Shruti recommended us. What can I help you with today — are you looking for help with a new project, something about an existing project, or trying to reach a specific designer?",
+        "at": "2026-10-06T17:35:18.400Z"
       },
       {
         "speaker": "caller",
-        "text": "We have a 3BHK in Kothrud, in Dahanukar Colony, and we want to redo the whole thing.",
-        "at": "2026-10-06T17:35:36.965Z"
+        "text": "We have a 3BHK in Kothrud — Dahanukar Colony, and we want to redo the whole thing.",
+        "at": "2026-10-06T17:35:46.445Z"
       },
       {
         "speaker": "agent",
-        "text": "Wonderful, we certainly do full-home interiors in Kothrud! Could you share the PIN code for Dahanukar Colony?",
-        "at": "2026-10-06T17:35:36.965Z"
+        "text": "Wonderful, a full 3BHK in Kothrud sounds like a great project. Could you share the PIN code for that area?",
+        "at": "2026-10-06T17:35:46.445Z"
       },
       {
         "speaker": "caller",
         "text": "It's 411038.",
-        "at": "2026-10-06T17:35:49.075Z"
+        "at": "2026-10-06T17:36:00.045Z"
       },
       {
         "speaker": "agent",
-        "text": "Got that. Roughly how big is the area we'd be working on — what's the carpet area, or about how many square feet?",
-        "at": "2026-10-06T17:35:49.075Z"
+        "text": "Thanks Priya. Roughly how big is the area we'd be working on — about what's the carpet area in square feet?",
+        "at": "2026-10-06T17:36:00.045Z"
       },
       {
         "speaker": "caller",
         "text": "It's about 1,400 sq ft carpet.",
-        "at": "2026-10-06T17:36:04.509Z"
+        "at": "2026-10-06T17:36:14.945Z"
       },
       {
         "speaker": "agent",
-        "text": "1,400 square feet, perfect. Is the site available to work on now, or are you waiting for possession?",
-        "at": "2026-10-06T17:36:04.509Z"
+        "text": "Got it, around 1,400 square feet. Is the site available for us to start work on right now, or are you waiting for possession?",
+        "at": "2026-10-06T17:36:14.945Z"
       },
       {
         "speaker": "caller",
-        "text": "We bought it two years ago, so it's ready. It still looks like the builder flat, though!",
-        "at": "2026-10-06T17:36:22.465Z"
+        "text": "We bought it two years ago and it still looks like the builder flat, so it's ready.",
+        "at": "2026-10-06T17:36:35.445Z"
       },
       {
         "speaker": "agent",
-        "text": "Good timing then! When would you need the project completed by?",
-        "at": "2026-10-06T17:36:22.465Z"
+        "text": "That's convenient. When would you need the project completed by?",
+        "at": "2026-10-06T17:36:35.445Z"
       },
       {
         "speaker": "caller",
-        "text": "We’d like to be done by March. We’re in no rush, really.",
-        "at": "2026-10-06T17:36:35.521Z"
+        "text": "We’d like to be done by March. We’re in no rush.",
+        "at": "2026-10-06T17:36:47.945Z"
       },
       {
         "speaker": "agent",
-        "text": "By March gives us plenty of time. Will you be the one making the decisions on the project, or are there others involved?",
-        "at": "2026-10-06T17:36:35.521Z"
+        "text": "March works well for our typical timelines. Will you be the one deciding on this, or is someone else involved?",
+        "at": "2026-10-06T17:36:47.945Z"
       },
       {
         "speaker": "caller",
-        "text": "It's just myself and my husband. He knows I'm calling and is happy to go ahead.",
-        "at": "2026-10-06T17:36:55.028Z"
+        "text": "Yes — myself and my husband. He knows we’re calling and is happy to go ahead.",
+        "at": "2026-10-06T17:37:06.445Z"
       },
       {
         "speaker": "agent",
-        "text": "Understood. Do you have a ballpark budget in mind for this?",
-        "at": "2026-10-06T17:36:55.028Z"
+        "text": "Do you have a ballpark budget in mind for this?",
+        "at": "2026-10-06T17:37:06.445Z"
       },
       {
         "speaker": "caller",
-        "text": "Not really sure yet, we just want something good quality that fits the space well.",
-        "at": "2026-10-06T17:37:09.528Z"
+        "text": "Not really sure of the exact figure yet, we just want good quality work for a full 3BHK.",
+        "at": "2026-10-06T17:37:21.745Z"
       },
       {
         "speaker": "agent",
         "text": "No problem at all. Have you had a chance to look at our website or any of our past work?",
-        "at": "2026-10-06T17:37:09.528Z"
+        "at": "2026-10-06T17:37:21.745Z"
       },
       {
         "speaker": "caller",
-        "text": "Yes, Shruti showed us her flat in Aundh, which is why we called you.",
-        "at": "2026-10-06T17:37:26.876Z"
+        "text": "Yes, Shruti showed us her place, so we've seen what you did for her.",
+        "at": "2026-10-06T17:37:39.445Z"
       },
       {
         "speaker": "agent",
         "text": "Typically, a home of about 1,400 square feet comes to around 25 to 34 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?",
-        "at": "2026-10-06T17:37:26.876Z"
+        "at": "2026-10-06T17:37:39.445Z"
       },
       {
         "speaker": "caller",
-        "text": "Yeah, that sounds about right.",
-        "at": "2026-10-06T17:37:48.576Z"
+        "text": "Yeah, that sounds about right for what we have in mind.",
+        "at": "2026-10-06T17:38:03.545Z"
       },
       {
         "speaker": "agent",
-        "text": "Wonderful! Would you prefer we meet at your flat in Kothrud, and does Wednesday at 10 AM or Thursday at 2 PM suit you better?",
-        "at": "2026-10-06T17:37:48.576Z"
+        "text": "Would you prefer tomorrow, Wednesday at 10 am, or Thursday, 8 October at 2 pm? And would you like the first consultation at your flat in Kothrud?",
+        "at": "2026-10-06T17:38:03.545Z"
       },
       {
         "speaker": "caller",
-        "text": "Wednesday at 10 AM works for us.",
-        "at": "2026-10-06T17:38:05.075Z"
+        "text": "Let's do Wednesday at 10 am, and yes, at our flat in Kothrud please.",
+        "at": "2026-10-06T17:38:24.045Z"
       },
       {
         "speaker": "agent",
-        "text": "That's booked for Wednesday, 7 October at 10 AM at your flat in Kothrud, and an SMS confirmation will follow shortly. Have a good day!",
-        "at": "2026-10-06T17:38:05.075Z"
+        "text": "All booked for Wednesday, 7 October at 10 am at your flat in Kothrud, and an SMS confirmation will follow shortly. Have a good day!",
+        "at": "2026-10-06T17:38:24.045Z"
       }
     ],
     "lookup": {
@@ -223,10 +223,10 @@
       }
     ],
     "booking": {
-      "uid": "mock_sim-T01-1791308100000-muzgjfbs_1791347400000",
+      "uid": "mock_sim-T01-1791308100000-mv0frlua_1791347400000",
       "startUtc": "2026-10-07T04:30:00.000Z",
       "endUtc": "2026-10-07T05:30:00.000Z",
-      "designer": "Rohan Joshi",
+      "designer": "Asha Kulkarni",
       "provider": "mock",
       "label": "Wednesday, 7 October, 10 am",
       "eventType": "site_visit"
@@ -238,9 +238,9 @@
     "ended": true,
     "endReason": "booked",
     "usage": {
-      "calls": 23,
-      "prompt": 232797,
-      "output": 2750,
+      "calls": 22,
+      "prompt": 220994,
+      "output": 2725,
       "thoughts": 0
     },
     "toolLog": [
@@ -253,17 +253,30 @@
           "open_project": null,
           "previously_captured": null
         },
-        "at": "2026-10-06T17:35:14.800Z",
+        "at": "2026-10-06T17:35:18.400Z",
         "ms": 0
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "in_scope_confidence": 1,
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
+            "referral": "Shruti Joshi",
+            "out_of_scope_confidence": 0,
+            "engagement": "design_and_execution",
+            "scope_text": "redo the whole 3BHK flat",
+            "category": "apartment",
+            "caller_name": "Priya",
+            "locality": "Kothrud",
             "criteria": {
               "decision_maker": {
+                "evidence": "unclear",
+                "verdict": "unclear"
+              },
+              "real_project": {
+                "evidence": "want to redo the whole 3BHK flat in Kothrud",
+                "verdict": "pass"
+              },
+              "timeline": {
                 "verdict": "unclear",
                 "evidence": "not discussed yet"
               },
@@ -271,29 +284,16 @@
                 "evidence": "not discussed yet",
                 "verdict": "unclear"
               },
-              "real_project": {
-                "verdict": "pass",
-                "evidence": "redo a 3BHK full home with design and execution"
-              },
               "area": {
-                "evidence": "Kothrud, Dahanukar Colony, Pune",
+                "evidence": "Kothrud, Pune",
                 "verdict": "pass"
-              },
-              "timeline": {
-                "evidence": "not discussed yet",
-                "verdict": "unclear"
               }
             },
-            "category": "apartment",
-            "referral": "Shruti Joshi",
-            "city": "Pune",
-            "locality": "Dahanukar Colony, Kothrud",
-            "out_of_scope_confidence": 0,
-            "caller_name": "Priya",
             "scope_kind": "full_home",
+            "city": "Pune",
+            "in_scope_confidence": 1,
             "project_type": "residential",
-            "call_intent": "new_enquiry",
-            "engagement": "design_and_execution"
+            "call_intent": "new_enquiry"
           }
         },
         "result": {
@@ -310,48 +310,48 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:35:36.965Z",
+        "at": "2026-10-06T17:35:46.445Z",
         "ms": 6
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "out_of_scope_confidence": 0,
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
-            "locality": "Dahanukar Colony, Kothrud",
-            "call_intent": "new_enquiry",
-            "referral": "Shruti Joshi",
-            "in_scope_confidence": 1,
-            "caller_name": "Priya",
             "city": "Pune",
+            "project_type": "residential",
+            "locality": "Kothrud",
+            "pin": "411038",
+            "in_scope_confidence": 1,
+            "out_of_scope_confidence": 0,
+            "caller_name": "Priya",
+            "referral": "Shruti Joshi",
+            "scope_kind": "full_home",
+            "scope_text": "redo the whole 3BHK flat",
             "category": "apartment",
             "criteria": {
-              "area": {
-                "verdict": "pass",
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038"
-              },
-              "real_project": {
-                "evidence": "redo a 3BHK full home with design and execution",
-                "verdict": "pass"
-              },
-              "timeline": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
-              },
               "decision_maker": {
                 "verdict": "unclear",
-                "evidence": "not discussed yet"
+                "evidence": "unclear"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Kothrud, Pune, PIN 411038"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
               },
               "budget": {
                 "verdict": "unclear",
                 "evidence": "not discussed yet"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "want to redo the whole 3BHK flat in Kothrud"
               }
             },
-            "pin": "411038",
-            "scope_kind": "full_home",
             "engagement": "design_and_execution",
-            "project_type": "residential"
+            "call_intent": "new_enquiry"
           }
         },
         "result": {
@@ -367,49 +367,50 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:35:49.075Z",
+        "at": "2026-10-06T17:36:00.045Z",
         "ms": 1
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
+            "referral": "Shruti Joshi",
+            "out_of_scope_confidence": 0,
             "carpet_sqft": 1400,
-            "in_scope_confidence": 1,
-            "locality": "Dahanukar Colony, Kothrud",
+            "locality": "Kothrud",
+            "scope_text": "redo the whole 3BHK flat",
+            "project_type": "residential",
             "call_intent": "new_enquiry",
             "engagement": "design_and_execution",
             "scope_kind": "full_home",
-            "city": "Pune",
             "criteria": {
-              "real_project": {
+              "decision_maker": {
+                "evidence": "unclear",
+                "verdict": "unclear"
+              },
+              "area": {
                 "verdict": "pass",
-                "evidence": "redo a 3BHK full home with design and execution"
+                "evidence": "Kothrud, Pune, PIN 411038"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
               },
               "budget": {
                 "verdict": "unclear",
                 "evidence": "not discussed yet"
               },
-              "decision_maker": {
-                "evidence": "not discussed yet",
-                "verdict": "unclear"
-              },
-              "area": {
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet",
-                "verdict": "pass"
-              },
-              "timeline": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "want to redo the whole 3BHK flat in Kothrud"
               }
             },
-            "referral": "Shruti Joshi",
-            "category": "apartment",
-            "out_of_scope_confidence": 0,
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
+            "in_scope_confidence": 1,
             "caller_name": "Priya",
+            "rooms_in_scope": 3,
             "pin": "411038",
-            "project_type": "residential"
+            "category": "apartment",
+            "city": "Pune"
           }
         },
         "result": {
@@ -424,49 +425,50 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:36:04.509Z",
+        "at": "2026-10-06T17:36:14.945Z",
         "ms": 0
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "category": "apartment",
-            "locality": "Dahanukar Colony, Kothrud",
-            "caller_name": "Priya",
-            "carpet_sqft": 1400,
-            "site_state": "ready",
-            "pin": "411038",
-            "project_type": "residential",
-            "out_of_scope_confidence": 0,
-            "city": "Pune",
+            "referral": "Shruti Joshi",
+            "rooms_in_scope": 3,
             "scope_kind": "full_home",
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
+            "out_of_scope_confidence": 0,
             "criteria": {
-              "timeline": {
-                "evidence": "site ready now",
-                "verdict": "pass"
-              },
               "decision_maker": {
                 "verdict": "unclear",
-                "evidence": "not discussed yet"
+                "evidence": "unclear"
               },
               "budget": {
                 "evidence": "not discussed yet",
                 "verdict": "unclear"
               },
               "area": {
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet",
-                "verdict": "pass"
+                "verdict": "pass",
+                "evidence": "Kothrud, Pune, PIN 411038"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
               },
               "real_project": {
                 "verdict": "pass",
-                "evidence": "redo a 3BHK full home with design and execution"
+                "evidence": "want to redo the whole 3BHK flat in Kothrud"
               }
             },
-            "in_scope_confidence": 1,
+            "category": "apartment",
+            "caller_name": "Priya",
+            "pin": "411038",
             "engagement": "design_and_execution",
-            "referral": "Shruti Joshi",
+            "carpet_sqft": 1400,
+            "scope_text": "redo the whole 3BHK flat",
+            "project_type": "residential",
+            "in_scope_confidence": 1,
+            "locality": "Kothrud",
+            "city": "Pune",
+            "site_state": "builder flat, ready now",
             "call_intent": "new_enquiry"
           }
         },
@@ -481,52 +483,53 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:36:22.465Z",
+        "at": "2026-10-06T17:36:35.445Z",
         "ms": 1
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "caller_name": "Priya",
-            "referral": "Shruti Joshi",
-            "scope_kind": "full_home",
-            "locality": "Dahanukar Colony, Kothrud",
-            "site_state": "ready",
-            "timeline_text": "complete by March",
-            "completion_in_weeks": 20,
-            "carpet_sqft": 1400,
-            "project_type": "residential",
-            "call_intent": "new_enquiry",
+            "completion_in_weeks": 21,
+            "in_scope_confidence": 1,
+            "out_of_scope_confidence": 0,
             "criteria": {
               "budget": {
                 "evidence": "not discussed yet",
                 "verdict": "unclear"
               },
-              "decision_maker": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
-              },
               "real_project": {
                 "verdict": "pass",
-                "evidence": "redo a 3BHK full home with design and execution"
-              },
-              "area": {
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet",
-                "verdict": "pass"
+                "evidence": "want to redo the whole 3BHK flat in Kothrud"
               },
               "timeline": {
                 "verdict": "pass",
                 "evidence": "complete by March"
+              },
+              "decision_maker": {
+                "verdict": "unclear",
+                "evidence": "unclear"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Kothrud, Pune, PIN 411038"
               }
             },
-            "engagement": "design_and_execution",
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
+            "scope_text": "redo the whole 3BHK flat",
+            "rooms_in_scope": 3,
+            "call_intent": "new_enquiry",
+            "referral": "Shruti Joshi",
+            "locality": "Kothrud",
+            "project_type": "residential",
             "city": "Pune",
+            "timeline_text": "done by March",
             "category": "apartment",
-            "out_of_scope_confidence": 0,
+            "scope_kind": "full_home",
+            "engagement": "design_and_execution",
+            "site_state": "builder flat, ready now",
             "pin": "411038",
-            "in_scope_confidence": 1
+            "caller_name": "Priya",
+            "carpet_sqft": 1400
           }
         },
         "result": {
@@ -539,45 +542,54 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:36:35.521Z",
-        "ms": 2
+        "at": "2026-10-06T17:36:47.945Z",
+        "ms": 3
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "call_intent": "new_enquiry",
-            "out_of_scope_confidence": 0,
-            "engagement": "design_and_execution",
-            "city": "Pune",
+            "pin": "411038",
+            "locality": "Kothrud",
+            "referral": "Shruti Joshi",
             "decision_maker": "authorised",
-            "caller_name": "Priya",
-            "site_state": "ready",
+            "engagement": "design_and_execution",
+            "scope_kind": "full_home",
+            "scope_text": "redo the whole 3BHK flat",
+            "site_state": "builder flat, ready now",
+            "city": "Pune",
+            "out_of_scope_confidence": 0,
+            "completion_in_weeks": 21,
+            "category": "apartment",
+            "carpet_sqft": 1400,
             "criteria": {
-              "decision_maker": {
-                "verdict": "pass",
-                "evidence": "self and husband, authorised"
-              },
               "area": {
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet",
+                "evidence": "Kothrud, Pune, PIN 411038",
                 "verdict": "pass"
               },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "want to redo the whole 3BHK flat in Kothrud"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "complete by March"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "myself and my husband, he is on board"
+              },
               "budget": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
               }
             },
-            "pin": "411038",
-            "scope_kind": "full_home",
+            "call_intent": "new_enquiry",
+            "rooms_in_scope": 3,
             "project_type": "residential",
-            "referral": "Shruti Joshi",
-            "in_scope_confidence": 1,
-            "timeline_text": "complete by March",
-            "category": "apartment",
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
-            "carpet_sqft": 1400,
-            "completion_in_weeks": 20,
-            "locality": "Dahanukar Colony, Kothrud"
+            "timeline_text": "done by March",
+            "caller_name": "Priya",
+            "in_scope_confidence": 1
           }
         },
         "result": {
@@ -589,48 +601,58 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:36:55.028Z",
+        "at": "2026-10-06T17:37:06.445Z",
         "ms": 1
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "caller_name": "Priya",
+            "asked_about_price": false,
+            "city": "Pune",
+            "in_scope_confidence": 1,
+            "referral": "Shruti Joshi",
+            "timeline_text": "done by March",
+            "engagement": "design_and_execution",
+            "call_intent": "new_enquiry",
             "not_known": [
               "budget"
             ],
-            "city": "Pune",
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
-            "category": "apartment",
+            "scope_text": "redo the whole 3BHK flat",
+            "caller_name": "Priya",
+            "completion_in_weeks": 21,
+            "rooms_in_scope": 3,
+            "decision_maker": "authorised",
             "project_type": "residential",
-            "carpet_sqft": 1400,
             "out_of_scope_confidence": 0,
+            "pin": "411038",
+            "locality": "Kothrud",
+            "category": "apartment",
             "scope_kind": "full_home",
-            "engagement": "design_and_execution",
-            "in_scope_confidence": 1,
-            "timeline_text": "complete by March",
-            "locality": "Dahanukar Colony, Kothrud",
+            "carpet_sqft": 1400,
+            "site_state": "builder flat, ready now",
             "criteria": {
-              "decision_maker": {
-                "evidence": "self and husband, authorised",
-                "verdict": "pass"
-              },
               "budget": {
                 "evidence": "not sure yet",
                 "verdict": "unclear"
               },
-              "area": {
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet",
+              "real_project": {
+                "evidence": "want to redo the whole 3BHK flat in Kothrud",
                 "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "complete by March",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "myself and my husband, he is on board"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Kothrud, Pune, PIN 411038"
               }
-            },
-            "call_intent": "new_enquiry",
-            "referral": "Shruti Joshi",
-            "pin": "411038",
-            "decision_maker": "authorised",
-            "completion_in_weeks": 20,
-            "site_state": "ready"
+            }
           }
         },
         "result": {
@@ -641,62 +663,62 @@
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T17:37:09.528Z",
+        "at": "2026-10-06T17:37:21.745Z",
         "ms": 2
       },
       {
         "name": "evaluate_lead",
         "args": {
-          "in_scope_confidence": 1,
-          "out_of_scope_confidence": 0,
           "facts": {
-            "city": "Pune",
+            "carpet_sqft": 1400,
             "category": "apartment",
-            "researched_us": "yes",
-            "project_type": "residential",
+            "timeline_text": "done by March",
+            "pin": "411038",
+            "site_state": "builder flat, ready now",
             "in_scope_confidence": 1,
-            "decision_maker": "authorised",
+            "not_known": [
+              "budget"
+            ],
+            "researched_us": "yes",
             "out_of_scope_confidence": 0,
-            "scope_text": "redo a 3BHK full home in Dahanukar Colony, Kothrud",
+            "referral": "Shruti Joshi",
+            "city": "Pune",
+            "decision_maker": "authorised",
             "engagement": "design_and_execution",
-            "budget_confirmed": false,
+            "project_type": "residential",
+            "scope_text": "redo the whole 3BHK flat",
+            "asked_about_price": false,
+            "completion_in_weeks": 21,
+            "call_intent": "new_enquiry",
+            "caller_name": "Priya",
             "scope_kind": "full_home",
-            "locality": "Dahanukar Colony, Kothrud",
-            "referral": "Shruti Joshi’s flat in Aundh",
+            "locality": "Kothrud",
             "criteria": {
-              "budget": {
-                "evidence": "not sure yet",
-                "verdict": "unclear"
+              "decision_maker": {
+                "evidence": "myself and my husband, he is on board",
+                "verdict": "pass"
               },
               "area": {
-                "verdict": "pass",
-                "evidence": "Dahanukar Colony, Kothrud, Pune 411038, 1400 sq ft carpet"
+                "evidence": "Kothrud, Pune, PIN 411038",
+                "verdict": "pass"
               },
-              "real_project": {
-                "verdict": "pass",
-                "evidence": "redo a 3BHK full home with design and execution"
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not sure yet"
               },
               "timeline": {
                 "evidence": "complete by March",
                 "verdict": "pass"
               },
-              "decision_maker": {
-                "verdict": "pass",
-                "evidence": "self and husband, authorised"
+              "real_project": {
+                "evidence": "want to redo the whole 3BHK flat in Kothrud",
+                "verdict": "pass"
               }
             },
-            "asked_about_price": false,
-            "not_known": [
-              "budget"
-            ],
-            "carpet_sqft": 1400,
-            "caller_name": "Priya",
-            "site_state": "ready",
-            "call_intent": "new_enquiry",
-            "pin": "411038",
-            "timeline_text": "complete by March",
-            "completion_in_weeks": 20
-          }
+            "rooms_in_scope": 3
+          },
+          "in_scope_confidence": 1,
+          "out_of_scope_confidence": 0
         },
         "result": {
           "next_step": "qualified",
@@ -704,28 +726,15 @@
           "budget_guidance_rule": "Say budget_guidance EXACTLY as written, once, before the next step. Don't add or change any figure.",
           "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
         },
-        "at": "2026-10-06T17:37:26.876Z",
-        "ms": 8
+        "at": "2026-10-06T17:37:39.445Z",
+        "ms": 4
       },
       {
         "name": "get_slots",
         "args": {
-          "typical_budget_reaction": "not_asked",
-          "site_visit": false,
-          "preference": null
-        },
-        "result": {
-          "error": "Before offering times: you shared the typical range — wait for their answer to \"Are you comfortable going ahead on that basis?\" and pass it as typical_budget_reaction."
-        },
-        "at": "2026-10-06T17:37:26.876Z",
-        "ms": 1
-      },
-      {
-        "name": "get_slots",
-        "args": {
-          "site_visit": true,
+          "preference": null,
           "typical_budget_reaction": "comfortable",
-          "preference": "null"
+          "site_visit": true
         },
         "result": {
           "slots": [
@@ -744,8 +753,8 @@
           ],
           "offer": "Offer 2 or 3 of these by name."
         },
-        "at": "2026-10-06T17:37:48.576Z",
-        "ms": 8
+        "at": "2026-10-06T17:38:03.545Z",
+        "ms": 10
       },
       {
         "name": "book_slot",
@@ -757,7 +766,7 @@
           "confirmed": "Wednesday, 7 October, 10 am",
           "say": "Confirm the time and tell them an SMS confirmation will follow."
         },
-        "at": "2026-10-06T17:38:05.075Z",
+        "at": "2026-10-06T17:38:24.045Z",
         "ms": 2
       },
       {
@@ -768,23 +777,23 @@
         "result": {
           "ok": true
         },
-        "at": "2026-10-06T17:38:05.075Z",
+        "at": "2026-10-06T17:38:24.045Z",
         "ms": 1
       }
     ],
     "guardRewrites": [],
     "turnLatencyMs": [
-      965,
-      2210,
-      2234,
-      2356,
-      2256,
-      2307,
-      3320,
-      2148,
-      3521,
-      2099,
-      2821
+      1244,
+      2801,
+      3343,
+      3203,
+      2908,
+      3083,
+      3688,
+      2951,
+      3339,
+      2747,
+      3867
     ],
     "intakeGates": 0,
     "intakePrompted": [
@@ -802,7 +811,7 @@
       "Typically, a home of about 1,400 square feet comes to around 25 to 34 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?"
     ]
   },
-  "durationS": 198.375,
+  "durationS": 217.345,
   "callerTurns": 11,
   "dropped": false,
   "endedBy": "agent"

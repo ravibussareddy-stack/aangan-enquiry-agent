@@ -22,7 +22,7 @@ import { saveSession } from "../lib/calls/postcall";
 import { loadRuntimeConfig } from "../lib/config/runtime";
 import { getCrm } from "../lib/crm";
 import { db } from "../lib/db/client";
-import { alertOps, sendTelegram } from "../lib/integrations/telegram";
+import { alertOps, notifyStaff } from "../lib/staff/notify";
 
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
 
@@ -45,10 +45,12 @@ async function deps(): Promise<BrainDeps> {
     config,
     now: () => new Date(),
     onComplaint: async (s) => {
-      await sendTelegram(
-        process.env.TELEGRAM_SENIOR_CHAT_ID ?? "",
-        `URGENT · COMPLAINT (live call)\n${s.complaint?.summary ?? ""}\nCaller: ${s.callerPhone ?? "unknown"}${s.complaint?.wantsSenior ? `\nWants: ${s.complaint.wantsSenior}` : ""}\nFree times: ${s.callbackWindow ?? "not given"}\nTold: as soon as possible (target ${config.complaintCallbackMinutes} min)`,
-      );
+      await notifyStaff({
+        group: "senior",
+        subject: `URGENT complaint (live call) · ${s.callerPhone ?? "unknown caller"}`,
+        telegramChat: process.env.TELEGRAM_SENIOR_CHAT_ID,
+        text: `URGENT · COMPLAINT (live call)\n${s.complaint?.summary ?? ""}\nCaller: ${s.callerPhone ?? "unknown"}${s.complaint?.wantsSenior ? `\nWants: ${s.complaint.wantsSenior}` : ""}\nFree times: ${s.callbackWindow ?? "not given"}\nTold: as soon as possible (target ${config.complaintCallbackMinutes} min)`,
+      });
     },
     previousFacts: async (phone) => {
       const { rows } = await db().query<{ state: SessionState }>(

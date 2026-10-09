@@ -15,8 +15,8 @@ caller ─► Vaani (phone, STT, TTS) ──BYOL WebSocket──► server/brain
                 └──────────────► app/api/voice/events ─► lib/calls/postcall.ts
                                                          price-leak scan → LLM extraction → evaluateLead
                                                          → Neon (calls, leads, criteria, bookings, costs)
-                                                         → handoff: HubSpot + Telegram note + SMS
-Telegram buttons / HubSpot stage / dashboard ─► lib/review/decide.ts ─► outbound booking call (sweep)
+                                                         → handoff: HubSpot + staff email (Gmail) + customer SMS
+Email action links / HubSpot stage / dashboard ─► lib/review/decide.ts ─► outbound booking call (sweep)
 ```
 
 Vaani documents neither mid-call tool calling nor JSON-schema extraction (see [PLAN.md §1](PLAN.md)). So the dialogue runs in our own brain over Vaani's bring-your-own-LLM (BYOL) WebSocket, and extraction runs server-side.
@@ -32,12 +32,12 @@ Vaani documents neither mid-call tool calling nor JSON-schema extraction (see [P
 | `lib/brain/` | Dialogue turn loop, tool executor, pre-speech price guard |
 | `lib/voice/` | `VoiceProvider` interface, Vaani adapter, simulated provider |
 | `lib/calls/postcall.ts` | Post-call pipeline |
-| `lib/handoff/`, `lib/integrations/` | Telegram note, HubSpot, Cal.com, Telegram, Resend |
+| `lib/handoff/`, `lib/staff/`, `lib/integrations/` | Staff email notes with signed action links (Gmail), HubSpot, Cal.com, Resend; Telegram as a legacy fallback |
 | `lib/sms/` | `SmsProvider` (console or MSG91); Vaani has no SMS |
 | `lib/cost/` | Usage → ₹ from the effective-dated `rates` table; Vaani spend cap |
 | `lib/insights/` | SQL metrics, Gemini narrative (figures checked against the snapshot), daily digest |
 | `app/dashboard/` | Founder dashboard, review queue, leads, settings |
-| `app/api/` | Webhooks (voice, Telegram, HubSpot, Cal.com) and cron routes |
+| `app/api/` | Webhooks (voice, HubSpot, Cal.com, legacy Telegram) and cron routes. `app/r/[token]` is the confirm page for emailed action links |
 | `db/` | Migrations, seed config and rates (Neon Postgres) |
 | `eval/` | 20 real and 8 synthetic labelled cases, runner, price-leak suite, simulations |
 
@@ -105,7 +105,7 @@ Add `--persist` to `npm run sim` to push simulated calls through the real pipeli
 
 | Service | Set | Notes |
 |---|---|---|
-| Telegram | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `TELEGRAM_*_CHAT_ID` | Register the webhook with `setWebhook` → `<APP_BASE_URL>/api/telegram/callback`, passing `secret_token`. Each designer presses Start once so the bot can DM them. |
+| Gmail (staff email) | `GMAIL_USER`, `GMAIL_APP_PASSWORD`, `DESIGNER_EMAILS`, optional `STAFF_EMAIL_*` | Turn on 2-Step Verification for the sending Gmail account, then create an App Password (Google Account → Security → App passwords). Designers get their own leads; review, callback, complaint and ops emails go to the groups in `.env.example`. Approve / Reject / route links open a confirm page, so a mail scanner opening a link changes nothing. Also sends the daily digest. Telegram (`TELEGRAM_*`) is only used if no email is configured. |
 | HubSpot (Free) | `HUBSPOT_PRIVATE_APP_TOKEN`, `HUBSPOT_CLIENT_SECRET`, `HUBSPOT_PORTAL_ID` | Rename the default deal pipeline's stages to: New qualified, Callback needed, Service review, Admin review, Booked, Consultation held, Won, Lost, Declined. Moving a deal between New qualified, Service review (designers), Admin review, Callback needed (helpdesk) and Declined routes the lead. Deal health is written to the built-in Priority field. In the private app, subscribe to deal property change → `dealstage` → `<APP_BASE_URL>/api/hubspot/webhook`. |
 | Cal.com (Free) | `CALCOM_API_KEY`, `CALCOM_EVENT_TYPE_*`, `CALCOM_WEBHOOK_SECRET`, `CALCOM_BOOKING_URL` | Three event types: residential consult, commercial consult, site visit. Webhook → `/api/calcom/webhook`. Turn off Cal.com's own SMS reminders (no DLT). |
 | Resend | `RESEND_API_KEY`, `DIGEST_FROM`, `DIGEST_TO` | Daily digest at 8am IST. |
@@ -117,7 +117,7 @@ Add `--persist` to `npm run sim` to push simulated calls through the real pipeli
 2. **Environment variables.** Copy these from `.env.local` into Vercel → Settings → Environment Variables:
    - **Always:** `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_JWKS_URL`, `NEON_AUTH_COOKIE_SECRET`, `FOUNDER_EMAILS`, `GEMINI_API_KEYS`, `GEMINI_MODEL`, `CRON_SECRET`, `VAANI_WEBHOOK_TOKEN`, `VOICE_PROVIDER` (`simulated` until the live test).
    - **`APP_BASE_URL`:** your Vercel URL, e.g. `https://aangan.vercel.app`.
-   - **When you have them:** the Telegram, HubSpot, Cal.com, Resend and Vaani (`VAANI_API_KEY`, `VAANI_AGENT_ID`) keys.
+   - **When you have them:** the Gmail, HubSpot, Cal.com and Vaani (`VAANI_API_KEY`, `VAANI_AGENT_ID`) keys.
    - **Never set `DEV_VIEWER_ROLE` on Vercel.** It only works under `next dev`, but leave it out regardless.
 3. **Trust the domain in Neon Auth**, or sign-in fails with "invalid domain":
 
@@ -127,7 +127,6 @@ Add `--persist` to `npm run sim` to push simulated calls through the real pipeli
 4. **Sign in** at `https://<your-app>.vercel.app` with the email in `FOUNDER_EMAILS`.
 5. **Webhooks point at the Vercel URL:**
    - Vaani: `/api/voice/events?token=<VAANI_WEBHOOK_TOKEN>`
-   - Telegram: `/api/telegram/callback`
    - HubSpot: `/api/hubspot/webhook`
    - Cal.com: `/api/calcom/webhook`
 6. **The brain server can't run on Vercel.** It holds a WebSocket open for the whole call. Run `npm run brain` locally with a `cloudflared` tunnel during tests, or on any small Node host. Point Vaani's BYOL URL at it (`wss://…/chat/stream`). It needs `DATABASE_URL`, `GEMINI_API_KEYS`, `BRAIN_AUTH_TOKEN` and `VOICE_PROVIDER`.
@@ -171,10 +170,11 @@ Set conditional forwarding on the office line so the AI only takes calls when st
 
 ### 5. Hardening (Phase 6)
 
-- **Signatures and tokens on every webhook:** Vaani (HMAC or secret path token), Telegram (secret header), HubSpot (v3 HMAC, 5-minute window), Cal.com (HMAC-SHA256), and cron (bearer).
+- **Signed, expiring action links** in staff emails (HMAC, 14 days, confirm before acting).
+- **Signatures and tokens on every webhook:** Vaani (HMAC or secret path token), HubSpot (v3 HMAC, 5-minute window), Cal.com (HMAC-SHA256), and cron (bearer).
 - **Idempotency:** each delivery is processed once (`webhook_events`), failures are recorded and retried, and the post-call pipeline never creates two leads for one call.
 - **Retries:** outbound HTTP retries with backoff and `Retry-After`. Gemini falls back across `GEMINI_API_KEYS`.
-- **Ops alerts:** a failed webhook, handoff, outbound call or brain turn alerts the Telegram ops group (`TELEGRAM_OPS_CHAT_ID`), or the console when unset.
+- **Ops alerts:** a failed webhook, handoff, outbound call or brain turn emails the ops group (`STAFF_EMAIL_OPS`, default the founder), or logs to the console when Gmail is unset.
 - **Two layers of authorization:** checks in the server code, then Postgres RLS (`app_user` + `app.user_id`) as defence in depth.
 
 ## Rules this system enforces
@@ -186,5 +186,5 @@ Set conditional forwarding on the office line so the AI only takes calls when st
    - CI checks that pricing figures never enter `/agent`.
 2. **States it is an AI and that the call is recorded**, in the first sentence.
 3. **No auto-decline on uncertainty.** Declines only on a hard rule, out-of-scope confidence ≥ 0.80, or 2+ failed criteria.
-4. **Telegram is staff-only.** Customers only ever get SMS.
+4. **Staff get email, customers get SMS.** Customers are never emailed or messaged on Telegram.
 5. **Secrets only in env vars.** Every webhook is verified.

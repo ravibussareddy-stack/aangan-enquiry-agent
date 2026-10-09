@@ -8,7 +8,7 @@
 import { loadRuntimeConfig } from "../config/runtime";
 import { db } from "../db/client";
 import { sendLoggedSms } from "../handoff/run";
-import { alertOps } from "../integrations/telegram";
+import { alertOps } from "../staff/notify";
 import { getVoiceProvider } from "../voice";
 
 interface Due {

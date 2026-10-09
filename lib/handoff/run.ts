@@ -1,6 +1,6 @@
 /**
- * Handoff after a call: HubSpot sync, designer Telegram note (seniors for
- * complaints), booking confirmation SMS to the customer. Target: within
+ * Handoff after a call: HubSpot sync, designer email note (seniors for
+ * complaints, helpdesk for callbacks), booking confirmation SMS to the customer. Target: within
  * 2 minutes of the call ending — this runs straight after the post-call
  * pipeline (via after() in the webhook route).
  */
@@ -9,9 +9,9 @@ import { getCrm, type DealStage } from "../crm";
 import { db } from "../db/client";
 import { buildNote } from "./note";
 import { labelFor } from "../intake/sheet";
-import { sendTelegram } from "../integrations/telegram";
 import type { LeadExtraction } from "../schema/lead";
 import { sendSms } from "../sms";
+import { notifyStaff } from "../staff/notify";
 import { speakableSlot } from "../time/ist";
 
 interface LeadRow {
@@ -33,6 +33,7 @@ interface LeadRow {
   started_at: string;
   assigned_designer_id: string | null;
   designer_chat: string | null;
+  designer_name: string | null;
   booking_start: string | null;
   booking_designer: string | null;
   repeat_calls: number;
@@ -60,7 +61,7 @@ export async function runHandoff(leadId: string): Promise<void> {
     `select l.id, l.status, l.phone, l.name, l.in_area, l.budget_flag, l.flags, l.extraction, l.evaluation,
             l.review_queue, l.deal_health_score, l.deal_health_band, l.callback_window,
             l.hubspot_contact_id, l.hubspot_deal_id, l.assigned_designer_id, c.started_at::text,
-            d.telegram_chat_id::text as designer_chat,
+            d.telegram_chat_id::text as designer_chat, d.name as designer_name,
             b.slot_start::text as booking_start, b.designer as booking_designer,
             (select count(*)::int from calls c2 where c2.caller_phone = l.phone and c2.id <> c.id and c2.started_at < c.started_at) as repeat_calls,
             (s.state -> 'complaint') as session_complaint
@@ -113,7 +114,7 @@ export async function runHandoff(leadId: string): Promise<void> {
     }
   }
 
-  // Telegram (staff only)
+  // Staff note by email (staff only — customers get SMS)
   if (lead.status === "qualified" || lead.status === "review" || lead.status === "complaint" || lead.status === "callback") {
     const base = process.env.APP_BASE_URL ?? "";
     const note = buildNote({
@@ -135,19 +136,33 @@ export async function runHandoff(leadId: string): Promise<void> {
       dealHealth: lead.deal_health_score != null ? { score: lead.deal_health_score, band: lead.deal_health_band ?? "" } : null,
       callbackWindow: lead.callback_window,
     });
-    const chat =
+    const who = lead.name ?? "Caller";
+    const where = lead.extraction.locality ? ` · ${lead.extraction.locality}` : "";
+    const subject =
       lead.status === "complaint"
-        ? process.env.TELEGRAM_SENIOR_CHAT_ID
+        ? `URGENT complaint · ${who}`
         : lead.status === "callback"
-          ? (process.env.TELEGRAM_HELPDESK_CHAT_ID ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID)
-          : (lead.designer_chat ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID);
-    const channel =
-      lead.status === "complaint" ? "telegram_senior" : lead.status === "callback" ? "telegram_helpdesk" : lead.designer_chat ? "telegram_dm" : "telegram_group";
+          ? `Callback needed · ${who}${where}`
+          : lead.status === "review"
+            ? `Review needed · ${who}${where}`
+            : `New lead · ${who}${where}${lead.booking_start ? " · booked" : ""}`;
     try {
-      const sent = await sendTelegram(chat ?? "", note.text, note.buttons);
-      await logHandoff(leadId, sent.delivered ? channel : `${channel}_console`, sent.delivered, sent.messageId ? `${chat}:${sent.messageId}` : null);
+      const sent = await notifyStaff({
+        designer: lead.status === "qualified" ? (lead.designer_name ?? lead.booking_designer) : null,
+        group: lead.status === "complaint" ? "senior" : lead.status === "callback" ? "helpdesk" : lead.status === "review" && lead.review_queue === "admin" ? "admin" : "designers",
+        subject,
+        text: note.text,
+        buttons: note.buttons,
+        telegramChat:
+          lead.status === "complaint"
+            ? process.env.TELEGRAM_SENIOR_CHAT_ID
+            : lead.status === "callback"
+              ? (process.env.TELEGRAM_HELPDESK_CHAT_ID ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID)
+              : (lead.designer_chat ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID),
+      });
+      await logHandoff(leadId, sent.channel, sent.delivered, sent.externalId);
     } catch (err) {
-      await logHandoff(leadId, channel, false, null, (err as Error).message);
+      await logHandoff(leadId, "email", false, null, (err as Error).message);
     }
   }
 

@@ -6,109 +6,148 @@
     "language": "Hinglish (Hindi-English mix, Roman script)"
   },
   "state": {
-    "callId": "sim-S07-1791436500000",
+    "callId": "sim-S07-1791350100000-mv0fupqy",
     "provider": "simulated",
     "direction": "inbound",
     "purpose": "inbound",
     "callerPhone": "+919000001005",
     "callerName": null,
     "leadId": null,
-    "startedAt": "2026-10-08T05:15:00.000Z",
+    "startedAt": "2026-10-07T05:15:00.000Z",
     "promptVersion": "v0",
     "afterHours": false,
     "facts": {
       "caller_name": "Amit",
+      "call_intent": "new_enquiry",
       "project_type": "residential",
       "category": "apartment",
       "engagement": "design_and_execution",
       "scope_kind": "full_home",
-      "scope_text": "3BHK flat full interior design",
-      "rooms_in_scope": 3,
+      "scope_text": "poora interior design karwana hai for a new 3BHK flat",
       "locality": "Pimple Nilakh",
-      "city": "Pune",
-      "decision_maker": "self",
       "criteria": {
         "real_project": {
           "verdict": "pass",
-          "evidence": "poora interior design karwana hai"
+          "evidence": "poora interior design karwana hai for a new 3BHK flat"
         },
         "area": {
           "verdict": "pass",
-          "evidence": "Pimple Nilakh"
+          "evidence": "Pimple Nilakh, Pune (411027)"
         },
         "timeline": {
           "verdict": "pass",
-          "evidence": "March tak poora ho jaye"
+          "evidence": "March tak kaam khatam ho jaye"
         },
         "budget": {
-          "verdict": "unclear",
-          "evidence": "not discussed yet"
+          "verdict": "pass",
+          "evidence": "15 to 20 lakhs"
         },
         "decision_maker": {
           "verdict": "pass",
-          "evidence": "Main hi owner hoon"
+          "evidence": "main hi owner hoon flat ka"
         }
       },
       "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "not_known": [
+        "site_ready"
+      ],
+      "pin": "411027",
+      "decision_maker": "self",
       "carpet_sqft": 1200,
-      "timeline_text": "March tak poora ho jaye",
-      "completion_by": "2027-03-31"
+      "timeline_text": "March tak kaam khatam ho jaye",
+      "completion_in_weeks": 20,
+      "asked_about_price": false,
+      "budget_inr": 2000000,
+      "budget_confirmed": true,
+      "researched_us": "yes",
+      "site_state": "ready"
     },
     "transcript": [
       {
         "speaker": "agent",
         "text": "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?",
-        "at": "2026-10-08T05:15:00.000Z"
+        "at": "2026-10-07T05:15:00.000Z"
       },
       {
         "speaker": "caller",
-        "text": "Namaste, mera naam Amit hai.",
-        "at": "2026-10-08T05:15:11.600Z"
+        "text": "Hello! Mera naam Amit hai.",
+        "at": "2026-10-07T05:15:11.600Z"
       },
       {
         "speaker": "agent",
-        "text": "Namaste Amit ji! How can we help you with your interior design project today?",
-        "at": "2026-10-08T05:15:11.600Z"
+        "text": "Hi Amit! What can I help you with today—a new project, something about an existing project, or reaching a particular designer?",
+        "at": "2026-10-07T05:15:11.600Z"
       },
       {
         "speaker": "caller",
-        "text": "Namaste. Mera ek 3BHK flat hai Pimple Nilakh mein, uska poora interior design karwana hai. Main hi owner hoon.",
-        "at": "2026-10-08T05:15:27.666Z"
+        "text": "Mera ek naya flat hai Pimple Nilakh mein, 3BHK. Uska poora interior design karwana hai.",
+        "at": "2026-10-07T05:15:28.681Z"
       },
       {
         "speaker": "agent",
-        "text": "Wonderful, Pimple Nilakh is definitely in our service area! Could you share the PIN code of the society or area, and roughly what carpet area the flat is?",
-        "at": "2026-10-08T05:15:27.666Z"
+        "text": "Wonderful, a 3BHK apartment in Pimple Nilakh sounds great! Could you share the PIN code for the area so I can check our team's availability?",
+        "at": "2026-10-07T05:15:28.681Z"
       },
       {
         "speaker": "caller",
-        "text": "PIN code toh exact yaad nahi aa raha, par society Pimple Nilakh mein hi hai. Aur carpet area lagbhag 1200 square feet hoga.",
-        "at": "2026-10-08T05:15:52.166Z"
+        "text": "Pimple Nilakh ka PIN code 411027 hai. Aur main hi owner hoon flat ka.",
+        "at": "2026-10-07T05:15:48.381Z"
       },
       {
         "speaker": "agent",
-        "text": "No problem about the PIN code at all. When would you like the home ready, or when is the site available for work to start?",
-        "at": "2026-10-08T05:15:52.166Z"
+        "text": "Got it, thanks Amit. Roughly how big is the carpet area, or about how many square feet are we looking at?",
+        "at": "2026-10-07T05:15:48.381Z"
       },
       {
         "speaker": "caller",
-        "text": "March tak poora ho jaye toh bohot achha rahega.",
-        "at": "2026-10-08T05:16:09.866Z"
+        "text": "Approx 1200 square feet hai carpet area.",
+        "at": "2026-10-07T05:16:03.681Z"
       },
       {
         "speaker": "agent",
-        "text": "Would Friday, 9 October at 10 am, or Saturday, 10 October at 10 am suit you best for a consultation with our designer?",
-        "at": "2026-10-08T05:16:09.866Z"
+        "text": "Is the site available to work on now, or are you still waiting for possession?",
+        "at": "2026-10-07T05:16:03.681Z"
       },
       {
         "speaker": "caller",
-        "text": "Friday, 9 October at 10 am theek rahega.",
-        "at": "2026-10-08T05:16:26.366Z"
+        "text": "Haan, site ready hai. Bas March tak kaam khatam ho jaye toh achha rahega.",
+        "at": "2026-10-07T05:16:19.381Z"
       },
       {
         "speaker": "agent",
-        "text": "That's booked for Friday, 9 October at 10 am, Amit ji, and we'll send you an SMS confirmation shortly. Have a wonderful day!",
-        "at": "2026-10-08T05:16:26.366Z"
+        "text": "Understood. Do you have a ballpark budget in mind for this?",
+        "at": "2026-10-07T05:16:19.381Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Budget around 15 to 20 lakhs ke beech mein soch raha hoon.",
+        "at": "2026-10-07T05:16:32.681Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "15 se 20 lakhs—did I get that right? And have you had a chance to look at our website or past work?",
+        "at": "2026-10-07T05:16:32.681Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Haan, website dekhi hai thodi si, kaam accha laga isliye phone kiya.",
+        "at": "2026-10-07T05:16:50.381Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "We have a slot available this Thursday, 8 October at 2 pm, or Friday, 9 October at 10 am. Would either of those work for you? And would you like the first consultation at your site in Pimple Nilakh?",
+        "at": "2026-10-07T05:16:50.381Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Thursday, 8 October at 2 pm theek rahega. Aur site pe hi milte hain Pimple Nilakh mein.",
+        "at": "2026-10-07T05:17:16.881Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "All booked for Thursday, 8 October at 2 pm at your site in Pimple Nilakh! An SMS confirmation will follow. Have a good day!",
+        "at": "2026-10-07T05:17:16.881Z"
       }
     ],
     "lookup": {
@@ -126,7 +165,7 @@
       "outcome": "qualified",
       "declineReason": null,
       "flags": [
-        "budget_not_given"
+        "budget_tight"
       ],
       "reasons": [
         "All hard rules pass and in-scope confidence is high"
@@ -135,41 +174,42 @@
     "slotsOffered": [
       {
         "id": "s1",
+        "startUtc": "2026-10-07T07:30:00.000Z",
+        "label": "Wednesday, 7 October, 1 pm",
+        "eventType": "residential_consult"
+      },
+      {
+        "id": "s2",
         "startUtc": "2026-10-08T08:30:00.000Z",
         "label": "Thursday, 8 October, 2 pm",
         "eventType": "residential_consult"
       },
       {
-        "id": "s2",
+        "id": "s3",
         "startUtc": "2026-10-09T04:30:00.000Z",
         "label": "Friday, 9 October, 10 am",
-        "eventType": "residential_consult"
-      },
-      {
-        "id": "s3",
-        "startUtc": "2026-10-10T04:30:00.000Z",
-        "label": "Saturday, 10 October, 10 am",
         "eventType": "residential_consult"
       }
     ],
     "booking": {
-      "uid": "mock_sim-S07-1791436500000_1791520200000",
-      "startUtc": "2026-10-09T04:30:00.000Z",
-      "endUtc": "2026-10-09T05:30:00.000Z",
-      "designer": "Asha Kulkarni",
+      "uid": "mock_sim-S07-1791350100000-mv0fupqy_1791448200000",
+      "startUtc": "2026-10-08T08:30:00.000Z",
+      "endUtc": "2026-10-08T09:30:00.000Z",
+      "designer": "Rohan Joshi",
       "provider": "mock",
-      "label": "Friday, 9 October, 10 am",
+      "label": "Thursday, 8 October, 2 pm",
       "eventType": "residential_consult"
     },
     "callbackWindow": null,
     "complaint": null,
+    "message": null,
     "redirect": null,
     "ended": true,
     "endReason": "booked",
     "usage": {
-      "calls": 12,
-      "prompt": 68888,
-      "output": 1129,
+      "calls": 19,
+      "prompt": 186144,
+      "output": 2683,
       "thoughts": 0
     },
     "toolLog": [
@@ -182,237 +222,499 @@
           "open_project": null,
           "previously_captured": null
         },
-        "at": "2026-10-08T05:15:11.600Z",
+        "at": "2026-10-07T05:15:11.600Z",
         "ms": 0
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "category": "apartment",
-            "caller_name": "Amit",
-            "decision_maker": "self",
-            "city": "Pune",
-            "in_scope_confidence": 1,
+            "project_type": "residential",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "engagement": "design_and_execution",
             "locality": "Pimple Nilakh",
+            "call_intent": "new_enquiry",
+            "caller_name": "Amit",
+            "scope_kind": "full_home",
+            "in_scope_confidence": 1,
             "criteria": {
-              "area": {
-                "verdict": "pass",
-                "evidence": "Pimple Nilakh"
-              },
               "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
                 "verdict": "unclear",
                 "evidence": "not discussed yet"
-              },
-              "real_project": {
-                "verdict": "pass",
-                "evidence": "poora interior design karwana hai"
               },
               "budget": {
                 "verdict": "unclear",
                 "evidence": "not discussed yet"
-              },
-              "decision_maker": {
-                "evidence": "Main hi owner hoon",
-                "verdict": "pass"
-              }
-            },
-            "scope_text": "3BHK flat full interior design",
-            "rooms_in_scope": 3,
-            "scope_kind": "full_home",
-            "project_type": "residential",
-            "engagement": "design_and_execution"
-          }
-        },
-        "result": {
-          "status": "in_scope",
-          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
-        },
-        "at": "2026-10-08T05:15:27.666Z",
-        "ms": 1
-      },
-      {
-        "name": "check_scope",
-        "args": {
-          "facts": {
-            "carpet_sqft": 1200,
-            "decision_maker": "self",
-            "scope_kind": "full_home",
-            "caller_name": "Amit",
-            "in_scope_confidence": 1,
-            "engagement": "design_and_execution",
-            "criteria": {
-              "area": {
-                "evidence": "Pimple Nilakh",
-                "verdict": "pass"
-              },
-              "budget": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
-              },
-              "real_project": {
-                "evidence": "poora interior design karwana hai",
-                "verdict": "pass"
-              },
-              "decision_maker": {
-                "verdict": "pass",
-                "evidence": "Main hi owner hoon"
-              },
-              "timeline": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
-              }
-            },
-            "category": "apartment",
-            "rooms_in_scope": 3,
-            "project_type": "residential",
-            "scope_text": "3BHK flat full interior design",
-            "city": "Pune",
-            "locality": "Pimple Nilakh"
-          }
-        },
-        "result": {
-          "status": "in_scope",
-          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
-        },
-        "at": "2026-10-08T05:15:52.166Z",
-        "ms": 1
-      },
-      {
-        "name": "check_scope",
-        "args": {
-          "facts": {
-            "city": "Pune",
-            "timeline_text": "March tak poora ho jaye",
-            "engagement": "design_and_execution",
-            "project_type": "residential",
-            "decision_maker": "self",
-            "in_scope_confidence": 1,
-            "locality": "Pimple Nilakh",
-            "scope_text": "3BHK flat full interior design",
-            "criteria": {
-              "decision_maker": {
-                "evidence": "Main hi owner hoon",
-                "verdict": "pass"
               },
               "area": {
                 "verdict": "pass",
                 "evidence": "Pimple Nilakh"
               },
               "real_project": {
-                "verdict": "pass",
-                "evidence": "poora interior design karwana hai"
-              },
-              "timeline": {
-                "verdict": "pass",
-                "evidence": "March tak poora ho jaye"
-              },
-              "budget": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
+                "evidence": "poora interior design karwana hai for a new 3BHK flat",
+                "verdict": "pass"
               }
             },
-            "scope_kind": "full_home",
-            "caller_name": "Amit",
-            "carpet_sqft": 1200,
-            "completion_by": "2027-03-31",
-            "rooms_in_scope": 3,
+            "out_of_scope_confidence": 0,
             "category": "apartment"
           }
         },
         "result": {
           "status": "in_scope",
-          "continue": "Collect location (if not yet), carpet area, timeline, decision-maker, then evaluate_lead."
+          "next_question": "And the PIN code?",
+          "still_missing": [
+            "PIN code",
+            "Size of the area to be done",
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-08T05:16:09.866Z",
+        "at": "2026-10-07T05:15:28.681Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "decision_maker": "self",
+            "pin": "411027",
+            "category": "apartment",
+            "in_scope_confidence": 1,
+            "caller_name": "Amit",
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "locality": "Pimple Nilakh",
+            "call_intent": "new_enquiry",
+            "out_of_scope_confidence": 0,
+            "engagement": "design_and_execution",
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "poora interior design karwana hai for a new 3BHK flat"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Pimple Nilakh, Pune (411027)"
+              },
+              "timeline": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "budget": {
+                "evidence": "not discussed yet",
+                "verdict": "unclear"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "main hi owner hoon flat ka"
+              }
+            }
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Roughly how big is the area we'd be working on — its carpet area, or how many rooms?",
+          "still_missing": [
+            "Size of the area to be done",
+            "Site status / possession",
+            "When it must be complete",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-07T05:15:48.381Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "out_of_scope_confidence": 0,
+            "pin": "411027",
+            "category": "apartment",
+            "carpet_sqft": 1200,
+            "call_intent": "new_enquiry",
+            "decision_maker": "self",
+            "locality": "Pimple Nilakh",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "in_scope_confidence": 1,
+            "scope_kind": "full_home",
+            "caller_name": "Amit",
+            "criteria": {
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "main hi owner hoon flat ka"
+              },
+              "real_project": {
+                "evidence": "poora interior design karwana hai for a new 3BHK flat",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Pimple Nilakh, Pune (411027)"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              }
+            }
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Is the site available to work on now, or are you waiting for possession?",
+          "still_missing": [
+            "Site status / possession",
+            "When it must be complete",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-07T05:16:03.681Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "decision_maker": "self",
+            "category": "apartment",
+            "pin": "411027",
+            "caller_name": "Amit",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "timeline_text": "March tak kaam khatam ho jaye",
+            "call_intent": "new_enquiry",
+            "criteria": {
+              "real_project": {
+                "evidence": "poora interior design karwana hai for a new 3BHK flat",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "main hi owner hoon flat ka",
+                "verdict": "pass"
+              },
+              "area": {
+                "verdict": "pass",
+                "evidence": "Pimple Nilakh, Pune (411027)"
+              },
+              "budget": {
+                "verdict": "unclear",
+                "evidence": "not discussed yet"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "March tak kaam khatam ho jaye"
+              }
+            },
+            "completion_in_weeks": 20,
+            "in_scope_confidence": 1,
+            "engagement": "design_and_execution",
+            "project_type": "residential",
+            "scope_kind": "full_home",
+            "locality": "Pimple Nilakh",
+            "carpet_sqft": 1200,
+            "out_of_scope_confidence": 0
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Do you have a ballpark budget in mind for this?",
+          "still_missing": [
+            "Site status / possession",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-07T05:16:19.381Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "caller_name": "Amit",
+            "timeline_text": "March tak kaam khatam ho jaye",
+            "asked_about_price": false,
+            "project_type": "residential",
+            "pin": "411027",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "criteria": {
+              "budget": {
+                "evidence": "15 to 20 lakhs",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "March tak kaam khatam ho jaye",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "evidence": "main hi owner hoon flat ka",
+                "verdict": "pass"
+              },
+              "area": {
+                "evidence": "Pimple Nilakh, Pune (411027)",
+                "verdict": "pass"
+              },
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "poora interior design karwana hai for a new 3BHK flat"
+              }
+            },
+            "completion_in_weeks": 20,
+            "budget_confirmed": true,
+            "in_scope_confidence": 1,
+            "carpet_sqft": 1200,
+            "budget_inr": 2000000,
+            "call_intent": "new_enquiry",
+            "out_of_scope_confidence": 0,
+            "engagement": "design_and_execution",
+            "decision_maker": "self",
+            "scope_kind": "full_home",
+            "category": "apartment",
+            "locality": "Pimple Nilakh"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Is the site available to work on now, or are you waiting for possession?",
+          "still_missing": [
+            "Site status / possession",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-07T05:16:32.681Z",
+        "ms": 2
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "category": "apartment",
+            "pin": "411027",
+            "budget_confirmed": true,
+            "project_type": "residential",
+            "in_scope_confidence": 1,
+            "budget_inr": 2000000,
+            "decision_maker": "self",
+            "asked_about_price": false,
+            "completion_in_weeks": 20,
+            "caller_name": "Amit",
+            "out_of_scope_confidence": 0,
+            "researched_us": "yes",
+            "locality": "Pimple Nilakh",
+            "call_intent": "new_enquiry",
+            "timeline_text": "March tak kaam khatam ho jaye",
+            "engagement": "design_and_execution",
+            "carpet_sqft": 1200,
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "scope_kind": "full_home",
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "poora interior design karwana hai for a new 3BHK flat"
+              },
+              "area": {
+                "evidence": "Pimple Nilakh, Pune (411027)",
+                "verdict": "pass"
+              },
+              "decision_maker": {
+                "verdict": "pass",
+                "evidence": "main hi owner hoon flat ka"
+              },
+              "budget": {
+                "evidence": "15 to 20 lakhs",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "verdict": "pass",
+                "evidence": "March tak kaam khatam ho jaye"
+              }
+            }
+          }
+        },
+        "result": {
+          "error": "Invalid arguments for evaluate_lead: in_scope_confidence: Invalid input: expected number, received undefined; out_of_scope_confidence: Invalid input: expected number, received undefined"
+        },
+        "at": "2026-10-07T05:16:50.381Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_scope_confidence": 1,
+          "out_of_scope_confidence": 0,
+          "facts": {
+            "project_type": "residential",
+            "decision_maker": "self",
+            "pin": "411027",
+            "caller_name": "Amit",
+            "researched_us": "yes",
+            "engagement": "design_and_execution",
+            "category": "apartment",
+            "asked_about_price": false,
+            "scope_kind": "full_home",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "locality": "Pimple Nilakh",
+            "budget_confirmed": true,
+            "call_intent": "new_enquiry",
+            "criteria": {
+              "real_project": {
+                "verdict": "pass",
+                "evidence": "poora interior design karwana hai for a new 3BHK flat"
+              },
+              "decision_maker": {
+                "evidence": "main hi owner hoon flat ka",
+                "verdict": "pass"
+              },
+              "timeline": {
+                "evidence": "March tak kaam khatam ho jaye",
+                "verdict": "pass"
+              },
+              "area": {
+                "evidence": "Pimple Nilakh, Pune (411027)",
+                "verdict": "pass"
+              },
+              "budget": {
+                "verdict": "pass",
+                "evidence": "15 to 20 lakhs"
+              }
+            },
+            "carpet_sqft": 1200,
+            "completion_in_weeks": 20,
+            "budget_inr": 2000000,
+            "timeline_text": "March tak kaam khatam ho jaye",
+            "in_scope_confidence": 1,
+            "out_of_scope_confidence": 0
+          }
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Site status / possession"
+          ],
+          "ask": "Is the site available to work on now, or are you waiting for possession?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-07T05:16:50.381Z",
         "ms": 1
       },
       {
         "name": "evaluate_lead",
         "args": {
           "facts": {
-            "rooms_in_scope": 3,
-            "decision_maker": "self",
-            "scope_kind": "full_home",
             "locality": "Pimple Nilakh",
-            "carpet_sqft": 1200,
-            "project_type": "residential",
+            "category": "apartment",
             "engagement": "design_and_execution",
-            "completion_by": "2027-03-31",
             "criteria": {
-              "decision_maker": {
-                "verdict": "pass",
-                "evidence": "Main hi owner hoon"
+              "timeline": {
+                "evidence": "March tak kaam khatam ho jaye",
+                "verdict": "pass"
               },
               "area": {
                 "verdict": "pass",
-                "evidence": "Pimple Nilakh"
+                "evidence": "Pimple Nilakh, Pune (411027)"
               },
               "budget": {
-                "verdict": "unclear",
-                "evidence": "not discussed yet"
+                "evidence": "15 to 20 lakhs",
+                "verdict": "pass"
               },
-              "timeline": {
+              "decision_maker": {
                 "verdict": "pass",
-                "evidence": "March tak poora ho jaye"
+                "evidence": "main hi owner hoon flat ka"
               },
               "real_project": {
                 "verdict": "pass",
-                "evidence": "poora interior design karwana hai"
+                "evidence": "poora interior design karwana hai for a new 3BHK flat"
               }
             },
-            "scope_text": "3BHK flat full interior design",
-            "timeline_text": "March tak poora ho jaye",
-            "category": "apartment",
-            "city": "Pune",
+            "decision_maker": "self",
+            "project_type": "residential",
+            "scope_text": "poora interior design karwana hai for a new 3BHK flat",
+            "completion_in_weeks": 20,
+            "carpet_sqft": 1200,
+            "asked_about_price": false,
+            "not_known": [
+              "site_ready"
+            ],
+            "budget_confirmed": true,
+            "out_of_scope_confidence": 0,
+            "timeline_text": "March tak kaam khatam ho jaye",
+            "budget_inr": 2000000,
+            "pin": "411027",
+            "call_intent": "new_enquiry",
+            "researched_us": "yes",
+            "site_state": "ready",
+            "caller_name": "Amit",
             "in_scope_confidence": 1,
-            "caller_name": "Amit"
-          }
+            "scope_kind": "full_home"
+          },
+          "out_of_scope_confidence": 0,
+          "in_scope_confidence": 1
         },
         "result": {
           "next_step": "qualified",
           "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
         },
-        "at": "2026-10-08T05:16:09.866Z",
-        "ms": 0
+        "at": "2026-10-07T05:16:50.381Z",
+        "ms": 2
       },
       {
         "name": "get_slots",
         "args": {
+          "site_visit": false,
           "preference": null,
-          "site_visit": false
+          "typical_budget_reaction": "comfortable"
         },
         "result": {
           "slots": [
             {
               "slot_id": "s1",
-              "time": "Thursday, 8 October, 2 pm"
+              "time": "Wednesday, 7 October, 1 pm"
             },
             {
               "slot_id": "s2",
-              "time": "Friday, 9 October, 10 am"
+              "time": "Thursday, 8 October, 2 pm"
             },
             {
               "slot_id": "s3",
-              "time": "Saturday, 10 October, 10 am"
+              "time": "Friday, 9 October, 10 am"
             }
           ],
           "offer": "Offer 2 or 3 of these by name."
         },
-        "at": "2026-10-08T05:16:09.866Z",
-        "ms": 10
+        "at": "2026-10-07T05:16:50.381Z",
+        "ms": 8
       },
       {
         "name": "book_slot",
         "args": {
-          "caller_name": "Amit",
-          "slot_id": "s2"
+          "slot_id": "s2",
+          "caller_name": "Amit"
         },
         "result": {
-          "confirmed": "Friday, 9 October, 10 am",
+          "confirmed": "Thursday, 8 October, 2 pm",
           "say": "Confirm the time and tell them an SMS confirmation will follow."
         },
-        "at": "2026-10-08T05:16:26.366Z",
+        "at": "2026-10-07T05:17:16.881Z",
         "ms": 1
       },
       {
@@ -423,21 +725,36 @@
         "result": {
           "ok": true
         },
-        "at": "2026-10-08T05:16:26.366Z",
+        "at": "2026-10-07T05:17:16.881Z",
         "ms": 0
       }
     ],
     "guardRewrites": [],
     "turnLatencyMs": [
-      1266,
-      3105,
-      3120,
-      6024,
-      3666
-    ]
+      1081,
+      2673,
+      2666,
+      3411,
+      3889,
+      3331,
+      8442,
+      3679
+    ],
+    "intakeGates": 1,
+    "intakePrompted": [
+      "pin",
+      "size",
+      "site_ready",
+      "budget",
+      "site_ready",
+      "site_ready"
+    ],
+    "endRefused": false,
+    "budgetGuidance": null,
+    "approvedLines": []
   },
-  "durationS": 98.866,
-  "callerTurns": 5,
+  "durationS": 149.781,
+  "callerTurns": 8,
   "dropped": false,
   "endedBy": "agent"
 }

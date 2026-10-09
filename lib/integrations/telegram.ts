@@ -1,5 +1,6 @@
 /**
- * Telegram Bot API — staff only (designers, seniors, ops). Never customers.
+ * Telegram Bot API — legacy staff channel, used only when no email transport
+ * is configured (lib/staff/notify.ts). Never customers.
  * Webhook verification: X-Telegram-Bot-Api-Secret-Token (set via setWebhook).
  * When TELEGRAM_BOT_TOKEN is unset, messages are logged instead (zero-cost / dev).
  */
@@ -65,13 +66,4 @@ export function verifyTelegramSecret(header: string | null): boolean {
   const a = Buffer.from(secret);
   const b = Buffer.from(header);
   return a.length === b.length && timingSafeEqual(a, b);
-}
-
-/** Ops alerts (Phase 6). Falls back to console. */
-export async function alertOps(text: string) {
-  try {
-    await sendTelegram(process.env.TELEGRAM_OPS_CHAT_ID ?? "", `⚠️ OPS · ${text}`.slice(0, 4000));
-  } catch (err) {
-    console.error("[ops alert failed]", err, text);
-  }
 }

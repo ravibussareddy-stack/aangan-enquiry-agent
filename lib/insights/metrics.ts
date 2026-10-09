@@ -145,7 +145,7 @@ export async function getMetrics(r: Range): Promise<Metrics> {
          from calls c
          left join leads l on l.call_id = c.id
          left join call_sessions s on s.provider_call_id = c.provider_call_id
-         left join lateral (select min(sent_at) sent_at from handoffs where lead_id = l.id and channel like 'telegram%') h on true
+         left join lateral (select min(sent_at) sent_at from handoffs where lead_id = l.id and channel not in ('hubspot', 'crm_mock')) h on true
         where ${callsWhere}`),
     db()
       .query<{ inr: number }>(

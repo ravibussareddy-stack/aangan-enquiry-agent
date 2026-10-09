@@ -33,7 +33,7 @@ export async function once(provider: string, eventId: string, payload: unknown, 
     return "processed";
   } catch (err) {
     await finishEvent(provider, eventId, err);
-    const { alertOps } = await import("../integrations/telegram");
+    const { alertOps } = await import("../staff/notify");
     await alertOps(`${provider} webhook ${eventId} failed: ${(err as Error).message}`);
     return "failed";
   }

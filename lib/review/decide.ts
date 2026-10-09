@@ -1,5 +1,5 @@
 /**
- * Review decisions (Telegram buttons, HubSpot stage change, or dashboard).
+ * Review decisions (emailed action links, HubSpot stage change, dashboard, or legacy Telegram buttons).
  * Approve → schedule the outbound booking call(s). Reject → founder-approved SMS close.
  * The first decision wins (one review per lead).
  */
@@ -13,7 +13,7 @@ export type ReviewOutcome = "approved" | "rejected";
 export async function applyReviewDecision(opts: {
   leadId: string;
   decision: ReviewOutcome;
-  source: "telegram" | "hubspot" | "dashboard";
+  source: "email" | "telegram" | "hubspot" | "dashboard";
   reviewer: string;
   reviewerDesignerId?: string | null;
   syncCrm?: boolean;

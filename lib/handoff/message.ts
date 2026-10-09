@@ -1,9 +1,9 @@
 /**
- * Deliver a non-enquiry call message: to the named designer (Telegram DM if they've
- * started the bot, else the designers' group), or to the helpdesk for "other".
+ * Deliver a non-enquiry call message by email: to the named designer (if they're
+ * in DESIGNER_EMAILS, else the designers), or to the helpdesk for "other".
  */
 import { db } from "../db/client";
-import { sendTelegram } from "../integrations/telegram";
+import { notifyStaff } from "../staff/notify";
 import { TZ } from "../time/ist";
 
 export async function deliverMessage(messageId: string): Promise<void> {
@@ -42,12 +42,16 @@ export async function deliverMessage(messageId: string): Promise<void> {
     `Free times: ${m.callback_window ?? "not given"} · told "as soon as possible"`,
   ].join("\n");
 
-  const chat = m.intent === "other" ? process.env.TELEGRAM_HELPDESK_CHAT_ID : (m.designer_chat ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID);
-  const channel = m.intent === "other" ? "telegram_helpdesk" : m.designer_chat ? "telegram_dm" : "telegram_group";
-  const sent = await sendTelegram(chat ?? "", text);
+  const sent = await notifyStaff({
+    designer: m.intent === "other" ? null : (m.designer_name ?? m.for_person),
+    group: m.intent === "other" ? "helpdesk" : "designers",
+    subject: `Message from ${m.caller_name ?? "a caller"}${m.designer_name ? ` for ${m.designer_name}` : ""}`,
+    text,
+    telegramChat: m.intent === "other" ? process.env.TELEGRAM_HELPDESK_CHAT_ID : (m.designer_chat ?? process.env.TELEGRAM_DESIGNERS_CHAT_ID),
+  });
   await db().query("update call_messages set for_designer_id = $2, delivered_to = $3, sent_at = now() where id = $1", [
     messageId,
     m.designer_id,
-    sent.delivered ? channel : "console",
+    sent.delivered ? sent.channel : "console",
   ]);
 }

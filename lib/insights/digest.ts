@@ -1,5 +1,6 @@
 /** Daily 8am digest to the founder: yesterday's calls, bookings, review backlog, spend. */
-import { sendEmail } from "../integrations/resend";
+import { sendEmail } from "../integrations/email";
+import { groupEmails } from "../staff/recipients";
 import { istDate } from "../time/ist";
 import { getMetrics } from "./metrics";
 
@@ -20,7 +21,7 @@ export async function sendDailyDigest(now = new Date()) {
   ];
   const link = process.env.APP_BASE_URL ? `${process.env.APP_BASE_URL}/dashboard` : "";
   return sendEmail({
-    to: process.env.DIGEST_TO ?? "",
+    to: process.env.DIGEST_TO || groupEmails("admin"),
     subject: `Aangan enquiries — ${istDate(from)}`,
     text: [...lines, link].join("\n"),
     html: `<h2>Aangan enquiries — ${istDate(from)}</h2><ul>${lines.map((l) => `<li>${l}</li>`).join("")}</ul>${link ? `<p><a href="${link}">Open dashboard</a></p>` : ""}`,

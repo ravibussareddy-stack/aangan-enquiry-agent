@@ -300,7 +300,7 @@ export async function processCompletedCall(input: CompletedCall): Promise<PostCa
     if (messageId) {
       const { deliverMessage } = await import("../handoff/message");
       await deliverMessage(messageId).catch(async (err) => {
-        const { alertOps } = await import("../integrations/telegram");
+        const { alertOps } = await import("../staff/notify");
         await alertOps(`Message delivery failed for call ${callId}: ${(err as Error).message}`);
       });
     }
@@ -309,7 +309,7 @@ export async function processCompletedCall(input: CompletedCall): Promise<PostCa
     if (leadId && status && ["qualified", "review", "complaint", "declined", "callback"].includes(status)) {
       const { runHandoff } = await import("../handoff/run");
       await runHandoff(leadId).catch(async (err) => {
-        const { alertOps } = await import("../integrations/telegram");
+        const { alertOps } = await import("../staff/notify");
         await alertOps(`Handoff failed for lead ${leadId}: ${(err as Error).message}`);
       });
     }
