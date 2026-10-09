@@ -7,7 +7,7 @@ An AI voice agent that answers every enquiry call to Aangan Studio, Pune. It qua
 ## How it works
 
 ```
-caller ─► Vaani (phone, STT, TTS) ──BYOL WebSocket──► server/brain-server.ts  (our dialogue brain)
+caller ─► Vaani (phone, STT, TTS) ──BYOL WebSocket──► functions/brain (Neon Function: our dialogue brain)
                 │                                       │  Gemini + function calling
                 │                                       │  tools: lib/brain/tools.ts → lib/qualify (server decides)
                 │                                       │  pre-speech price guard → never speaks a price
@@ -129,7 +129,7 @@ Add `--persist` to `npm run sim` to push simulated calls through the real pipeli
    - Vaani: `/api/voice/events?token=<VAANI_WEBHOOK_TOKEN>`
    - HubSpot: `/api/hubspot/webhook`
    - Cal.com: `/api/calcom/webhook`
-6. **The brain server can't run on Vercel.** It holds a WebSocket open for the whole call. Run `npm run brain` locally with a `cloudflared` tunnel during tests, or on any small Node host. Point Vaani's BYOL URL at it (`wss://…/chat/stream`). It needs `DATABASE_URL`, `GEMINI_API_KEYS`, `BRAIN_AUTH_TOKEN` and `VOICE_PROVIDER`.
+6. **The brain runs on a Neon Function, not Vercel** (Vercel can't hold a WebSocket open for a whole call). It is declared in `neon.ts` and deployed with `neon deploy --env .env.local`, which gives a permanent `wss://<branch>-brain.compute.…neon.tech` address next to the database — no laptop or tunnel. Point Vaani's BYOL URL at `wss://…/chat/stream` with `BRAIN_AUTH_TOKEN` as the auth token. Free plan: 10 active / 400 waiting capacity-hours and 1M invocations a month. `npm run brain` still runs the same handler locally for offline work.
 7. **The per-minute sweep** (`/api/cron/sweep`) isn't in `vercel.json`, because Hobby only allows daily crons. Call it from a free scheduler, such as a Neon Function cron trigger or cron-job.org, with `Authorization: Bearer <CRON_SECRET>`.
 
 ### 3b. Phone line (overflow only)
@@ -138,19 +138,13 @@ Set conditional forwarding on the office line so the AI only takes calls when st
 
 ### 4. Live voice (spends Vaani credit — capped at ₹20)
 
-1. Start the brain:
+1. Deploy the brain (Neon Function) and note its URL:
 
    ```bash
-   npm run brain
+   neon deploy --env .env.local
    ```
 
-   Expose it:
-
-   ```bash
-   cloudflared tunnel --url http://localhost:8090
-   ```
-
-   Set `BRAIN_AUTH_TOKEN` in `.env.local`.
+   Set `BRAIN_WS_URL=wss://<function-host>/chat/stream` in `.env.local`, and `BRAIN_AUTH_TOKEN`.
 2. Dry-run the agent setup:
 
    ```bash

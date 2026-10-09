@@ -4,7 +4,6 @@
  *
  *   npm run preflight
  */
-import { execSync } from "node:child_process";
 import { existsSync, readdirSync } from "node:fs";
 
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
@@ -83,25 +82,18 @@ async function main() {
     add("block", "Vaani API", (err as Error).message);
   }
 
-  // 5. Public reachability (Vaani must reach the brain + webhooks)
-  const tunnel = ["cloudflared", "ngrok"].find((t) => {
-    try {
-      execSync(`command -v ${t}`, { stdio: "ignore" });
-      return true;
-    } catch {
-      return false;
-    }
-  });
-  add(tunnel ? "ok" : "block", "tunnel tool", tunnel ?? "none installed — `brew install cloudflared` (free) to expose the brain + webhooks");
+  // 5. Public reachability — Vaani must reach the brain (Neon Function) and the webhooks (Vercel).
   const base = env("APP_BASE_URL");
   add(/^https:\/\//.test(base) && !/localhost/.test(base) ? "ok" : "block", "APP_BASE_URL is public https", base || "unset");
-  add(/^wss:\/\//.test(env("BRAIN_WS_URL")) ? "ok" : "block", "BRAIN_WS_URL is public wss", env("BRAIN_WS_URL") || "unset — tunnel URL + /chat/stream");
+  const wsUrl = env("BRAIN_WS_URL");
+  add(/^wss:\/\//.test(wsUrl) ? "ok" : "block", "BRAIN_WS_URL is public wss", wsUrl || "unset — the brain function's wss://…/chat/stream");
 
-  // 6. Local servers
-  const brain = await fetch(`http://localhost:${env("BRAIN_PORT") || 8090}/health`).then((r) => r.ok).catch(() => false);
-  add(brain ? "ok" : "warn", "brain server running", brain ? "healthy" : "not running — `npm run brain`");
-  const app = await fetch("http://localhost:3000/api/cron/sweep").then((r) => r.status === 401).catch(() => false);
-  add(app ? "ok" : "warn", "app server running", app ? "up (auth enforced)" : "not running — `npm run dev`");
+  // 6. The cloud brain answers /health (cold start can take a few seconds).
+  const healthUrl = wsUrl ? wsUrl.replace(/^wss:/, "https:").replace(/\/chat\/stream.*$/, "/health") : "";
+  const brain = healthUrl ? await fetch(healthUrl, { signal: AbortSignal.timeout(30_000) }).then((r) => r.ok).catch(() => false) : false;
+  add(brain ? "ok" : "block", "brain (cloud) healthy", brain ? healthUrl.replace(/\/health$/, "") : `no answer at ${healthUrl || "(unset)"} — redeploy with \`neon deploy --env .env.local\``);
+  const app = await fetch(`${base}/api/cron/sweep`, { signal: AbortSignal.timeout(30_000) }).then((r) => r.status === 401).catch(() => false);
+  add(app ? "ok" : "warn", "app (Vercel) up", app ? "up (auth enforced)" : `no answer at ${base}`);
 
   const icon = { ok: "✓", warn: "!", block: "✗" };
   for (const r of results) console.log(`${icon[r.status]} ${r.check.padEnd(30)} ${r.detail}`);
