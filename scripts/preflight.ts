@@ -54,7 +54,7 @@ async function main() {
     const cfg = await loadRuntimeConfig();
     const spent = await voiceSpendSoFar();
     const left = cfg.voiceSpendCap.cap_inr - cfg.voiceSpendCap.reserve_inr - spent;
-    add(left > 5 ? "ok" : "block", "voice spend cap", `₹${spent.toFixed(2)} of ₹${cfg.voiceSpendCap.cap_inr} used · ~${Math.max(0, Math.floor(left / 5))} billed minute(s) left at ₹5/min`);
+    add(left > 5 ? "ok" : "block", "voice spend cap", `₹${spent.toFixed(2)} of ₹${cfg.voiceSpendCap.cap_inr} used · ~${(Math.max(0, left) / 4.5).toFixed(1)} min left at ≈ ₹4.50/min (per second)`);
     add(cfg.voiceSpendCap.max_call_s <= 300 ? "ok" : "warn", "max call length", `${cfg.voiceSpendCap.max_call_s}s (brain hangs up after this)`);
   } catch (err) {
     add("block", "database", (err as Error).message.slice(0, 160));

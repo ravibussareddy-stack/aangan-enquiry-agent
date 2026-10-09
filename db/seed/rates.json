@@ -61,5 +61,12 @@
     "unit_rate_inr": 220.0,
     "effective_from": "2026-10-01T00:00:00+05:30",
     "note": "Dashboard insights on gemini-3.5-flash-lite, incl. thinking tokens."
+  },
+  {
+    "component": "voice_minutes",
+    "unit": "minute",
+    "unit_rate_inr": 4.5,
+    "effective_from": "2026-10-09T00:00:00+05:30",
+    "note": "Observed 2026-10-09: a 74.7 s call was charged ₹5.60 → billed per second at ≈ ₹4.50/min (BYOL, WebRTC)."
   }
 ]

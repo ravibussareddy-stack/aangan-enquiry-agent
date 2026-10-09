@@ -87,7 +87,7 @@
       "max_call_s": 240,
       "outbound_attempts": 1
     },
-    "description": "Hard cap on total Vaani spend: ₹20 (≈4 billed minutes at ₹5/min; Vaani appears to round each call up to whole minutes). No call is answered or placed once logged spend reaches the cap. VOICE_PROVIDER=simulated by default, so no credit is used unless explicitly switched."
+    "description": "Hard cap on total Vaani spend: ₹20. Vaani bills per second (≈ ₹4.50/min observed 2026-10-09: 74.7 s = ₹5.60). No call is answered or placed once logged spend reaches the cap. VOICE_PROVIDER=simulated by default, so no credit is used unless explicitly switched."
   },
   "COMPLAINT_CALLBACK_MINUTES": {
     "value": 15,

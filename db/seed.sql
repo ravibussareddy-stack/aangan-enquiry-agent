@@ -14,7 +14,7 @@ insert into config (key, value, description, needs_founder_signoff, server_only)
   ('CALL_LIMITS', '{"target_s":180,"soft_wrap_s":255,"hard_max_s":300}'::jsonb, 'Call duration targets. At soft_wrap_s the agent moves to wrap-up.', false, false),
   ('DROP_RECOVERY', '{"callback_within_s":120,"max_attempts":1}'::jsonb, 'If a caller drops mid-call, place one outbound callback within this window.', false, false),
   ('APPROVAL_CALLBACK', '{"max_attempts":3,"slots_to_offer":3}'::jsonb, 'After a review lead is approved: outbound call attempts before falling back to an SMS booking link.', false, false),
-  ('VOICE_SPEND_CAP', '{"cap_inr":20,"reserve_inr":0,"max_call_s":240,"outbound_attempts":1}'::jsonb, 'Hard cap on total Vaani spend: ₹20 (≈4 billed minutes at ₹5/min; Vaani appears to round each call up to whole minutes). No call is answered or placed once logged spend reaches the cap. VOICE_PROVIDER=simulated by default, so no credit is used unless explicitly switched.', false, false),
+  ('VOICE_SPEND_CAP', '{"cap_inr":20,"reserve_inr":0,"max_call_s":240,"outbound_attempts":1}'::jsonb, 'Hard cap on total Vaani spend: ₹20. Vaani bills per second (≈ ₹4.50/min observed 2026-10-09: 74.7 s = ₹5.60). No call is answered or placed once logged spend reaches the cap. VOICE_PROVIDER=simulated by default, so no credit is used unless explicitly switched.', false, false),
   ('COMPLAINT_CALLBACK_MINUTES', '15'::jsonb, 'No longer promised to callers (2026-10-08: never guarantee a time — say ''as soon as possible'' and ask when they''re free). Used only as the internal target for seniors.', false, false),
   ('INSIGHTS_REFRESH_DAILY_LIMIT', '3'::jsonb, 'On-demand Gemini insights refreshes allowed per day.', false, false),
   ('PROMPT_VERSION', '"v0"'::jsonb, 'Voice agent prompt version (stored on each call).', false, false),
@@ -42,5 +42,6 @@ insert into rates (component, unit, unit_rate_inr, effective_from, note) values
   ('llm_extraction', 'input_tokens_1m', 26.4, '2026-10-01T00:00:00+05:30', 'Post-call extraction on gemini-3.5-flash-lite.'),
   ('llm_extraction', 'output_tokens_1m', 220, '2026-10-01T00:00:00+05:30', 'Post-call extraction on gemini-3.5-flash-lite, incl. thinking tokens.'),
   ('gemini_insights', 'input_tokens_1m', 26.4, '2026-10-01T00:00:00+05:30', 'Dashboard insights on gemini-3.5-flash-lite.'),
-  ('gemini_insights', 'output_tokens_1m', 220, '2026-10-01T00:00:00+05:30', 'Dashboard insights on gemini-3.5-flash-lite, incl. thinking tokens.')
+  ('gemini_insights', 'output_tokens_1m', 220, '2026-10-01T00:00:00+05:30', 'Dashboard insights on gemini-3.5-flash-lite, incl. thinking tokens.'),
+  ('voice_minutes', 'minute', 4.5, '2026-10-09T00:00:00+05:30', 'Observed 2026-10-09: a 74.7 s call was charged ₹5.60 → billed per second at ≈ ₹4.50/min (BYOL, WebRTC).')
 on conflict (component, unit, effective_from) do nothing;

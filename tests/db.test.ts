@@ -64,10 +64,10 @@ describe("migrations + seed", () => {
   });
 
   it("looks up the rate in effect", async () => {
-    const { rows } = await db.query<{ unit_rate_inr: string }>(
-      "select unit_rate_inr from rate_at('voice_minutes', 'minute', now())",
-    );
-    expect(Number(rows[0].unit_rate_inr)).toBe(5);
+    const at = async (ts: string) =>
+      Number((await db.query<{ unit_rate_inr: string }>("select unit_rate_inr from rate_at('voice_minutes', 'minute', $1::timestamptz)", [ts])).rows[0].unit_rate_inr);
+    expect(await at("2026-10-08T12:00:00+05:30")).toBe(5); // list price
+    expect(await at("2026-10-09T12:00:00+05:30")).toBe(4.5); // observed per-second rate from the first live call
   });
 
   it("requires every cost row to belong to a call or an insights run", async () => {

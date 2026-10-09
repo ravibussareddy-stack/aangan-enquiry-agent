@@ -162,7 +162,8 @@ export class VaaniProvider implements VoiceProvider {
     } catch {
       // usage lookup is best-effort
     }
-    return { providerCallId, billedMinutes: Math.max(1, Math.ceil(durationS / 60)), credits, raw: raw ?? { durationS, source: "webhook duration" } };
+    // Vaani bills per second (observed 2026-10-09; the rate is in the rates table), so no rounding up to whole minutes.
+    return { providerCallId, billedMinutes: Math.round((durationS / 60) * 10000) / 10000, credits, raw: raw ?? { durationS, source: "webhook duration" } };
   }
 }
 
