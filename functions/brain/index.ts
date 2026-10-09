@@ -12,6 +12,13 @@ import { brainAuthorized, callIdFromPath, handleByolCall } from "../../lib/brain
 const brain = {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+    // Diagnostics only — never logs the token itself.
+    const auth = request.headers.get("authorization");
+    console.log(
+      `[brain] ${request.method} ${url.pathname} upgrade=${request.headers.get("upgrade") ?? "-"} ` +
+        `auth=${auth ? `${auth.split(" ")[0]} (${auth.length} chars) ${brainAuthorized(auth) ? "match" : "NO MATCH"}` : "none"} ` +
+        `protocol=${request.headers.get("sec-websocket-protocol") ?? "-"} ua=${(request.headers.get("user-agent") ?? "-").slice(0, 40)}`,
+    );
     if (url.pathname === "/health") return Response.json({ ok: true, at: new Date().toISOString() });
     if (request.headers.get("upgrade")?.toLowerCase() !== "websocket") {
       return new Response("Aangan voice brain — Vaani BYOL WebSocket at /chat/stream/<call_id>", { status: 426 });

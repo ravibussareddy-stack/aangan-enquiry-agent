@@ -140,6 +140,12 @@ export function handleByolCall(ws: CallSocket, pathCallId: string): void {
     if (msg.response_type === "ping_pong") return;
     if (msg.interaction_type !== "response_required") return;
     const id = msg.response_id ?? 0;
+    // Vaani's BYOL connection check ("Reply with OK.") — answer at once, before any
+    // database work: a cold start would otherwise miss Vaani's short test timeout.
+    if (/^reply with ok\.?$/i.test(lastUserMessages(msg.transcript ?? []).trim())) {
+      send(ws, { response_type: "response", response_id: id, content: "OK", content_complete: true });
+      return;
+    }
     latestId = Math.max(latestId, id);
     queue = queue.then(async () => {
       if (id < latestId) return; // superseded before we started
@@ -171,11 +177,6 @@ export function handleByolCall(ws: CallSocket, pathCallId: string): void {
           return;
         }
         const userText = lastUserMessages(msg.transcript ?? []);
-        // Vaani's BYOL connection check — not the caller. Answer it, record nothing.
-        if (/^reply with ok\.?$/i.test(userText.trim())) {
-          send(ws, { response_type: "response", response_id: id, content: "OK", content_complete: true });
-          return;
-        }
         const snapshot = structuredClone(state);
         const t0 = Date.now();
         const turn = await respond(state, userText || "(silence)", d);
@@ -196,6 +197,7 @@ export function handleByolCall(ws: CallSocket, pathCallId: string): void {
   });
 
   ws.addEventListener("close", () => {
+    if (process.env.BRAIN_DEBUG) console.log(`[brain] ${pathCallId} socket closed`);
     const s = sessions.get(pathCallId);
     if (s) void saveSession(s).finally(() => sessions.delete(pathCallId));
   });
