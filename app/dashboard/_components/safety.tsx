@@ -26,13 +26,14 @@ export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; perio
       value: String(q.complaints),
       state: q.complaints > 0 ? "warn" : "ok",
       note: q.complaints > 0 ? `senior alerted in ${secs(q.avg_complaint_alert_s)} — check they called back` : "none",
-      href: "/dashboard/desk",
+      href: "/dashboard/desk#complaints",
     },
     {
       label: "Calls over 5 min",
       value: String(q.calls_over_5_min),
       state: q.calls_over_5_min > 0 ? "warn" : "ok",
       note: "cost and caller patience",
+      href: "/dashboard/overview#recent-h",
     },
     ...(spend
       ? [
@@ -41,11 +42,16 @@ export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; perio
             value: `₹${spend.used.toFixed(2)}`,
             state: spend.used >= spend.cap * 0.8 ? "warn" : "ok",
             note: `of ₹${spend.cap} cap — calls stop at the cap`,
+            href: "/dashboard/overview#cost",
           },
         ]
       : []),
   ] as { label: string; value: string; state: "ok" | "warn" | "bad"; note: string; href?: string }[];
-  const issues = items.filter((i) => i.state !== "ok").length;
+  const flagged = items.filter((i) => i.state !== "ok");
+  const issues = flagged.length;
+  // The badge takes you straight to the first thing that needs you.
+  const firstHref = flagged.find((i) => i.href)?.href;
+  const badgeText = issues ? `${issues} need${issues === 1 ? "s" : ""} attention` : "✓ All clear";
   return (
     <section id="quality" className={`card safety ${issues ? "attention" : "clear"}`} aria-labelledby="safety-h" style={{ marginBottom: 18 }}>
       <div className="card-head" style={{ marginBottom: 10 }}>
@@ -53,7 +59,18 @@ export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; perio
           <h2 id="safety-h">Safety</h2>
           <div className="sub">Brand and caller safety · {period}</div>
         </div>
-        <span className={`badge ${issues ? "declined" : "qualified"}`}>{issues ? `${issues} need${issues === 1 ? "s" : ""} attention` : "✓ All clear"}</span>
+        {firstHref ? (
+          <Link
+            href={firstHref}
+            className="badge declined safety-jump has-tip"
+            data-label={flagged.map((i) => i.label).join(" · ")}
+            data-tip="Open what needs your attention"
+          >
+            {badgeText} →
+          </Link>
+        ) : (
+          <span className={`badge ${issues ? "declined" : "qualified"}`}>{badgeText}</span>
+        )}
       </div>
       <div className="safety-row">
         {items.map((i) => {
@@ -65,9 +82,14 @@ export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; perio
             </>
           );
           return i.href ? (
-            <Link key={i.label} href={i.href} className="safety-item">{body}</Link>
+            <Link key={i.label} href={i.href} className={`safety-item${i.state !== "ok" ? " needs" : ""}`}>
+              {body}
+              {i.state !== "ok" && <span className="go">Open →</span>}
+            </Link>
           ) : (
-            <div key={i.label} className="safety-item">{body}</div>
+            <div key={i.label} className="safety-item">
+              {body}
+            </div>
           );
         })}
       </div>
