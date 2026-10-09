@@ -10,6 +10,7 @@ import { detectSignals, withSubject } from "@/lib/insights/signals";
 import { addTodo, adoptRecommendation, deleteTodo, dismissRecommendation, refreshInsights, toggleTodo } from "./actions";
 import { label, pct, when } from "./_components/format";
 import { Greeting } from "./_components/greeting";
+import { WindChime } from "./_components/wind-chime";
 import { money } from "./_components/kpi";
 import { SafetyStrip } from "./_components/safety";
 import { loadRuntimeConfig } from "@/lib/config/runtime";
@@ -50,6 +51,7 @@ export default async function Today({ searchParams }: { searchParams: Promise<Re
   return (
     <main>
       <Greeting name={viewer.name ?? viewer.email} sub="here's what needs you today">
+        <WindChime />
         <Link className="pill" href="/dashboard/overview">
           Open KPIs
         </Link>
@@ -93,7 +95,7 @@ async function SafetyAndGlance() {
       <SafetyStrip q={week.quality} period="last 7 days" spend={{ used: spent, cap: cfg.voiceSpendCap.cap_inr }} />
 
       {/* At a glance — the three numbers that frame the day */}
-      <section className="kpis" style={{ marginBottom: 18 }} aria-label="At a glance">
+      <section className="kpis glance" style={{ marginBottom: 18 }} aria-label="At a glance">
         <Link href="/dashboard/overview#pipeline" className="tile kpi" style={{ color: "inherit", textDecoration: "none" }}>
           <div className="label">
             <span>Weighted pipeline</span>

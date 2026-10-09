@@ -113,7 +113,7 @@ h3 { font-size: 0.85rem; }
 .rail svg { width: 19px; height: 19px; }
 .rail .spacer { flex: 1; }
 .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent-grad); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 0.9rem; }
-.shell { width: 100%; max-width: 1320px; padding: 26px 28px 40px 8px; }
+.shell { width: 100%; max-width: 2200px; padding: 26px 32px 40px 8px; }
 .pagehead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px; margin-bottom: 22px; }
 .pagehead .sub { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
 @media (max-width: 760px) {
@@ -488,3 +488,68 @@ a.safety-item:hover { text-decoration: none; filter: brightness(1.03); }
 }
 @keyframes shimmer { to { transform: translateX(100%); } }
 @media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; } }
+
+/* ---- Hover info bubbles (sidebar icons) ---- */
+.has-tip { position: relative; }
+.has-tip::after {
+  content: attr(data-label) "\A" attr(data-tip);
+  white-space: pre-line;
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translate(-6px, -50%);
+  width: max-content;
+  max-width: 240px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--text);
+  /* Nearly solid: a blur behind a pseudo-element inside the glass rail can't see the page, so text would show through. */
+  background: color-mix(in srgb, var(--bg) 82%, white 18%);
+  border: 1px solid var(--glass-rim);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  z-index: 50;
+}
+.has-tip:hover::after, .has-tip:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
+.has-tip[data-tip=""]::after { content: attr(data-label); }
+@media (hover: none) { .has-tip::after { display: none; } }
+@media (max-width: 760px) {
+  .has-tip::after { left: 50%; top: calc(100% + 10px); transform: translate(-50%, -4px); }
+  .has-tip:hover::after, .has-tip:focus-visible::after { transform: translate(-50%, 0); }
+}
+.rail { overflow: visible; z-index: 20; }
+@media (max-width: 760px) { .rail { overflow-x: auto; } }
+
+/* Wide screens: use the room — four KPI tiles per row become six, panels spread out. */
+@media (min-width: 1500px) {
+  .kpis:not(.glance) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .hero > .bubbles:last-child { grid-column: 2; grid-row: 1; justify-self: end; margin-top: 0; padding-right: 12px; }
+  .safety-row { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+/* ---- Wind chime ---- */
+.chime { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px 0 4px; border-radius: 18px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.chime svg { display: block; cursor: grab; overflow: visible; }
+.chime svg:active { cursor: grabbing; }
+.chime-rod { outline: none; }
+.chime-rod:focus-visible rect:not([fill="transparent"]) { stroke: var(--accent); stroke-width: 1.6; }
+.chime-rod .swinging { animation: chime-swing 1.6s cubic-bezier(0.25, 0.6, 0.35, 1); }
+@keyframes chime-swing {
+  0% { transform: rotate(0deg); }
+  12% { transform: rotate(7deg); }
+  30% { transform: rotate(-5deg); }
+  48% { transform: rotate(3deg); }
+  66% { transform: rotate(-1.6deg); }
+  82% { transform: rotate(0.7deg); }
+  100% { transform: rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) { .chime-rod .swinging { animation: none; } }
+.chime-mute { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--text-2); background: var(--glass-bg); border: 1px solid var(--glass-rim); box-shadow: var(--glass-edge); cursor: pointer; padding: 0; }
+.chime-mute svg { width: 16px; height: 16px; }
+.chime-mute.has-tip::after { left: auto; right: calc(100% + 10px); }
+@media (max-width: 560px) { .chime { display: none; } }

@@ -38,6 +38,19 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
+/** What each page is for — shown in the hover bubble. */
+const TIPS: Record<string, string> = {
+  "/dashboard": "Your day: safety, suggestions, to-do list and the AI summary",
+  "/dashboard/overview": "Pipeline value, booking rate, cost and speed vs the last period",
+  "/dashboard/designer": "Consultations, reviews, leads and messages for a designer",
+  "/dashboard/desk": "Callbacks, complaints, messages and today's consultations",
+  "/dashboard/review": "Enquiries waiting for a designer, admin or helpdesk decision",
+  "/dashboard/leads": "Every enquiry the AI handled, with its outcome",
+  "/dashboard/messages": "Messages callers left for a designer or the studio",
+  "/dashboard/test-call": "Talk to the live AI agent from your browser",
+  "/dashboard/settings": "Integrations, qualification rules, wording and rates",
+};
+
 export function Nav({ role }: { role: "founder" | "designer" | "frontdesk" }) {
   const path = usePathname();
   const founder = role === "founder";
@@ -62,8 +75,11 @@ export function Nav({ role }: { role: "founder" | "designer" | "frontdesk" }) {
         <Link
           key={i.href}
           href={i.href}
-          title={i.label}
+          className="has-tip"
+          data-label={i.label}
+          data-tip={TIPS[i.href] ?? ""}
           aria-label={i.label}
+          aria-description={TIPS[i.href]}
           aria-current={(i.href === "/dashboard" ? path === i.href : path.startsWith(i.href)) ? "page" : undefined}
         >
           {ICONS[i.icon]}

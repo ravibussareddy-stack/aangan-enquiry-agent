@@ -27,15 +27,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <div className="app">
       <aside className="rail">
-        <Link href={homeFor(viewer)} className="logo" aria-label="Aangan Studio" title="Aangan Studio">
+        <Link href={homeFor(viewer)} className="logo has-tip" aria-label="Aangan Studio" data-label="Aangan Studio" data-tip="Back to your home page">
           A
         </Link>
         <Nav role={viewer.role} />
         <div className="spacer" />
-        <Link href="/api/auth/sign-out" title="Sign out" aria-label="Sign out">
+        <Link href="/api/auth/sign-out" className="has-tip" aria-label="Sign out" data-label="Sign out" data-tip="Leave the dashboard on this device">
           <SignOutIcon />
         </Link>
-        <span className="avatar" title={`${who} · ${viewer.role}`}>
+        <span className="avatar has-tip" tabIndex={0} data-label={who} data-tip={`Signed in as ${viewer.role === "frontdesk" ? "front desk" : viewer.role}`}>
           {who.slice(0, 1).toUpperCase()}
         </span>
       </aside>
