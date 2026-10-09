@@ -13,7 +13,7 @@ export const GREETING =
   "Hello, you've reached Aangan Studio. I'm Aangan's AI assistant, and this call is recorded. May I have your name, please?";
 
 /**
- * QUICK_TEST=1 (local brain only): a ~1-minute live test of the core flow.
+ * QUICK_TEST=1: a short live test of the core flow, QUICK_TEST_MINUTES long (default 1).
  * The AI + recording disclosure stays in the first sentence (non-negotiable);
  * only the name question is skipped.
  */
@@ -23,10 +23,23 @@ export function quickTest(): boolean {
   return process.env.QUICK_TEST === "1";
 }
 
-/** Limits for QUICK_TEST: wrap up from 30 s, closing note from 35 s, goodbye after 42 s — the live test showed Vaani takes ~15 s more to hang up, and billing is per started minute. */
+/** Length of a quick test call in minutes (QUICK_TEST_MINUTES, 1–4). */
+export function quickTestMinutes(): number {
+  const m = Math.round(Number(process.env.QUICK_TEST_MINUTES ?? 1));
+  return Number.isFinite(m) ? Math.min(4, Math.max(1, m)) : 1;
+}
+
+/**
+ * Limits for QUICK_TEST, for an N-minute call: wrap up from N×60 − 30 s and say
+ * goodbye at N×60 − 18 s (1 minute: 30 s / 42 s; 2 minutes: 90 s / 102 s). The live test
+ * showed Vaani takes ~15 s more to hang up; Vaani bills per second.
+ */
 export function withQuickTestLimits<T extends { callLimits: { soft_wrap_s: number; hard_max_s: number }; voiceSpendCap: { max_call_s: number } }>(config: T): T {
   return quickTest()
-    ? { ...config, callLimits: { ...config.callLimits, soft_wrap_s: 30, hard_max_s: 65 }, voiceSpendCap: { ...config.voiceSpendCap, max_call_s: 42 } }
+    ? (() => {
+        const total = quickTestMinutes() * 60;
+        return { ...config, callLimits: { ...config.callLimits, soft_wrap_s: total - 30, hard_max_s: total + 5 }, voiceSpendCap: { ...config.voiceSpendCap, max_call_s: total - 18 } };
+      })()
     : config;
 }
 
@@ -57,7 +70,7 @@ export function buildSystemPrompt(ctx: PromptContext): string {
     : "";
 
   const quick = ctx.quickTest
-    ? `\nQUICK TEST CALL — the whole call must finish within about 40 seconds. The greeting already said you're an AI, that the call is recorded, and asked if it's a new project, so don't ask why they're calling; if you want their name, ask it together with another question. Combine questions two at a time: what work and which area of Pune; size and when it must be complete; then a ballpark budget. Call evaluate_lead as soon as you have those (by about 25 seconds) — it will share the typical range and ask if they're comfortable when they have no budget. If qualified, offer only the first slot get_slots returns, wait for their yes, then book it. Then one closing sentence ending "Have a good day!" and end_call.\n`
+    ? `\nQUICK TEST CALL — the whole call must finish within about ${quickTestMinutes() * 60 - 20} seconds. The greeting already said you're an AI, that the call is recorded, and asked if it's a new project, so don't ask why they're calling; if you want their name, ask it together with another question. Combine questions two at a time: what work and which area of Pune; size and when it must be complete; then a ballpark budget. Call evaluate_lead as soon as you have those (by about ${Math.round(quickTestMinutes() * 60 * 0.45)} seconds) — it will share the typical range and ask if they're comfortable when they have no budget. If qualified, offer only the first slot get_slots returns, wait for their yes, then book it. Then one closing sentence ending "Have a good day!" and end_call.\n`
     : "";
 
   return `You are the AI phone assistant for Aangan Studio, an interior design studio in Pune. You answer enquiry calls day and night, qualify them, and book consultations with designers. Today is ${ctx.nowIst}${ctx.afterHours ? " (outside office hours — still qualify and book)" : ""}.

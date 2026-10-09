@@ -21,6 +21,7 @@ export default defineConfig({
         BRAIN_DEBUG: "1",
         VOICE_PROVIDER: env("VOICE_PROVIDER"),
         QUICK_TEST: env("QUICK_TEST"),
+        QUICK_TEST_MINUTES: env("QUICK_TEST_MINUTES"),
         APP_BASE_URL: env("APP_BASE_URL"),
         GEMINI_API_KEYS: env("GEMINI_API_KEYS"),
         GEMINI_MODEL: env("GEMINI_MODEL"),
