@@ -7,7 +7,11 @@
  * Deploy: `neon deploy --env .env.local` (declared in neon.ts).
  */
 import { upgradeWebSocket } from "@neon/functions";
-import { brainAuthorized, callIdFromPath, handleByolCall } from "../../lib/brain/byol";
+import { brainAuthorized, callIdFromPath, handleByolCall, handleConnectionCheckOnly } from "../../lib/brain/byol";
+
+// A long-lived isolate serves many calls: log stray errors instead of letting one crash every call on it.
+process.on("unhandledRejection", (err) => console.error("[brain] unhandledRejection", err));
+process.on("uncaughtException", (err) => console.error("[brain] uncaughtException", err));
 
 const brain = {
   async fetch(request: Request): Promise<Response> {
@@ -23,10 +27,13 @@ const brain = {
     if (request.headers.get("upgrade")?.toLowerCase() !== "websocket") {
       return new Response("Aangan voice brain — Vaani BYOL WebSocket at /chat/stream/<call_id>", { status: 426 });
     }
-    // Refuse before upgrading: a wrong or missing token never gets a socket.
-    if (!brainAuthorized(request.headers.get("authorization"))) return new Response("unauthorized", { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    // A wrong token is refused outright.
+    if (authHeader && !brainAuthorized(authHeader)) return new Response("unauthorized", { status: 401 });
     const { socket, response } = upgradeWebSocket(request);
-    handleByolCall(socket, callIdFromPath(url.pathname));
+    // No token: Vaani's browser-side "Test Connection" — connection check only, nothing else.
+    if (!authHeader) handleConnectionCheckOnly(socket);
+    else handleByolCall(socket, callIdFromPath(url.pathname));
     return response;
   },
 };

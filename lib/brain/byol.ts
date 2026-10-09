@@ -113,6 +113,35 @@ type Inbound = {
   response_type?: string;
 };
 
+/**
+ * Unauthenticated sockets — Vaani's "Test Connection" runs in the user's browser,
+ * which can't send an Authorization header. They get the handshake frames and an
+ * "OK" to the connection check, and nothing else: no LLM, no database, no tools.
+ * Anything else is ignored. Real calls (from Vaani's servers) carry the token.
+ * (The socket is never closed from here: a server-side close() crashed the Neon
+ * Function isolate during testing, and the next callers got 503s while it restarted.)
+ */
+export function handleConnectionCheckOnly(ws: CallSocket): void {
+  const hello = () => {
+    send(ws, { interaction_type: "config", content: "Server ready" });
+    send(ws, { interaction_type: "greeting", content: "Hello" });
+  };
+  if (ws.readyState === ws.OPEN) hello();
+  else (ws as unknown as { addEventListener(t: "open", l: () => void): void }).addEventListener("open", hello);
+  ws.addEventListener("message", (event) => {
+    try {
+      const msg = JSON.parse(text(event.data)) as Inbound;
+      if (msg.interaction_type !== "response_required") return;
+      if (/^reply with ok\.?$/i.test(lastUserMessages(msg.transcript ?? []).trim())) {
+        send(ws, { response_type: "response", response_id: msg.response_id ?? 0, content: "OK", content_complete: true });
+      }
+      // Anything else: ignored — no work is done for an unauthenticated socket.
+    } catch {
+      // never let a bad frame take the isolate down
+    }
+  });
+}
+
 /** Run one Vaani call over an already-open (or opening) WebSocket. */
 export function handleByolCall(ws: CallSocket, pathCallId: string): void {
   // Sent once the socket is open (standard sockets start CONNECTING).
@@ -140,60 +169,87 @@ export function handleByolCall(ws: CallSocket, pathCallId: string): void {
     if (msg.response_type === "ping_pong") return;
     if (msg.interaction_type !== "response_required") return;
     const id = msg.response_id ?? 0;
-    // Vaani's BYOL connection check ("Reply with OK.") — answer at once, before any
-    // database work: a cold start would otherwise miss Vaani's short test timeout.
-    if (/^reply with ok\.?$/i.test(lastUserMessages(msg.transcript ?? []).trim())) {
-      send(ws, { response_type: "response", response_id: id, content: "OK", content_complete: true });
-      return;
-    }
-    latestId = Math.max(latestId, id);
-    queue = queue.then(async () => {
-      if (id < latestId) return; // superseded before we started
-      const callId = msg.call_id ?? pathCallId;
-      try {
-        const d = await deps();
-        const state = await sessionFor(callId, msg.req_body ?? null, d);
-        // Inbound calls: Vaani sends no caller number over BYOL (req_body is null); it arrives
-        // with the call_started webhook, which may land after the first turn — keep checking.
-        if (!state.callerPhone) {
-          const row = await db()
-            .query<{ caller_phone: string }>("select caller_phone from calls where provider_call_id = $1 and caller_phone <> 'unknown'", [callId])
-            .catch(() => ({ rows: [] as { caller_phone: string }[] }));
-          state.callerPhone = row.rows[0]?.caller_phone ?? null;
-        }
-        // Spend cap: Vaani answers inbound calls regardless, so refuse politely on the first turn.
-        if (state.transcript.length <= 1 && process.env.VOICE_PROVIDER === "vaani") {
-          const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
-          const allowed = await assertVoiceSpendAllowed().then(() => true).catch(() => false);
-          if (!allowed) {
-            send(ws, { response_type: "response", response_id: id, content: "Sorry, we can't take your call right now. Please call Aangan Studio again during office hours. Goodbye!", content_complete: true, end_call: true });
-            await alertOps(`Voice spend cap reached — call ${callId} was ended immediately.`);
-            return;
-          }
-        }
-        const elapsed = (Date.now() - new Date(state.startedAt).getTime()) / 1000;
-        if (elapsed > d.config.voiceSpendCap.max_call_s) {
-          send(ws, { response_type: "response", response_id: id, content: "Thank you for calling Aangan Studio — a member of our team will get back to you as soon as possible to finish the details. Have a good day!", content_complete: true, end_call: true });
-          return;
-        }
-        const userText = lastUserMessages(msg.transcript ?? []);
-        const snapshot = structuredClone(state);
-        const t0 = Date.now();
-        const turn = await respond(state, userText || "(silence)", d);
-        if (id < latestId) {
-          sessions.set(callId, snapshot); // the caller kept talking: drop this reply
-          if (process.env.BRAIN_DEBUG) console.log(`[brain] ${callId}#${id} superseded by #${latestId} — discarded`);
-          return;
-        }
-        if (process.env.BRAIN_DEBUG) console.log(`[brain] ${callId}#${id} ${Date.now() - t0}ms tools=${state.toolLog.slice(-3).map((t) => t.name).join(",")}`);
-        send(ws, { response_type: "response", response_id: id, content: turn.text, content_complete: true, ...(turn.endCall ? { end_call: true } : {}) });
-        await saveSession(state).catch((err) => console.error("[brain] saveSession", err));
-      } catch (err) {
-        console.error("[brain] turn failed", err);
-        send(ws, { response_type: "response", response_id: id, content: "Sorry, I didn't catch that — could you say it again?", content_complete: true });
-        await alertOps(`Brain turn failed on ${callId}: ${(err as Error).message}`);
+    try {
+      // Vaani's BYOL connection check ("Reply with OK.") — answer at once, before any
+      // database work: a cold start would otherwise miss Vaani's short test timeout.
+      if (/^reply with ok\.?$/i.test(lastUserMessages(msg.transcript ?? []).trim())) {
+        send(ws, { response_type: "response", response_id: id, content: "OK", content_complete: true });
+        return;
       }
-    });
+      latestId = Math.max(latestId, id);
+      queue = queue
+        .then(async () => {
+          if (id < latestId) return; // superseded before we started
+          const callId = msg.call_id ?? pathCallId;
+          try {
+            const d = await deps();
+            const state = await sessionFor(callId, msg.req_body ?? null, d);
+            // Inbound calls: Vaani sends no caller number over BYOL (req_body is null); it arrives
+            // with the call_started webhook, which may land after the first turn — keep checking.
+            if (!state.callerPhone) {
+              const row = await db()
+                .query<{ caller_phone: string }>("select caller_phone from calls where provider_call_id = $1 and caller_phone <> 'unknown'", [callId])
+                .catch(() => ({ rows: [] as { caller_phone: string }[] }));
+              state.callerPhone = row.rows[0]?.caller_phone ?? null;
+            }
+            // Spend cap: Vaani answers inbound calls regardless, so refuse politely on the first turn.
+            if (state.transcript.length <= 1 && process.env.VOICE_PROVIDER === "vaani") {
+              const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
+              const allowed = await assertVoiceSpendAllowed()
+                .then(() => true)
+                .catch(() => false);
+              if (!allowed) {
+                send(ws, {
+                  response_type: "response",
+                  response_id: id,
+                  content: "Sorry, we can't take your call right now. Please call Aangan Studio again during office hours. Goodbye!",
+                  content_complete: true,
+                  end_call: true,
+                });
+                await alertOps(`Voice spend cap reached — call ${callId} was ended immediately.`);
+                return;
+              }
+            }
+            const elapsed = (Date.now() - new Date(state.startedAt).getTime()) / 1000;
+            if (elapsed > d.config.voiceSpendCap.max_call_s) {
+              send(ws, {
+                response_type: "response",
+                response_id: id,
+                content:
+                  "Thank you for calling Aangan Studio — a member of our team will get back to you as soon as possible to finish the details. Have a good day!",
+                content_complete: true,
+                end_call: true,
+              });
+              return;
+            }
+            const userText = lastUserMessages(msg.transcript ?? []);
+            const snapshot = structuredClone(state);
+            const t0 = Date.now();
+            const turn = await respond(state, userText || "(silence)", d);
+            if (id < latestId) {
+              sessions.set(callId, snapshot); // the caller kept talking: drop this reply
+              if (process.env.BRAIN_DEBUG) console.log(`[brain] ${callId}#${id} superseded by #${latestId} — discarded`);
+              return;
+            }
+            if (process.env.BRAIN_DEBUG)
+              console.log(
+                `[brain] ${callId}#${id} ${Date.now() - t0}ms tools=${state.toolLog
+                  .slice(-3)
+                  .map((t) => t.name)
+                  .join(",")}`,
+              );
+            send(ws, { response_type: "response", response_id: id, content: turn.text, content_complete: true, ...(turn.endCall ? { end_call: true } : {}) });
+            await saveSession(state).catch((err) => console.error("[brain] saveSession", err));
+          } catch (err) {
+            console.error("[brain] turn failed", err);
+            send(ws, { response_type: "response", response_id: id, content: "Sorry, I didn't catch that — could you say it again?", content_complete: true });
+            await alertOps(`Brain turn failed on ${callId}: ${(err as Error).message}`).catch(() => undefined);
+          }
+        })
+        .catch((err) => console.error("[brain] queue", err));
+    } catch (err) {
+      console.error("[brain] message handler", err); // never let a bad frame take the isolate down
+    }
   });
 
   ws.addEventListener("close", () => {
