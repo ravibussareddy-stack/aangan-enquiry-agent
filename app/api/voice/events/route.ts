@@ -9,14 +9,18 @@ import { processCompletedCall } from "@/lib/calls/postcall";
 import { loadRuntimeConfig } from "@/lib/config/runtime";
 import { db } from "@/lib/db/client";
 import { isOfficeHours } from "@/lib/time/ist";
-import { getVoiceProvider } from "@/lib/voice";
+import { SimulatedVoiceProvider } from "@/lib/voice/simulated";
+import { VaaniProvider } from "@/lib/voice/vaani";
 import { once } from "@/lib/webhooks/idempotency";
 
 export const maxDuration = 120;
 
 export async function POST(req: Request) {
   const rawBody = await req.text();
-  const provider = getVoiceProvider();
+  // A webhook carrying the Vaani token is a real Vaani call whatever VOICE_PROVIDER says
+  // (that only gates *placing* calls) — so its cost always counts toward the spend cap.
+  // The rehearsal script marks its fake calls with ?sim=1.
+  const provider = new URL(req.url).searchParams.get("sim") === "1" ? new SimulatedVoiceProvider() : new VaaniProvider();
   let event;
   try {
     event = await provider.handleInboundWebhook({ headers: req.headers, rawBody, url: new URL(req.url) });

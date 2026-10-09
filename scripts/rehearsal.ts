@@ -30,7 +30,7 @@ const check = (ok: boolean, name: string, detail = "") => {
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function webhook(body: unknown) {
-  const res = await fetch(`${APP}/api/voice/events?token=${process.env.VAANI_WEBHOOK_TOKEN}`, {
+  const res = await fetch(`${APP}/api/voice/events?token=${process.env.VAANI_WEBHOOK_TOKEN}&sim=1`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
