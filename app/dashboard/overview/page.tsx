@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { getViewer, homeFor } from "@/lib/auth/viewer";
 import { loadRuntimeConfig } from "@/lib/config/runtime";
@@ -34,26 +35,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   const sp = await searchParams;
   const rangeKey = (sp.range && sp.range in RANGES ? sp.range : "30d") as keyof typeof RANGES;
   const includeSimulated = sp.sim !== "0";
-  const days = RANGES[rangeKey];
-  const to = new Date();
-  const from = new Date(to.getTime() - days * 86_400_000);
-  const prevFrom = new Date(from.getTime() - days * 86_400_000);
-  const [m, prev, insight, recent, voiceSpent, cfg] = await Promise.all([
-    getMetrics({ from, to, includeSimulated }),
-    getMetrics({ from: prevFrom, to: from, includeSimulated }),
-    latestInsights(),
-    recentCalls(includeSimulated),
-    voiceSpendSoFar(),
-    loadRuntimeConfig(),
-  ]);
   const href = (patch: Record<string, string>) => `?${new URLSearchParams({ range: rangeKey, sim: includeSimulated ? "1" : "0", ...patch })}`;
-  const f = m.funnel;
-  const b = m.business;
-  const p = b.pipeline;
-  const cap = cfg.voiceSpendCap.cap_inr;
-  const vs = `vs previous ${rangeKey}`;
-  const change = (now: number | null, before: number | null) => ({ now, before });
-  const drop = f.biggest_drop;
 
   return (
     <main>
@@ -66,11 +48,51 @@ export default async function Overview({ searchParams }: { searchParams: Promise
           ))}
         </div>
         <div className="seg" role="group" aria-label="Simulated calls">
-          <Link href={href({ sim: "1" })} aria-current={includeSimulated}>All calls</Link>
-          <Link href={href({ sim: "0" })} aria-current={!includeSimulated}>Live only</Link>
+          <Link href={href({ sim: "1" })} aria-current={includeSimulated}>
+            All calls
+          </Link>
+          <Link href={href({ sim: "0" })} aria-current={!includeSimulated}>
+            Live only
+          </Link>
         </div>
       </Greeting>
 
+      <Suspense
+        key={`${rangeKey}-${includeSimulated}`}
+        fallback={<div className="card skeleton" style={{ height: 640 }} aria-busy="true" aria-label="Loading KPIs" />}
+      >
+        <KpiBody rangeKey={rangeKey} includeSimulated={includeSimulated} insightsError={sp.insights_error} />
+      </Suspense>
+    </main>
+  );
+}
+
+/** Everything below the header — streamed, so the header and range switches show at once. */
+async function KpiBody({ rangeKey, includeSimulated, insightsError }: { rangeKey: keyof typeof RANGES; includeSimulated: boolean; insightsError?: string }) {
+  const days = RANGES[rangeKey];
+  const to = new Date();
+  const from = new Date(to.getTime() - days * 86_400_000);
+  const prevFrom = new Date(from.getTime() - days * 86_400_000);
+  const [m, prev, insight, recent, voiceSpent, cfg] = await Promise.all([
+    getMetrics({ from, to, includeSimulated }),
+    getMetrics({ from: prevFrom, to: from, includeSimulated }),
+    latestInsights(),
+    recentCalls(includeSimulated),
+    voiceSpendSoFar(),
+    loadRuntimeConfig(),
+  ]);
+  const f = m.funnel;
+  const b = m.business;
+  const p = b.pipeline;
+  const cap = cfg.voiceSpendCap.cap_inr;
+  const vs = `vs previous ${rangeKey}`;
+  const change = (now: number | null, before: number | null) => ({ now, before });
+  const drop = f.biggest_drop;
+
+  const sp = { insights_error: insightsError };
+
+  return (
+    <>
       {/* 0. Safety first */}
       <SafetyStrip q={m.quality} period={`last ${rangeKey}`} spend={{ used: voiceSpent, cap }} />
 
@@ -78,15 +100,28 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       <section id="pipeline" className="card" style={{ marginBottom: 18 }} aria-labelledby="pipe-h">
         <div className="hero">
           <div>
-            <div className="label" id="pipe-h">Weighted pipeline · open qualified enquiries × likelihood to close</div>
+            <div className="label" id="pipe-h">
+              Weighted pipeline · open qualified enquiries × likelihood to close
+            </div>
             <div className="money">
               {money(p.weighted_inr)}
-              <small>of {money(p.value_inr)} estimated across {p.open_deals} open deal{p.open_deals === 1 ? "" : "s"}</small>
+              <small>
+                of {money(p.value_inr)} estimated across {p.open_deals} open deal{p.open_deals === 1 ? "" : "s"}
+              </small>
             </div>
             <div className="split">
-              <div className="mini"><div className="k">Added this period</div><div className="v">{money(p.added_in_period_inr)}</div></div>
-              <div className="mini"><div className="k">Already booked</div><div className="v">{money(p.booked_value_inr)}</div></div>
-              <div className="mini"><div className="k">Won</div><div className="v">{money(p.won_value_inr)}</div></div>
+              <div className="mini">
+                <div className="k">Added this period</div>
+                <div className="v">{money(p.added_in_period_inr)}</div>
+              </div>
+              <div className="mini">
+                <div className="k">Already booked</div>
+                <div className="v">{money(p.booked_value_inr)}</div>
+              </div>
+              <div className="mini">
+                <div className="k">Won</div>
+                <div className="v">{money(p.won_value_inr)}</div>
+              </div>
             </div>
             <p className="insight-line">
               Estimates use the caller&apos;s budget where given, otherwise the studio&apos;s typical range for their size; likelihood comes from deal health
@@ -94,9 +129,18 @@ export default async function Overview({ searchParams }: { searchParams: Promise
             </p>
           </div>
           <div className="bubbles">
-            <Link className="bubble" href="/dashboard/leads?status=qualified"><b>{f.qualified}</b><span>Qualified</span></Link>
-            <Link className="bubble orb" href="/dashboard/leads"><b>{f.booked}</b><span>Booked</span></Link>
-            <Link className="bubble" href="/dashboard/review"><b>{m.approvals.queue_size}</b><span>To review</span></Link>
+            <Link className="bubble" href="/dashboard/leads?status=qualified">
+              <b>{f.qualified}</b>
+              <span>Qualified</span>
+            </Link>
+            <Link className="bubble orb" href="/dashboard/leads">
+              <b>{f.booked}</b>
+              <span>Booked</span>
+            </Link>
+            <Link className="bubble" href="/dashboard/review">
+              <b>{m.approvals.queue_size}</b>
+              <span>To review</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -179,9 +223,18 @@ export default async function Overview({ searchParams }: { searchParams: Promise
               ]}
             />
             <div className="split">
-              <div className="mini"><div className="k">Show-up rate</div><div className="v">{pct(b.conversion.show_rate)}</div></div>
-              <div className="mini"><div className="k">Win rate after meeting</div><div className="v">{pct(b.conversion.win_rate)}</div></div>
-              <div className="mini"><div className="k">Approval rate (review)</div><div className="v">{pct(m.approvals.approval_rate)}</div></div>
+              <div className="mini">
+                <div className="k">Show-up rate</div>
+                <div className="v">{pct(b.conversion.show_rate)}</div>
+              </div>
+              <div className="mini">
+                <div className="k">Win rate after meeting</div>
+                <div className="v">{pct(b.conversion.win_rate)}</div>
+              </div>
+              <div className="mini">
+                <div className="k">Approval rate (review)</div>
+                <div className="v">{pct(m.approvals.approval_rate)}</div>
+              </div>
             </div>
           </section>
 
@@ -192,16 +245,28 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                 <h2 id="deals-h">Biggest open opportunities</h2>
                 <div className="sub">Ranked by estimated value × likelihood — call these first</div>
               </div>
-              <Link className="pill ink sm" href="/dashboard/leads?status=qualified">All qualified</Link>
+              <Link className="pill ink sm" href="/dashboard/leads?status=qualified">
+                All qualified
+              </Link>
             </div>
             <div className="list">
               {p.top.map((d) => (
                 <Link className="list-row" key={d.id} href={`/dashboard/leads/${d.id}`}>
-                  <span className="ic" aria-hidden>{(d.name ?? "?").slice(0, 1).toUpperCase()}</span>
+                  <span className="ic" aria-hidden>
+                    {(d.name ?? "?").slice(0, 1).toUpperCase()}
+                  </span>
                   <span className="name">{d.name ?? "Unknown caller"}</span>
-                  <span className="meta">{d.locality ?? "—"} · {d.value_inr ? `${money(d.value_inr)}${d.basis === "typical" ? " (typical)" : " (their budget)"}` : "not valued"}</span>
+                  <span className="meta">
+                    {d.locality ?? "—"} · {d.value_inr ? `${money(d.value_inr)}${d.basis === "typical" ? " (typical)" : " (their budget)"}` : "not valued"}
+                  </span>
                   <span className="badge">{d.booked ? "Booked" : "Not booked"}</span>
-                  {d.score != null ? <span className={`badge health-${d.band}`}>{d.score} · {label(String(d.band))}</span> : <span className="badge">no score</span>}
+                  {d.score != null ? (
+                    <span className={`badge health-${d.band}`}>
+                      {d.score} · {label(String(d.band))}
+                    </span>
+                  ) : (
+                    <span className="badge">no score</span>
+                  )}
                 </Link>
               ))}
               {!p.top.length && <p className="muted small">No open qualified deals yet.</p>}
@@ -226,7 +291,9 @@ export default async function Overview({ searchParams }: { searchParams: Promise
               <div id="declines" className="span-6">
                 <h3 style={{ marginBottom: 10 }}>Declined — demand turned away</h3>
                 <BarList data={m.declines.map((d) => ({ label: label(d.reason), value: d.n }))} empty="No declines in this period." />
-                <p className="insight-line">A recurring decline reason (e.g. area or category) is a signal: a new service zone or offering, or a referral partner.</p>
+                <p className="insight-line">
+                  A recurring decline reason (e.g. area or category) is a signal: a new service zone or offering, or a referral partner.
+                </p>
               </div>
             </div>
           </section>
@@ -257,7 +324,9 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                     <span className="dot" aria-hidden />
                     <span>
                       {c.verified === false ? <span className="unverified">Unverified figure — see the {label(c.panel)} panel. </span> : c.text}{" "}
-                      <a href={`#${c.panel}`} className="small">{label(c.panel)}</a>
+                      <a href={`#${c.panel}`} className="small">
+                        {label(c.panel)}
+                      </a>
                     </span>
                   </li>
                 ))}
@@ -274,13 +343,17 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                 <h2 id="recent-h">Recent calls</h2>
                 <div className="sub">Latest enquiries the AI answered</div>
               </div>
-              <Link className="pill ink sm" href="/dashboard/leads">View all</Link>
+              <Link className="pill ink sm" href="/dashboard/leads">
+                View all
+              </Link>
             </div>
             <div className="list">
               {recent.map((c) => {
                 const row = (
                   <>
-                    <span className="ic" aria-hidden>{OUTCOME_ICON[c.outcome ?? ""] ?? "·"}</span>
+                    <span className="ic" aria-hidden>
+                      {OUTCOME_ICON[c.outcome ?? ""] ?? "·"}
+                    </span>
                     <span className="name">{c.name ?? "Unknown caller"}</span>
                     <span className="meta">{IST_SHORT.format(new Date(c.started_at))}</span>
                     <span className={`badge ${c.outcome ?? ""}`}>{c.outcome ? label(c.outcome) : "No lead"}</span>
@@ -288,9 +361,13 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                   </>
                 );
                 return c.lead_id ? (
-                  <Link className="list-row" key={c.id} href={`/dashboard/leads/${c.lead_id}`}>{row}</Link>
+                  <Link className="list-row" key={c.id} href={`/dashboard/leads/${c.lead_id}`}>
+                    {row}
+                  </Link>
                 ) : (
-                  <div className="list-row" key={c.id}>{row}</div>
+                  <div className="list-row" key={c.id}>
+                    {row}
+                  </div>
                 );
               })}
               {!recent.length && <p className="muted small">No calls yet.</p>}
@@ -302,19 +379,24 @@ export default async function Overview({ searchParams }: { searchParams: Promise
             <div className="card-head">
               <div>
                 <h2 id="cost-h">Cost</h2>
-                <div className="sub">Period {inr(m.cost.total_inr)} · month to date {inr(m.cost.month_to_date_inr)}</div>
+                <div className="sub">
+                  Period {inr(m.cost.total_inr)} · month to date {inr(m.cost.month_to_date_inr)}
+                </div>
               </div>
             </div>
             <BarList data={m.cost.by_component.map((c) => ({ label: label(c.component), value: c.inr }))} format={(n) => inr(n)} />
             <h3 style={{ margin: "16px 0 6px" }}>Live voice spend</h3>
-            <div className="mini"><div className="v">{inr(voiceSpent)} <span className="muted small">of {inr(cap, 0)} cap</span></div></div>
+            <div className="mini">
+              <div className="v">
+                {inr(voiceSpent)} <span className="muted small">of {inr(cap, 0)} cap</span>
+              </div>
+            </div>
             <div className="meter" style={{ marginTop: 8 }} role="img" aria-label={`${Math.round((voiceSpent / cap) * 100)}% of the cap used`}>
               <span style={{ width: `${Math.min(100, Math.max(1, (voiceSpent / cap) * 100))}%` }} />
             </div>
           </section>
         </div>
       </div>
-    </main>
+    </>
   );
 }
-
