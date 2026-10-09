@@ -2,7 +2,9 @@
  * Dashboard metrics — every number is computed here in SQL. Gemini insights
  * receive only this aggregated snapshot (never transcripts) and only narrate it.
  */
+import { loadRuntimeConfig } from "../config/runtime";
 import { db } from "../db/client";
+import { canonicalLocality, closeProbability, estimateProjectValue } from "./value";
 
 export interface Range {
   from: Date;
@@ -68,6 +70,29 @@ export interface Metrics {
     handoff_max_s: number | null;
     asked_about_price: number;
   };
+  /** The founder's business view: money in the pipe, demand captured, conversion, where demand comes from. */
+  business: {
+    pipeline: {
+      /** Open qualified deals (not yet won or lost), across all time. */
+      open_deals: number;
+      /** Estimated project value of those deals (caller budget, else typical mid-range). */
+      value_inr: number;
+      /** Value × close probability from deal health. */
+      weighted_inr: number;
+      /** Open deals with nothing to estimate from (no budget or size). */
+      unvalued: number;
+      booked_value_inr: number;
+      /** Value of qualified leads that came in during this period. */
+      added_in_period_inr: number;
+      won_value_inr: number;
+      top: { id: string; name: string | null; locality: string | null; value_inr: number | null; basis: "budget" | "typical" | null; score: number | null; band: string | null; booked: boolean }[];
+    };
+    /** Enquiries the AI took that staff couldn't (after hours or busy line). */
+    captured_outside_staff: number;
+    captured_outside_staff_share: number | null;
+    conversion: { qualify_rate: number | null; booking_rate: number | null; show_rate: number | null; win_rate: number | null };
+    demand: { localities: { locality: string; n: number }[]; project_mix: { type: string; n: number }[] };
+  };
 }
 
 const num = (v: unknown) => (v == null ? null : Number(v));
@@ -77,7 +102,7 @@ export async function getMetrics(r: Range): Promise<Metrics> {
   const callsWhere = "c.started_at >= $1 and c.started_at < $2 and ($3 or not c.is_simulated)";
   const q = <T extends Record<string, unknown>>(sql: string) => db().query<T>(sql, p).then((x) => x.rows);
 
-  const [overview, funnel, outcomes, approvals, byDay, byDesigner, byType, declines, costBy, mtd, quality, voiceSpend, healthBands, healthWins, openDeals] = await Promise.all([
+  const [overview, funnel, outcomes, approvals, byDay, byDesigner, byType, declines, costBy, mtd, quality, voiceSpend, healthBands, healthWins, openDeals, pipelineRows, localities, projectMix, cfg] = await Promise.all([
     q(`select count(*)::int total,
               count(*) filter (where direction = 'inbound')::int inbound,
               count(*) filter (where answer_reason = 'after_hours')::int after_hours_calls,
@@ -167,6 +192,26 @@ export async function getMetrics(r: Range): Promise<Metrics> {
         where ${callsWhere} and l.status = 'qualified' and l.deal_health_score is not null
           and not exists (select 1 from bookings b where b.lead_id = l.id and b.outcome in ('won', 'lost'))
         order by l.deal_health_score desc limit 8`),
+    db()
+      .query<{ id: string; name: string | null; locality: string | null; budget_inr: number | null; project_type: string | null; scope_kind: string | null; sq_ft: number | null; rooms: number | null; configuration: string | null; score: number | null; band: string | null; booked: boolean; won: boolean; open: boolean; in_period: boolean }>(
+        `select l.id, l.name, l.locality, l.budget_inr::float8 budget_inr, l.project_type, l.scope_kind, l.sq_ft::float8 sq_ft, l.rooms,
+                l.extraction ->> 'configuration' configuration, l.deal_health_score score, l.deal_health_band band,
+                exists (select 1 from bookings b where b.lead_id = l.id and b.status <> 'cancelled') booked,
+                exists (select 1 from bookings b where b.lead_id = l.id and b.outcome = 'won') won,
+                not exists (select 1 from bookings b where b.lead_id = l.id and b.outcome in ('won', 'lost')) open,
+                (c.started_at >= $2 and c.started_at < $3) in_period
+           from leads l join calls c on c.id = l.call_id
+          where ($1 or not c.is_simulated) and l.status = 'qualified'`,
+        [r.includeSimulated, r.from, r.to],
+      )
+      .then((x) => x.rows),
+    q(`select coalesce(nullif(trim(l.locality), ''), 'Not given') locality, count(*)::int n
+         from leads l join calls c on c.id = l.call_id
+        where ${callsWhere} and l.status not in ('complaint', 'message') group by 1`),
+    q(`select coalesce(l.project_type, 'unknown') type, count(*)::int n
+         from leads l join calls c on c.id = l.call_id
+        where ${callsWhere} and l.status not in ('complaint', 'message') group by 1 order by 2 desc`),
+    loadRuntimeConfig(),
   ]);
 
   const o = overview[0];
@@ -175,6 +220,18 @@ export async function getMetrics(r: Range): Promise<Metrics> {
   const qy = quality[0];
   const totalCost = costBy.reduce((s, c) => s + Number(c.inr), 0);
   const per = (n: number) => (n ? totalCost / n : null);
+
+  const valued = pipelineRows.map((d) => ({
+    ...d,
+    est: estimateProjectValue(
+      { budget_inr: d.budget_inr, project_type: d.project_type, scope_kind: d.scope_kind, carpet_sqft: d.sq_ft, rooms_in_scope: d.rooms, configuration: d.configuration },
+      cfg.typicalBudgets,
+    ),
+  }));
+  const open = valued.filter((d) => d.open);
+  const sum = (xs: typeof valued) => Math.round(xs.reduce((t, d) => t + (d.est?.inr ?? 0), 0));
+  const ratio = (a: number, b: number) => (b ? a / b : null);
+  const outside = Number(o.after_hours_calls) + Number(o.overflow_calls);
 
   return {
     range: { from: r.from.toISOString(), to: r.to.toISOString(), includeSimulated: r.includeSimulated },
@@ -259,6 +316,43 @@ export async function getMetrics(r: Range): Promise<Metrics> {
       handoff_p50_s: num(qy.handoff_p50),
       handoff_max_s: num(qy.handoff_max),
       asked_about_price: Number(qy.asked_price),
+    },
+    business: {
+      pipeline: {
+        open_deals: open.length,
+        value_inr: sum(open),
+        weighted_inr: Math.round(open.reduce((t, d) => t + (d.est?.inr ?? 0) * closeProbability(d.score), 0)),
+        unvalued: open.filter((d) => !d.est).length,
+        booked_value_inr: sum(open.filter((d) => d.booked)),
+        added_in_period_inr: sum(valued.filter((d) => d.in_period)),
+        won_value_inr: sum(valued.filter((d) => d.won)),
+        top: open
+          .sort((a, b) => (b.est?.inr ?? 0) * closeProbability(b.score) - (a.est?.inr ?? 0) * closeProbability(a.score))
+          .slice(0, 6)
+          .map((d) => ({ id: d.id, name: d.name, locality: d.locality, value_inr: d.est ? Math.round(d.est.inr) : null, basis: d.est?.basis ?? null, score: d.score, band: d.band, booked: d.booked })),
+      },
+      captured_outside_staff: outside,
+      captured_outside_staff_share: ratio(outside, Number(o.total)),
+      conversion: {
+        qualify_rate: ratio(Number(f.qualified), Number(f.calls)),
+        booking_rate: ratio(Number(f.booked), Number(f.calls)),
+        show_rate: ratio(Number(f.held), Number(f.booked)),
+        win_rate: ratio(Number(f.won), Number(f.held)),
+      },
+      demand: {
+        localities: [
+          ...localities
+            .reduce((m, x) => {
+              const k = canonicalLocality(x.locality === "Not given" ? null : String(x.locality));
+              return m.set(k, (m.get(k) ?? 0) + Number(x.n));
+            }, new Map<string, number>())
+            .entries(),
+        ]
+          .map(([locality, n]) => ({ locality, n }))
+          .sort((a, b) => b.n - a.n)
+          .slice(0, 6),
+        project_mix: projectMix.map((x) => ({ type: String(x.type), n: Number(x.n) })),
+      },
     },
   };
 }

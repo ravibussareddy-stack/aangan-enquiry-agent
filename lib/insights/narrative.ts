@@ -12,7 +12,7 @@ import { generateJson } from "../llm/gemini";
 import { getMetrics, type Metrics } from "./metrics";
 
 export const INSIGHTS_PROMPT_VERSION = "insights-v1";
-export const PANELS = ["overview", "funnel", "approvals", "deal_health", "bookings", "declines", "cost", "quality"] as const;
+export const PANELS = ["pipeline", "overview", "funnel", "approvals", "deal_health", "bookings", "declines", "demand", "cost", "quality"] as const;
 
 export interface Claim {
   text: string;
@@ -43,7 +43,7 @@ const SCHEMA = {
 
 const SYSTEM = `You write a short weekly briefing for the founder of Aangan Studio (interior design, Pune) about their AI phone enquiry agent.
 You receive two JSON metric snapshots: this period and the previous period. Do NOT calculate anything new — only use numbers that appear in the data (you may quote either period's value). Percentages appear as fractions (0.25 = 25%); if you say "25%", put 0.25 in figures.
-Write 3–6 claims covering, where the data supports it: what changed vs last period; the biggest funnel drop (use funnel.biggest_drop exactly — don't pick your own); top decline reasons and what demand the studio is turning away; review-queue backlog; any spike in cost per booking or price-leak flags. One sentence each. If a period has no data, say so briefly rather than inventing trends.`;
+Write 3–6 claims covering, where the data supports it: the money first — business.pipeline (open pipeline value, weighted pipeline, value added this period; amounts are rupees, say them in lakh only if the exact figure is in the data, otherwise quote the rupee figure) and business.captured_outside_staff (enquiries the AI took that staff couldn't); what changed vs last period; the biggest funnel drop (use funnel.biggest_drop exactly — don't pick your own); top decline reasons and what demand the studio is turning away; review-queue backlog; any spike in cost per booking or price-leak flags. One sentence each. If a period has no data, say so briefly rather than inventing trends.`;
 
 function flatten(o: unknown, out: number[] = []): number[] {
   if (typeof o === "number") out.push(o);
@@ -71,10 +71,18 @@ export async function runInsights(opts: { to?: Date; triggeredBy: "cron" | "refr
   const from = new Date(to.getTime() - 7 * 86_400_000);
   const prevFrom = new Date(from.getTime() - 7 * 86_400_000);
   const includeSimulated = opts.includeSimulated ?? true;
-  const [current, previous] = await Promise.all([
+  const [currentFull, previousFull] = await Promise.all([
     getMetrics({ from, to, includeSimulated }),
     getMetrics({ from: prevFrom, to: from, includeSimulated }),
   ]);
+  // Only aggregates go to Gemini — no individual leads' names.
+  const aggregate = (m: Metrics): Metrics => ({
+    ...m,
+    business: { ...m.business, pipeline: { ...m.business.pipeline, top: [] } },
+    deal_health: { ...m.deal_health, open_deals: [] },
+  });
+  const current = aggregate(currentFull);
+  const previous = aggregate(previousFull);
 
   const model = process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite";
   const { value, response } = await generateJson<{ claims: Claim[] }>({
