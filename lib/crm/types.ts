@@ -29,7 +29,7 @@ export interface LeadSync {
   note: string;
   existingDealId?: string | null;
   existingContactId?: string | null;
-  /** Designer who owns the deal (qualified / booked leads); matched to a HubSpot user by email. */
+  /** Designer who owns the deal (qualified / booked leads), matched to a HubSpot user by email; otherwise the default owner (founder). */
   ownerEmail?: string | null;
   /** Deal health band → HubSpot's built-in deal priority (hs_priority). */
   priority?: "high" | "medium" | "low" | null;

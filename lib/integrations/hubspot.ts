@@ -87,6 +87,16 @@ export async function hubspotOwnerId(email: string | null | undefined): Promise<
   return id;
 }
 
+/**
+ * Deal owner: the booked / assigned designer if they're a HubSpot user, otherwise
+ * the default owner — HUBSPOT_DEFAULT_OWNER_EMAIL, or the first FOUNDER_EMAILS
+ * address — so no deal is left unowned.
+ */
+export async function dealOwnerId(designerEmail: string | null | undefined): Promise<string | null> {
+  const fallback = process.env.HUBSPOT_DEFAULT_OWNER_EMAIL || (process.env.FOUNDER_EMAILS ?? "").split(",")[0]?.trim();
+  return (await hubspotOwnerId(designerEmail)) ?? (await hubspotOwnerId(fallback));
+}
+
 export class HubSpotCrm implements Crm {
   readonly provider = "hubspot" as const;
 
@@ -162,7 +172,7 @@ export class HubSpotCrm implements Crm {
   async syncLead(sync: LeadSync) {
     const [firstname, ...rest] = (sync.name ?? "").split(" ");
     const nameProps = sync.name ? { firstname, lastname: rest.join(" ") } : {};
-    const ownerForContact = await hubspotOwnerId(sync.ownerEmail);
+    const ownerForContact = await dealOwnerId(sync.ownerEmail);
     let contactId = sync.existingContactId ?? null;
     if (!contactId) {
       // An existing contact (an earlier caller, or one imported from Gmail) keeps its name:
@@ -183,7 +193,7 @@ export class HubSpotCrm implements Crm {
       contactId = (await hs<{ id: string }>("/crm/v3/objects/contacts", { method: "POST", body: JSON.stringify({ properties: contactProps }) })).id;
     }
 
-    const ownerId = await hubspotOwnerId(sync.ownerEmail);
+    const ownerId = ownerForContact;
     const stageId = (await stages()).byLabel.get(sync.stage)!;
     const description = Object.entries(sync.properties)
       .filter(([, v]) => v !== null && v !== "")

@@ -79,7 +79,15 @@ describe("HubSpotCrm.syncLead", () => {
     expect((contact?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBe("42");
   });
 
-  it("leaves the deal unowned when the designer isn't a HubSpot user", async () => {
+  it("falls back to the founder when the designer isn't a HubSpot user", async () => {
+    process.env.FOUNDER_EMAILS = "asha@example.com";
+    await sync({ ownerEmail: "kabir@example.com" });
+    const deal = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/deals");
+    expect((deal?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBe("42");
+  });
+
+  it("leaves the deal unowned when neither the designer nor a founder is a HubSpot user", async () => {
+    process.env.FOUNDER_EMAILS = "nobody@example.com";
     await sync({ ownerEmail: "kabir@example.com" });
     const deal = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/deals");
     expect((deal?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBeUndefined();
