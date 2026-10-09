@@ -131,7 +131,7 @@ async function main() {
     const hhmmss = (s: number) => new Date(s * 1000).toISOString().slice(11, 19);
     const vaaniTranscript = spoken.map((x) => `[${hhmmss(x.t)}] ${x.who}: ${x.text}`).join("\n\n");
     check((await webhook({ event: "call_ended", room_name: callId, call_duration: durationS, end_reason: "AGENT_REQUESTED_DISCONNECT" })).status === 200, "call_ended webhook accepted");
-    const post = { event: "call_postprocessing", call_id: callId, timestamp: new Date().toISOString(), data: { room_name: callId, call_id: callId, call_duration: durationS * 1000, end_reason: "Call ended", summary: "Rehearsal call.", entities: {}, recording_url: null, transcript: vaaniTranscript } };
+    const post = { event: "call_postprocessing", call_id: callId, timestamp: new Date().toISOString(), data: { room_name: callId, call_id: callId, call_duration: durationS, end_reason: "Call ended", summary: "Rehearsal call.", entities: {}, recording_url: null, transcript: vaaniTranscript } };
     check((await webhook(post)).json.queued === true, "call_postprocessing queued for the post-call pipeline");
 
     // 4. Check what landed in Neon.

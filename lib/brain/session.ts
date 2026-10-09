@@ -87,12 +87,15 @@ export async function respond(state: SessionState, callerText: string, deps: Bra
   const tools = toolDeclarations();
   let text = "";
   let spokenWithTools = "";
+  const toolLogStart = state.toolLog.length;
+  let forceText = false;
   for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
     const res = await generate({
       model: process.env.GEMINI_DIALOGUE_MODEL ?? process.env.GEMINI_MODEL,
       system: systemPrompt(state, deps),
       contents: state.history,
       tools,
+      toolMode: forceText ? "NONE" : "AUTO",
       temperature: 0.3,
       thinkingLevel: "minimal",
       maxOutputTokens: 1024,
@@ -110,6 +113,14 @@ export async function respond(state: SessionState, callerText: string, deps: Bra
     state.history.push({ role: "model", parts: res.parts });
     const responses: GeminiPart[] = [];
     for (const call of res.functionCalls) {
+      // The live test saw request_callback refused six times in one turn (9 s of silence).
+      // After two refusals of the same tool this turn, stop and make the agent ask the caller.
+      const refusals = state.toolLog.slice(toolLogStart).filter((t) => t.name === call.name && isRefusal(t.result)).length;
+      if (refusals >= 2) {
+        responses.push({ functionResponse: { name: call.name, response: { error: "Stop calling tools. Ask the caller the question you need, in one short sentence, and wait for their answer." }, ...(call.id ? { id: call.id } : {}) } });
+        forceText = true;
+        continue;
+      }
       const started = Date.now();
       const result = await executeTool(call.name as ToolName, call.args, state, deps).catch((err: Error) => ({
         error: `Tool failed: ${err.message.slice(0, 200)}`,
@@ -135,6 +146,11 @@ export async function respond(state: SessionState, callerText: string, deps: Bra
   state.transcript.push({ speaker: "agent", text: guarded.text, at: deps.now().toISOString() });
   state.turnLatencyMs.push(Date.now() - t0);
   return { text: guarded.text, endCall: state.ended, rewritten: guarded.rewritten };
+}
+
+function isRefusal(result: unknown): boolean {
+  const r = result as { error?: unknown; recorded?: unknown; booked?: unknown } | null;
+  return !!r && (typeof r.error === "string" || r.recorded === false || r.booked === false);
 }
 
 /** Every call the agent ends closes with "Have a good day!" (unless it already said it). */

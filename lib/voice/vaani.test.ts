@@ -25,6 +25,15 @@ describe("Vaani webhook normalisation (docs payloads)", () => {
     }
   });
 
+  it("live payloads (2026-10-09): call_duration is in SECONDS under data on both events", () => {
+    const ended = normalizeVaaniEvent({ event: "call_ended", data: { room_name: "webrtc-1", call_duration: 74.709086, end_reason: "Call ended", phone_number: null } });
+    expect(ended).toMatchObject({ kind: "call_ended", providerCallId: "webrtc-1", endReason: "Call ended" });
+    if (ended.kind === "call_ended") expect(ended.durationS).toBeCloseTo(74.71, 1);
+    const post = normalizeVaaniEvent({ event: "call_postprocessing", call_id: "webrtc-1", data: { call_id: "webrtc-1", call_duration: 74.71, transcript: "" } });
+    if (post.kind !== "call_completed") throw new Error("expected call_completed");
+    expect(post.durationS).toBeCloseTo(74.71, 1); // was 0.07 s — billed 1 minute instead of 2
+  });
+
   it("call_started carries the caller number (E.164)", () => {
     const e = normalizeVaaniEvent({ event: "call_started", room_name: "room_2", phone_number: "09876543210" });
     expect(e).toMatchObject({ kind: "call_started", callerPhone: "+919876543210", direction: "inbound" });

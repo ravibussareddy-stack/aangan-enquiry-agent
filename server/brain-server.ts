@@ -110,19 +110,26 @@ wss.on("connection", (ws: WebSocket, callIdFromPath: string) => {
   send(ws, { interaction_type: "config", content: "Server ready" });
   send(ws, { interaction_type: "greeting", content: "Hello" });
   let queue = Promise.resolve();
+  // Vaani sends response_required again while the caller is still mid-sentence
+  // ("Yes. I want my" → "Yes. I want my flat…"). Only the newest request is
+  // answered: older ones still queued are skipped, and one that finishes after
+  // a newer request arrived is rolled back and never spoken.
+  let latestId = -1;
 
   ws.on("message", (raw) => {
+    let msg: { interaction_type?: string; response_id?: number; call_id?: string; transcript?: { role: string; content: string }[]; req_body?: Record<string, unknown> | null; response_type?: string };
+    try {
+      msg = JSON.parse(String(raw));
+    } catch {
+      return;
+    }
+    if (msg.response_type === "ping_pong") return;
+    if (msg.interaction_type !== "response_required") return;
+    const id = msg.response_id ?? 0;
+    latestId = Math.max(latestId, id);
     queue = queue.then(async () => {
-      let msg: { interaction_type?: string; response_id?: number; call_id?: string; transcript?: { role: string; content: string }[]; req_body?: Record<string, unknown> | null; response_type?: string };
-      try {
-        msg = JSON.parse(String(raw));
-      } catch {
-        return;
-      }
-      if (msg.response_type === "ping_pong") return;
-      if (msg.interaction_type !== "response_required") return;
+      if (id < latestId) return; // superseded before we started
       const callId = msg.call_id ?? callIdFromPath;
-      const id = msg.response_id ?? 0;
       try {
         const d = await deps();
         const state = await sessionFor(callId, msg.req_body ?? null, d);
@@ -150,8 +157,19 @@ wss.on("connection", (ws: WebSocket, callIdFromPath: string) => {
           return;
         }
         const userText = lastUserMessages(msg.transcript ?? []);
+        // Vaani's BYOL connection check — not the caller. Answer it, record nothing.
+        if (/^reply with ok\.?$/i.test(userText.trim())) {
+          send(ws, { response_type: "response", response_id: id, content: "OK", content_complete: true });
+          return;
+        }
+        const snapshot = structuredClone(state);
         const t0 = Date.now();
         const turn = await respond(state, userText || "(silence)", d);
+        if (id < latestId) {
+          sessions.set(callId, snapshot); // the caller kept talking: drop this reply
+          if (process.env.BRAIN_DEBUG) console.log(`[brain] ${callId}#${id} superseded by #${latestId} — discarded`);
+          return;
+        }
         if (process.env.BRAIN_DEBUG) console.log(`[brain] ${callId}#${id} ${Date.now() - t0}ms tools=${state.toolLog.slice(-3).map((t) => t.name).join(",")}`);
         send(ws, { response_type: "response", response_id: id, content: turn.text, content_complete: true, ...(turn.endCall ? { end_call: true } : {}) });
         await saveSession(state).catch((err) => console.error("[brain] saveSession", err));

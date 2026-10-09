@@ -23,10 +23,10 @@ export function quickTest(): boolean {
   return process.env.QUICK_TEST === "1";
 }
 
-/** Limits for QUICK_TEST: wrap up from 40 s; the brain says goodbye after 55 s (one billed minute). */
+/** Limits for QUICK_TEST: wrap up from 30 s, closing note from 35 s, goodbye after 42 s — the live test showed Vaani takes ~15 s more to hang up, and billing is per started minute. */
 export function withQuickTestLimits<T extends { callLimits: { soft_wrap_s: number; hard_max_s: number }; voiceSpendCap: { max_call_s: number } }>(config: T): T {
   return quickTest()
-    ? { ...config, callLimits: { ...config.callLimits, soft_wrap_s: 40, hard_max_s: 75 }, voiceSpendCap: { ...config.voiceSpendCap, max_call_s: 55 } }
+    ? { ...config, callLimits: { ...config.callLimits, soft_wrap_s: 30, hard_max_s: 65 }, voiceSpendCap: { ...config.voiceSpendCap, max_call_s: 42 } }
     : config;
 }
 
@@ -57,7 +57,7 @@ export function buildSystemPrompt(ctx: PromptContext): string {
     : "";
 
   const quick = ctx.quickTest
-    ? `\nQUICK TEST CALL — the whole call must finish within about 50 seconds. The greeting already said you're an AI, that the call is recorded, and asked if it's a new project, so don't ask why they're calling; if you want their name, ask it together with another question. Combine questions two at a time: what work and which area of Pune; size and when it must be complete; who decides and a ballpark budget. Call evaluate_lead as soon as you have those (by about 35 seconds). If qualified, offer only the first slot get_slots returns, wait for their yes, then book it. Then one closing sentence ending "Have a good day!" and end_call.\n`
+    ? `\nQUICK TEST CALL — the whole call must finish within about 40 seconds. The greeting already said you're an AI, that the call is recorded, and asked if it's a new project, so don't ask why they're calling; if you want their name, ask it together with another question. Combine questions two at a time: what work and which area of Pune; size and when it must be complete; who decides and a ballpark budget. Call evaluate_lead as soon as you have those (by about 25 seconds). If qualified, offer only the first slot get_slots returns, wait for their yes, then book it. Then one closing sentence ending "Have a good day!" and end_call.\n`
     : "";
 
   return `You are the AI phone assistant for Aangan Studio, an interior design studio in Pune. You answer enquiry calls day and night, qualify them, and book consultations with designers. Today is ${ctx.nowIst}${ctx.afterHours ? " (outside office hours — still qualify and book)" : ""}.

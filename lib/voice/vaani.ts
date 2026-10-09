@@ -50,6 +50,17 @@ export function verifyVaaniWebhook(headers: Headers, rawBody: string, url: URL):
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+/**
+ * Call length in seconds. Vaani's live webhooks send call_duration in SECONDS
+ * (e.g. 74.71) on both call_ended and call_postprocessing, under `data` — the
+ * docs say milliseconds. Anything over 4 hours is taken as milliseconds.
+ */
+export function vaaniDurationS(payload: Record<string, unknown>, data: Record<string, unknown>): number {
+  const raw = Number(data.call_duration ?? payload.call_duration ?? 0);
+  if (!Number.isFinite(raw) || raw <= 0) return 0;
+  return raw > 4 * 3600 ? raw / 1000 : raw;
+}
+
 export function normalizeVaaniEvent(payload: Record<string, unknown>, now = new Date()): VoiceEvent {
   const event = String(payload.event ?? "");
   const data = (payload.data as Record<string, unknown> | undefined) ?? payload;
@@ -57,7 +68,7 @@ export function normalizeVaaniEvent(payload: Record<string, unknown>, now = new 
   if (!id) return { kind: "ignored", reason: "no call id" };
   switch (event) {
     case "call_started": {
-      const phone = toE164(String(payload.phone_number ?? payload.from_number ?? ""));
+      const phone = toE164(String(data.phone_number ?? payload.phone_number ?? payload.from_number ?? ""));
       return { kind: "call_started", providerCallId: id, callerPhone: phone, direction: id.startsWith("outbound") ? "outbound" : "inbound", at: now };
     }
     case "user_picked_up_at":
@@ -73,12 +84,12 @@ export function normalizeVaaniEvent(payload: Record<string, unknown>, now = new 
         at: now,
       };
     case "call_ended":
-      return { kind: "call_ended", providerCallId: id, durationS: Number(payload.call_duration ?? 0), endReason: (payload.end_reason as string) ?? null, at: now };
+      return { kind: "call_ended", providerCallId: id, durationS: vaaniDurationS(payload, data), endReason: ((data.end_reason ?? payload.end_reason) as string) ?? null, at: now };
     case "call_postprocessing":
       return {
         kind: "call_completed",
         providerCallId: id,
-        durationS: Number(data.call_duration ?? 0) / 1000,
+        durationS: vaaniDurationS(payload, data),
         endReason: (data.end_reason as string) ?? null,
         summary: (data.summary as string) ?? null,
         transcript: parseVaaniTranscript(String(data.transcript ?? "")),
