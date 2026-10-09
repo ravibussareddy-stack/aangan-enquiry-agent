@@ -83,3 +83,36 @@ describe("no promised call-back times", () => {
     expect(text).not.toMatch(/within \d+ minutes/);
   });
 });
+
+describe("live call 2026-10-09 fixes", () => {
+  const live = makeLead({
+    caller_name: "Ravi",
+    configuration: "2BHK",
+    scope_kind: "full_home",
+    engagement: "design_and_execution",
+    scope_text: "One my two BHK flat in Banar Pune. Fully designed and executed, the whole home.",
+  });
+  const note = buildNote({
+    ...base,
+    extraction: live,
+    phone: "unknown",
+    summary: "The call concluded with a scheduled meeting for Monday at 9 am.",
+    booking: null,
+  });
+
+  it("shows a tidy scope, not raw speech-to-text, for a full home", () => {
+    expect(note.text).toContain("Scope: 2BHK · full home · design + execution");
+    expect(note.text).not.toContain("Banar");
+  });
+
+  it("says when there's no real number instead of printing 'unknown'", () => {
+    expect(note.text).toContain("Ravi · number not available (web call or withheld)");
+  });
+
+  it("keeps the AI summary out of the facts, clearly labelled", () => {
+    const watch = note.text.split("\n").find((l) => l.startsWith("Watch for:"))!;
+    expect(watch).not.toMatch(/scheduled/);
+    expect(note.text).toMatch(/\nAI call summary \(unverified — the lines above are the facts\): The call concluded/);
+    expect(note.text).toContain("Booked: not yet");
+  });
+});

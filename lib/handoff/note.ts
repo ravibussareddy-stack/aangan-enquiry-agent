@@ -1,6 +1,7 @@
 /**
  * Designer handoff note — server-side template from stored fields (no LLM),
- * plus the provider's call summary on the "Watch for" line (brief §6).
+ * plus the provider's call summary on its own, labelled line (brief §6) — it is
+ * AI-written and can claim things that didn't happen, so it never sits among the facts.
  */
 import type { LeadExtraction } from "../schema/lead";
 import { maskPhone } from "../phone";
@@ -31,10 +32,26 @@ export interface NoteInput {
 
 const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
+/** Browser test calls and withheld numbers are stored as "unknown". */
+function phoneLabel(phone: string): string {
+  return /^\+?\d{8,15}$/.test(phone.replace(/[\s-]/g, "")) ? phone : "number not available (web call or withheld)";
+}
+
+/** A tidy scope from the structured fields; the caller's own words only where they add detail (which rooms). */
+export function scopeLine(x: LeadExtraction): string {
+  const kind = { full_home: "full home", partial: x.rooms_in_scope ? `${x.rooms_in_scope} rooms` : "partial", single_room: "one room" }[x.scope_kind as string];
+  const work = { design_and_execution: "design + execution" }[x.engagement as string] ?? (x.engagement && x.engagement !== "unknown" ? x.engagement.replace(/_/g, " ") : null);
+  const parts = [x.configuration, kind, work].filter(Boolean);
+  const words = x.scope_text?.trim();
+  if (!parts.length) return words || "not described";
+  const detail = words && x.scope_kind !== "full_home" ? ` — “${words.length > 90 ? `${words.slice(0, 87)}…` : words}”` : "";
+  return `${parts.join(" · ")}${detail}`;
+}
+
 export function buildNote(n: NoteInput): { text: string; buttons: { text: string; data?: string; url?: string }[][] } {
   const x = n.extraction;
   const when = new Intl.DateTimeFormat("en-IN", { timeZone: TZ, day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }).format(n.calledAt);
-  const phone = n.mask ? maskPhone(n.phone) : n.phone;
+  const phone = n.mask ? maskPhone(n.phone) : phoneLabel(n.phone);
   const name = x.caller_name ?? "Unknown caller";
 
   if (n.status === "complaint") {
@@ -95,14 +112,13 @@ export function buildNote(n: NoteInput): { text: string; buttons: { text: string
     ...(n.flags.includes("commercial_below_min") ? ["Below commercial minimum"] : []),
     ...(n.missing?.length ? [`Not captured on the call: ${n.missing.join(", ")}`] : []),
     ...x.watch_for,
-    ...(n.summary ? [n.summary] : []),
   ];
 
   const text = [
     `NEW LEAD · ${type} · ${n.status === "qualified" ? "Qualified" : "Review"}`,
     `${name} · ${phone} · called ${when}`,
     `Site: ${site} · ${area}`,
-    `Scope: ${x.scope_text || "not described"}`,
+    `Scope: ${scopeLine(x)}`,
     `Timeline: ${x.timeline_text ?? "not given"}`,
     `Decision: ${decision}`,
     `Budget: ${budget}${n.budgetFlag === "tight" ? " · ⚠ budget tight" : ""}`,
@@ -110,6 +126,7 @@ export function buildNote(n: NoteInput): { text: string; buttons: { text: string
     `Booked: ${n.booking ? `${n.booking.label}${n.booking.designer ? ` with ${n.booking.designer}` : ""}` : n.status === "review" ? "awaiting review" : "not yet"}`,
     ...(n.dealHealth ? [`Deal health: ${n.dealHealth.score}/100 · ${n.dealHealth.band[0].toUpperCase()}${n.dealHealth.band.slice(1)} (est.)`] : []),
     `Watch for: ${watch.length ? [...new Set(watch)].join("; ") : "—"}`,
+    ...(n.summary ? [`AI call summary (unverified — the lines above are the facts): ${n.summary}`] : []),
   ].join("\n");
 
   const buttons: { text: string; data?: string; url?: string }[][] = [];
