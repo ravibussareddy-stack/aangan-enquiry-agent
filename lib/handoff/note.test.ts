@@ -94,6 +94,7 @@ describe("live call 2026-10-09 fixes", () => {
   });
   const note = buildNote({
     ...base,
+    status: "qualified",
     extraction: live,
     phone: "unknown",
     summary: "The call concluded with a scheduled meeting for Monday at 9 am.",
