@@ -35,8 +35,12 @@ export default async function FrontDesk() {
           where l.status = 'callback' and r.id is null order by l.created_at limit 10`,
       ),
       c.query<Complaint>(
-        `select l.id, l.name, l.phone, l.callback_window, l.created_at::text, l.evaluation ->> 'summary' summary
-           from leads l where l.status = 'complaint' and l.created_at > now() - interval '7 days'
+        // "What happened": the call summary, else the caller's own first words.
+        `select l.id, l.name, l.phone, l.callback_window, l.created_at::text,
+                coalesce(nullif(c.summary, ''), nullif(l.extraction ->> 'scope_text', ''),
+                         nullif(substring(c.transcript from '(?:USER|CALLER): ([^\n]+)'), '')) summary
+           from leads l join calls c on c.id = l.call_id
+          where l.status = 'complaint' and l.created_at > now() - interval '7 days'
           order by l.created_at desc limit 6`,
       ),
       c.query<Message>(
@@ -132,7 +136,9 @@ export default async function FrontDesk() {
                 <span className="dot" aria-hidden />
                 <span>
                   <Link href={`/dashboard/leads/${c.id}`}>{c.name ?? "Caller"}</Link> · <span className="num">{c.phone}</span> · {when(c.created_at)}
-                  <span className="sub" style={{ display: "block" }}>{c.summary ?? ""} Free: {c.callback_window ?? "not given"}</span>
+                  <span className="sub" style={{ display: "block" }}>
+                    {c.summary ? `“${c.summary.length > 160 ? `${c.summary.slice(0, 157)}…` : c.summary}”` : "No description captured — open the lead."} Free: {c.callback_window ?? "not given"}
+                  </span>
                 </span>
               </li>
             ))}

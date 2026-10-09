@@ -105,8 +105,14 @@ export async function processCompletedCall(input: CompletedCall): Promise<PostCa
 
   // 3. Decide.
   let evaluation = extraction ? evaluateLead(extraction, cfg.qualify, input.startedAt) : null;
+  // An in-call escalation only stands if the post-call read of the whole transcript agrees it's an
+  // existing client's complaint (or extraction failed). A new caller who is merely annoyed — e.g.
+  // "nobody called me back" — stays an enquiry (flagged), as T16 / Girish Nair showed.
   if (evaluation && session?.complaint && evaluation.outcome !== "complaint") {
-    evaluation = { ...evaluation, outcome: "complaint", declineReason: null, reasons: ["Escalated in call", ...evaluation.reasons] };
+    const confirmed = extractionFailed || extraction?.complaint_detected || extraction?.call_intent === "existing_project_issue";
+    evaluation = confirmed
+      ? { ...evaluation, outcome: "complaint", declineReason: null, reasons: ["Escalated in call", ...evaluation.reasons] }
+      : { ...evaluation, flags: [...evaluation.flags, "escalated_in_call_not_a_complaint"], reasons: [...evaluation.reasons, "Escalated during the call, but not an existing client's complaint"] };
   }
   // Non-enquiry calls (update / named designer / other) are messages, not leads.
   const MESSAGE_INTENTS = ["existing_project_update", "specific_designer", "other"];

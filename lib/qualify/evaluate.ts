@@ -26,6 +26,7 @@ export type LeadFlag =
   | "decision_maker_unclear"
   | "repeat_caller"
   | "frustrated"
+  | "escalated_in_call_not_a_complaint"
   | "commercial_below_min"
   | "site_available_late"
   | "area_unclear"

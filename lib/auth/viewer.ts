@@ -60,8 +60,8 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
       if (!entry) return { userId: user.id, email, name: user.name ?? null, role: "designer", designerId: null }; // no access (see hasAccess)
       const designerName = entry.split(":").slice(1).join(":") || user.name || email;
       const d = await db().query<{ id: string }>(
-        `with existing as (select id from designers where name = $1),
-              created as (insert into designers (name) select $1 where not exists (select 1 from existing) returning id)
+        `with existing as (select id from designers where name = $1::text),
+              created as (insert into designers (name) select $1::text where not exists (select 1 from existing) returning id)
          select id from existing union all select id from created`,
         [designerName],
       );
