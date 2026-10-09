@@ -65,6 +65,28 @@ export async function stageForId(id: string): Promise<DealStage | null> {
   return (await stages()).byId.get(id) ?? null;
 }
 
+const ownerCache = new Map<string, string | null>();
+
+/**
+ * HubSpot user id for an email (deal owner). Designers must be users in the
+ * HubSpot account. Needs the crm.objects.owners.read scope; without it (or
+ * with no matching user) the deal is simply left unowned.
+ */
+export async function hubspotOwnerId(email: string | null | undefined): Promise<string | null> {
+  if (!email) return null;
+  const key = email.toLowerCase();
+  if (ownerCache.has(key)) return ownerCache.get(key)!;
+  let id: string | null = null;
+  try {
+    const r = await hs<{ results: { id: string; email: string }[] }>(`/crm/v3/owners?email=${encodeURIComponent(key)}&limit=1`);
+    id = r.results.find((o) => o.email?.toLowerCase() === key)?.id ?? null;
+  } catch (err) {
+    console.warn(`[hubspot] owner lookup for ${key} failed: ${(err as Error).message.slice(0, 120)}`);
+  }
+  ownerCache.set(key, id);
+  return id;
+}
+
 export class HubSpotCrm implements Crm {
   readonly provider = "hubspot" as const;
 
@@ -78,7 +100,7 @@ export class HubSpotCrm implements Crm {
             { filters: [{ propertyName: "hs_searchable_calculated_phone_number", operator: "EQ", value: nationalNumber(phone) }] },
             { filters: [{ propertyName: "phone", operator: "EQ", value: phone }] },
           ],
-          properties: ["firstname", "lastname", "lifecyclestage", "phone"],
+          properties: ["firstname", "lastname", "lifecyclestage", "phone", "hubspot_owner_id"],
           limit: 1,
         }),
       },
@@ -140,6 +162,7 @@ export class HubSpotCrm implements Crm {
   async syncLead(sync: LeadSync) {
     const [firstname, ...rest] = (sync.name ?? "").split(" ");
     const nameProps = sync.name ? { firstname, lastname: rest.join(" ") } : {};
+    const ownerForContact = await hubspotOwnerId(sync.ownerEmail);
     let contactId = sync.existingContactId ?? null;
     if (!contactId) {
       // An existing contact (an earlier caller, or one imported from Gmail) keeps its name:
@@ -150,15 +173,17 @@ export class HubSpotCrm implements Crm {
         const fill = {
           ...(!existing.properties.phone ? { phone: sync.phone } : {}),
           ...(!existing.properties.firstname && !existing.properties.lastname ? nameProps : {}),
+          ...(ownerForContact && !existing.properties.hubspot_owner_id ? { hubspot_owner_id: ownerForContact } : {}),
         };
         if (Object.keys(fill).length) await hs(`/crm/v3/objects/contacts/${contactId}`, { method: "PATCH", body: JSON.stringify({ properties: fill }) });
       }
     }
     if (!contactId) {
-      const contactProps = { phone: sync.phone, ...nameProps };
+      const contactProps = { phone: sync.phone, ...nameProps, ...(ownerForContact ? { hubspot_owner_id: ownerForContact } : {}) };
       contactId = (await hs<{ id: string }>("/crm/v3/objects/contacts", { method: "POST", body: JSON.stringify({ properties: contactProps }) })).id;
     }
 
+    const ownerId = await hubspotOwnerId(sync.ownerEmail);
     const stageId = (await stages()).byLabel.get(sync.stage)!;
     const description = Object.entries(sync.properties)
       .filter(([, v]) => v !== null && v !== "")
@@ -170,6 +195,7 @@ export class HubSpotCrm implements Crm {
       dealstage: stageId,
       description: description.slice(0, 5000),
       ...(sync.priority ? { hs_priority: sync.priority } : {}),
+      ...(ownerId ? { hubspot_owner_id: ownerId } : {}),
     };
     // A repeat caller continues their open deal instead of getting a duplicate.
     let dealId = sync.existingDealId ?? (await this.openDealFor(contactId));

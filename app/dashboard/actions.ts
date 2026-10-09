@@ -90,14 +90,23 @@ export async function syncHubSpotNow() {
   redirect(`/dashboard/settings?${r.error ? "error" : "saved"}=${encodeURIComponent(msg)}`);
 }
 
+/** Tick off a call message (RLS: founder, front desk, or the designer it's for). */
+export async function markMessageDone(formData: FormData) {
+  const v = await getViewer();
+  if (!v || !hasAccess(v)) throw new Error("Not allowed");
+  const id = String(formData.get("id"));
+  await asUser(v.userId, (c) => c.query("update call_messages set done = true where id = $1", [id]));
+  revalidatePath("/dashboard", "layout");
+}
+
 export async function routeLeadAction(formData: FormData) {
   const v = await getViewer();
   if (!v || !hasAccess(v)) throw new Error("Not allowed");
   const leadId = String(formData.get("leadId"));
   const to = String(formData.get("to"));
   if (!["designer", "admin", "callback"].includes(to)) throw new Error("Bad route");
-  // Designers may only send leads to admin review; routing to designers/helpdesk is the founder's.
-  if (v.role !== "founder" && to !== "admin") throw new Error("Founder only");
+  // Designers may only send leads to admin review; the founder and front desk route anywhere.
+  if (v.role === "designer" && to !== "admin") throw new Error("Founder or front desk only");
   const visible = await asUser(v.userId, (c) => c.query("select 1 from leads where id = $1 and status in ('review', 'callback')", [leadId]));
   if (!visible.rowCount) throw new Error("Lead not visible or not awaiting a decision");
   await routeLead({ leadId, to: to as "designer" | "admin" | "callback" });

@@ -1,7 +1,7 @@
 import { freshFromCrm } from "@/lib/crm/stage-sync";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getViewer } from "@/lib/auth/viewer";
+import { getViewer, homeFor } from "@/lib/auth/viewer";
 import { loadRuntimeConfig } from "@/lib/config/runtime";
 import { voiceSpendSoFar } from "@/lib/cost/spend-cap";
 import { getMetrics, recentCalls } from "@/lib/insights/metrics";
@@ -33,7 +33,8 @@ const OUTCOME_ICON: Record<string, string> = { qualified: "✓", review: "?", ca
 
 export default async function Overview({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const viewer = await getViewer();
-  if (viewer?.role !== "founder") redirect("/dashboard/review");
+  if (!viewer) redirect("/auth/sign-in");
+  if (viewer.role !== "founder") redirect(homeFor(viewer));
   await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const sp = await searchParams;
   const rangeKey = (sp.range && sp.range in RANGES ? sp.range : "30d") as keyof typeof RANGES;

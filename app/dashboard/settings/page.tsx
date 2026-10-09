@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getViewer } from "@/lib/auth/viewer";
+import { getViewer, homeFor } from "@/lib/auth/viewer";
 import { asUser } from "@/lib/db/as-user";
 import { integrationStatus } from "@/lib/integrations/status";
 import { crmSyncState } from "@/lib/crm/stage-sync";
@@ -20,7 +20,8 @@ interface ConfigRow {
 
 export default async function Settings({ searchParams }: { searchParams: Promise<{ saved?: string; error?: string }> }) {
   const viewer = await getViewer();
-  if (viewer?.role !== "founder") redirect("/dashboard/review");
+  if (!viewer) redirect("/auth/sign-in");
+  if (viewer.role !== "founder") redirect(homeFor(viewer));
   const sp = await searchParams;
   const { config, rates } = await asUser(viewer.userId, async (c) => ({
     config: (await c.query<ConfigRow>("select key, value, description, needs_founder_signoff, server_only, updated_at::text from config order by key")).rows,

@@ -33,7 +33,8 @@ export default async function ReviewQueue({ searchParams }: { searchParams: Prom
   await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
   const founder = viewer.role === "founder";
   const { q } = await searchParams;
-  const queue = (founder && q && q in QUEUES ? q : "designer") as keyof typeof QUEUES;
+  const frontdesk = viewer.role === "frontdesk";
+  const queue = (founder && q && q in QUEUES ? q : frontdesk ? "callback" : "designer") as keyof typeof QUEUES;
   const { rows, counts } = await asUser(viewer.userId, async (c) => ({
     rows: (
       await c.query<Row>(
@@ -114,9 +115,9 @@ export default async function ReviewQueue({ searchParams }: { searchParams: Prom
               </form>
               <form action={routeLeadAction} className="row">
                 <input type="hidden" name="leadId" value={r.id} />
-                {queue !== "designer" && founder && <button className="btn" name="to" value="designer">→ Designer review</button>}
+                {queue !== "designer" && (founder || frontdesk) && <button className="btn" name="to" value="designer">→ Designer review</button>}
                 {queue !== "admin" && <button className="btn" name="to" value="admin">→ Admin review</button>}
-                {queue !== "callback" && founder && <button className="btn" name="to" value="callback">→ Callback</button>}
+                {queue !== "callback" && (founder || frontdesk) && <button className="btn" name="to" value="callback">→ Callback</button>}
               </form>
             </div>
           </article>

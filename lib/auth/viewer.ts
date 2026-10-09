@@ -1,8 +1,8 @@
 /**
  * The signed-in dashboard user and their role. Roles live in `profiles`;
  * on first sign-in an email listed in FOUNDER_EMAILS becomes founder and one in
- * DESIGNER_EMAILS ("email:Designer Name") becomes that designer. Everyone else
- * has no access.
+ * DESIGNER_EMAILS ("email:Designer Name") becomes that designer, and one in
+ * FRONTDESK_EMAILS becomes front desk. Everyone else has no access.
  */
 import { connection } from "next/server";
 import { cache } from "react";
@@ -13,9 +13,11 @@ export interface Viewer {
   userId: string;
   email: string;
   name: string | null;
-  role: "founder" | "designer";
+  role: Role;
   designerId: string | null;
 }
+
+export type Role = "founder" | "designer" | "frontdesk";
 
 function listed(envVar: string) {
   return (process.env[envVar] ?? "")
@@ -44,13 +46,15 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   if (!user) return null;
   const email = user.email.toLowerCase();
 
-  let { rows } = await db().query<{ role: "founder" | "designer"; designer_id: string | null }>(
+  let { rows } = await db().query<{ role: Role; designer_id: string | null }>(
     "select role, designer_id from profiles where user_id = $1",
     [user.id],
   );
   if (!rows[0]) {
     if (listed("FOUNDER_EMAILS").map((e) => e.toLowerCase()).includes(email)) {
       await db().query("insert into profiles (user_id, role) values ($1, 'founder') on conflict do nothing", [user.id]);
+    } else if (listed("FRONTDESK_EMAILS").map((e) => e.toLowerCase()).includes(email)) {
+      await db().query("insert into profiles (user_id, role) values ($1, 'frontdesk') on conflict do nothing", [user.id]);
     } else {
       const entry = listed("DESIGNER_EMAILS").find((e) => e.split(":")[0].toLowerCase() === email);
       if (!entry) return { userId: user.id, email, name: user.name ?? null, role: "designer", designerId: null }; // no access (see hasAccess)
@@ -63,12 +67,17 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
       );
       await db().query("insert into profiles (user_id, role, designer_id) values ($1, 'designer', $2) on conflict do nothing", [user.id, d.rows[0].id]);
     }
-    rows = (await db().query<{ role: "founder" | "designer"; designer_id: string | null }>("select role, designer_id from profiles where user_id = $1", [user.id])).rows;
+    rows = (await db().query<{ role: Role; designer_id: string | null }>("select role, designer_id from profiles where user_id = $1", [user.id])).rows;
   }
   return { userId: user.id, email, name: user.name ?? null, role: rows[0].role, designerId: rows[0].designer_id };
 });
 
-/** Has a role (founder, or a designer linked to a designer record). */
+/** Has a role (founder, front desk, or a designer linked to a designer record). */
 export function hasAccess(v: Viewer | null): boolean {
-  return !!v && (v.role === "founder" || !!v.designerId);
+  return !!v && (v.role === "founder" || v.role === "frontdesk" || !!v.designerId);
+}
+
+/** Where each role lands. */
+export function homeFor(v: Viewer): string {
+  return v.role === "founder" ? "/dashboard" : v.role === "frontdesk" ? "/dashboard/desk" : "/dashboard/designer";
 }

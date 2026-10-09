@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getViewer, hasAccess } from "@/lib/auth/viewer";
+import { getViewer, hasAccess, homeFor } from "@/lib/auth/viewer";
 import { Nav, SignOutIcon } from "./_components/nav";
 
 // Every dashboard page reads the session and live data, so it renders on the server per request.
@@ -27,10 +27,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <div className="app">
       <aside className="rail">
-        <Link href="/dashboard" className="logo" aria-label="Aangan Studio" title="Aangan Studio">
+        <Link href={homeFor(viewer)} className="logo" aria-label="Aangan Studio" title="Aangan Studio">
           A
         </Link>
-        <Nav founder={viewer.role === "founder"} />
+        <Nav role={viewer.role} />
         <div className="spacer" />
         <Link href="/api/auth/sign-out" title="Sign out" aria-label="Sign out">
           <SignOutIcon />

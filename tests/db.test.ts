@@ -11,6 +11,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 const FOUNDER = "user_founder";
 const ASHA = "user_asha";
 const ROHAN = "user_rohan";
+const DESK = "user_desk";
 const ASHA_ID = "aaaaaaaa-0000-0000-0000-000000000001";
 const ROHAN_ID = "aaaaaaaa-0000-0000-0000-000000000002";
 const QUALIFIED_FOR_ASHA = "bbbbbbbb-0000-0000-0000-000000000001";
@@ -46,7 +47,8 @@ beforeAll(async () => {
     insert into profiles values
       ('${FOUNDER}', 'founder', null),
       ('${ASHA}', 'designer', '${ASHA_ID}'),
-      ('${ROHAN}', 'designer', '${ROHAN_ID}');
+      ('${ROHAN}', 'designer', '${ROHAN_ID}'),
+      ('${DESK}', 'frontdesk', null);
     insert into leads (id, phone, status, assigned_designer_id, extraction, evaluation) values
       ('${QUALIFIED_FOR_ASHA}', '+919000000001', 'qualified', '${ASHA_ID}', '{}', '{}'),
       ('${IN_REVIEW}', '+919000000002', 'review', null, '{}', '{}'),
@@ -92,6 +94,14 @@ describe("RLS", () => {
     for (const table of ["config", "rates", "call_costs", "insights", "webhook_events", "criteria", "crm_sync_state"]) {
       expect(await as(ASHA, `select * from ${table}`), table).toEqual([]);
     }
+  });
+
+  it("front desk sees every lead but no config, rates, costs or insights", async () => {
+    expect(await leadStatuses(DESK)).toEqual(["qualified", "review", "declined"]);
+    for (const table of ["config", "rates", "call_costs", "insights", "webhook_events", "crm_sync_state"]) {
+      expect(await as(DESK, `select * from ${table}`), table).toEqual([]);
+    }
+    expect(await as(DESK, "update config set value = '0.1' where key = 'SCOPE_THRESHOLD' returning key")).toEqual([]);
   });
 
   it("designer cannot change config", async () => {

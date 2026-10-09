@@ -12,6 +12,7 @@ import { labelFor } from "../intake/sheet";
 import type { LeadExtraction } from "../schema/lead";
 import { sendSms } from "../sms";
 import { notifyStaff } from "../staff/notify";
+import { designerEmail } from "../staff/recipients";
 import { speakableSlot } from "../time/ist";
 
 interface LeadRow {
@@ -87,6 +88,7 @@ export async function runHandoff(leadId: string): Promise<void> {
         name: lead.name,
         dealName: `${lead.name ?? "Caller"} — ${lead.extraction.configuration ?? lead.extraction.project_type} ${lead.extraction.locality ?? ""}`.trim(),
         stage,
+        ownerEmail: lead.status === "qualified" ? designerEmail(lead.designer_name ?? lead.booking_designer) : null,
         priority: (lead.deal_health_band as "high" | "medium" | "low" | null) ?? null,
         existingContactId: lead.hubspot_contact_id,
         existingDealId: lead.hubspot_deal_id,

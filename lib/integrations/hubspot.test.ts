@@ -16,6 +16,7 @@ vi.mock("../http/retry", () => ({
     calls.push({ method, path, body });
     const json = (() => {
       if (path.startsWith("/crm/v3/pipelines/deals/")) return { stages: STAGES.map((label, i) => ({ id: `s${i}`, label })) };
+      if (path.startsWith("/crm/v3/owners")) return { results: path.includes("asha") ? [{ id: "42", email: "asha@example.com" }] : [] };
       if (path === "/crm/v3/objects/contacts/search") return { results: contacts.slice(0, 1) };
       const assoc = path.match(/^\/crm\/v4\/objects\/contacts\/(\w+)\/associations\/deals$/);
       if (assoc) return { results: (dealsByContact[assoc[1]] ?? []).map((d) => ({ toObjectId: Number(d.id) })) };
@@ -68,5 +69,19 @@ describe("HubSpotCrm.syncLead", () => {
     await sync();
     const patch = calls.find((c) => c.method === "PATCH" && c.path === "/crm/v3/objects/contacts/66");
     expect(patch?.body).toEqual({ properties: { phone: "+919000001005" } });
+  });
+
+  it("makes the booked designer the deal and contact owner when they're a HubSpot user", async () => {
+    await sync({ ownerEmail: "asha@example.com" });
+    const deal = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/deals");
+    const contact = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/contacts");
+    expect((deal?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBe("42");
+    expect((contact?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBe("42");
+  });
+
+  it("leaves the deal unowned when the designer isn't a HubSpot user", async () => {
+    await sync({ ownerEmail: "kabir@example.com" });
+    const deal = calls.find((c) => c.method === "POST" && c.path === "/crm/v3/objects/deals");
+    expect((deal?.body as { properties: Record<string, string> }).properties.hubspot_owner_id).toBeUndefined();
   });
 });
