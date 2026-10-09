@@ -10,7 +10,6 @@ import { detectSignals, withSubject } from "@/lib/insights/signals";
 import { addTodo, adoptRecommendation, deleteTodo, dismissRecommendation, refreshInsights, toggleTodo } from "./actions";
 import { label, pct, when } from "./_components/format";
 import { Greeting } from "./_components/greeting";
-import { WindChime } from "./_components/wind-chime";
 import { money } from "./_components/kpi";
 import { SafetyStrip } from "./_components/safety";
 import { loadRuntimeConfig } from "@/lib/config/runtime";
@@ -51,7 +50,6 @@ export default async function Today({ searchParams }: { searchParams: Promise<Re
   return (
     <main>
       <Greeting name={viewer.name ?? viewer.email} sub="here's what needs you today">
-        <WindChime />
         <Link className="pill" href="/dashboard/overview">
           Open KPIs
         </Link>

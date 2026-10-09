@@ -532,24 +532,52 @@ a.safety-item:hover { text-decoration: none; filter: brightness(1.03); }
   .safety-row { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* ---- Wind chime ---- */
-.chime { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px 0 4px; border-radius: 18px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.chime svg { display: block; cursor: grab; overflow: visible; }
-.chime svg:active { cursor: grabbing; }
-.chime-rod { outline: none; }
-.chime-rod:focus-visible rect:not([fill="transparent"]) { stroke: var(--accent); stroke-width: 1.6; }
-.chime-rod .swinging { animation: chime-swing 1.6s cubic-bezier(0.25, 0.6, 0.35, 1); }
-@keyframes chime-swing {
-  0% { transform: rotate(0deg); }
-  12% { transform: rotate(7deg); }
-  30% { transform: rotate(-5deg); }
-  48% { transform: rotate(3deg); }
-  66% { transform: rotate(-1.6deg); }
-  82% { transform: rotate(0.7deg); }
-  100% { transform: rotate(0deg); }
+/* ---- Wind chime: docked bottom-right on every dashboard page ---- */
+:root {
+  --chime-tube: #2a2e44; --chime-tube-edge: #161827; --chime-tube-shine: #6b7090;
+  --chime-disc-top: #f4f5ff; --chime-disc-side: #b8bfe6; --chime-cord: rgb(60 66 110 / 0.55);
 }
-@media (prefers-reduced-motion: reduce) { .chime-rod .swinging { animation: none; } }
-.chime-mute { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: var(--text-2); background: var(--glass-bg); border: 1px solid var(--glass-rim); box-shadow: var(--glass-edge); cursor: pointer; padding: 0; }
-.chime-mute svg { width: 16px; height: 16px; }
-.chime-mute.has-tip::after { left: auto; right: calc(100% + 10px); }
-@media (max-width: 560px) { .chime { display: none; } }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --chime-tube: #b9bfdc; --chime-tube-edge: #6c7296; --chime-tube-shine: #f2f4ff;
+    --chime-disc-top: #4a5080; --chime-disc-side: #262a4a; --chime-cord: rgb(200 205 240 / 0.45);
+  }
+}
+:root[data-theme="dark"] {
+  --chime-tube: #b9bfdc; --chime-tube-edge: #6c7296; --chime-tube-shine: #f2f4ff;
+  --chime-disc-top: #4a5080; --chime-disc-side: #262a4a; --chime-cord: rgb(200 205 240 / 0.45);
+}
+.chime-dock { position: fixed; right: 22px; bottom: 16px; z-index: 30; display: flex; align-items: flex-end; gap: 4px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.chime-art { display: block; width: 62px; height: auto; overflow: visible; cursor: grab; filter: drop-shadow(0 6px 10px rgb(30 35 80 / 0.16)); }
+.chime-art:active { cursor: grabbing; }
+.chime-body { transform-origin: 40px 0; animation: chime-idle 7s ease-in-out infinite; }
+.chime-cord { stroke: var(--chime-cord); stroke-width: 0.7; }
+.chime-disc-face { fill: var(--chime-disc-top); stroke: rgb(255 255 255 / 0.7); stroke-width: 0.6; }
+.chime-striker-disc { fill: var(--chime-tube); }
+.chime-sail { fill: var(--glass-bg-strong); stroke: var(--glass-rim); stroke-width: 0.8; }
+.chime-tube { outline: none; }
+.chime-tube:focus-visible rect[fill^="url"] { stroke: var(--accent); stroke-width: 1.2; }
+.chime-tube .swinging { animation: chime-swing 1.6s cubic-bezier(0.25, 0.6, 0.35, 1); }
+.chime-striker.swinging { animation: chime-swing 2.2s cubic-bezier(0.25, 0.6, 0.35, 1); }
+@keyframes chime-swing {
+  0% { transform: rotate(0deg); } 12% { transform: rotate(6deg); } 30% { transform: rotate(-4.5deg); }
+  48% { transform: rotate(2.6deg); } 66% { transform: rotate(-1.4deg); } 82% { transform: rotate(0.6deg); } 100% { transform: rotate(0deg); }
+}
+@keyframes chime-idle { 0%, 100% { transform: rotate(-0.8deg); } 50% { transform: rotate(0.8deg); } }
+@media (prefers-reduced-motion: reduce) { .chime-body, .chime-tube .swinging, .chime-striker.swinging { animation: none; } }
+/* Mute: quiet until you reach for the chime. */
+.chime-mute { width: 26px; height: 26px; margin-bottom: 4px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer;
+  color: var(--text-2); background: var(--glass-bg-strong); border: 1px solid var(--glass-rim); box-shadow: var(--glass-edge);
+  opacity: 0; transition: opacity 0.18s ease; }
+.chime-mute svg { width: 14px; height: 14px; }
+.chime-mute[aria-pressed="true"], .chime-dock:hover .chime-mute, .chime-dock:focus-within .chime-mute { opacity: 1; }
+@media (hover: none) { .chime-mute { opacity: 0.7; } }
+/* Its hover note sits to the left and waits a moment, so it never gets in the way of playing. */
+.chime-dock.has-tip::after { left: auto; right: calc(100% + 8px); top: 30%; transition-delay: 0s; }
+.chime-dock.has-tip:hover::after { transition-delay: 0.7s; }
+.chime-dock.has-tip:active::after { opacity: 0; transition-delay: 0s; }
+.shell { padding-bottom: 150px; } /* room to scroll the last card clear of the chime */
+@media (max-width: 760px) {
+  .chime-dock { right: 10px; bottom: 10px; }
+  .chime-art { width: 44px; }
+}

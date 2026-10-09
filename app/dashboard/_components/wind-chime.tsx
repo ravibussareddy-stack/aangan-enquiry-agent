@@ -3,20 +3,22 @@
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
 /**
- * A small glass wind chime. Click a rod, or hold and drag across the rods, to play
- * it. The rods are tuned to C-major pentatonic, so any run of notes harmonises; each
- * strike is a synthesised tubular-bell tone (free-bar overtones 1 : 2.76 : 5.40 : 8.93)
- * with a quiet fifth beneath and a short shimmer. Web Audio only — no files.
+ * A small wind chime docked in the corner of every dashboard page. It lives in the
+ * dashboard layout, so it stays mounted (and keeps ringing) while pages switch and load.
+ * Click a tube, or hold and drag across the tubes, to play it. The tubes are tuned to
+ * C-major pentatonic, so any run of notes harmonises; each strike is a synthesised
+ * tubular-bell tone (free-bar overtones 1 : 2.76 : 5.40 : 8.93) with a quiet fifth
+ * beneath and a short shimmer. Web Audio only — no files.
  */
 
-const NOTES = [
-  { name: "C5", hz: 523.25 },
-  { name: "D5", hz: 587.33 },
-  { name: "E5", hz: 659.25 },
-  { name: "G5", hz: 783.99 },
-  { name: "A5", hz: 880.0 },
-  { name: "C6", hz: 1046.5 },
-  { name: "D6", hz: 1174.66 },
+/** Longest tube = lowest note. `slot` is the tube's place left→right around the disc. */
+const TUBES = [
+  { name: "C5", hz: 523.25, slot: 0 },
+  { name: "D5", hz: 587.33, slot: 2 },
+  { name: "E5", hz: 659.25, slot: 4 },
+  { name: "G5", hz: 783.99, slot: 1 },
+  { name: "A5", hz: 880.0, slot: 3 },
+  { name: "C6", hz: 1046.5, slot: 5 },
 ];
 const PARTIALS = [
   { ratio: 1, gain: 1, decay: 3.2 },
@@ -26,34 +28,23 @@ const PARTIALS = [
 ];
 const MUTE_KEY = "aangan:chime-muted";
 
+// Geometry (viewBox 0 0 80 150): disc centred at (40, 20). Tubes sit on a ring, evenly
+// spaced left→right (so each one can be reached by a drag), alternating back and front.
+const CX = 40;
+const DISC_Y = 20;
+const tubeGeom = TUBES.map((t, i) => {
+  const c = -0.9 + t.slot * 0.36;
+  const depth = (t.slot % 2 ? 1 : -1) * Math.sqrt(1 - c * c); // 1 = nearest the viewer
+  return { ...t, index: i, x: CX + 26 * c, depth, top: 34 + depth * 3, len: 88 - i * 8.5, width: 4.6 + depth * 0.6 };
+});
+const backToFront = [...tubeGeom].sort((a, b) => a.depth - b.depth);
+
 type Audio = { ctx: AudioContext; out: GainNode };
 
-// Mute preference: a per-browser convenience in localStorage, read as an external store.
-const muteListeners = new Set<() => void>();
-function readMuted(): boolean {
-  try {
-    return localStorage.getItem(MUTE_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-function writeMuted(muted: boolean) {
-  try {
-    localStorage.setItem(MUTE_KEY, muted ? "1" : "0");
-  } catch {
-    /* storage unavailable — the toggle still works for this page */
-  }
-  fallbackMuted = muted;
-  muteListeners.forEach((l) => l());
-}
-let fallbackMuted: boolean | null = null;
-const subscribeMuted = (l: () => void) => {
-  muteListeners.add(l);
-  return () => muteListeners.delete(l);
-};
-const getMuted = () => fallbackMuted ?? readMuted();
-
-function makeAudio(): Audio | null {
+// One audio graph for the whole tab, so a remount never stacks contexts.
+let sharedAudio: Audio | null = null;
+function getAudio(): Audio | null {
+  if (sharedAudio) return sharedAudio;
   const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
   if (!Ctor) return null;
   const ctx = new Ctor();
@@ -73,7 +64,8 @@ function makeAudio(): Audio | null {
   tone.connect(feedback);
   feedback.connect(delay);
   tone.connect(ctx.destination);
-  return { ctx, out };
+  sharedAudio = { ctx, out };
+  return sharedAudio;
 }
 
 function strike(a: Audio, hz: number, velocity = 1) {
@@ -97,13 +89,38 @@ function strike(a: Audio, hz: number, velocity = 1) {
   voice(hz * (2 / 3), 0.12); // a quiet fifth below — the harmony under each note
 }
 
+// Mute preference: a per-browser convenience in localStorage, read as an external store.
+const muteListeners = new Set<() => void>();
+let fallbackMuted: boolean | null = null;
+function readMuted(): boolean {
+  try {
+    return localStorage.getItem(MUTE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function writeMuted(muted: boolean) {
+  try {
+    localStorage.setItem(MUTE_KEY, muted ? "1" : "0");
+  } catch {
+    /* storage unavailable — the toggle still works for this tab */
+  }
+  fallbackMuted = muted;
+  muteListeners.forEach((l) => l());
+}
+const subscribeMuted = (l: () => void) => {
+  muteListeners.add(l);
+  return () => muteListeners.delete(l);
+};
+const getMuted = () => fallbackMuted ?? readMuted();
+
 export function WindChime() {
-  const audio = useRef<Audio | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const dragging = useRef(false);
   const lastHit = useRef<{ index: number; at: number }>({ index: -1, at: 0 });
   const muted = useSyncExternalStore(subscribeMuted, getMuted, () => false);
-  const [swing, setSwing] = useState<number[]>(() => NOTES.map(() => 0));
+  const [swing, setSwing] = useState<number[]>(() => TUBES.map(() => 0));
+  const [strikes, setStrikes] = useState(0);
 
   const play = useCallback(
     (index: number, velocity = 1) => {
@@ -111,102 +128,115 @@ export function WindChime() {
       if (lastHit.current.index === index && now - lastHit.current.at < 120) return;
       lastHit.current = { index, at: now };
       setSwing((s) => s.map((v, i) => (i === index ? v + 1 : v)));
+      setStrikes((n) => n + 1);
       if (muted) return;
-      if (!audio.current) audio.current = makeAudio();
-      const a = audio.current;
+      const a = getAudio();
       if (!a) return;
       if (a.ctx.state === "suspended") void a.ctx.resume();
-      strike(a, NOTES[index].hz, velocity);
+      strike(a, TUBES[index].hz, velocity);
     },
     [muted],
   );
 
-  const rodAt = (clientX: number, clientY: number): number => {
+  const tubeAt = (clientX: number, clientY: number): number => {
     const el = document.elementFromPoint(clientX, clientY);
-    const rod = el?.closest("[data-rod]");
-    return rod ? Number(rod.getAttribute("data-rod")) : -1;
+    const tube = el?.closest("[data-rod]");
+    return tube ? Number(tube.getAttribute("data-rod")) : -1;
   };
 
-  const toggleMute = () => writeMuted(!muted);
-
   return (
-    <div className="chime" aria-label="Wind chime — click or drag across the rods to play">
+    <div className="chime-dock has-tip" data-label="Wind chime" data-tip="Click a tube, or hold and drag across them to play">
       <svg
         ref={svgRef}
-        viewBox="0 0 196 92"
-        width="196"
-        height="92"
+        className="chime-art"
+        viewBox="0 0 80 150"
         role="group"
-        aria-label="Wind chime"
+        aria-label="Wind chime — click or drag across the tubes to play"
         onPointerDown={(e) => {
           dragging.current = true;
-          svgRef.current?.setPointerCapture(e.pointerId);
-          const i = rodAt(e.clientX, e.clientY);
+          try {
+            svgRef.current?.setPointerCapture(e.pointerId); // keep the drag even if the pointer leaves the chime
+          } catch {
+            /* pointer already gone — the strike below still plays */
+          }
+          const i = tubeAt(e.clientX, e.clientY);
           if (i >= 0) play(i, 1);
         }}
         onPointerMove={(e) => {
           if (!dragging.current) return;
-          const i = rodAt(e.clientX, e.clientY);
+          const i = tubeAt(e.clientX, e.clientY);
           if (i >= 0) play(i, Math.min(1, 0.55 + Math.abs(e.movementX) / 30));
         }}
         onPointerUp={(e) => {
           dragging.current = false;
-          svgRef.current?.releasePointerCapture(e.pointerId);
+          if (svgRef.current?.hasPointerCapture(e.pointerId)) svgRef.current.releasePointerCapture(e.pointerId);
         }}
         onPointerCancel={() => (dragging.current = false)}
       >
         <defs>
-          <linearGradient id="chime-rod" x1="0" x2="1">
-            <stop offset="0" stopColor="#eef1ff" />
-            <stop offset="0.4" stopColor="#a9b6ff" />
-            <stop offset="1" stopColor="#5b6be0" />
+          <linearGradient id="chime-tube" x1="0" x2="1">
+            <stop offset="0" style={{ stopColor: "var(--chime-tube-edge)" }} />
+            <stop offset="0.32" style={{ stopColor: "var(--chime-tube-shine)" }} />
+            <stop offset="0.55" style={{ stopColor: "var(--chime-tube)" }} />
+            <stop offset="1" style={{ stopColor: "var(--chime-tube-edge)" }} />
           </linearGradient>
-          <linearGradient id="chime-bar" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#c7cffc" />
-            <stop offset="1" stopColor="#6574dc" />
+          <linearGradient id="chime-disc" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" style={{ stopColor: "var(--chime-disc-top)" }} />
+            <stop offset="1" style={{ stopColor: "var(--chime-disc-side)" }} />
           </linearGradient>
         </defs>
-        <rect x="8" y="4" width="180" height="7" rx="3.5" fill="url(#chime-bar)" stroke="rgb(255 255 255 / 0.8)" />
-        {NOTES.map((n, i) => {
-          const x = 20 + i * 26;
-          const len = 74 - i * 6.5;
-          return (
+
+        <g className="chime-body">
+          {/* hook and hanging cords */}
+          <line x1={CX} y1="0" x2={CX} y2="7" className="chime-cord" />
+          <line x1={CX} y1="7" x2={CX - 22} y2={DISC_Y} className="chime-cord" />
+          <line x1={CX} y1="7" x2={CX + 22} y2={DISC_Y} className="chime-cord" />
+
+          {/* top disc: side band, then the face */}
+          <path d={`M${CX - 28} ${DISC_Y} v4 a28 6 0 0 0 56 0 v-4 z`} fill="url(#chime-disc)" />
+          <ellipse cx={CX} cy={DISC_Y} rx="28" ry="6" className="chime-disc-face" />
+
+          {/* centre cord, striker and wind sail */}
+          <g key={strikes} className={strikes ? "chime-striker swinging" : "chime-striker"} style={{ transformOrigin: `${CX}px ${DISC_Y + 6}px` }}>
+            <line x1={CX} y1={DISC_Y + 6} x2={CX} y2="122" className="chime-cord" />
+            <ellipse cx={CX} cy="74" rx="8" ry="2.6" className="chime-striker-disc" />
+            <rect x={CX - 6} y="122" width="12" height="24" rx="6" className="chime-sail" />
+          </g>
+
+          {backToFront.map((t) => (
             <g
-              key={n.name}
-              data-rod={i}
-              className="chime-rod"
-              style={{ transformOrigin: `${x}px 11px` }}
-              data-swing={swing[i] % 2}
+              key={t.name}
+              data-rod={t.index}
+              className="chime-tube"
               role="button"
               tabIndex={0}
-              aria-label={`Chime ${n.name}`}
+              aria-label={`Chime ${t.name}`}
+              style={{ opacity: 0.72 + 0.28 * ((t.depth + 1) / 2) }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  play(i, 0.9);
+                  play(t.index, 0.9);
                 }
               }}
             >
               {/* re-keyed on each strike so the swing animation restarts */}
-              <g key={swing[i]} className={swing[i] ? "swinging" : undefined} style={{ transformOrigin: `${x}px 11px` }}>
-                <line x1={x} y1="11" x2={x} y2="16" stroke="rgb(80 90 170 / 0.8)" strokeWidth="1.2" />
-                <rect x={x - 5} y="16" width="10" height={len} rx="5" fill="url(#chime-rod)" stroke="rgb(70 80 180 / 0.45)" strokeWidth="0.8" />
-                <rect x={x - 2.5} y="19" width="2" height={len - 8} rx="1" fill="rgb(255 255 255 / 0.7)" />
+              <g key={swing[t.index]} className={swing[t.index] ? "swinging" : undefined} style={{ transformOrigin: `${t.x}px ${DISC_Y + 4 + t.depth * 5}px` }}>
+                <line x1={t.x} y1={DISC_Y + 4 + t.depth * 5} x2={t.x} y2={t.top} className="chime-cord" />
+                <rect x={t.x - t.width / 2} y={t.top} width={t.width} height={t.len} rx={t.width / 2} fill="url(#chime-tube)" />
                 {/* generous invisible hit area so dragging across is easy */}
-                <rect x={x - 12} y="11" width="24" height={len + 8} fill="transparent" />
+                <rect x={t.x - 4.7} y={t.top - 4} width="9.4" height={t.len + 8} fill="transparent" />
               </g>
             </g>
-          );
-        })}
+          ))}
+        </g>
       </svg>
       <button
         type="button"
-        className="chime-mute has-tip"
-        onClick={toggleMute}
+        className="chime-mute"
+        onClick={() => writeMuted(!muted)}
         aria-pressed={muted}
         aria-label={muted ? "Unmute wind chime" : "Mute wind chime"}
-        data-label={muted ? "Sound off" : "Sound on"}
-        data-tip="Click or drag across the rods to play"
+        title={muted ? "Sound off — click to turn on" : "Sound on — click to mute"}
       >
         {muted ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

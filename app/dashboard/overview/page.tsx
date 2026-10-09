@@ -11,7 +11,6 @@ import { refreshInsights } from "../actions";
 import { BarList, Funnel } from "../_components/charts";
 import { dur, inr, label, pct, secs, when } from "../_components/format";
 import { Greeting } from "../_components/greeting";
-import { WindChime } from "../_components/wind-chime";
 import { Kpi, money } from "../_components/kpi";
 import { SafetyStrip } from "../_components/safety";
 
@@ -41,7 +40,6 @@ export default async function Overview({ searchParams }: { searchParams: Promise
   return (
     <main>
       <Greeting name={viewer.name ?? viewer.email} sub="the numbers behind the business">
-        <WindChime />
         <div className="seg" role="group" aria-label="Date range">
           {Object.keys(RANGES).map((k) => (
             <Link key={k} href={href({ range: k })} aria-current={k === rangeKey}>
