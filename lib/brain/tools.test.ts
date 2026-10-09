@@ -58,7 +58,10 @@ describe("brain tools", () => {
   it("only offers slots after a qualified evaluation, and books only offered slots", async () => {
     const { deps, state } = setup();
     expect((await executeTool("get_slots", { preference: null, site_visit: false }, state, deps)).error).toBeTruthy();
-    await executeTool("evaluate_lead", { facts: { ...homeFacts, rooms_in_scope: 3 }, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    const step = await executeTool("evaluate_lead", { facts: { ...homeFacts, rooms_in_scope: 3 }, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    expect(step.next_step).toBe("budget_check"); // no budget → typical range first
+    const ok = await executeTool("evaluate_lead", { facts: { typical_budget_reaction: "comfortable" }, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    expect(ok.next_step).toBe("qualified");
     const slots = await executeTool("get_slots", { preference: "saturday morning", site_visit: false, typical_budget_reaction: "comfortable" }, state, deps);
     expect((slots.slots as unknown[]).length).toBeGreaterThan(0);
     expect((await executeTool("book_slot", { slot_id: "nope", caller_name: "A" }, state, deps)).error).toBeTruthy();
@@ -199,7 +202,11 @@ describe("callback routing in-call", () => {
     const thin = { scope_text: "full flat", engagement: "design_and_execution" as const, project_type: "residential" as const, caller_name: "K" };
     await executeTool("evaluate_lead", { facts: thin, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
     await executeTool("evaluate_lead", { facts: {}, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
-    const r = await executeTool("evaluate_lead", { facts: {}, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    // The owner's budget step still runs before a callback: typical range + comfort question.
+    const budget = await executeTool("evaluate_lead", { facts: {}, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    expect(budget.next_step).toBe("budget_check");
+    expect(String(budget.say)).toMatch(/Are you comfortable going ahead on that basis\?$/);
+    const r = await executeTool("evaluate_lead", { facts: { typical_budget_reaction: "comfortable" }, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
     expect(r.next_step).toBe("callback");
     expect(state.evaluation?.outcome).toBe("callback");
   });
@@ -244,9 +251,11 @@ describe("typical budget (SHARE_TYPICAL_BUDGET)", () => {
   it("gives the server-written line once when the caller has no budget", async () => {
     const { deps, state } = setup();
     const r1 = await executeTool("evaluate_lead", { facts: homeFacts, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
-    expect(String(r1.budget_guidance)).toMatch(/^Typically, .* comes to around .* lakh rupees\. That's a typical range/);
+    expect(r1.next_step).toBe("budget_check");
+    expect(String(r1.say)).toMatch(/^Typically, .* comes to around .* lakh rupees\. That's a typical range/);
     const r2 = await executeTool("evaluate_lead", { facts: {}, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
-    expect(r2.budget_guidance).toBeUndefined(); // only once
+    expect(r2.say).toBeUndefined(); // the range is said only once…
+    expect(r2.ask).toBe("Are you comfortable going ahead on that basis?"); // …but the answer is still required
   });
 
   it("does not share it when the caller gave a budget", async () => {
@@ -258,30 +267,53 @@ describe("typical budget (SHARE_TYPICAL_BUDGET)", () => {
   });
 });
 
-describe("typical budget comfort check", () => {
-  async function qualifiedWithGuidance() {
+describe("typical budget comfort check (owner: continue only if they're happy)", () => {
+  async function rangeShared() {
     const { deps, state } = setup();
-    await executeTool("evaluate_lead", { facts: homeFacts, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    const r = await executeTool("evaluate_lead", { facts: homeFacts, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
+    expect(r.next_step).toBe("budget_check");
     expect(state.budgetGuidance).toMatch(/Are you comfortable going ahead on that basis\?$/);
     return { deps, state };
   }
+  const evaluate = (state: Parameters<typeof executeTool>[2], deps: BrainDeps, facts: Record<string, unknown> = {}) =>
+    executeTool("evaluate_lead", { facts, in_scope_confidence: 0.9, out_of_scope_confidence: 0.05 }, state, deps);
 
-  it("won't offer slots until the caller answers the comfort question", async () => {
-    const { deps, state } = await qualifiedWithGuidance();
+  it("won't offer slots until the caller says they're comfortable", async () => {
+    const { deps, state } = await rangeShared();
     expect((await executeTool("get_slots", { preference: null, site_visit: false }, state, deps)).error).toMatch(/comfortable/);
-    const ok = await executeTool("get_slots", { preference: null, site_visit: false, typical_budget_reaction: "comfortable" }, state, deps);
+    expect((await evaluate(state, deps, { typical_budget_reaction: "comfortable" })).next_step).toBe("qualified");
+    const ok = await executeTool("get_slots", { preference: null, site_visit: false }, state, deps);
     expect((ok.slots as unknown[]).length).toBeGreaterThan(0);
   });
 
-  it("asks for their range once if they're not comfortable, then lets them proceed", async () => {
-    const { deps, state } = await qualifiedWithGuidance();
-    const first = await executeTool("get_slots", { preference: null, site_visit: false, typical_budget_reaction: "not_comfortable" }, state, deps);
-    expect(String(first.error)).toMatch(/What range would you be comfortable with/);
-    const second = await executeTool("get_slots", { preference: null, site_visit: false, typical_budget_reaction: "not_comfortable" }, state, deps);
-    expect(second.error).toBeUndefined();
+  it("not comfortable: asks their range once, then goes to review without offering a booking", async () => {
+    const { deps, state } = await rangeShared();
+    const ask = await evaluate(state, deps, { typical_budget_reaction: "not_comfortable" });
+    expect(ask.ask).toBe("No problem — what range did you have in mind?");
+    const after = await evaluate(state, deps);
+    expect(after).toMatchObject({ next_step: "review", budget_not_comfortable: true });
+    expect(state.evaluation?.flags).toContain("typical_budget_not_comfortable");
+    expect((await executeTool("get_slots", { preference: null, site_visit: false, typical_budget_reaction: "not_comfortable" }, state, deps)).error).toBeTruthy();
+  });
+
+  it("not comfortable but gives a range: the server judges that figure as usual", async () => {
+    const { deps, state } = await rangeShared();
+    await evaluate(state, deps, { typical_budget_reaction: "not_comfortable" });
+    state.transcript.push({ speaker: "caller", text: "Maybe up to 15 lakh", at: now.toISOString() });
+    state.transcript.push({ speaker: "agent", text: "Just to confirm — up to 15 lakh?", at: now.toISOString() });
+    state.transcript.push({ speaker: "caller", text: "Yes", at: now.toISOString() });
+    expect((await evaluate(state, deps, { budget_inr: 1500000 })).next_step).toBe("qualified"); // 2 rooms: well above the floor
+  });
+
+  it("asks for a ballpark first when it hasn't been asked yet", async () => {
+    const { deps, state } = setup();
+    state.intakePrompted = []; // nothing asked so far
+    const { not_known: _nk, ...facts } = homeFacts;
+    void _nk;
+    const r = await evaluate(state, deps, facts);
+    expect(r.ask).toBe("Do you have a ballpark budget in mind for this?");
   });
 });
-
 describe("sign-off", () => {
   it("adds 'Have a good day!' to the agent's last line", async () => {
     const { withSignOff } = await import("./session");

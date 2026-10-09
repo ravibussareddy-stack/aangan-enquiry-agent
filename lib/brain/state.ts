@@ -56,6 +56,9 @@ export interface SessionState {
   endRefused: boolean;
   /** First server-written typical-budget line given to the agent (set once shared). */
   budgetGuidance: string | null;
+  /** The owner's budget step: asked for a ballpark (once), and asked for their own range after a "not comfortable" (once). */
+  budgetAsked?: boolean;
+  budgetRangeAsked?: boolean;
   /** Every server-written line that may carry a figure (first mention + repeats). Only these may be spoken. */
   approvedLines: string[];
 }

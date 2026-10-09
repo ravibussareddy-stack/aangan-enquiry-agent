@@ -112,6 +112,52 @@ export async function executeTool(
   const wrapUp = elapsedS(state, now) > cfg.callLimits.soft_wrap_s;
   const withWrap = (r: Record<string, unknown>) => (wrapUp ? { ...r, wrap_up_now: true } : r);
 
+  /**
+   * The owner's budget rule (2026-10-08/09), enforced on every path except a hard decline:
+   * ask for a ballpark; if none, share the typical range with its disclaimer and ask
+   * "Are you comfortable going ahead on that basis?"; continue only if they are.
+   * Not comfortable / unsure → ask their range once. Returns the next step, null when
+   * done, or "not_comfortable" when they weren't happy with it and gave no range.
+   */
+  const budgetStep = (): Record<string, unknown> | "not_comfortable" | null => {
+    if (state.facts.budget_inr != null) return null;
+    const declined = (state.facts.not_known ?? []).includes("budget");
+    if (cfg.askBudget && !declined && !state.budgetAsked && !state.intakePrompted.includes("budget")) {
+      state.budgetAsked = true;
+      state.intakePrompted.push("budget");
+      return {
+        next_step: "ask",
+        ask: "Do you have a ballpark budget in mind for this?",
+        note: "If they give a figure, put it in facts.budget_inr, repeat it back once as a short question, and call evaluate_lead. If they don't have one or would rather not say, add \"budget\" to facts.not_known and call evaluate_lead again.",
+      };
+    }
+    if (!cfg.shareTypicalBudget) return null;
+    if (!state.budgetGuidance) {
+      const line = typicalBudgetLine(factsToExtraction(state.facts, state.startedAt), cfg.typicalBudgets);
+      state.budgetGuidance = line;
+      state.approvedLines = [...(state.approvedLines ?? []), line];
+      return {
+        next_step: "budget_check",
+        say: line,
+        rule: "Say this EXACTLY as written (no other figure), then wait for their answer and call evaluate_lead with facts.typical_budget_reaction = comfortable | not_comfortable | unsure.",
+      };
+    }
+    const reaction = state.facts.typical_budget_reaction;
+    if (!reaction || reaction === "not_asked") {
+      return { next_step: "budget_check", ask: "Are you comfortable going ahead on that basis?", note: "Record their answer in facts.typical_budget_reaction and call evaluate_lead again." };
+    }
+    if (reaction === "comfortable") return null;
+    if (!state.budgetRangeAsked) {
+      state.budgetRangeAsked = true;
+      return {
+        next_step: "ask",
+        ask: "No problem — what range did you have in mind?",
+        note: "If they give a figure, put it in facts.budget_inr (upper bound), repeat it back once, and call evaluate_lead. If they'd rather not say, call evaluate_lead again with the same facts.",
+      };
+    }
+    return "not_comfortable";
+  };
+
   switch (name) {
     case "lookup_caller": {
       if (!state.callerPhone) return { existing_client: false, note: "Caller number unavailable." };
@@ -205,7 +251,25 @@ export async function executeTool(
           note: "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again.",
         });
       }
-      // 3. A budget counts as confirmed only if the transcript shows it was repeated back.
+      // 3. The owner's budget step — not skipped by the nudge limit or the wrap-up time.
+      const budget = settled ? null : budgetStep();
+      if (budget && budget !== "not_comfortable") return withWrap(budget);
+      if (budget === "not_comfortable") {
+        state.facts = mergeFacts(state.facts, { watch_for: ["not comfortable with the typical budget range; no range given"] });
+        state.evaluation = {
+          outcome: "review",
+          declineReason: null,
+          flags: ["typical_budget_not_comfortable"],
+          reasons: ["Not comfortable with the typical budget range and gave no range of their own"],
+        };
+        return withWrap({
+          next_step: "review",
+          budget_not_comfortable: true,
+          must_ask: "When are you generally free to take a call?",
+          do: "Don't offer a booking. Thank them, say our team will look at their details and get back to them as soon as possible about what could work for their budget, ask when they're generally free, then call request_callback with their exact words.",
+        });
+      }
+      // 4. A budget counts as confirmed only if the transcript shows it was repeated back.
       if (state.facts.budget_inr != null) {
         const echoed = budgetEchoed(state.transcript, state.facts.budget_inr);
         state.facts = { ...state.facts, budget_confirmed: echoed };
@@ -284,12 +348,11 @@ export async function executeTool(
           return { error: "Before offering times: you shared the typical range — wait for their answer to \"Are you comfortable going ahead on that basis?\" and pass it as typical_budget_reaction." };
         }
         state.facts = mergeFacts(state.facts, { typical_budget_reaction: reaction });
-        const triedRange = state.intakePrompted.includes("budget_range");
-        if (reaction === "not_comfortable" && !triedRange) {
-          state.intakePrompted.push("budget_range");
+        // Continue only if they're happy with the typical range (owner's rule).
+        if (reaction !== "comfortable") {
           return {
             error:
-              "They're not comfortable with the typical range. Ask once: \"What range would you be comfortable with?\" If they give a figure, repeat it back to confirm and call evaluate_lead with budget_inr. If they'd rather not say, call get_slots again.",
+              "They haven't said they're comfortable with the typical range, so don't offer times. Call evaluate_lead with facts.typical_budget_reaction set to their answer — it will ask their range or route to review.",
           };
         }
       }
