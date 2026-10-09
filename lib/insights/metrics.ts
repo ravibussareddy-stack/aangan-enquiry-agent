@@ -85,6 +85,8 @@ export interface Metrics {
       /** Value of qualified leads that came in during this period. */
       added_in_period_inr: number;
       won_value_inr: number;
+      /** The same amounts in lakh (1 decimal) — how the founder reads money; the AI quotes these. */
+      in_lakh: { value: number; weighted: number; added_in_period: number; booked: number; won: number };
       top: { id: string; name: string | null; locality: string | null; value_inr: number | null; basis: "budget" | "typical" | null; score: number | null; band: string | null; booked: boolean }[];
     };
     /** Enquiries the AI took that staff couldn't (after hours or busy line). */
@@ -326,6 +328,16 @@ export async function getMetrics(r: Range): Promise<Metrics> {
         booked_value_inr: sum(open.filter((d) => d.booked)),
         added_in_period_inr: sum(valued.filter((d) => d.in_period)),
         won_value_inr: sum(valued.filter((d) => d.won)),
+        in_lakh: (() => {
+          const l = (n: number) => Math.round(n / 1e4) / 10;
+          return {
+            value: l(sum(open)),
+            weighted: l(open.reduce((t, d) => t + (d.est?.inr ?? 0) * closeProbability(d.score), 0)),
+            added_in_period: l(sum(valued.filter((d) => d.in_period))),
+            booked: l(sum(open.filter((d) => d.booked))),
+            won: l(sum(valued.filter((d) => d.won))),
+          };
+        })(),
         top: open
           .sort((a, b) => (b.est?.inr ?? 0) * closeProbability(b.score) - (a.est?.inr ?? 0) * closeProbability(a.score))
           .slice(0, 6)

@@ -23,7 +23,7 @@ export async function refreshInsights() {
   } catch (err) {
     redirect(`/dashboard?insights_error=${encodeURIComponent((err as Error).message)}`);
   }
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
 }
 
 export async function decideReview(formData: FormData) {
@@ -111,4 +111,59 @@ export async function routeLeadAction(formData: FormData) {
   if (!visible.rowCount) throw new Error("Lead not visible or not awaiting a decision");
   await routeLead({ leadId, to: to as "designer" | "admin" | "callback" });
   revalidatePath("/dashboard", "layout");
+}
+
+// ---- Founder's "Today" to-do list -------------------------------------------
+
+export async function addTodo(formData: FormData) {
+  const v = await founder();
+  const text = String(formData.get("text") ?? "").trim().slice(0, 300);
+  const due = String(formData.get("due_on") ?? "").trim();
+  if (!text) return;
+  await asUser(v.userId, (c) =>
+    c.query("insert into founder_todos (user_id, text, due_on) values ($1, $2, $3)", [v.userId, text, /^\d{4}-\d{2}-\d{2}$/.test(due) ? due : null]),
+  );
+  revalidatePath("/dashboard");
+}
+
+export async function toggleTodo(formData: FormData) {
+  const v = await founder();
+  await asUser(v.userId, (c) =>
+    c.query("update founder_todos set done = not done, done_at = case when done then null else now() end where id = $1 and user_id = $2", [String(formData.get("id")), v.userId]),
+  );
+  revalidatePath("/dashboard");
+}
+
+export async function deleteTodo(formData: FormData) {
+  const v = await founder();
+  await asUser(v.userId, (c) => c.query("delete from founder_todos where id = $1 and user_id = $2", [String(formData.get("id")), v.userId]));
+  revalidatePath("/dashboard");
+}
+
+/** Add an AI recommendation to the list (it then stops being suggested). */
+export async function adoptRecommendation(formData: FormData) {
+  const v = await founder();
+  const key = String(formData.get("key") ?? "").slice(0, 200);
+  const text = String(formData.get("text") ?? "").trim().slice(0, 300);
+  const href = String(formData.get("href") ?? "");
+  if (!key || !text) return;
+  await asUser(v.userId, (c) =>
+    c.query("insert into founder_todos (user_id, text, source, rec_key, href) values ($1, $2, 'ai', $3, $4)", [v.userId, text, key, href.startsWith("/dashboard") ? href : null]),
+  );
+  revalidatePath("/dashboard");
+}
+
+/** "Not now": hide a recommendation for 7 days. */
+export async function dismissRecommendation(formData: FormData) {
+  const v = await founder();
+  const key = String(formData.get("key") ?? "").slice(0, 200);
+  if (!key) return;
+  await asUser(v.userId, (c) =>
+    c.query(
+      `insert into recommendation_dismissals (user_id, rec_key) values ($1, $2)
+       on conflict (user_id, rec_key) do update set dismissed_at = now()`,
+      [v.userId, key],
+    ),
+  );
+  revalidatePath("/dashboard");
 }

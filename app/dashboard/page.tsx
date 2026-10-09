@@ -1,235 +1,217 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getViewer, homeFor } from "@/lib/auth/viewer";
-import { loadRuntimeConfig } from "@/lib/config/runtime";
-import { voiceSpendSoFar } from "@/lib/cost/spend-cap";
 import { freshFromCrm } from "@/lib/crm/stage-sync";
-import { getMetrics, recentCalls } from "@/lib/insights/metrics";
+import { asUser } from "@/lib/db/as-user";
+import { getMetrics } from "@/lib/insights/metrics";
 import { latestInsights } from "@/lib/insights/narrative";
-import { refreshInsights } from "./actions";
-import { BarList, Funnel, Tile } from "./_components/charts";
-import { dur, inr, label, pct, secs, when } from "./_components/format";
+import { detectSignals, withSubject } from "@/lib/insights/signals";
+import { addTodo, adoptRecommendation, deleteTodo, dismissRecommendation, refreshInsights, toggleTodo } from "./actions";
+import { label, pct, when } from "./_components/format";
 import { Greeting } from "./_components/greeting";
-import { Kpi, money } from "./_components/kpi";
+import { money } from "./_components/kpi";
 
 // Live, per-request data (session + database).
 export const instant = false;
 
-const RANGES = { "7d": 7, "30d": 30, "90d": 90 } as const;
-const IST_SHORT = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short" });
-const OUTCOME_ICON: Record<string, string> = { qualified: "✓", review: "?", callback: "↺", declined: "✕", complaint: "!", redirect: "→", message: "✉" };
+interface Todo {
+  id: string;
+  text: string;
+  source: "founder" | "ai";
+  rec_key: string | null;
+  href: string | null;
+  due_on: string | null;
+  done: boolean;
+  done_at: string | null;
+  created_at: string;
+}
+
+const IST_DAY = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short" });
+const todayIst = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata" }).format(new Date());
 
 /**
- * Founder overview — KPI first. The top answers "how much business is in the pipe,
- * is the AI catching enquiries we'd miss, are they turning into meetings, are we
- * fast enough, is it worth it" — each with its change vs the previous period and,
- * where the brief sets one, its target. Details sit below.
+ * The founder's landing page: a greeting, what changed (AI summary), what to do
+ * (their own to-dos), and 3–4 recommendations grounded in live data — phrased by
+ * Gemini each night, never repeating what's already on the list or was set aside.
  */
-export default async function Overview({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
+export default async function Today({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const viewer = await getViewer();
   if (!viewer) redirect("/auth/sign-in");
   if (viewer.role !== "founder") redirect(homeFor(viewer));
-  await freshFromCrm(); // pick up stage changes made in HubSpot (throttled)
+  await freshFromCrm();
   const sp = await searchParams;
-  const rangeKey = (sp.range && sp.range in RANGES ? sp.range : "30d") as keyof typeof RANGES;
-  const includeSimulated = sp.sim !== "0";
-  const days = RANGES[rangeKey];
   const to = new Date();
-  const from = new Date(to.getTime() - days * 86_400_000);
-  const prevFrom = new Date(from.getTime() - days * 86_400_000);
-  const [m, prev, insight, recent, voiceSpent, cfg] = await Promise.all([
-    getMetrics({ from, to, includeSimulated }),
-    getMetrics({ from: prevFrom, to: from, includeSimulated }),
+  const from = new Date(to.getTime() - 7 * 86_400_000);
+
+  const [insight, signals, week, lists] = await Promise.all([
     latestInsights(),
-    recentCalls(includeSimulated),
-    voiceSpendSoFar(),
-    loadRuntimeConfig(),
+    detectSignals(),
+    getMetrics({ from, to, includeSimulated: true }),
+    asUser(viewer.userId, async (c) => ({
+      todos: (
+        await c.query<Todo>(
+          `select id, text, source, rec_key, href, due_on::text, done, done_at::text, created_at::text from founder_todos
+            where user_id = $1 and (not done or done_at > now() - interval '3 days')
+            order by done, due_on nulls last, created_at desc limit 50`,
+          [viewer.userId],
+        )
+      ).rows,
+      suppressed: (
+        await c.query<{ rec_key: string }>(
+          `select rec_key from founder_todos where user_id = $1 and rec_key is not null and (not done or created_at > now() - interval '7 days')
+           union select rec_key from recommendation_dismissals where user_id = $1 and dismissed_at > now() - interval '7 days'`,
+          [viewer.userId],
+        )
+      ).rows.map((r) => r.rec_key),
+    })),
   ]);
-  const href = (patch: Record<string, string>) => `?${new URLSearchParams({ range: rangeKey, sim: includeSimulated ? "1" : "0", ...patch })}`;
-  const f = m.funnel;
-  const b = m.business;
-  const p = b.pipeline;
-  const cap = cfg.voiceSpendCap.cap_inr;
-  const vs = `vs previous ${rangeKey}`;
-  const change = (now: number | null, before: number | null) => ({ now, before });
-  const drop = f.biggest_drop;
+
+  // AI wording for a signal when the nightly run phrased it (and its figures checked out); else the plain wording.
+  const aiText = new Map((insight?.recommendations ?? []).filter((r) => r.verified !== false).map((r) => [r.key, r.text]));
+  const recs = signals
+    .filter((s) => !lists.suppressed.includes(s.key))
+    .slice(0, 4)
+    .map((s) => ({ ...s, text: withSubject(aiText.get(s.key) ?? s.title, s), byAi: aiText.has(s.key) }));
+  const open = lists.todos.filter((t) => !t.done);
+  const done = lists.todos.filter((t) => t.done);
+  const today = todayIst();
+  const p = week.business.pipeline;
 
   return (
     <main>
-      <Greeting name={viewer.name ?? viewer.email} sub="your enquiry pipeline at a glance">
-        <div className="seg" role="group" aria-label="Date range">
-          {Object.keys(RANGES).map((k) => (
-            <Link key={k} href={href({ range: k })} aria-current={k === rangeKey}>
-              {k}
-            </Link>
-          ))}
-        </div>
-        <div className="seg" role="group" aria-label="Simulated calls">
-          <Link href={href({ sim: "1" })} aria-current={includeSimulated}>All calls</Link>
-          <Link href={href({ sim: "0" })} aria-current={!includeSimulated}>Live only</Link>
-        </div>
+      <Greeting
+        name={viewer.name ?? viewer.email}
+        sub={`${open.length ? `${open.length} thing${open.length === 1 ? "" : "s"} on your list` : "your list is clear"} · ${recs.length} suggestion${recs.length === 1 ? "" : "s"} from your assistant`}
+      >
+        <Link className="pill" href="/dashboard/overview">Open KPIs</Link>
       </Greeting>
 
-      {/* 1. Money — the one number to plan on */}
-      <section id="pipeline" className="card" style={{ marginBottom: 18 }} aria-labelledby="pipe-h">
-        <div className="hero">
-          <div>
-            <div className="label" id="pipe-h">Weighted pipeline · open qualified enquiries × likelihood to close</div>
-            <div className="money">
-              {money(p.weighted_inr)}
-              <small>of {money(p.value_inr)} estimated across {p.open_deals} open deal{p.open_deals === 1 ? "" : "s"}</small>
-            </div>
-            <div className="split">
-              <div className="mini"><div className="k">Added this period</div><div className="v">{money(p.added_in_period_inr)}</div></div>
-              <div className="mini"><div className="k">Already booked</div><div className="v">{money(p.booked_value_inr)}</div></div>
-              <div className="mini"><div className="k">Won</div><div className="v">{money(p.won_value_inr)}</div></div>
-            </div>
-            <p className="insight-line">
-              Estimates use the caller&apos;s budget where given, otherwise the studio&apos;s typical range for their size; likelihood comes from deal health
-              {p.unvalued ? ` · ${p.unvalued} deal${p.unvalued === 1 ? "" : "s"} without enough detail to value` : ""}.
-            </p>
+      {/* At a glance — the three numbers that frame the day */}
+      <section className="kpis" style={{ marginBottom: 18 }} aria-label="At a glance">
+        <Link href="/dashboard/overview#pipeline" className="tile kpi" style={{ color: "inherit", textDecoration: "none" }}>
+          <div className="label"><span>Weighted pipeline</span></div>
+          <div className="value">{money(p.weighted_inr)}</div>
+          <div className="why">{p.open_deals} open deals · {money(p.added_in_period_inr)} added this week</div>
+        </Link>
+        <Link href="/dashboard/overview#funnel" className="tile kpi" style={{ color: "inherit", textDecoration: "none" }}>
+          <div className="label"><span>This week</span></div>
+          <div className="value">{week.funnel.booked} booked</div>
+          <div className="why">from {week.funnel.calls} calls · booking rate {pct(week.business.conversion.booking_rate)}</div>
+        </Link>
+        <Link href="/dashboard/review" className="tile kpi" style={{ color: "inherit", textDecoration: "none" }}>
+          <div className="label"><span>Waiting on the team</span></div>
+          <div className="value">{week.approvals.queue_size}</div>
+          <div className={`target ${week.approvals.oldest_age_h && week.approvals.oldest_age_h > 24 ? "warn" : "ok"}`}>
+            {week.approvals.oldest_age_h ? `oldest ${Math.round(week.approvals.oldest_age_h)} h · target < 24 h` : "nothing overdue"}
           </div>
-          <div className="bubbles">
-            <Link className="bubble" href="/dashboard/leads?status=qualified"><b>{f.qualified}</b><span>Qualified</span></Link>
-            <Link className="bubble orb" href="/dashboard/leads"><b>{f.booked}</b><span>Booked</span></Link>
-            <Link className="bubble" href="/dashboard/review"><b>{m.approvals.queue_size}</b><span>To review</span></Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. The KPIs that move the money, each vs the previous period */}
-      <section className="kpis" aria-label="Key performance indicators" style={{ marginBottom: 18 }}>
-        <Kpi
-          label="Enquiries staff couldn't take"
-          value={String(b.captured_outside_staff)}
-          change={change(b.captured_outside_staff, prev.business.captured_outside_staff)}
-          vs={vs}
-          why={`After hours or while the line was busy — calls that would have gone to voicemail. ${pct(b.captured_outside_staff_share)} of all calls.`}
-        />
-        <Kpi
-          label="Booking rate"
-          value={pct(b.conversion.booking_rate)}
-          change={change(b.conversion.booking_rate, prev.business.conversion.booking_rate)}
-          vs={vs}
-          why={`${f.booked} consultations from ${f.calls} calls · qualify rate ${pct(b.conversion.qualify_rate)}.`}
-        />
-        <Kpi
-          label="Cost per booked consultation"
-          value={inr(m.cost.per_booking_inr, 0)}
-          change={change(m.cost.per_booking_inr, prev.cost.per_booking_inr)}
-          lowerIsBetter
-          vs={vs}
-          why={`What the AI costs per meeting (incl. simulated calls at list price). ${inr(m.cost.per_qualified_inr, 0)} per qualified lead.`}
-        />
-        <Kpi
-          label="Time to designer handoff"
-          value={secs(m.quality.handoff_p50_s)}
-          change={change(m.quality.handoff_p50_s, prev.quality.handoff_p50_s)}
-          lowerIsBetter
-          vs={vs}
-          target={m.quality.handoff_p50_s == null ? null : m.quality.handoff_p50_s <= 120 ? "ok" : "warn"}
-          targetText="target ≤ 2 min"
-          why="Median from call end to the designer's email — leads go cold fast."
-        />
-        <Kpi
-          label="Review backlog"
-          value={String(m.approvals.queue_size)}
-          change={change(m.approvals.queue_size, prev.approvals.queue_size)}
-          lowerIsBetter
-          vs={vs}
-          target={m.approvals.oldest_age_h == null ? "ok" : m.approvals.oldest_age_h <= 24 ? "ok" : "warn"}
-          targetText={m.approvals.oldest_age_h == null ? "nothing waiting" : `oldest ${Math.round(m.approvals.oldest_age_h)} h · target < 24 h`}
-          why={`${m.approvals.designer_queue} designer · ${m.approvals.admin_queue} admin · ${m.approvals.callback_queue} callback.`}
-        />
-        <Kpi
-          label="Avg call length"
-          value={dur(m.overview.avg_duration_s)}
-          change={change(m.overview.avg_duration_s, prev.overview.avg_duration_s)}
-          lowerIsBetter
-          vs={vs}
-          target={m.overview.avg_duration_s == null ? null : m.overview.avg_duration_s <= 180 ? "ok" : "warn"}
-          targetText="target ≤ 3:00"
-          why={`Shorter calls cost less per lead. ${m.quality.calls_over_5_min} over 5 min.`}
-        />
+        </Link>
       </section>
 
       <div className="grid">
-        <div className="span-8 stack">
-          {/* 3. Where leads leak */}
-          <section id="funnel" className="card" aria-labelledby="funnel-h">
+        <div className="span-7 stack">
+          {/* AI recommendations */}
+          <section className="card" aria-labelledby="recs-h">
             <div className="card-head">
               <div>
-                <h2 id="funnel-h">Funnel — where enquiries drop off</h2>
-                <div className="sub">
-                  {drop ? `Biggest drop: ${label(drop.from)} → ${label(drop.to)} (${drop.lost} lost).` : "No drop-off yet."} Held / won come from HubSpot.
-                </div>
+                <h2 id="recs-h">Suggested for today</h2>
+                <div className="sub">From live data · worded by your AI assistant each night · add the ones you&apos;ll act on</div>
               </div>
-            </div>
-            <Funnel
-              steps={[
-                { label: "Calls", value: f.calls },
-                { label: "Qualified", value: f.qualified },
-                { label: "Booked", value: f.booked },
-                { label: "Consultation held", value: f.held },
-                { label: "Won", value: f.won },
-              ]}
-            />
-            <div className="split">
-              <div className="mini"><div className="k">Show-up rate</div><div className="v">{pct(b.conversion.show_rate)}</div></div>
-              <div className="mini"><div className="k">Win rate after meeting</div><div className="v">{pct(b.conversion.win_rate)}</div></div>
-              <div className="mini"><div className="k">Approval rate (review)</div><div className="v">{pct(m.approvals.approval_rate)}</div></div>
-            </div>
-          </section>
-
-          {/* 4. Biggest opportunities */}
-          <section id="deal_health" className="card" aria-labelledby="deals-h">
-            <div className="card-head">
-              <div>
-                <h2 id="deals-h">Biggest open opportunities</h2>
-                <div className="sub">Ranked by estimated value × likelihood — call these first</div>
-              </div>
-              <Link className="pill ink sm" href="/dashboard/leads?status=qualified">All qualified</Link>
             </div>
             <div className="list">
-              {p.top.map((d) => (
-                <Link className="list-row" key={d.id} href={`/dashboard/leads/${d.id}`}>
-                  <span className="ic" aria-hidden>{(d.name ?? "?").slice(0, 1).toUpperCase()}</span>
-                  <span className="name">{d.name ?? "Unknown caller"}</span>
-                  <span className="meta">{d.locality ?? "—"} · {d.value_inr ? `${money(d.value_inr)}${d.basis === "typical" ? " (typical)" : " (their budget)"}` : "not valued"}</span>
-                  <span className="badge">{d.booked ? "Booked" : "Not booked"}</span>
-                  {d.score != null ? <span className={`badge health-${d.band}`}>{d.score} · {label(String(d.band))}</span> : <span className="badge">no score</span>}
-                </Link>
+              {recs.map((r) => (
+                <div key={r.key} className="list-row" style={{ gridTemplateColumns: "minmax(0,1fr)", gap: 10 }}>
+                  <div>
+                    <div className="name" style={{ whiteSpace: "normal", fontWeight: 600 }}>
+                      <span aria-hidden style={{ marginRight: 6 }}>✦</span>
+                      {r.text}
+                    </div>
+                    <div className="meta" style={{ whiteSpace: "normal", marginTop: 4 }}>
+                      {r.why}
+                      {!r.byAi && <span title="Shown in plain wording until tonight's AI run covers it"> · plain wording</span>}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <form action={adoptRecommendation}>
+                      <input type="hidden" name="key" value={r.key} />
+                      <input type="hidden" name="text" value={r.text} />
+                      <input type="hidden" name="href" value={r.href} />
+                      <button className="pill sm ink" type="submit">Add to my list</button>
+                    </form>
+                    <Link className="pill sm" href={r.href}>Open</Link>
+                    <form action={dismissRecommendation}>
+                      <input type="hidden" name="key" value={r.key} />
+                      <button className="pill sm" type="submit" title="Hide for 7 days">Not now</button>
+                    </form>
+                  </div>
+                </div>
               ))}
-              {!p.top.length && <p className="muted small">No open qualified deals yet.</p>}
+              {!recs.length && <p className="muted small">Nothing needs you right now — the queue is clear and no risks are flagged.</p>}
             </div>
           </section>
 
-          {/* 5. Demand */}
-          <section id="demand" className="card" aria-labelledby="demand-h">
+          {/* The founder's own list */}
+          <section className="card" aria-labelledby="todo-h">
             <div className="card-head">
               <div>
-                <h2 id="demand-h">Where demand comes from — and what we turn away</h2>
-                <div className="sub">For marketing spend and where to grow next</div>
+                <h2 id="todo-h">My to-do list</h2>
+                <div className="sub">Your own tasks, plus suggestions you&apos;ve added</div>
               </div>
             </div>
-            <div className="grid">
-              <div className="span-6">
-                <h3 style={{ marginBottom: 10 }}>Top localities</h3>
-                <BarList data={b.demand.localities.map((x) => ({ label: x.locality, value: x.n }))} empty="No enquiries yet." />
-                <h3 style={{ margin: "16px 0 10px" }}>Project mix</h3>
-                <BarList data={b.demand.project_mix.map((x) => ({ label: label(x.type), value: x.n }))} empty="No enquiries yet." />
-              </div>
-              <div id="declines" className="span-6">
-                <h3 style={{ marginBottom: 10 }}>Declined — demand turned away</h3>
-                <BarList data={m.declines.map((d) => ({ label: label(d.reason), value: d.n }))} empty="No declines in this period." />
-                <p className="insight-line">A recurring decline reason (e.g. area or category) is a signal: a new service zone or offering, or a referral partner.</p>
-              </div>
+            <form action={addTodo} className="row" style={{ marginBottom: 12 }}>
+              <input name="text" required maxLength={300} placeholder="Add a task — e.g. Call Priya about the Kothrud site visit" aria-label="New task" style={{ flex: "1 1 260px" }} />
+              <input name="due_on" type="date" aria-label="Due date (optional)" style={{ width: 160 }} />
+              <button className="pill ink" type="submit">Add</button>
+            </form>
+            <div className="list">
+              {open.map((t) => (
+                <div key={t.id} className="list-row" style={{ gridTemplateColumns: "auto minmax(0,1fr) auto auto", alignItems: "center" }}>
+                  <form action={toggleTodo}>
+                    <input type="hidden" name="id" value={t.id} />
+                    <button className="check" type="submit" aria-label={`Mark "${t.text}" done`} />
+                  </form>
+                  <span style={{ minWidth: 0 }}>
+                    <span className="name" style={{ whiteSpace: "normal" }}>
+                      {t.source === "ai" && <span aria-label="From your assistant" title="From your assistant" style={{ marginRight: 6 }}>✦</span>}
+                      {t.href ? <Link href={t.href}>{t.text}</Link> : t.text}
+                    </span>
+                  </span>
+                  {t.due_on ? (
+                    <span className={`badge ${t.due_on < today ? "declined" : t.due_on === today ? "review" : ""}`}>
+                      {t.due_on < today ? "overdue · " : t.due_on === today ? "today · " : ""}
+                      {IST_DAY.format(new Date(`${t.due_on}T12:00:00+05:30`))}
+                    </span>
+                  ) : (
+                    <span />
+                  )}
+                  <form action={deleteTodo}>
+                    <input type="hidden" name="id" value={t.id} />
+                    <button className="btn link" type="submit" aria-label={`Delete "${t.text}"`} title="Delete">✕</button>
+                  </form>
+                </div>
+              ))}
+              {!open.length && <p className="muted small">Nothing on your list. Add a task, or add one of the suggestions.</p>}
             </div>
+            {done.length > 0 && (
+              <details style={{ marginTop: 10 }}>
+                <summary className="muted small" style={{ cursor: "pointer" }}>Done recently ({done.length})</summary>
+                <div className="list" style={{ marginTop: 6 }}>
+                  {done.map((t) => (
+                    <div key={t.id} className="list-row" style={{ gridTemplateColumns: "auto minmax(0,1fr)", alignItems: "center", opacity: 0.65 }}>
+                      <form action={toggleTodo}>
+                        <input type="hidden" name="id" value={t.id} />
+                        <button className="check done" type="submit" aria-label={`Mark "${t.text}" not done`} />
+                      </form>
+                      <span className="name" style={{ whiteSpace: "normal", textDecoration: "line-through" }}>{t.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )}
           </section>
         </div>
 
-        <div className="span-4 stack">
-          {/* AI narrative over the same KPIs */}
+        <div className="span-5 stack">
+          {/* What changed */}
           <section className="card ai" aria-labelledby="ai-h">
             <div className="card-head">
               <div>
@@ -237,7 +219,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                 <div className="sub">{insight ? `Updated ${when(insight.created_at)}` : "Not generated yet"} · refreshes daily at 10 pm</div>
               </div>
               <form action={refreshInsights}>
-                <button className="icon-btn" type="submit" title="Refresh now" aria-label="Refresh AI summary now">
+                <button className="icon-btn" type="submit" title="Refresh now" aria-label="Refresh AI summary and suggestions now">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 11a8 8 0 1 0-2.3 5.7" />
                     <path d="M20 4v7h-7" />
@@ -253,7 +235,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                     <span className="dot" aria-hidden />
                     <span>
                       {c.verified === false ? <span className="unverified">Unverified figure — see the {label(c.panel)} panel. </span> : c.text}{" "}
-                      <a href={`#${c.panel}`} className="small">{label(c.panel)}</a>
+                      <Link href={`/dashboard/overview#${c.panel}`} className="small">{label(c.panel)}</Link>
                     </span>
                   </li>
                 ))}
@@ -262,65 +244,8 @@ export default async function Overview({ searchParams }: { searchParams: Promise
               <p className="sub">The first summary runs tonight at 10 pm, or press refresh.</p>
             )}
           </section>
-
-          {/* Recent calls */}
-          <section className="card" aria-labelledby="recent-h">
-            <div className="card-head">
-              <div>
-                <h2 id="recent-h">Recent calls</h2>
-                <div className="sub">Latest enquiries the AI answered</div>
-              </div>
-              <Link className="pill ink sm" href="/dashboard/leads">View all</Link>
-            </div>
-            <div className="list">
-              {recent.map((c) => {
-                const row = (
-                  <>
-                    <span className="ic" aria-hidden>{OUTCOME_ICON[c.outcome ?? ""] ?? "·"}</span>
-                    <span className="name">{c.name ?? "Unknown caller"}</span>
-                    <span className="meta">{IST_SHORT.format(new Date(c.started_at))}</span>
-                    <span className={`badge ${c.outcome ?? ""}`}>{c.outcome ? label(c.outcome) : "No lead"}</span>
-                    <span className="end small">{dur(c.duration_s)}</span>
-                  </>
-                );
-                return c.lead_id ? (
-                  <Link className="list-row" key={c.id} href={`/dashboard/leads/${c.lead_id}`}>{row}</Link>
-                ) : (
-                  <div className="list-row" key={c.id}>{row}</div>
-                );
-              })}
-              {!recent.length && <p className="muted small">No calls yet.</p>}
-            </div>
-          </section>
-
-          {/* Cost & spend */}
-          <section id="cost" className="card" aria-labelledby="cost-h">
-            <div className="card-head">
-              <div>
-                <h2 id="cost-h">Cost</h2>
-                <div className="sub">Period {inr(m.cost.total_inr)} · month to date {inr(m.cost.month_to_date_inr)}</div>
-              </div>
-            </div>
-            <BarList data={m.cost.by_component.map((c) => ({ label: label(c.component), value: c.inr }))} format={(n) => inr(n)} />
-            <h3 style={{ margin: "16px 0 6px" }}>Live voice spend</h3>
-            <div className="mini"><div className="v">{inr(voiceSpent)} <span className="muted small">of {inr(cap, 0)} cap</span></div></div>
-            <div className="meter" style={{ marginTop: 8 }} role="img" aria-label={`${Math.round((voiceSpent / cap) * 100)}% of the cap used`}>
-              <span style={{ width: `${Math.min(100, Math.max(1, (voiceSpent / cap) * 100))}%` }} />
-            </div>
-          </section>
-
-          {/* Brand safety */}
-          <section id="quality" className="card" aria-labelledby="q-h">
-            <h2 id="q-h" style={{ marginBottom: 12 }}>Brand safety</h2>
-            <div className="tiles">
-              <Tile label="Price-leak flags" value={String(m.quality.price_leaks)} sub={`${m.quality.guard_rewrites} caught before speaking`} />
-              <Tile label="Complaints" value={String(m.quality.complaints)} sub={`senior alerted in ${secs(m.quality.avg_complaint_alert_s)}`} />
-              <Tile label="Asked about price" value={String(m.quality.asked_about_price)} sub="given the typical range" />
-            </div>
-          </section>
         </div>
       </div>
     </main>
   );
 }
-

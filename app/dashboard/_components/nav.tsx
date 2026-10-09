@@ -6,6 +6,9 @@ import { usePathname } from "next/navigation";
 const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
 const ICONS: Record<string, React.ReactNode> = {
+  today: (
+    <svg viewBox="0 0 24 24" {...stroke}><path d="M4 11.5 12 5l8 6.5" /><path d="M6 10v9h12v-9" /><path d="M10 19v-5h4v5" /></svg>
+  ),
   overview: (
     <svg viewBox="0 0 24 24" {...stroke}><path d="M21 12a9 9 0 1 1-9-9v9z" /><path d="M15 3.5A9 9 0 0 1 20.5 9H15z" /></svg>
   ),
@@ -39,7 +42,12 @@ export function Nav({ role }: { role: "founder" | "designer" | "frontdesk" }) {
   const path = usePathname();
   const founder = role === "founder";
   const items = [
-    ...(founder ? [{ href: "/dashboard", label: "Overview", icon: "overview" }] : []),
+    ...(founder
+      ? [
+          { href: "/dashboard", label: "Today", icon: "today" },
+          { href: "/dashboard/overview", label: "KPIs", icon: "overview" },
+        ]
+      : []),
     ...(role !== "frontdesk" ? [{ href: "/dashboard/designer", label: founder ? "Designer view" : "My day", icon: "designer" }] : []),
     ...(role !== "designer" ? [{ href: "/dashboard/desk", label: founder ? "Front desk view" : "Front desk", icon: "desk" }] : []),
     { href: "/dashboard/review", label: role === "frontdesk" ? "Callback queue" : "Review queue", icon: "review" },
