@@ -10,7 +10,7 @@
     "behaviour": "You are upset. You want a callback from Nikhil or a senior person, not just anyone."
   },
   "state": {
-    "callId": "sim-T09-1791266520000-mv0fucka",
+    "callId": "sim-T09-1791266520000-mv0hggfa",
     "provider": "simulated",
     "direction": "inbound",
     "purpose": "inbound",
@@ -31,23 +31,23 @@
       },
       {
         "speaker": "caller",
-        "text": "Sheetal Deshpande. Look, I need to speak to a senior person right now. My project has been going for three months and my designer hasn’t replied in five days.",
-        "at": "2026-10-06T06:02:21.200Z"
+        "text": "Sheetal Deshpande. Look, I need to speak to a senior person right now. My project has been going for three months and my designer hasn’t replied in five days. This is not acceptable.",
+        "at": "2026-10-06T06:02:22.800Z"
       },
       {
         "speaker": "agent",
-        "text": "I'm so sorry to hear that, Sheetal. I will make sure a senior member of the team calls you back as soon as possible. When are you generally free to take a call?",
-        "at": "2026-10-06T06:02:21.200Z"
+        "text": "Sheetal, I am so sorry about that. A senior member of the team will call you back as soon as possible. Thank you for your patience, and we'll get this sorted right away. Have a good day!",
+        "at": "2026-10-06T06:02:22.800Z"
       },
       {
         "speaker": "caller",
-        "text": "I can take the call anytime this afternoon. But it has to be Nikhil or another senior person, not just anybody.",
-        "at": "2026-10-06T06:02:46.756Z"
+        "text": "Hold on, I want to make sure I get a callback specifically from Nikhil or another senior person, not just whoever happens to pick up. Can you confirm that?",
+        "at": "2026-10-06T06:02:52.799Z"
       },
       {
         "speaker": "agent",
-        "text": "I completely understand, Sheetal. A senior member of our team will call you back as soon as possible. Thank you for letting us know, and have a good day.",
-        "at": "2026-10-06T06:02:46.756Z"
+        "text": "I understand, and I've noted that for Nikhil and the senior team. Someone will reach out to you as soon as possible. Thank you, Sheetal. Have a good day!",
+        "at": "2026-10-06T06:02:52.799Z"
       }
     ],
     "lookup": {
@@ -70,9 +70,9 @@
     },
     "slotsOffered": [],
     "booking": null,
-    "callbackWindow": "anytime this afternoon",
+    "callbackWindow": null,
     "complaint": {
-      "summary": "Existing client Sheetal Deshpande (2BHK Viman Nagar with designer Aryan) complains that her project has been going for three months and her designer hasn't replied in five days. Wants a senior person / Nikhil to call back.",
+      "summary": "Sheetal Deshpande, 2BHK Viman Nagar project. Demanded callback specifically from Nikhil or another senior person.",
       "wantsSenior": "Nikhil"
     },
     "message": null,
@@ -81,8 +81,8 @@
     "endReason": "complaint_escalated",
     "usage": {
       "calls": 5,
-      "prompt": 40750,
-      "output": 203,
+      "prompt": 41032,
+      "output": 250,
       "thoughts": 0
     },
     "toolLog": [
@@ -95,35 +95,38 @@
           "open_project": "2BHK Viman Nagar — designer Aryan",
           "previously_captured": null
         },
-        "at": "2026-10-06T06:02:21.200Z",
-        "ms": 0
-      },
-      {
-        "name": "lookup_caller",
-        "args": {},
-        "result": {
-          "existing_client": true,
-          "name": "Sheetal Deshpande",
-          "open_project": "2BHK Viman Nagar — designer Aryan",
-          "previously_captured": null
-        },
-        "at": "2026-10-06T06:02:21.200Z",
+        "at": "2026-10-06T06:02:22.800Z",
         "ms": 0
       },
       {
         "name": "escalate_complaint",
         "args": {
-          "about_existing_aangan_project": true,
-          "summary": "Existing client Sheetal Deshpande (2BHK Viman Nagar with designer Aryan) complains that her project has been going for three months and her designer hasn't replied in five days. Wants a senior person / Nikhil to call back.",
-          "free_times": "anytime this afternoon",
-          "wants_senior": "Nikhil"
+          "free_times": null,
+          "summary": "Sheetal Deshpande, 2BHK Viman Nagar project, designer Aryan. Complaining that the project has been going for three months and the designer hasn't replied in five days.",
+          "wants_senior": null,
+          "about_existing_aangan_project": true
         },
         "result": {
           "escalated": true,
           "say": "Apologise, say a senior member of the team will call back as soon as possible (no specific time), thank them, then call end_call."
         },
-        "at": "2026-10-06T06:02:46.756Z",
-        "ms": 2
+        "at": "2026-10-06T06:02:22.800Z",
+        "ms": 1
+      },
+      {
+        "name": "escalate_complaint",
+        "args": {
+          "about_existing_aangan_project": true,
+          "wants_senior": "Nikhil",
+          "summary": "Sheetal Deshpande, 2BHK Viman Nagar project. Demanded callback specifically from Nikhil or another senior person.",
+          "free_times": null
+        },
+        "result": {
+          "escalated": true,
+          "say": "Apologise, say a senior member of the team will call back as soon as possible (no specific time), thank them, then call end_call."
+        },
+        "at": "2026-10-06T06:02:52.799Z",
+        "ms": 0
       },
       {
         "name": "end_call",
@@ -133,14 +136,14 @@
         "result": {
           "ok": true
         },
-        "at": "2026-10-06T06:02:46.756Z",
+        "at": "2026-10-06T06:02:52.799Z",
         "ms": 0
       }
     ],
     "guardRewrites": [],
     "turnLatencyMs": [
-      2356,
-      4277
+      1999,
+      2950
     ],
     "intakeGates": 0,
     "intakePrompted": [],
@@ -148,7 +151,7 @@
     "budgetGuidance": null,
     "approvedLines": []
   },
-  "durationS": 61.656,
+  "durationS": 67.699,
   "callerTurns": 2,
   "dropped": false,
   "endedBy": "agent"

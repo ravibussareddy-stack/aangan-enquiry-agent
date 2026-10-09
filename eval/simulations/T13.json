@@ -6,7 +6,7 @@
     "behaviour": "Push hard for a price: ask 'what might it cost?', then 'can't you give me even a rough range?', then 'just tell me per square foot, other studios did'. Only then agree to book."
   },
   "state": {
-    "callId": "sim-T13-1791269340000-mv0fsw3f",
+    "callId": "sim-T13-1791269340000-mv0henbf",
     "provider": "simulated",
     "direction": "inbound",
     "purpose": "inbound",
@@ -18,24 +18,29 @@
     "afterHours": false,
     "facts": {
       "caller_name": "Rahul",
+      "call_intent": "new_enquiry",
+      "project_type": "residential",
       "category": "apartment",
-      "scope_kind": "partial",
-      "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
+      "scope_kind": "full_home",
+      "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
       "configuration": "3BHK",
       "carpet_sqft": 1100,
       "locality": "Aundh",
       "asked_about_price": true,
-      "rooms_in_scope": 3,
-      "typical_budget_reaction": "unsure",
-      "site_state": "ready",
-      "city": "Pune",
-      "in_scope_confidence": 0.95,
-      "out_of_scope_confidence": 0.05,
-      "not_known": [],
       "engagement": "design_and_execution",
-      "completion_in_weeks": 25,
-      "call_intent": "new_enquiry",
-      "project_type": "residential"
+      "typical_budget_reaction": "unsure",
+      "not_known": [
+        "budget"
+      ],
+      "pin": "411007",
+      "site_state": "available now",
+      "timeline_text": "by April",
+      "completion_in_weeks": 34,
+      "decision_maker": "self",
+      "in_scope_confidence": 1,
+      "out_of_scope_confidence": 0,
+      "budget_confirmed": true,
+      "researched_us": "yes"
     },
     "transcript": [
       {
@@ -45,53 +50,93 @@
       },
       {
         "speaker": "caller",
-        "text": "Hi, I'm Rahul. I want to redo my flat in Aundh—it's a 3BHK, about 1,100 sq ft. What might it cost?",
-        "at": "2026-10-06T06:49:18.000Z"
+        "text": "Hi, I'm Rahul. I want to redo my flat in Aundh — it's a 3BHK, about 1,100 sq ft. What might it cost?",
+        "at": "2026-10-06T06:49:18.800Z"
       },
       {
         "speaker": "agent",
         "text": "Typically, a 3BHK of about 1,100 square feet comes to around 20 to 26 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?",
-        "at": "2026-10-06T06:49:18.000Z"
+        "at": "2026-10-06T06:49:18.800Z"
       },
       {
         "speaker": "caller",
         "text": "Kitchen, wardrobes in both bedrooms, living room. But seriously — can’t you give me even a rough range? I just want to know if we’re in the same ballpark.",
-        "at": "2026-10-06T06:49:49.300Z"
+        "at": "2026-10-06T06:49:49.636Z"
       },
       {
         "speaker": "agent",
-        "text": "As I mentioned, typically redoing 3 rooms completely comes to around 11 to 24 lakh rupees — it's indicative, and your designer will confirm the exact figure for your space at the consultation. \n\nWhen is your flat available for work — is possession ready, or are you waiting for handover?",
-        "at": "2026-10-06T06:49:49.300Z"
+        "text": "That's totally fine, Rahul. We can refine the design to fit where you want to be. What is the PIN code for your property in Aundh?",
+        "at": "2026-10-06T06:49:49.636Z"
       },
       {
         "speaker": "caller",
-        "text": "I already own the flat. Just tell me per square foot, other studios did.",
-        "at": "2026-10-06T06:50:19.000Z"
+        "text": "It's 411007. Just tell me per square foot, other studios did.",
+        "at": "2026-10-06T06:50:08.021Z"
       },
       {
         "speaker": "agent",
-        "text": "We don't price strictly by the square foot since every home is custom-built. \n\nTo make sure we're a good fit, are you looking for design and execution together, or just design and ideas?",
-        "at": "2026-10-06T06:50:19.000Z"
+        "text": "Every home is so different, so we prefer to understand your exact scope first. Is the site available to work on now, or are you waiting for possession?",
+        "at": "2026-10-06T06:50:08.021Z"
       },
       {
         "speaker": "caller",
-        "text": "Fine. Let’s book then. I'd like it done by April.",
-        "at": "2026-10-06T06:50:40.300Z"
+        "text": "I own the flat, so it's ready. Fine. Let’s book then.",
+        "at": "2026-10-06T06:50:27.499Z"
       },
       {
         "speaker": "agent",
-        "text": "Would Wednesday at 10 am or Thursday at 2 pm work best for you, and would you like the first meeting at your site in Aundh?",
-        "at": "2026-10-06T06:50:40.300Z"
+        "text": "We'll get you set up in just a moment. When would you need the project complete by?",
+        "at": "2026-10-06T06:50:27.499Z"
       },
       {
         "speaker": "caller",
-        "text": "Wednesday at 10 am works. Yes, at the site in Aundh.",
-        "at": "2026-10-06T06:50:59.200Z"
+        "text": "By April, ideally.",
+        "at": "2026-10-06T06:50:39.899Z"
       },
       {
         "speaker": "agent",
-        "text": "You're all set for Wednesday at 10 am at your site in Aundh, and an SMS confirmation will follow. Have a good day!",
-        "at": "2026-10-06T06:50:59.200Z"
+        "text": "Will you be the one deciding on this, or is someone else involved?",
+        "at": "2026-10-06T06:50:39.899Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Just me.",
+        "at": "2026-10-06T06:50:50.424Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Do you have a ballpark budget in mind for this, and have you had a chance to look at our past work?",
+        "at": "2026-10-06T06:50:50.424Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yeah, I've seen some of your projects online. Budget-wise, around 15 to 20 lakhs if possible, but let's see.",
+        "at": "2026-10-06T06:51:10.612Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Around 15 to 20 lakhs?",
+        "at": "2026-10-06T06:51:10.612Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Yeah, that's what I'm hoping for.",
+        "at": "2026-10-06T06:51:19.112Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "Would Wednesday, October 7th at 10 am or Thursday, October 8th at 2 pm work best for you? And would you like the first meeting at your site in Aundh?",
+        "at": "2026-10-06T06:51:19.112Z"
+      },
+      {
+        "speaker": "caller",
+        "text": "Wednesday at 10 works. And yeah, at the site in Aundh.",
+        "at": "2026-10-06T06:51:39.612Z"
+      },
+      {
+        "speaker": "agent",
+        "text": "That's booked for Wednesday, October 7th at 10 am at your site in Aundh. An SMS confirmation will follow. Have a good day!",
+        "at": "2026-10-06T06:51:39.612Z"
       }
     ],
     "lookup": {
@@ -110,7 +155,6 @@
       "declineReason": null,
       "flags": [
         "asked_about_price",
-        "decision_maker_unclear",
         "budget_not_given"
       ],
       "reasons": [
@@ -122,29 +166,29 @@
         "id": "s1",
         "startUtc": "2026-10-06T09:30:00.000Z",
         "label": "Tuesday, 6 October, 3 pm",
-        "eventType": "site_visit"
+        "eventType": "residential_consult"
       },
       {
         "id": "s2",
         "startUtc": "2026-10-07T04:30:00.000Z",
         "label": "Wednesday, 7 October, 10 am",
-        "eventType": "site_visit"
+        "eventType": "residential_consult"
       },
       {
         "id": "s3",
         "startUtc": "2026-10-08T08:30:00.000Z",
         "label": "Thursday, 8 October, 2 pm",
-        "eventType": "site_visit"
+        "eventType": "residential_consult"
       }
     ],
     "booking": {
-      "uid": "mock_sim-T13-1791269340000-mv0fsw3f_1791347400000",
+      "uid": "mock_sim-T13-1791269340000-mv0henbf_1791347400000",
       "startUtc": "2026-10-07T04:30:00.000Z",
       "endUtc": "2026-10-07T05:30:00.000Z",
       "designer": "Asha Kulkarni",
       "provider": "mock",
       "label": "Wednesday, 7 October, 10 am",
-      "eventType": "site_visit"
+      "eventType": "residential_consult"
     },
     "callbackWindow": null,
     "complaint": null,
@@ -153,9 +197,9 @@
     "ended": true,
     "endReason": "booked",
     "usage": {
-      "calls": 15,
-      "prompt": 138938,
-      "output": 1397,
+      "calls": 24,
+      "prompt": 237514,
+      "output": 2616,
       "thoughts": 0
     },
     "toolLog": [
@@ -168,251 +212,423 @@
           "open_project": null,
           "previously_captured": null
         },
-        "at": "2026-10-06T06:49:18.000Z",
+        "at": "2026-10-06T06:49:18.800Z",
         "ms": 0
       },
       {
         "name": "typical_budget",
         "args": {
           "facts": {
-            "caller_name": "Rahul",
-            "carpet_sqft": 1100,
-            "category": "apartment",
-            "configuration": "3BHK",
+            "call_intent": "new_enquiry",
+            "locality": "Aundh",
             "scope_kind": "full_home",
-            "scope_text": "redo my flat in Aundh—it's a 3BHK, about 1,100 sq ft",
-            "locality": "Aundh"
+            "configuration": "3BHK",
+            "scope_text": "redo 3BHK flat in Aundh",
+            "category": "apartment",
+            "project_type": "residential",
+            "carpet_sqft": 1100,
+            "caller_name": "Rahul"
           }
         },
         "result": {
           "say": "Typically, a 3BHK of about 1,100 square feet comes to around 20 to 26 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?",
           "rule": "Say this exactly, then wait for their answer (comfortable / not comfortable) and record it as typical_budget_reaction."
         },
-        "at": "2026-10-06T06:49:18.000Z",
-        "ms": 4
-      },
-      {
-        "name": "typical_budget",
-        "args": {
-          "facts": {
-            "rooms_in_scope": 3,
-            "scope_kind": "partial",
-            "typical_budget_reaction": "unsure",
-            "locality": "Aundh",
-            "configuration": "3BHK",
-            "category": "apartment",
-            "asked_about_price": true,
-            "caller_name": "Rahul",
-            "carpet_sqft": 1100,
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room"
-          }
-        },
-        "result": {
-          "say": "As I mentioned, typically redoing 3 rooms completely comes to around 11 to 24 lakh rupees — it's indicative, and your designer will confirm the exact figure for your space at the consultation.",
-          "rule": "Say this exactly, then continue where you were. Don't add or change any figure."
-        },
-        "at": "2026-10-06T06:49:49.300Z",
+        "at": "2026-10-06T06:49:18.800Z",
         "ms": 1
       },
       {
         "name": "check_scope",
         "args": {
           "facts": {
-            "site_state": "ready",
-            "caller_name": "Rahul",
-            "configuration": "3BHK",
-            "category": "apartment",
-            "typical_budget_reaction": "unsure",
-            "asked_about_price": true,
-            "locality": "Aundh",
             "carpet_sqft": 1100,
-            "out_of_scope_confidence": 0.05,
-            "in_scope_confidence": 0.95,
-            "city": "Pune",
-            "scope_kind": "partial",
-            "rooms_in_scope": 3,
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room"
-          }
-        },
-        "result": {
-          "status": "uncertain",
-          "ask_next": [
-            "Ask one direct question: do they want design AND execution, or advice/ideas only?"
-          ],
-          "next_question": "What can I help you with today — a new project, something about an existing project, or reaching a particular designer?",
-          "still_missing": [
-            "Why they're calling",
-            "What they want done",
-            "Type of space",
-            "PIN code",
-            "When it must be complete",
-            "Decision-maker",
-            "Ballpark budget",
-            "Seen our website / work"
-          ],
-          "note": "Keep collecting. Don't decline. If still unclear at the end, a designer will confirm fit and call back."
-        },
-        "at": "2026-10-06T06:50:19.000Z",
-        "ms": 1
-      },
-      {
-        "name": "check_scope",
-        "args": {
-          "facts": {
-            "completion_in_weeks": 25,
-            "asked_about_price": true,
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
-            "carpet_sqft": 1100,
-            "out_of_scope_confidence": 0.05,
-            "scope_kind": "partial",
-            "city": "Pune",
-            "in_scope_confidence": 0.95,
-            "category": "apartment",
-            "site_state": "ready",
             "typical_budget_reaction": "unsure",
-            "caller_name": "Rahul",
             "engagement": "design_and_execution",
-            "configuration": "3BHK",
+            "project_type": "residential",
+            "caller_name": "Rahul",
+            "asked_about_price": true,
             "locality": "Aundh",
-            "rooms_in_scope": 3
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "configuration": "3BHK",
+            "category": "apartment",
+            "scope_kind": "full_home",
+            "call_intent": "new_enquiry"
           }
         },
         "result": {
           "status": "in_scope",
-          "next_question": "Is this for a home, or an office, clinic or studio?",
+          "next_question": "And the PIN code?",
           "still_missing": [
-            "Why they're calling",
-            "Type of space",
             "PIN code",
+            "Site status / possession",
+            "When it must be complete",
             "Decision-maker",
             "Ballpark budget",
             "Seen our website / work"
           ],
           "then": "When the intake sheet is complete, call evaluate_lead."
         },
-        "at": "2026-10-06T06:50:40.300Z",
-        "ms": 2
-      },
-      {
-        "name": "evaluate_lead",
-        "args": {
-          "out_of_scope_confidence": 0.05,
-          "in_scope_confidence": 0.95,
-          "facts": {
-            "category": "apartment",
-            "out_of_scope_confidence": 0.05,
-            "scope_kind": "partial",
-            "engagement": "design_and_execution",
-            "city": "Pune",
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
-            "completion_in_weeks": 25,
-            "site_state": "ready",
-            "rooms_in_scope": 3,
-            "configuration": "3BHK",
-            "asked_about_price": true,
-            "caller_name": "Rahul",
-            "locality": "Aundh",
-            "typical_budget_reaction": "unsure",
-            "carpet_sqft": 1100,
-            "in_scope_confidence": 0.95
-          }
-        },
-        "result": {
-          "next_step": "ask",
-          "missing": [
-            "Why they're calling",
-            "Type of space",
-            "PIN code",
-            "Decision-maker",
-            "Ballpark budget",
-            "Seen our website / work"
-          ],
-          "ask": "What can I help you with today — a new project, something about an existing project, or reaching a particular designer?",
-          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
-        },
-        "at": "2026-10-06T06:50:40.300Z",
+        "at": "2026-10-06T06:49:49.636Z",
         "ms": 1
       },
       {
-        "name": "evaluate_lead",
+        "name": "check_scope",
         "args": {
-          "in_scope_confidence": 0.95,
-          "out_of_scope_confidence": 0.05,
           "facts": {
-            "caller_name": "Rahul",
-            "typical_budget_reaction": "unsure",
-            "engagement": "design_and_execution",
-            "rooms_in_scope": 3,
-            "out_of_scope_confidence": 0.05,
-            "category": "apartment",
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
-            "in_scope_confidence": 0.95,
-            "locality": "Aundh",
-            "call_intent": "new_enquiry",
-            "asked_about_price": true,
-            "carpet_sqft": 1100,
-            "scope_kind": "partial",
             "configuration": "3BHK",
-            "site_state": "ready",
-            "completion_in_weeks": 25,
-            "city": "Pune"
-          }
-        },
-        "result": {
-          "next_step": "ask",
-          "missing": [
-            "Type of space",
-            "PIN code",
-            "Decision-maker",
-            "Ballpark budget",
-            "Seen our website / work"
-          ],
-          "ask": "Is this for a home, or an office, clinic or studio?",
-          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
-        },
-        "at": "2026-10-06T06:50:40.300Z",
-        "ms": 1
-      },
-      {
-        "name": "evaluate_lead",
-        "args": {
-          "in_scope_confidence": 0.95,
-          "facts": {
-            "site_state": "ready",
-            "completion_in_weeks": 25,
-            "scope_text": "Kitchen, wardrobes in both bedrooms, living room",
+            "carpet_sqft": 1100,
             "project_type": "residential",
             "asked_about_price": true,
-            "call_intent": "new_enquiry",
-            "carpet_sqft": 1100,
-            "out_of_scope_confidence": 0.05,
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "engagement": "design_and_execution",
             "caller_name": "Rahul",
-            "rooms_in_scope": 3,
+            "locality": "Aundh",
+            "call_intent": "new_enquiry",
+            "scope_kind": "full_home",
+            "pin": "411007",
+            "typical_budget_reaction": "unsure",
+            "category": "apartment"
+          },
+          "clear": []
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Is the site available to work on now, or are you waiting for possession?",
+          "still_missing": [
+            "Site status / possession",
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-06T06:50:08.021Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
+            "scope_kind": "full_home",
+            "call_intent": "new_enquiry",
+            "project_type": "residential",
+            "asked_about_price": true,
+            "site_state": "available now",
+            "engagement": "design_and_execution",
             "locality": "Aundh",
             "typical_budget_reaction": "unsure",
             "category": "apartment",
+            "pin": "411007",
+            "carpet_sqft": 1100,
             "configuration": "3BHK",
-            "category_confirmed": true,
+            "caller_name": "Rahul",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room"
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "When would you need the project complete?",
+          "still_missing": [
+            "When it must be complete",
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-06T06:50:27.499Z",
+        "ms": 1
+      },
+      {
+        "name": "check_scope",
+        "args": {
+          "facts": {
             "engagement": "design_and_execution",
-            "city": "Pune",
-            "scope_kind": "partial",
-            "in_scope_confidence": 0.95
+            "project_type": "residential",
+            "caller_name": "Rahul",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "locality": "Aundh",
+            "pin": "411007",
+            "configuration": "3BHK",
+            "call_intent": "new_enquiry",
+            "category": "apartment",
+            "completion_in_weeks": 34,
+            "scope_kind": "full_home",
+            "typical_budget_reaction": "unsure",
+            "timeline_text": "by April",
+            "asked_about_price": true,
+            "site_state": "available now",
+            "carpet_sqft": 1100
+          }
+        },
+        "result": {
+          "status": "in_scope",
+          "next_question": "Will you be the one deciding on this, or is someone else involved?",
+          "still_missing": [
+            "Decision-maker",
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "then": "When the intake sheet is complete, call evaluate_lead."
+        },
+        "at": "2026-10-06T06:50:39.899Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_scope_confidence": 1,
+          "out_of_scope_confidence": 0,
+          "facts": {
+            "scope_kind": "full_home",
+            "project_type": "residential",
+            "typical_budget_reaction": "unsure",
+            "locality": "Aundh",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "decision_maker": "self",
+            "engagement": "design_and_execution",
+            "timeline_text": "by April",
+            "asked_about_price": true,
+            "pin": "411007",
+            "carpet_sqft": 1100,
+            "call_intent": "new_enquiry",
+            "caller_name": "Rahul",
+            "site_state": "available now",
+            "completion_in_weeks": 34,
+            "configuration": "3BHK"
+          }
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Ballpark budget",
+            "Seen our website / work"
+          ],
+          "ask": "Do you have a ballpark budget in mind for this?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-06T06:50:50.424Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_space_confidence": 1,
+          "in_scope_confidence": 1,
+          "facts": {
+            "budget_confirmed": true,
+            "call_intent": "new_enquiry",
+            "budget_inr": 1750000,
+            "configuration": "3BHK",
+            "typical_budget_reaction": "unsure",
+            "pin": "411007",
+            "caller_name": "Rahul",
+            "project_type": "residential",
+            "completion_in_weeks": 34,
+            "engagement": "design_and_execution",
+            "scope_kind": "full_home",
+            "asked_about_price": true,
+            "researched_us": "yes",
+            "decision_maker": "self",
+            "carpet_sqft": 1100,
+            "locality": "Aundh",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "site_state": "available now",
+            "timeline_text": "by April"
           },
-          "out_of_scope_confidence": 0.05
+          "out_of_space_confidence": 0
+        },
+        "result": {
+          "error": "Invalid arguments for evaluate_lead: out_of_scope_confidence: Invalid input: expected number, received undefined"
+        },
+        "at": "2026-10-06T06:51:10.612Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_scope_confidence": 1,
+          "facts": {
+            "caller_name": "Rahul",
+            "carpet_sqft": 1100,
+            "pin": "411007",
+            "timeline_text": "by April",
+            "configuration": "3BHK",
+            "typical_budget_reaction": "unsure",
+            "call_intent": "new_enquiry",
+            "researched_us": "yes",
+            "project_type": "residential",
+            "decision_maker": "self",
+            "scope_kind": "full_home",
+            "site_state": "available now",
+            "completion_in_weeks": 34,
+            "engagement": "design_and_execution",
+            "asked_about_price": true,
+            "budget_inr": 1750000,
+            "locality": "Aundh",
+            "budget_confirmed": true,
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room"
+          },
+          "out_of_scope_confidence": 0
+        },
+        "result": {
+          "next_step": "confirm_budget",
+          "ask": "Repeat the caller's budget figure back once, exactly as they said it, as a short question — then call evaluate_lead again."
+        },
+        "at": "2026-10-06T06:51:10.612Z",
+        "ms": 4
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "out_of_scope_confidence": 0,
+          "in_scope_confidence": 1,
+          "facts": {
+            "completion_in_weeks": 34,
+            "researched_us": "yes",
+            "caller_name": "Rahul",
+            "scope_kind": "full_home",
+            "configuration": "3BHK",
+            "typical_budget_reaction": "unsure",
+            "engagement": "design_and_execution",
+            "site_state": "available now",
+            "pin": "411007",
+            "call_intent": "new_enquiry",
+            "asked_about_price": true,
+            "decision_maker": "self",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "budget_inr": 1750000,
+            "budget_confirmed": true,
+            "timeline_text": "by April",
+            "locality": "Aundh",
+            "carpet_sqft": 1100,
+            "project_type": "residential"
+          }
+        },
+        "result": {
+          "next_step": "confirm_budget",
+          "ask": "Repeat the caller's budget figure back once, exactly as they said it, as a short question — then call evaluate_lead again."
+        },
+        "at": "2026-10-06T06:51:19.112Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "project_type": "residential",
+            "budget_inr": 1500000,
+            "call_intent": "new_enquiry",
+            "pin": "411007",
+            "researched_us": "yes",
+            "site_state": "available now",
+            "caller_name": "Rahul",
+            "configuration": "3BHK",
+            "locality": "Aundh",
+            "decision_maker": "self",
+            "timeline_text": "by April",
+            "typical_budget_reaction": "unsure",
+            "carpet_sqft": 1100,
+            "engagement": "design_and_execution",
+            "budget_confirmed": true,
+            "asked_about_price": true,
+            "scope_kind": "full_home",
+            "completion_in_weeks": 34
+          },
+          "in_scope_confidence": 1,
+          "out_of_scope_confidence": 0
+        },
+        "result": {
+          "next_step": "confirm_budget",
+          "ask": "Repeat the caller's budget figure back once, exactly as they said it, as a short question — then call evaluate_lead again."
+        },
+        "at": "2026-10-06T06:51:19.112Z",
+        "ms": 1
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "in_scope_confidence": 1,
+          "clear": [
+            "budget_inr"
+          ],
+          "out_of_scope_confidence": 0,
+          "facts": {
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "asked_about_price": true,
+            "scope_kind": "full_home",
+            "pin": "411007",
+            "completion_in_weeks": 34,
+            "locality": "Aundh",
+            "project_type": "residential",
+            "carpet_sqft": 1100,
+            "site_state": "available now",
+            "call_intent": "new_enquiry",
+            "typical_budget_reaction": "unsure",
+            "caller_name": "Rahul",
+            "decision_maker": "self",
+            "budget_confirmed": true,
+            "engagement": "design_and_execution",
+            "configuration": "3BHK",
+            "researched_us": "yes",
+            "timeline_text": "by April"
+          }
+        },
+        "result": {
+          "next_step": "ask",
+          "missing": [
+            "Ballpark budget"
+          ],
+          "ask": "Do you have a ballpark budget in mind for this?",
+          "note": "Ask for the missing items (combine two if natural). If the caller doesn't know or won't say, add the field key to facts.not_known and move on. Then call evaluate_lead again."
+        },
+        "at": "2026-10-06T06:51:19.112Z",
+        "ms": 0
+      },
+      {
+        "name": "evaluate_lead",
+        "args": {
+          "facts": {
+            "locality": "Aundh",
+            "carpet_sqft": 1100,
+            "researched_us": "yes",
+            "decision_maker": "self",
+            "configuration": "3BHK",
+            "asked_about_price": true,
+            "caller_name": "Rahul",
+            "budget_confirmed": true,
+            "typical_budget_reaction": "unsure",
+            "timeline_text": "by April",
+            "site_state": "available now",
+            "not_known": [
+              "budget"
+            ],
+            "pin": "411007",
+            "scope_text": "redo 3BHK flat in Aundh with kitchen, wardrobes in both bedrooms, and living room",
+            "project_type": "residential",
+            "completion_in_weeks": 34,
+            "engagement": "design_and_execution",
+            "call_intent": "new_enquiry",
+            "scope_kind": "full_home"
+          },
+          "out_of_scope_confidence": 0,
+          "in_scope_confidence": 1
         },
         "result": {
           "next_step": "qualified",
           "do": "Call get_slots and offer the 2–3 times it returns, then book_slot."
         },
-        "at": "2026-10-06T06:50:40.300Z",
+        "at": "2026-10-06T06:51:19.112Z",
         "ms": 2
       },
       {
         "name": "get_slots",
         "args": {
-          "typical_budget_reaction": "unsure",
           "preference": "null",
-          "site_visit": true
+          "typical_budget_reaction": "unsure",
+          "site_visit": false
         },
         "result": {
           "slots": [
@@ -431,8 +647,8 @@
           ],
           "offer": "Offer 2 or 3 of these by name."
         },
-        "at": "2026-10-06T06:50:40.300Z",
-        "ms": 9
+        "at": "2026-10-06T06:51:19.112Z",
+        "ms": 3
       },
       {
         "name": "book_slot",
@@ -444,8 +660,8 @@
           "confirmed": "Wednesday, 7 October, 10 am",
           "say": "Confirm the time and tell them an SMS confirmation will follow."
         },
-        "at": "2026-10-06T06:50:59.200Z",
-        "ms": 1
+        "at": "2026-10-06T06:51:39.612Z",
+        "ms": 0
       },
       {
         "name": "end_call",
@@ -455,34 +671,39 @@
         "result": {
           "ok": true
         },
-        "at": "2026-10-06T06:50:59.200Z",
+        "at": "2026-10-06T06:51:39.612Z",
         "ms": 0
       }
     ],
     "guardRewrites": [],
     "turnLatencyMs": [
-      2706,
+      2036,
+      1985,
+      2278,
+      2922,
+      2225,
+      2188,
       3621,
-      2857,
-      8908,
-      3502
+      7148,
+      2843
     ],
     "intakeGates": 2,
     "intakePrompted": [
-      "intent",
-      "space_type",
-      "intent",
-      "space_type"
+      "pin",
+      "site_ready",
+      "deadline",
+      "decision_maker",
+      "budget",
+      "budget"
     ],
     "endRefused": false,
     "budgetGuidance": "Typically, a 3BHK of about 1,100 square feet comes to around 20 to 26 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?",
     "approvedLines": [
-      "Typically, a 3BHK of about 1,100 square feet comes to around 20 to 26 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?",
-      "As I mentioned, typically redoing 3 rooms completely comes to around 11 to 24 lakh rupees — it's indicative, and your designer will confirm the exact figure for your space at the consultation."
+      "Typically, a 3BHK of about 1,100 square feet comes to around 20 to 26 lakh rupees. That's a typical range — it's indicative and depends on the locality and your requirements. Are you comfortable going ahead on that basis?"
     ]
   },
-  "durationS": 131.7,
-  "callerTurns": 5,
+  "durationS": 172.112,
+  "callerTurns": 9,
   "dropped": false,
   "endedBy": "agent"
 }

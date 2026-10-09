@@ -68,7 +68,7 @@ export async function stageForId(id: string): Promise<DealStage | null> {
 export class HubSpotCrm implements Crm {
   readonly provider = "hubspot" as const;
 
-  async lookupByPhone(phone: string): Promise<CallerLookup> {
+  private async findContact(phone: string) {
     const found = await hs<{ results: { id: string; properties: Record<string, string | null> }[] }>(
       "/crm/v3/objects/contacts/search",
       {
@@ -78,12 +78,35 @@ export class HubSpotCrm implements Crm {
             { filters: [{ propertyName: "hs_searchable_calculated_phone_number", operator: "EQ", value: nationalNumber(phone) }] },
             { filters: [{ propertyName: "phone", operator: "EQ", value: phone }] },
           ],
-          properties: ["firstname", "lastname", "lifecyclestage"],
+          properties: ["firstname", "lastname", "lifecyclestage", "phone"],
           limit: 1,
         }),
       },
     );
-    const contact = found.results[0];
+    return found.results[0] ?? null;
+  }
+
+  /** The contact's latest deal in our pipeline that is still open (not Won / Lost / Declined). */
+  private async openDealFor(contactId: string): Promise<string | null> {
+    const assoc = await hs<{ results: { toObjectId: number }[] }>(`/crm/v4/objects/contacts/${contactId}/associations/deals`);
+    if (!assoc.results.length) return null;
+    const deals = await hs<{ results: { id: string; properties: Record<string, string | null> }[] }>("/crm/v3/objects/deals/batch/read", {
+      method: "POST",
+      body: JSON.stringify({ inputs: assoc.results.map((r) => ({ id: String(r.toObjectId) })), properties: ["dealstage", "pipeline", "createdate"] }),
+    });
+    const { byId } = await stages();
+    const open = deals.results
+      .filter((d) => d.properties.pipeline === pipelineId())
+      .filter((d) => {
+        const stage = byId.get(d.properties.dealstage ?? "");
+        return !!stage && stage !== "Won" && stage !== "Lost" && stage !== "Declined";
+      })
+      .sort((a, b) => (b.properties.createdate ?? "").localeCompare(a.properties.createdate ?? ""));
+    return open[0]?.id ?? null;
+  }
+
+  async lookupByPhone(phone: string): Promise<CallerLookup> {
+    const contact = await this.findContact(phone);
     if (!contact) return { existingClient: false, contactId: null, name: null, openProject: null, lastStage: null };
 
     const assoc = await hs<{ results: { toObjectId: number }[] }>(`/crm/v4/objects/contacts/${contact.id}/associations/deals`);
@@ -116,11 +139,23 @@ export class HubSpotCrm implements Crm {
 
   async syncLead(sync: LeadSync) {
     const [firstname, ...rest] = (sync.name ?? "").split(" ");
-    const contactProps = { phone: sync.phone, ...(sync.name ? { firstname, lastname: rest.join(" ") } : {}) };
-    let contactId = sync.existingContactId ?? (await this.lookupByPhone(sync.phone)).contactId;
-    if (contactId) {
-      await hs(`/crm/v3/objects/contacts/${contactId}`, { method: "PATCH", body: JSON.stringify({ properties: contactProps }) });
-    } else {
+    const nameProps = sync.name ? { firstname, lastname: rest.join(" ") } : {};
+    let contactId = sync.existingContactId ?? null;
+    if (!contactId) {
+      // An existing contact (an earlier caller, or one imported from Gmail) keeps its name:
+      // only fill in what's missing, never overwrite it with what the caller said on the phone.
+      const existing = await this.findContact(sync.phone);
+      if (existing) {
+        contactId = existing.id;
+        const fill = {
+          ...(!existing.properties.phone ? { phone: sync.phone } : {}),
+          ...(!existing.properties.firstname && !existing.properties.lastname ? nameProps : {}),
+        };
+        if (Object.keys(fill).length) await hs(`/crm/v3/objects/contacts/${contactId}`, { method: "PATCH", body: JSON.stringify({ properties: fill }) });
+      }
+    }
+    if (!contactId) {
+      const contactProps = { phone: sync.phone, ...nameProps };
       contactId = (await hs<{ id: string }>("/crm/v3/objects/contacts", { method: "POST", body: JSON.stringify({ properties: contactProps }) })).id;
     }
 
@@ -136,7 +171,8 @@ export class HubSpotCrm implements Crm {
       description: description.slice(0, 5000),
       ...(sync.priority ? { hs_priority: sync.priority } : {}),
     };
-    let dealId = sync.existingDealId ?? null;
+    // A repeat caller continues their open deal instead of getting a duplicate.
+    let dealId = sync.existingDealId ?? (await this.openDealFor(contactId));
     if (dealId) {
       await hs(`/crm/v3/objects/deals/${dealId}`, { method: "PATCH", body: JSON.stringify({ properties: dealProps }) });
     } else {
