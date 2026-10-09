@@ -27,6 +27,9 @@ const ICONS: Record<string, React.ReactNode> = {
   desk: (
     <svg viewBox="0 0 24 24" {...stroke}><path d="M5 4.5h3l1.5 4-2 1.2a10 10 0 0 0 6.8 6.8l1.2-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6.5a2 2 0 0 1 2-2z" /></svg>
   ),
+  mic: (
+    <svg viewBox="0 0 24 24" {...stroke}><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" /></svg>
+  ),
   signout: (
     <svg viewBox="0 0 24 24" {...stroke}><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" /><path d="M10 16l-4-4 4-4M6 12h10" /></svg>
   ),
@@ -42,6 +45,7 @@ export function Nav({ role }: { role: "founder" | "designer" | "frontdesk" }) {
     { href: "/dashboard/review", label: role === "frontdesk" ? "Callback queue" : "Review queue", icon: "review" },
     { href: "/dashboard/leads", label: "Leads", icon: "leads" },
     { href: "/dashboard/messages", label: "Messages", icon: "messages" },
+    ...(founder ? [{ href: "/dashboard/test-call", label: "Test call", icon: "mic" }] : []),
     ...(founder ? [{ href: "/dashboard/settings", label: "Settings", icon: "settings" }] : []),
   ];
   return (

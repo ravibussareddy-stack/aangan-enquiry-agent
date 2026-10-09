@@ -154,3 +154,34 @@ export class VaaniProvider implements VoiceProvider {
     return { providerCallId, billedMinutes: Math.max(1, Math.ceil(durationS / 60)), credits, raw: raw ?? { durationS, source: "webhook duration" } };
   }
 }
+
+/**
+ * Browser test call (Vaani WebRTC): no phone number needed. Returns the LiveKit
+ * token + URL the browser joins with. Same agent (our BYOL brain), same spend cap.
+ */
+export async function startVaaniWebSession(opts: { greeting: string }): Promise<{ token: string; url: string; room: string }> {
+  if (process.env.VOICE_PROVIDER !== "vaani") throw new Error("VOICE_PROVIDER is not 'vaani' — browser test calls are off");
+  if (!process.env.VAANI_API_KEY || !process.env.VAANI_AGENT_ID) throw new Error("VAANI_API_KEY / VAANI_AGENT_ID are not set");
+  const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
+  await assertVoiceSpendAllowed();
+  const res = await fetchWithRetry(
+    `${BASE()}/trigger-call/`,
+    {
+      method: "POST",
+      headers: { "X-API-Key": process.env.VAANI_API_KEY, "X-Agent-Id": "aangan-browser-test", "content-type": "application/json" },
+      body: JSON.stringify({
+        agent_id: process.env.VAANI_AGENT_ID,
+        medium: "webrtc",
+        primary_language: "en",
+        secondary_language: "hi",
+        welcome_message: opts.greeting,
+        welcome_interruptible: true,
+      }),
+    },
+    { retries: 0 },
+  );
+  if (!res.ok) throw new Error(`Vaani trigger-call (webrtc) ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  const json = (await res.json()) as { token?: string; connection_url?: string; room_name?: string };
+  if (!json.token || !json.connection_url) throw new Error("Vaani didn't return a WebRTC token");
+  return { token: json.token, url: json.connection_url, room: json.room_name ?? "" };
+}
