@@ -23,10 +23,10 @@ export function quickTest(): boolean {
   return process.env.QUICK_TEST === "1";
 }
 
-/** Length of a quick test call in minutes (QUICK_TEST_MINUTES, 1–4). */
+/** Length of a quick test call in minutes (QUICK_TEST_MINUTES, 1–5). */
 export function quickTestMinutes(): number {
   const m = Math.round(Number(process.env.QUICK_TEST_MINUTES ?? 1));
-  return Number.isFinite(m) ? Math.min(4, Math.max(1, m)) : 1;
+  return Number.isFinite(m) ? Math.min(5, Math.max(1, m)) : 1;
 }
 
 /**
