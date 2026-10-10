@@ -64,7 +64,7 @@ export async function runHandoff(leadId: string): Promise<void> {
             l.hubspot_contact_id, l.hubspot_deal_id, l.assigned_designer_id, c.started_at::text,
             d.telegram_chat_id::text as designer_chat, d.name as designer_name,
             b.slot_start::text as booking_start, b.designer as booking_designer,
-            (select count(*)::int from calls c2 where l.phone ~ '^\+?[0-9]{8,15}$' and c2.caller_phone = l.phone and c2.id <> c.id and c2.started_at < c.started_at) as repeat_calls,
+            (select count(*)::int from calls c2 where l.phone ~ '^[+]?[0-9]{8,15}$' and c2.caller_phone = l.phone and c2.id <> c.id and c2.started_at < c.started_at) as repeat_calls,
             (s.state -> 'complaint') as session_complaint
        from leads l
        join calls c on c.id = l.call_id
