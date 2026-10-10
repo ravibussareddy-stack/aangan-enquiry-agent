@@ -117,3 +117,18 @@ describe("echo of a budget said earlier in the call", () => {
     expect(r.leak).toBe(false);
   });
 });
+
+describe("restating the caller's own figure (live call 2026-10-10)", () => {
+  it("is not a leak in a longer reply without a confirmation cue", () => {
+    const r = scanTranscriptForPriceLeak([
+      caller("The site is ready to work now. And I have a budget of around 25 lakhs."),
+      agent("Thanks Ravi — with around 25 lakhs in mind and the site ready, I can book a consultation with a designer. Would Monday at 11 am work for you?"),
+    ]);
+    expect(r.leak).toBe(false);
+  });
+
+  it("still flags any figure the caller didn't say alongside it", () => {
+    const r = scanTranscriptForPriceLeak([caller("My budget is 25 lakhs"), agent("25 lakhs is fine, most 3BHKs come to about 30 lakhs.")]);
+    expect(r.leak).toBe(true);
+  });
+});

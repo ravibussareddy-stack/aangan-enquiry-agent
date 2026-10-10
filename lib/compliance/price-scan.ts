@@ -2,10 +2,14 @@
  * Price-leak scan (brief rule 2). Flags rupee amounts, lakh/crore, and
  * per-sq-ft language spoken by the AGENT. Caller turns are ignored.
  *
- * One exemption: the call flow requires the agent to repeat a volunteered
- * budget back to confirm it ("Just to confirm — six lakh?"). A short agent
- * turn that only echoes amounts the caller has already said and asks for
- * confirmation is recorded as an echo, not a leak.
+ * One exemption: the agent may repeat a figure the caller has already said
+ * ("Just to confirm — six lakh?", "With around 25 lakh in mind, I can book…").
+ * An agent turn whose amounts were ALL said by the caller first, with no
+ * per-sq-ft talk and no judgement of the figure against cost ("1.5 lakh would be
+ * below what this costs" tells the caller about pricing — T10), is recorded as an
+ * echo, not a leak. Any other figure is a leak.
+ * (The live call on 2026-10-10 had "25 lakhs" restated in a longer reply, and the
+ * old short-confirmation-only rule replaced the whole reply, booking offer included.)
  */
 
 export interface PriceMention {
@@ -50,8 +54,8 @@ export function amounts(text: string): string[] {
   return [...out];
 }
 
-const CONFIRM_CUE = /\b(confirm|correct|right\??|is that|did you say|just to check|sahi|barobar|na\?)\b|\?/i;
-const MAX_ECHO_WORDS = 25;
+/** Words that judge a caller's figure against what the work costs. */
+const COST_JUDGEMENT = /\b(below|above|under|over|too (?:low|high|little|much)|not enough|enough|short of|costs?|costing|afford|cheap|expensive|price[ds]?|pricing|rates?|realistic|align)\b/i;
 
 export interface TranscriptTurn {
   speaker: "agent" | "caller" | "note";
@@ -88,8 +92,7 @@ export function scanTranscriptForPriceLeak(turns: TranscriptTurn[], approved: st
     const isEcho =
       spoken.length > 0 &&
       spoken.every((a) => callerSaid.has(a)) &&
-      CONFIRM_CUE.test(text) &&
-      text.split(/\s+/).length <= MAX_ECHO_WORDS &&
+      !COST_JUDGEMENT.test(text) &&
       !mentions.some((m) => m.pattern === "per_area");
 
     if (isEcho) echoes.push({ turn: i, text: turn.text });
