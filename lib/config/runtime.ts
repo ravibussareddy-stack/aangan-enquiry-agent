@@ -12,7 +12,8 @@ export interface RuntimeConfig {
   callLimits: { target_s: number; soft_wrap_s: number; hard_max_s: number };
   dropRecovery: { callback_within_s: number; max_attempts: number };
   approvalCallback: { max_attempts: number; slots_to_offer: number };
-  voiceSpendCap: { cap_inr: number; reserve_inr: number; max_call_s: number; outbound_attempts: number };
+  /** No overall ₹ cap any more (2026-10-10); cap_inr/reserve_inr in old rows are ignored. */
+  voiceSpendCap: { max_call_s: number; outbound_attempts: number };
   complaintCallbackMinutes: number;
   insightsRefreshDailyLimit: number;
   promptVersion: string;

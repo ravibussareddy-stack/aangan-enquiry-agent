@@ -122,8 +122,6 @@ export class VaaniProvider implements VoiceProvider {
 
   async placeOutboundCall(req: OutboundCallRequest): Promise<{ providerCallId: string }> {
     if (process.env.VOICE_PROVIDER !== "vaani") throw new Error("Refusing to place a real call: VOICE_PROVIDER is not 'vaani'");
-    const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
-    await assertVoiceSpendAllowed();
     const res = await fetchWithRetry(
       `${BASE()}/trigger-call/`,
       {
@@ -169,13 +167,11 @@ export class VaaniProvider implements VoiceProvider {
 
 /**
  * Browser test call (Vaani WebRTC): no phone number needed. Returns the LiveKit
- * token + URL the browser joins with. Same agent (our BYOL brain), same spend cap.
+ * token + URL the browser joins with. Same agent (our BYOL brain), same per-call time limit.
  */
 export async function startVaaniWebSession(opts: { greeting: string }): Promise<{ token: string; url: string; room: string }> {
   if (process.env.VOICE_PROVIDER !== "vaani") throw new Error("VOICE_PROVIDER is not 'vaani' — browser test calls are off");
   if (!process.env.VAANI_API_KEY || !process.env.VAANI_AGENT_ID) throw new Error("VAANI_API_KEY / VAANI_AGENT_ID are not set");
-  const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
-  await assertVoiceSpendAllowed();
   const res = await fetchWithRetry(
     `${BASE()}/trigger-call/`,
     {

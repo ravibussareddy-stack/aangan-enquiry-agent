@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { getViewer, homeFor } from "@/lib/auth/viewer";
-import { loadRuntimeConfig } from "@/lib/config/runtime";
 import { voiceSpendSoFar } from "@/lib/cost/spend-cap";
 import { freshFromCrm } from "@/lib/crm/stage-sync";
 import { getMetrics, recentCalls } from "@/lib/insights/metrics";
@@ -73,18 +72,16 @@ async function KpiBody({ rangeKey, includeSimulated, insightsError }: { rangeKey
   const to = new Date();
   const from = new Date(to.getTime() - days * 86_400_000);
   const prevFrom = new Date(from.getTime() - days * 86_400_000);
-  const [m, prev, insight, recent, voiceSpent, cfg] = await Promise.all([
+  const [m, prev, insight, recent, voiceSpent] = await Promise.all([
     getMetrics({ from, to, includeSimulated }),
     getMetrics({ from: prevFrom, to: from, includeSimulated }),
     latestInsights(),
     recentCalls(includeSimulated),
     voiceSpendSoFar(),
-    loadRuntimeConfig(),
   ]);
   const f = m.funnel;
   const b = m.business;
   const p = b.pipeline;
-  const cap = cfg.voiceSpendCap.cap_inr;
   const vs = `vs previous ${rangeKey}`;
   const change = (now: number | null, before: number | null) => ({ now, before });
   const drop = f.biggest_drop;
@@ -94,7 +91,7 @@ async function KpiBody({ rangeKey, includeSimulated, insightsError }: { rangeKey
   return (
     <>
       {/* 0. Safety first */}
-      <SafetyStrip q={m.quality} period={`last ${rangeKey}`} spend={{ used: voiceSpent, cap }} />
+      <SafetyStrip q={m.quality} period={`last ${rangeKey}`} spend={{ used: voiceSpent }} />
 
       {/* 1. Money — the one number to plan on */}
       <section id="pipeline" className="card" style={{ marginBottom: 18 }} aria-labelledby="pipe-h">
@@ -388,11 +385,8 @@ async function KpiBody({ rangeKey, includeSimulated, insightsError }: { rangeKey
             <h3 style={{ margin: "16px 0 6px" }}>Live voice spend</h3>
             <div className="mini">
               <div className="v">
-                {inr(voiceSpent)} <span className="muted small">of {inr(cap, 0)} cap</span>
+                {inr(voiceSpent)} <span className="muted small">total so far · no overall cap; each call is time-limited</span>
               </div>
-            </div>
-            <div className="meter" style={{ marginTop: 8 }} role="img" aria-label={`${Math.round((voiceSpent / cap) * 100)}% of the cap used`}>
-              <span style={{ width: `${Math.min(100, Math.max(1, (voiceSpent / cap) * 100))}%` }} />
             </div>
           </section>
         </div>

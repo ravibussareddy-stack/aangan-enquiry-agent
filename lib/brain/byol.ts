@@ -192,24 +192,6 @@ export function handleByolCall(ws: CallSocket, pathCallId: string): void {
                 .catch(() => ({ rows: [] as { caller_phone: string }[] }));
               state.callerPhone = row.rows[0]?.caller_phone ?? null;
             }
-            // Spend cap: Vaani answers inbound calls regardless, so refuse politely on the first turn.
-            if (state.transcript.length <= 1 && process.env.VOICE_PROVIDER === "vaani") {
-              const { assertVoiceSpendAllowed } = await import("../cost/spend-cap");
-              const allowed = await assertVoiceSpendAllowed()
-                .then(() => true)
-                .catch(() => false);
-              if (!allowed) {
-                send(ws, {
-                  response_type: "response",
-                  response_id: id,
-                  content: "Sorry, we can't take your call right now. Please call Aangan Studio again during office hours. Goodbye!",
-                  content_complete: true,
-                  end_call: true,
-                });
-                await alertOps(`Voice spend cap reached — call ${callId} was ended immediately.`);
-                return;
-              }
-            }
             const elapsed = (Date.now() - new Date(state.startedAt).getTime()) / 1000;
             if (elapsed > d.config.voiceSpendCap.max_call_s) {
               send(ws, {

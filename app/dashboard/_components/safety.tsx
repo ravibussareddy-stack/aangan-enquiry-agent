@@ -6,7 +6,7 @@ import { secs } from "./format";
  * Brand safety first: did the AI ever speak a price it shouldn't have, are complaints
  * reaching a senior quickly, are calls running long, is voice spend under the cap.
  */
-export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; period: string; spend?: { used: number; cap: number } }) {
+export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; period: string; spend?: { used: number } }) {
   const items = [
     {
       label: "Prices spoken",
@@ -40,8 +40,8 @@ export function SafetyStrip({ q, period, spend }: { q: Metrics["quality"]; perio
           {
             label: "Live voice spend",
             value: `₹${spend.used.toFixed(2)}`,
-            state: spend.used >= spend.cap * 0.8 ? "warn" : "ok",
-            note: `of ₹${spend.cap} cap — calls stop at the cap`,
+            state: "ok",
+            note: "total so far · no overall cap; each call is time-limited",
             href: "/dashboard/overview#cost",
           },
         ]

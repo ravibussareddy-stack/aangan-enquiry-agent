@@ -12,7 +12,6 @@ import { label, pct, when } from "./_components/format";
 import { Greeting } from "./_components/greeting";
 import { money } from "./_components/kpi";
 import { SafetyStrip } from "./_components/safety";
-import { loadRuntimeConfig } from "@/lib/config/runtime";
 import { voiceSpendSoFar } from "@/lib/cost/spend-cap";
 
 // Live, per-request data (session + database).
@@ -86,11 +85,11 @@ const weekRange = () => {
 };
 
 async function SafetyAndGlance() {
-  const [week, spent, cfg] = await Promise.all([getMetrics(weekRange()), voiceSpendSoFar(), loadRuntimeConfig()]);
+  const [week, spent] = await Promise.all([getMetrics(weekRange()), voiceSpendSoFar()]);
   const p = week.business.pipeline;
   return (
     <>
-      <SafetyStrip q={week.quality} period="last 7 days" spend={{ used: spent, cap: cfg.voiceSpendCap.cap_inr }} />
+      <SafetyStrip q={week.quality} period="last 7 days" spend={{ used: spent }} />
 
       {/* At a glance — the three numbers that frame the day */}
       <section className="kpis glance" style={{ marginBottom: 18 }} aria-label="At a glance">

@@ -45,15 +45,13 @@ async function main() {
     const seed = (await import("../db/seed/config.json")).default as Record<string, { value: unknown }>;
     const rows = (await db().query<{ key: string; value: unknown }>("select key, value from config")).rows;
     const drift = rows.filter((r) => seed[r.key] && !sameJson(r.value, seed[r.key].value)).map((r) => r.key);
-    const capDrift = drift.includes("VOICE_SPEND_CAP");
-    add(capDrift ? "block" : drift.length ? "warn" : "ok", "config matches seed", drift.length ? `differs: ${drift.join(", ")}${capDrift ? " — the live spend cap is NOT the seed value" : " (fine if edited on purpose)"}` : "all keys match");
+    add(drift.length ? "warn" : "ok", "config matches seed", drift.length ? `differs: ${drift.join(", ")} (fine if edited on purpose)` : "all keys match");
 
     const { loadRuntimeConfig } = await import("../lib/config/runtime");
     const { voiceSpendSoFar } = await import("../lib/cost/spend-cap");
     const cfg = await loadRuntimeConfig();
     const spent = await voiceSpendSoFar();
-    const left = cfg.voiceSpendCap.cap_inr - cfg.voiceSpendCap.reserve_inr - spent;
-    add(left > 5 ? "ok" : "block", "voice spend cap", `₹${spent.toFixed(2)} of ₹${cfg.voiceSpendCap.cap_inr} used · ~${(Math.max(0, left) / 4.5).toFixed(1)} min left at ≈ ₹4.50/min (per second)`);
+    add("ok", "voice spend", `₹${spent.toFixed(2)} so far · no overall cap; each call is time-limited (≈ ₹4.50/min, per second)`);
     add(cfg.voiceSpendCap.max_call_s <= 300 ? "ok" : "warn", "max call length", `${cfg.voiceSpendCap.max_call_s}s (brain hangs up after this)`);
   } catch (err) {
     add("block", "database", (err as Error).message.slice(0, 160));
